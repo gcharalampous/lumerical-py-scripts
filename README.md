@@ -1,21 +1,31 @@
 # Welcome
 
 ```
-                 +---------------------+                                                                                                                   
-     +-----------| lumerical-py-scripts|----------+                                                                                                        
-     |           |    (repository)     |          |                                                                                                        
-     |           +---------------------+          |                                                                                                        
-     v                                            v                                                                                                        
-+----------+                                +----------+                                                                                                   
-|          |                                |          |                                                                                                   
-|   FDTD   |                         +------|   MODE   |                                                                                                   
-|          |                         |      |          |                                                                                                   
-+----------+                         |      +----------+                                                                                                   
-                                     v                                                                                                                     
-                               +-----------+                                                                                                               
-                               | waveguide |                                                                                                               
-                               +-----------+                                                                                                                  
+                 +---------------------+
+     +-----------| lumerical-py-scripts|----------+  
+     |           |    (repository)     |          |  
+     |           +---------------------+          |  
+     v                                            v  
++----------+                                +----------+
+|          |                                |          |
+|   FDTD   |                         +------|   MODE   |
+|          |                         |      |          |
++----------+                         |      +----------+
+                                     v
+                               +-----------+
+                               | waveguide |
+                               +-----------+
 ```
+
+## Why this Repository?
+
+In this repositoty you will find useful scripts to optimize your workflow. The repo is splitted into two main branches with multiple subcategories each:
+
+### 1. FDTD
+
+### 2. [MODE](/MODE)
+
+    - [waveguide](MODE/waveguide): mode and effective simulations
 
 ## Requirements
 
