@@ -45,8 +45,8 @@ remains the propagation. The z-axis is not used during mode simulations.
 # Imports from user files
 # ---------------------------------------------------------------------------
 
-from waveguide.user_inputs.user_simulation_parameters import *  
-from waveguide.user_inputs.user_materials import *
+from user_inputs.user_simulation_parameters import *  
+from user_inputs.user_materials import *
 
 def waveguide_draw(mode):
     

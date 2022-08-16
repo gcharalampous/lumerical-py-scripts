@@ -50,7 +50,7 @@ boundaries.
 # Imports from user files
 # ---------------------------------------------------------------------------
 
-from waveguide.user_inputs.user_simulation_parameters import *  
+from user_inputs.user_simulation_parameters import *  
 
 
 def add_fde_region(mode):

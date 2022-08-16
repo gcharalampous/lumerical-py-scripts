@@ -4,17 +4,21 @@ Created on Tue Aug  9 23:23:56 2022
 
 @author: Georgios
 """
-
-from waveguide.waveguide_render import waveguide_draw  
-from waveguide.user_inputs.user_simulation_parameters import *  
-from waveguide.user_inputs.user_materials import *  
-from waveguide.fde_region import add_fde_region  
-
-
 import numpy as np
 import lumapi
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
+import sys 
+
+sys.path.append("..")
+
+from waveguide_render import waveguide_draw  
+from user_inputs.user_simulation_parameters import *  
+from user_inputs.user_materials import *  
+from fde_region import add_fde_region  
+
+
+
 
 mode = lumapi.MODE()
 
