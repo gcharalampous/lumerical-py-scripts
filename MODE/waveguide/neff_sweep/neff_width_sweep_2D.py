@@ -6,11 +6,10 @@ Created on Wed Aug 10 19:27:45 2022
 """
 
 
-
-from waveguide_2D_v2 import waveguide_draw  
-from simulation_parameters import *  
-from materials import *  
-from fde_region import add_fde_region  
+from waveguide.waveguide_render import waveguide_draw  
+from waveguide.user_inputs.user_simulation_parameters import *  
+from waveguide.user_inputs.user_materials import *  
+from waveguide.fde_region import add_fde_region  
 
 
 import numpy as np
