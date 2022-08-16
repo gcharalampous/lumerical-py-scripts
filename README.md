@@ -25,7 +25,7 @@ In this repositoty you will find useful scripts to optimize your workflow. The r
 
 ### 2. [MODE](/MODE)
 
-    - [waveguide](MODE/waveguide): mode and effective simulations
+    - [waveguide](MODE/waveguide): mode profile and effective index simulations
 
 ## Requirements
 
