@@ -1,4 +1,4 @@
-## MODE SOLUTIONS
+## 2D Waveguide Simulations (MODE Solutions)
 
                         +-----------+                                      
                +------- | waveguide |--------------------+--------------+  
