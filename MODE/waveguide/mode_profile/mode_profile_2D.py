@@ -21,6 +21,7 @@ from fde_region import add_fde_region
 
 
 mode = lumapi.MODE()
+mode.redrawoff()
 
 waveguide_draw(mode)
 add_fde_region(mode)
@@ -56,5 +57,5 @@ for m in range(1,num_modes+1):
     plt.ylabel("y (\u00B5m)")
     plt.title("Mode-"+str(m) + "(E-field): " + polariz_mode[m-1] + ", neff=" + str(neff[m-1]))
     
-    
+mode.redrawon()  
     
