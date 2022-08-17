@@ -15,7 +15,8 @@ sys.path.append("..")
 
 from waveguide_render import waveguide_draw  
 from user_inputs.user_simulation_parameters import *  
-from user_inputs.user_materials import *  
+from user_inputs.user_materials import *
+from user_inputs.user_sweep_parameters import *    
 from fde_region import add_fde_region  
 
 
@@ -28,11 +29,7 @@ waveguide_draw(mode)
 add_fde_region(mode)
 
 
-
 wg_width_array = []
-wg_width_start = 2.0e-6
-wg_width_stop = 2.5e-6
-wg_width_step = 0.15e-6
 wg_width_array = np.arange(wg_width_start, wg_width_stop, wg_width_step) 
 
 
