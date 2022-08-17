@@ -1,6 +1,5 @@
 ## 2D Waveguide Simulations (MODE Solutions)
 
-
                         +-----------+                                                                                                                          
                +------- | waveguide |--------------------+--------------+
                |        +-----------+   |                |              |
@@ -16,7 +15,6 @@
                 |      user_materials.py     |                                 
                 v                            v                                 
      user_sweep_parameters.py  user_simulation_parameters.py              
-
 
 ### Quick Simulation Setup
 
