@@ -1,21 +1,21 @@
 ## 2D Waveguide Simulations (MODE Solutions)
 
 
-                        +-----------+                                      
-               +------- | waveguide |--------------------+--------------+  
-               |        +-----------+   |                |              |       
-               |              |         |                v              v       
-               |              |   +-----v-----+  +-------------+  +----------+  
-               |              |   |user_inputs|  |mode_profile |  |neff_sweep|  
-               |              |   +-----------+  +-------------+  +----------+  
-               v              v         |               |              |        
-    waveguide_render.py fde_region.py   |               v              |        
-                                        |        mode_profile_2D.py    |        
-                               +--------|----+                         v        
-                               v             |            neff_width_sweep_2D.py
-                       user_materials.py     |                                
-                                             v              
-                               user_simulation_parameters.py
+                        +-----------+                                                                                                                          
+               +------- | waveguide |--------------------+--------------+
+               |        +-----------+   |                |              |
+               |              |         |                v              v
+               |              |   +-----v-----+  +-------------+  +----------+
+               |              |   |user-inputs|  |mode profile |  |neff-sweep|
+               |              |   +-----------+  +-------------+  +----------+
+               v              v         |               |              |      
+    waveguide_render.py fde_region.py   |               v              |      
+                                        |        mode_profile_2D.py    |      
+                +--------------+--------|----+                         v      
+                |              v             |            neff_width_sweep_2D.py
+                |      user_materials.py     |                                 
+                v                            v                                 
+     user_sweep_parameters.py  user_simulation_parameters.py              
 
 
 ### Quick Simulation Setup
