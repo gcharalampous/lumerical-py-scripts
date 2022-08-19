@@ -9,5 +9,3 @@ Feel free to explore the following;
   - Calculates the effective index
   
   - Sweeps over various widths
-
-

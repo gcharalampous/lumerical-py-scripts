@@ -61,7 +61,6 @@ sub_material = "SiO2 (Glass) - Palik"
 sub_index = 3.4304
 
 
-
 # -------------------------- End of Input Section -----------------------------
 
 

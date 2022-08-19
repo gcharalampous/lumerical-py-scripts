@@ -3,7 +3,7 @@
 ```
                  +---------------------+
      +-----------| lumerical-py-scripts|----------+  
-     |           |    (repository)     |          |  
+     |           |   (You are here)    |          |  
      |           +---------------------+          |  
      v                                            v  
 +----------+                                +----------+
@@ -19,7 +19,7 @@
 
 ## Why this Repository?
 
-In this repositoty you will find useful scripts to optimize your workflow and automate your tasks. The repo is splitted into two main branches with multiple subcategories each:
+In this repositoty you will find useful scripts to optimize your workflow and automate your tasks. The repo is splitted into two main simulation branches with multiple subcategories each:
 
 ### 1. FDTD
 

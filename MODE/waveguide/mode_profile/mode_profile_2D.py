@@ -1,9 +1,24 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+#----------------------------------------------------------------------------
+# @author: Georgios Gcharalampous (gcharalampous)
+# version ='1.0'
+# ---------------------------------------------------------------------------
 """
-Created on Tue Aug  9 23:23:56 2022
+User-inputs are Not required.
 
-@author: Georgios
+The script calculates the mode profile for the number of modes (num_modes) 
+specified in 'user_simulation_parameters.py'.
+
+The scripts calculates the effective index of each mode and plots the profile,
+it also quantifies if the mode is TE or TM based on the polarization fraction.
+
 """
+
+#----------------------------------------------------------------------------
+# Imports from user files
+# ---------------------------------------------------------------------------
+
 import numpy as np
 import lumapi
 import matplotlib.pyplot as plt
@@ -18,7 +33,7 @@ from user_inputs.user_materials import *
 from fde_region import add_fde_region  
 
 
-
+# -------------------_----- No inputs are required ---------------------------
 
 mode = lumapi.MODE()
 mode.redrawoff()

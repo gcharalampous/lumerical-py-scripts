@@ -114,7 +114,7 @@ def waveguide_draw(mode):
     )
 
 
-    # Populate the 2D waveguide
+    # Populate the 2D waveguide structure
     
     for obj, parameters in configuration:
            for k, v in parameters:

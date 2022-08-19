@@ -110,6 +110,5 @@ mesh_enable = False
 mesh_dx = 10e-9
 mesh_dy = 10e-9
 
-
 # 8. Figures
 my_dpi = 96
