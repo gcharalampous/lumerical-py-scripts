@@ -50,12 +50,12 @@ for m in range(1,num_modes+1):
     E1 = np.squeeze(mode.getelectric("FDE::data::mode"+str(m)))
     H1 = np.squeeze(mode.getmagnetic("FDE::data::mode"+str(m)))
     
-    rect = Rectangle((-(wg_width/2)*1e6, -(wg_thickness/2)*1e6),(wg_width)*1e6, wg_thickness*1e6, color='black', fill = False)
+    rect = Rectangle((-(wg_width/2)*1e6, 0),(wg_width)*1e6, wg_thickness*1e6, color='black', fill = False)
     plt.gca().add_patch(rect)
-    plt.pcolormesh(x*1e6,y*1e6,np.transpose(E1),shading = 'gouraud',cmap = 'plasma')
+    plt.pcolormesh(x*1e6,y*1e6,np.transpose(E1),shading = 'gouraud',cmap = 'jet')
     plt.xlabel("x (\u00B5m)")
     plt.ylabel("y (\u00B5m)")
     plt.title("Mode-"+str(m) + "(E-field): " + polariz_mode[m-1] + ", neff=" + str(neff[m-1]))
     
 mode.redrawon()  
-    
+mode.close()    
