@@ -1,31 +1,31 @@
 # Welcome
 
-```
-                 +---------------------+
-     +-----------| lumerical-py-scripts|----------+  
-     |           |   (You are here)    |          |  
-     |           +---------------------+          |  
-     v                                            v  
-+----------+                                +----------+
-|          |                                |          |
-|   FDTD   |                         +------|   MODE   |
-|          |                         |      |          |
-+----------+                         |      +----------+
-                                     v
-                               +-----------+
-                               | waveguide |
-                               +-----------+
-```
+                                      +---------------------+                                                                                                  
+                          +-----------| lumerical-py-scripts|----------+                                                                                       
+                          |           |    (repository)     |          |                                                                                       
+                          |           +---------------------+          |                                                                                       
+                          v                                            v                                                                                       
+                     +----------+                                +----------+                                                                                  
+                     |          |                                |          |                                                                                  
+             +------ |   FDTD   |                         +------|   MODE   |                                                                                  
+             |       |          |                         |      |          |                                                                                  
+             |       +----------+                         |      +----------+                                                                                  
+             v                                            v                                                                                                    
+    +------------------+                        +-------------------+                                                                                          
+    |waveguide-straight|                        |waveguide-straight |                                                                                          
+    +------------------+                        +-------------------+
 
 ## Why this Repository?
 
 In this repositoty you will find useful scripts to optimize your workflow and automate your tasks. The repo is splitted into two main simulation branches with multiple subcategories each:
 
-### 1. FDTD
+### 1. [FDTD](waveguide-straight)
+
+    - [waveguide-straight](MODE/waveguide): mode profile and transmission simulations
 
 ### 2. [MODE](/MODE)
 
-    - [waveguide](MODE/waveguide): mode profile and effective index simulations
+    - [waveguide-straight](MODE/waveguide): mode profile and effective index simulations
 
 ## Requirements
 

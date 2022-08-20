@@ -1,9 +1,19 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+#----------------------------------------------------------------------------
+# @author: Georgios Gcharalampous (gcharalampous)
+# version ='1.0'
+# ---------------------------------------------------------------------------
 """
-Created on Wed Aug 10 19:27:45 2022
+No user-inputs are required.
 
-@author: Georgios
+The scripts sweeps the width of the waveguide and calculates the effective
+index for the number of modes you defined.
 """
+
+#----------------------------------------------------------------------------
+# Imports from user files
+# ---------------------------------------------------------------------------
 
 import numpy as np
 import lumapi
