@@ -19,13 +19,13 @@
 
 In this repositoty you will find useful scripts to optimize your workflow and automate your tasks. The repo is splitted into two main simulation branches with multiple subcategories each:
 
-### 1. [FDTD](waveguide-straight)
+### 1. [FDTD](/FDTD)
 
-    - [waveguide-straight](MODE/waveguide): mode profile and transmission simulations
+    - [waveguide-straight](FDTD/waveguide-straight): mode profile and transmission simulations
 
 ### 2. [MODE](/MODE)
 
-    - [waveguide-straight](MODE/waveguide): mode profile and effective index simulations
+    - [waveguide-straight](MODE/waveguide-straight): mode profile and effective index simulations
 
 ## Requirements
 
