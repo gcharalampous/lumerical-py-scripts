@@ -34,7 +34,7 @@ fdtd = lumapi.FDTD()
 
 
 wav = ((wavelength_start + wavelength_stop)/2)*1e6
-fdtd.save(str(round(wav,2)) + "nm_straight_waveguide_width_sweep" + "_thick_" + str(round(wg_thickness*1e6),2))
+fdtd.save(str(round(wav,2)) + "nm_straight_waveguide_width_sweep" + "_thick_" + str(round(wg_thickness*1e6,2)))
 
 
 waveguide_draw(fdtd)
