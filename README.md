@@ -1,41 +1,41 @@
 # Welcome
 
-                                      +---------------------+                                                                                                  
-                          +-----------| lumerical-py-scripts|----------+                                                                                       
-                          |           |    (repository)     |          |                                                                                       
-                          |           +---------------------+          |                                                                                       
-                          v                                            v                                                                                       
-                     +----------+                                +----------+                                                                                  
-                     |          |                                |          |                                                                                  
-             +------ |   FDTD   |                         +------|   MODE   |                                                                                  
-             |       |          |                         |      |          |                                                                                  
-             |       +----------+                         |      +----------+                                                                                  
-             v                                            v                                                                                                    
-    +------------------+                        +-------------------+                                                                                          
-    |waveguide-straight|                        |waveguide-straight |                                                                                          
-    +------------------+                        +-------------------+
+                                                                +---------------------+                 
+                                                        +-------- lumerical-py-scripts------------+     
+                                                        |       |    (repository)     |           |     
+                                                        |       +---------------------+           |     
+                                                        |                                         |     
+                                                  +-----v----+                              +-----v----+
+                                                  |          |                              |          |
+                     +-----------------------------   FDTD   -----+                     +----   MODE   |
+                     |                    |       |          |    |                     |   |          |
+                     |                    |       +----------+    |                     |   +----------+
+            +--------v------+  +----------v---------+   +---------|--------+  +---------v---------+ 
+            | butt-coupling |  |waveguide-mode-taper|   |waveguide-straight|  |waveguide-straight | 
+            +---------------+  +--------------------+   +------------------+  +-------------------+ 
 
 ## Why this Repository?
 
-In this repositoty you will find useful scripts to optimize your workflow and automate your tasks. The repo is splitted into two main simulation branches with multiple subcategories each:
+In this repositoty you will find useful scripts to optimize your workflow and automate your daily design tasks. All you need to do is to modify the files under `user_inputs` in each subdirectory and run the scripts. The repo is splitted into two main simulation branches with multiple subcategories each:
 
 ### 1. [FDTD](/FDTD)
 
-    - [waveguide-straight](FDTD/waveguide-straight): mode profile and transmission simulations
+    - [waveguide-straight](FDTD/waveguide-straight): Mode profile and transmission simulations for a straight waveguide section.
+    - [waveguide-mode-taper](FDTD/waveguide-mode-taper): Mode profile and transmission simulations for a tapered waveguide section.
 
-### 2. [MODE](/MODE)
+### 2. [MODE Solutions](/MODE)
 
-    - [waveguide-straight](MODE/waveguide-straight): mode profile and effective index simulations
+    - [waveguide-straight](MODE/waveguide-straight): mode profile and effective index calculations.
 
 ## Requirements
 
-You will need to have installed the following software on your system.
+You need installed on your operating system the following software
 
 - Lumerical Software
 
 - Python3
 
-- Python IDE Software [optional]
+- Python IDE Software (i.e. Spyder)
 
 ## Installation
 

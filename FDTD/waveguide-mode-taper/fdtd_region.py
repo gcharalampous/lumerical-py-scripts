@@ -7,7 +7,9 @@
 """
 No user-inputs are required.
 
-The script sets the FDTD region for the straight waveguide simulation.
+
+
+The script sets the FDTD region for the taper waveguide simulation.
 
 There are in total
 

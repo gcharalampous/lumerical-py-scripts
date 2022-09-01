@@ -11,7 +11,17 @@ In this file, the user is must enter the parameters required to setup the
 simulation file. The simulation parameters along with their dimensions are
 presented below.
 
-                                                                  
+----- 2D Cross-section
+                                   
+        ^ z-axis               
+        |                      
+        |                      
+        |                      
+        |                      
+        |                      
+      x o ------------- >  y-axis                           
+
+                                       
                                    simulation_span_y                                                                  
                                                                                                                       
      clad_max_z    <---------------------------------------------->                                                   
@@ -34,14 +44,13 @@ presented below.
                  v +----------------------------------------------+                                                   
                                                                                                                       
   
- Be aware, the waveguide 'z min = 0' starts at zero and it is centered at the 
-'y=0'.
+ Be aware, the waveguide 'z min = 0' starts at zero and it is centered at 'y=0'.
                                                                                                                                  
                                                                                                              
                ^                                                                         
                |                                                                         
                |                                                                         
-               |                    -                                                    
+               |                                                                        
             wg_width                                                                     
         <--------------->                                                                
        +-------|--------+ ^                                                              
@@ -54,6 +63,41 @@ presented below.
                |                                                                         
                |                                                                         
 
+
+
+----- 2D Top-down View
+
+
+                                                                               
+                ^ y-axis               
+                |                      
+                |                      
+                |                      
+                |                      
+                |                      
+              z o ------------- >  x-axis
+
+
+                      taper_length        offset_x
+                  <-------------------><---------------->                                                                                                                    
+                  +-------------------------------------+                                                                                       
+                  |                                     |                                                                                       
+                  |             Cladding                |                                                                                         
+               ^  |------                               | 
+               |  |      ------                         |                              
+               |  |            ------                   |
+               |  |                   ------------------| ^
+ wg_width_left |  |          taper    |     waveguide   | | wg_width_right
+               |  |                   ------------------| v
+               |  |             ------                  |
+               |  |       ------                        |
+               |  | ------                              |
+               v  |                                     |
+                  |-------------------------------------|                                                                                       
+      
+                  
+                  <------------------------------------->
+                            simulation_span_x
 
 
 The user needs to define
@@ -73,13 +117,13 @@ the polarization and dimensions of the source (TM/TE).
 
 
 # 1. Simulation Paramters
-#simulation_span_x = taper_length + offset_x
+#simulation_span_x = taper_length + offset_x  ---- The values are defined later
 simulation_span_y = 40e-6
 simulation_span_z = 40e-6
-offset_x = 5e-6 
+offset_x = 5e-6                 # Simulation Region extension 
 
 
-# 2. Cladding Dimensions. Note, waveguide y min = 0.
+# 2. Cladding Dimensions. Note, waveguide sits on 'z min = 0'
 clad_min_z = 0e-6
 clad_max_z = simulation_span_z/2
 
@@ -88,7 +132,7 @@ clad_max_z = simulation_span_z/2
 wg_width_left = 18.0e-6         # Taper start width
 wg_width_right = 10.0e-6        # Taper end width
 wg_thickness = 1.5218e-6        # Taper and waveguide thickness
-taper_length = 100e-6              # Taper Length
+taper_length = 100e-6           # Taper Length
 poly_res = 10                   # Polygon Resolution
 m = 1                           # Taper order
 
@@ -113,15 +157,16 @@ wavelength_stop = wavelength_start # Only Single Frequency is supported at the m
 mesh_accuracy = 1
 simulation_time = 5000e-15
 
+
 # 7. Monitor
 mode_monitor = "TM"             # Select TE for fundamental TE or TM for fundamental TM
 
 
-# 9. Figures
+# 9. Figure Screen Resolution
 my_dpi = 96
 
 
-# -------------------------- End of Input Section -----------------------------
+# -------------------------- End of User Input Section -----------------------------
 
 
 if(mode_monitor == "TE"):

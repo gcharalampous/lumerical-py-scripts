@@ -2,7 +2,7 @@
 
 Feel free to explore the following;
 
-- [Waveguide Simulation](waveguide)
+- [Waveguide Simulation](waveguide-straight)
   
   - Plots the Mode Profile
   
