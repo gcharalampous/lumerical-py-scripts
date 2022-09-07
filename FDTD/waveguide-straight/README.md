@@ -1,4 +1,4 @@
-## 2D Waveguide Simulations (FDTD)
+## 3D Waveguide Simulations (FDTD)
                                                                                                      
                       +---------------------+                                                        
             +----------- waveguide-straight  ----+-------------------+---------------------+         
