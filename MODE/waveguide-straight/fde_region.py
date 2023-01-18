@@ -77,7 +77,10 @@ def add_fde_region(mode):
              ("mesh cells y", fde_mesh_cell_y),
              ("solver type","2D Z normal"),
              ("wavelength",wavelength),
-             ("number of trial modes",num_modes))),   
+             ("number of trial modes",num_modes),
+             ("bent waveguide",bend_waveguide),
+             ("bend radius",bend_radius),
+             ("bend orientation",bend_orientation))),  
     )
 
     # Populate the waveguide simulation region
