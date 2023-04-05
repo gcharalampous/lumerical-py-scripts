@@ -24,7 +24,7 @@ In this repositoty you will find useful scripts to optimize your workflow and au
 
 - [ ] [vertical-taper](FDTD/vertical-taper): Calculates the transmission on the upper waveguide.
 
-- [x] [edge-coupler](FDTD/edge-coupler): Calculates the coupling loss between a fiber (Gaussian) mode and a waveguide mode.
+- [ ] [edge-coupler](FDTD/edge-coupler): Calculates the coupling loss between a fiber (Gaussian) mode and a waveguide mode.
 
 ### 2. [MODE Solutions](/MODE)
 
