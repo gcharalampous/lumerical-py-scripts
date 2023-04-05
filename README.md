@@ -18,16 +18,19 @@ In this repositoty you will find useful scripts to optimize your workflow and au
 
 ### 1. [FDTD](/FDTD)
 
-    - FDTD/waveguide-straight: Mode profile and transmission simulations for a straight waveguide.
-    - [waveguide-bend](waveguide-bend): Calculates the bending loss and mode profile. 
-    - [waveguide-mode-taper](FDTD/waveguide-mode-taper): Calculates the adiabatic length of the tapered waveguide.
-    - [vertical-taper](FDTD/vertical-taper): Calculates the transmission on the upper waveguide.
-    - [edge-coupler](FDTD/edge-coupler): Calculates the coupling loss between a fiber (Gaussian) mode and a waveguide mode.
+- [x] FDTD/waveguide-straight: Mode profile and transmission simulations for a straight waveguide.
+
+- [ ] [waveguide-bend](waveguide-bend): Calculates the bending loss and mode profile. [waveguide-mode-taper](FDTD/waveguide-mode-taper): Calculates the adiabatic length of the tapered waveguide.
+
+- [ ] [vertical-taper](FDTD/vertical-taper): Calculates the transmission on the upper waveguide.
+
+- [x] [edge-coupler](FDTD/edge-coupler): Calculates the coupling loss between a fiber (Gaussian) mode and a waveguide mode.
 
 ### 2. [MODE Solutions](/MODE)
 
-    - [waveguide](MODE/waveguide): Calculates the effective index and the mode profile of waveguide.
-    - [vertical-taper](MODE/vertical-taper): Calcuates the effective index of vertical tapers over the propagation distance.
+- [x] waveguide](MODE/waveguide): Calculates the effective index and the mode profile of waveguide.
+
+- [x] [vertical-taper](MODE/vertical-taper): Calcuates the effective index of vertical tapers over the propagation distance.
 
 ## Requirements
 
