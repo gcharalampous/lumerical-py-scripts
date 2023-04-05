@@ -1,0 +1,11 @@
+lumerical-py-scripts
+	FDTD
+		waveguide-straight
+		waveguide-bend
+		waveguide-mode-taper
+		vertical-taper
+		edge-coupler
+	MODE 
+		waveguide 
+		vertical-taper 
+		edge-coupler

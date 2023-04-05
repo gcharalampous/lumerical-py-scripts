@@ -1,18 +1,16 @@
 # Welcome
 
-                                                                +---------------------+                 
-                                                        +-------- lumerical-py-scripts------------+     
-                                                        |       |    (repository)     |           |     
-                                                        |       +---------------------+           |     
-                                                        |                                         |     
-                                                  +-----v----+                              +-----v----+
-                                                  |          |                              |          |
-                     +-----------------------------   FDTD   -----+                     +----   MODE   |
-                     |                    |       |          |    |                     |   |          |
-                     |                    |       +----------+    |                     |   +----------+
-            +--------v------+  +----------v---------+   +---------|--------+  +---------v---------+ 
-            | butt-coupling |  |waveguide-mode-taper|   |waveguide-straight|  |waveguide-straight | 
-            +---------------+  +--------------------+   +------------------+  +-------------------+ 
+    lumerical-py-scripts
+     ├──FDTD
+     │   ├──waveguide-straight
+     │   ├──waveguide-bend
+     │   ├──waveguide-mode-taper
+     │   ├──vertical-taper
+     │   └──edge-coupler
+     └──MODE 
+         ├──waveguide 
+         ├──vertical-taper 
+         └──edge-coupler
 
 ## Why this Repository?
 
@@ -20,13 +18,16 @@ In this repositoty you will find useful scripts to optimize your workflow and au
 
 ### 1. [FDTD](/FDTD)
 
-    - [waveguide-straight](FDTD/waveguide-straight): Mode profile and transmission simulations for a straight waveguide section.
-    
-    - [waveguide-mode-taper](FDTD/waveguide-mode-taper): Mode profile and transmission simulations for a tapered waveguide section.
+    - FDTD/waveguide-straight: Mode profile and transmission simulations for a straight waveguide.
+    - [waveguide-bend](waveguide-bend): Calculates the bending loss and mode profile. 
+    - [waveguide-mode-taper](FDTD/waveguide-mode-taper): Calculates the adiabatic length of the tapered waveguide.
+    - [vertical-taper](FDTD/vertical-taper): Calculates the transmission on the upper waveguide.
+    - [edge-coupler](FDTD/edge-coupler): Calculates the coupling loss between a fiber (Gaussian) mode and a waveguide mode.
 
 ### 2. [MODE Solutions](/MODE)
 
-    - [waveguide-straight](MODE/waveguide-straight): mode profile and effective index calculations.
+    - [waveguide](MODE/waveguide): Calculates the effective index and the mode profile of waveguide.
+    - [vertical-taper](MODE/vertical-taper): Calcuates the effective index of vertical tapers over the propagation distance.
 
 ## Requirements
 
@@ -48,3 +49,4 @@ Make sure you have Python 3 and the latest version of Lumerical Design Suite ins
 
 1. [Python API overview &ndash; Ansys Optics](https://optics.ansys.com/hc/en-us/articles/360037824513-Python-API-overview)
 2. [Scripting Language &ndash; Ansys Optics](https://optics.ansys.com/hc/en-us/categories/360001998954-Scripting-Language)
+3. [ASCII Diagragm]([GitHub - ArthurSonzogni/Diagon: Interactive ASCII art diagram generators. :star2:](https://github.com/ArthurSonzogni/Diagon))
