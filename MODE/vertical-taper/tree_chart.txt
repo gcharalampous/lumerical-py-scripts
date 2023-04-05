@@ -1,11 +1,11 @@
-vertical-taper -> user-inputs
-vertical-taper -> mode-profile
-vertical-taper -> neff-sweep
+vertical-taper -> user_inputs
+vertical-taper -> neff_sweep
 
-user-inputs -> taper_waveguide_layer1.lms
-user-inputs -> taper_waveguide_layer2.lms
-user-inputs -> user_sweep_parameters.py
-user-inputs -> user_materials.py
-mode-profile -> mode_profile_2D.py
-neff-sweep -> neff_width_sweep_2D.py
+user_inputs -> lumerical_files
+user_inputs -> user_sweep_parameters.py
+
+lumerical_files -> taper_waveguide_layer1.lms
+lumerical_files -> taper_waveguide_layer2.lms
+
+neff_sweep -> neff_width_sweep_2D.py
 
