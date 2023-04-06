@@ -18,9 +18,9 @@ In this repositoty you will find useful scripts to optimize your workflow and au
 
 ### 1. [FDTD](/FDTD)
 
-- [x] FDTD/waveguide-straight: Mode profile and transmission simulations for a straight waveguide.
+- [x] [waveguide-straight](FDTD/waveguide-straight): Mode profile and transmission simulations for a straight waveguide.
 
-- [x] [waveguide-bend](waveguide-bend): Calculates the bending loss and mode profile. 
+- [x] [waveguide-bend]((FDTD/waveguide-bend): Calculates the bending loss and mode profile. 
 
 - [x] [waveguide-mode-taper](FDTD/waveguide-mode-taper): Calculates the adiabatic length of the tapered waveguide.
 
