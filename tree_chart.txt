@@ -5,7 +5,16 @@ lumerical-py-scripts
 		waveguide-mode-taper
 		vertical-taper
 		edge-coupler
+		waveguide-crossing
+		ring-resonator-coupling
+		mmi-coupler
+		disk-resonator-coupler
+		directional-coupler
+
 	MODE 
 		waveguide 
 		vertical-taper 
 		edge-coupler
+		directional-coupler
+		disk-waveguide
+		waveguide-heater
