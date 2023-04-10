@@ -1,0 +1,11 @@
+waveguide-bend -> user_inputs
+waveguide-bend -> sweep_transmission
+waveguide-bend -> propagation_mode
+
+user_inputs -> lumerical_files
+user_inputs -> user_sweep_parameters.py
+
+lumerical_files -> waveguide_bend.lms
+
+propagation_mode -> mode_profile.py
+
