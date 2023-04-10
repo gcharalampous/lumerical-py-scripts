@@ -1,16 +1,25 @@
 # Welcome
 
     lumerical-py-scripts
-     ├──FDTD
-     │   ├──waveguide-straight
-     │   ├──waveguide-bend
-     │   ├──waveguide-mode-taper
-     │   ├──vertical-taper
-     │   └──edge-coupler
+     └──FDTD
+         ├──waveguide-straight
+         ├──waveguide-bend
+         ├──waveguide-mode-taper
+         ├──vertical-taper
+         ├──edge-coupler
+         ├──waveguide-crossing
+         ├──ring-resonator-coupling
+         ├──mmi-coupler
+         ├──disk-resonator-coupler
+         └──directional-coupler
+    
      └──MODE 
          ├──waveguide 
          ├──vertical-taper 
-         └──edge-coupler
+         ├──edge-coupler
+         ├──directional-coupler
+         ├──disk-waveguide
+         └──waveguide-heater
 
 ## Why this Repository?
 
@@ -28,6 +37,16 @@ In this repositoty you will find useful scripts to optimize your workflow and au
 
 - [ ] [edge-coupler](FDTD/edge-coupler): Calculates the coupling loss between a fiber (Gaussian) mode and a waveguide mode.
 
+- [ ] [waveguide-crossing](waveguide-crossing): Calculations the transmission and crosstalk of a linear taper waveguide-crossing.
+
+- [ ] [ring-resonator-coupler](ring-resonator-coupler): Calculates the coupling of a (a) rectangular, (b) concentric, and (c) straight sections ring.
+
+- [ ] [mmi-coupler](mmi-coupler): Calculates the coupling and plots the E-field image of a (a) 2x2 MMI coupler.
+
+- [ ] [disk-resonator-coupler](disk-resonator-coupler): Calculates the coupling of a (a) weakly tapered disk resonator.
+
+- [ ] [directional-coupler](directional-coupler): Calculates the coupling and plots the E-field of an s-bend directional coupler.
+
 ### 2. [MODE Solutions](/MODE)
 
 - [x] [waveguide](MODE/waveguide): Calculates the effective index and the mode profile of waveguide.
@@ -35,6 +54,12 @@ In this repositoty you will find useful scripts to optimize your workflow and au
 - [x] [vertical-taper](MODE/vertical-taper): Calcuates the effective index of vertical tapers over the propagation distance.
 
 - [ ] [edge-coupler](FDTD/edge-coupler): Calculates the overlap integral between a fiber mode (Gaussian) and a waveguide.
+
+- [ ] [directional-coupler](directional-coupler): Calculates the effective index of the supermodes and plots the coupling as a function of length.
+
+- [ ] [disk-waveguide](disk-waveguide): Calculates the effective index and mode profiles of the disk waveguide.
+
+- [ ] [waveguide-heater](waveguide-heater): Calculate the propagation loss as a function of the metal heater gap.
 
 ## Requirements
 
