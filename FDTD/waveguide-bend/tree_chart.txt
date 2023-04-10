@@ -8,4 +8,4 @@ user_inputs -> user_sweep_parameters.py
 lumerical_files -> waveguide_bend.lms
 
 propagation_mode -> mode_profile.py
-
+sweep_transmission -> sweep_radius_transmission.py
