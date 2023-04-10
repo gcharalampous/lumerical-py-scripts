@@ -34,6 +34,8 @@ In this repositoty you will find useful scripts to optimize your workflow and au
 
 - [x] [vertical-taper](MODE/vertical-taper): Calcuates the effective index of vertical tapers over the propagation distance.
 
+- [ ] [edge-coupler](FDTD/edge-coupler): Calculates the overlap integral between a fiber mode (Gaussian) and a waveguide.
+
 ## Requirements
 
 You need installed on your operating system the following software
