@@ -16,9 +16,9 @@ Feel free to explore the following ;
   - Sweeps the taper length (Adiabaticity):
     - Calculates the transmission of the fundamentals TE, and TM modes and any higher order modes.
     
-    - [Waveguide-bend](waveguide-bend)
-      - Calculates the transmission as a function of the bending radius.
-      - Plots the E-field profiles at the bending section.
+- [Waveguide-bend](waveguide-bend)
+  - Calculates the transmission as a function of the bending radius.
+  - Plots the E-field profiles at the bending section.
 
       
       
