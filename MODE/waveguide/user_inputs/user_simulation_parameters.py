@@ -105,7 +105,7 @@ sub_thickness = 5e-6
 
 # 6. FDE Parameters. 
 num_modes = 2
-wavelength = 1.55e-6
+wavelength = 1.31e-6
 fde_mesh_cell_x = 300
 fde_mesh_cell_y = 300
 
