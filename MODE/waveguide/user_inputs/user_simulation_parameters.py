@@ -77,8 +77,8 @@ for enabling the mesh. Overide mesh across x and y axes with 'dx' and 'dy', resp
 
 
 # 1. Simulation Paramters
-simulation_span_x = 5e-6
-simulation_span_y = 5e-6
+simulation_span_x = 10e-6
+simulation_span_y = 10e-6
 
 
 # 2. Cladding Dimensions. Note, waveguide y min = 0.
@@ -87,11 +87,11 @@ clad_max_y = 5e-6
 
 
 # 3. Waveguide Dimensions
-wg_width = 0.35e-6
-wg_thickness = 0.16e-6
+wg_width = 1.2e-6
+wg_thickness = 0.22e-6
 
 # 3.1 Bend Waveguide at the center of the simualation ?
-bend_waveguide = True
+bend_waveguide = False
 bend_radius = 25e-6
 bend_orientation = 0
 
@@ -104,10 +104,10 @@ sub_thickness = 5e-6
 
 
 # 6. FDE Parameters. 
-num_modes = 10
-wavelength = 1.31e-6
-fde_mesh_cell_x = 200
-fde_mesh_cell_y = 200
+num_modes = 2
+wavelength = 1.55e-6
+fde_mesh_cell_x = 300
+fde_mesh_cell_y = 300
 
 # 7. Mesh (waveguide)
 mesh_enable = True
