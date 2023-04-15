@@ -52,10 +52,14 @@ mode.run()
 mode.mesh()
 mode.findmodes()
 
+# Get the wavelength from the simulation region
+Ef = mode.getresult("FDE::data::mode"+str(1),"E")
+wavelength = np.squeeze(Ef['lambda'])
 
 neff = []
 polariz_frac = []
 polariz_mode = []
+sym_mode = [0]*(num_modes)
 
 
 
@@ -67,12 +71,13 @@ for m in range(1,num_modes+1):
        	polariz_mode.append("TE")
         E1 = np.squeeze(mode.getdata("FDE::data::mode"+str(m),"Ex"))
         H1 = np.squeeze(mode.getdata("FDE::data::mode"+str(m),"Hx"))
+        
     else:
         polariz_mode.append("TM")
         E1 = np.squeeze(mode.getdata("FDE::data::mode"+str(m),"Ey"))
         H1 = np.squeeze(mode.getdata("FDE::data::mode"+str(m),"Hy"))
-
-
+        
+    sym_mode[m-1] = np.real(E1.min())
     x  = np.squeeze(mode.getdata("FDE::data::mode"+str(m),"x")); 
     y= np.squeeze(mode.getdata("FDE::data::mode"+str(m),"y"));
 

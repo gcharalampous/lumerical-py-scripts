@@ -26,6 +26,12 @@ You can disable it from the .lms file in order to speed up the simulation result
 
 """
 
+# Define the coupling length array
+coupling_length_start = 1e-6
+coupling_length_stop = 20e-6
+coupling_length_step = 0.5e-6
 
-num_modes = 4       # Typically (2x modes per polarization - symm/anti-symm)
-
+# Define the coupling gap array
+coupling_gap_start = 0.1e-6
+coupling_gap_stop = 0.5e-6
+coupling_gap_step = 0.05e-6
