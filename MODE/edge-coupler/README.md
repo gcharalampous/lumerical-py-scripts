@@ -1,6 +1,14 @@
 ## Edge-Coupler Simulations (MODE Solutions)
 
-    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
+    ┌─────────┐┌───────────────────────────┐                      
+    │waveguide││edge_coupler               │                      
+    └─────────┘└┬──┬──────────────────────┬┘                      
+    ┌───────────▽┐┌▽────────────────────┐┌▽──────────────────────┐
+    │user_inputs ││overlap_profile_sweep││gaussian_beam_render.py│
+    └┬───────────┘└───────────────┬─────┘└───────────────────────┘
+    ┌▽──────────────────────────┐┌▽──────────────────────────┐    
+    │gaussian_beam_parameters.py││overlap_profile_sweep_2D.py│    
+    └───────────────────────────┘└───────────────────────────┘    
 
 ### Quick Simulation Setup
 
@@ -9,4 +17,4 @@
 3. Navigate to the [waveguide](../waveguide) repository to define the waveguide properties including the width sweep variations. 
 4. Run the `overlap_profile_sweep/overlap_profile_sweep_2D.py` Python file and get the overlap integral results.
 
-Tip: The script works only with the two fundamental polarization of TE and TM. If the Gaussian beam angle is 0deg the script will calculate the overlap integral for TE. Setting the angle to 90deg, the script will calculate the overlap integral for TM.
+Tip: The script works only with the two fundamental polarizations namely TE and TM. If the Gaussian beam angle is set to 0<sup>o</sup> the script will calculate the overlap integral for TE mode. Setting the angle to 90<sup>o</sup>, the script will calculate the overlap integral for TM.
