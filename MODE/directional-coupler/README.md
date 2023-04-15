@@ -1,4 +1,4 @@
-## 2D Waveguide Simulations (MODE Solutions)
+## 2D Directional Coupler(MODE Solutions)
 
     ┌──────────────────────────────────────────────────────────────────────────────┐
     │directional-coupler                                                           │
