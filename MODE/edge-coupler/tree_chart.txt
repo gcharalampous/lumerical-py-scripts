@@ -1,0 +1,9 @@
+waveguide
+edge_coupler -> user_inputs
+edge_coupler -> overlap_profile_sweep
+edge_coupler -> gaussian_beam_render.py
+
+user_inputs -> user_sweep_parameters.py
+user_inputs -> gaussian_beam_parameters.py
+
+overlap_profile_sweep ->  overlap_profile_sweep_2D.py
