@@ -2,11 +2,17 @@
 
 Feel free to explore the following;
 
-- [Waveguide Simulation](waveguide-straight)
+- [waveguide](waveguide)
   
-  - Plots the Mode Profile of the waveguide
+  - Plots the mode profile of the waveguide.
+  - Calculates the effective index as a function of width and height.
+  - Calculates the effective index variation as a function of the width and height.
+
+- [vertical-taper](vertical-taper)
   
-  - Calculates the effective index as a function of width.
+  - Calculates the effective index as a function of the taper length.
+
+- [directional-coupler](directional-coupler)
   
-- [vertical taper](vertical-taper)
-	- Calculates the Effective Index as a function of the taper length.
+  - Plots the symmetric and antisymmetric mode profiles of the waveguide.
+  - Calculates the L<sub>π</sub> as a function of gap and distance.
