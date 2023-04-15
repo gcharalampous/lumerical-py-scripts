@@ -1,0 +1,13 @@
+directional-coupler -> user_inputs
+directional-coupler -> mode_profile
+directional-coupler -> coupling_sweep
+
+user_inputs -> lumerical_files
+user_inputs -> user_simulation_parameters.py
+user_inputs -> user_sweep_parameters.py
+lumerical_files -> waveguide_coupler.lms
+
+mode_profile -> mode_profile_2D.py
+
+coupling_sweep -> coupling_length.py
+coupling_sweep -> coupling_gap.py
