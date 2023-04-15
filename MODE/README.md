@@ -16,3 +16,5 @@ Feel free to explore the following;
   
   - Plots the symmetric and antisymmetric mode profiles of the waveguide.
   - Calculates the L<sub>π</sub> as a function of gap and distance.
+- [edge-coupler](edge-coupler)
+  - Plots the overlap integral between the Gaussian beam and waveguide mode.
