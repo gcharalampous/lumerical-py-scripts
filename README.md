@@ -37,15 +37,15 @@ In this repositoty you will find useful scripts to optimize your workflow and au
 
 - [ ] [edge-coupler](FDTD/edge-coupler): Calculates the coupling loss between a fiber (Gaussian) mode and a waveguide mode.
 
-- [ ] [waveguide-crossing](waveguide-crossing): Calculations the transmission and crosstalk of a linear taper waveguide-crossing.
+- [ ] [waveguide-crossing](FDTD/waveguide-crossing): Calculations the transmission and crosstalk of a linear taper waveguide-crossing.
 
-- [ ] [ring-resonator-coupler](ring-resonator-coupler): Calculates the coupling of a (a) rectangular, (b) concentric, and (c) straight sections ring.
+- [ ] [ring-resonator-coupler](FDTD/ring-resonator-coupler): Calculates the coupling of a (a) rectangular, (b) concentric, and (c) straight sections ring.
 
-- [ ] [mmi-coupler](mmi-coupler): Calculates the coupling and plots the E-field image of a (a) 2x2 MMI coupler.
+- [ ] [mmi-coupler](FDTD/mmi-coupler): Calculates the coupling and plots the E-field image of a (a) 2x2 MMI coupler.
 
-- [ ] [disk-resonator-coupler](disk-resonator-coupler): Calculates the coupling of a (a) weakly tapered disk resonator.
+- [ ] [disk-resonator-coupler](FDTD/disk-resonator-coupler): Calculates the coupling of a (a) weakly tapered disk resonator.
 
-- [ ] [directional-coupler](directional-coupler): Calculates the coupling and plots the E-field of an s-bend directional coupler.
+- [ ] [directional-coupler](FDTD/directional-coupler): Calculates the coupling and plots the E-field of an s-bend directional coupler.
 
 ### 2. [MODE Solutions](/MODE)
 
@@ -55,7 +55,7 @@ In this repositoty you will find useful scripts to optimize your workflow and au
 
 - [x] [edge-coupler](MODE/edge-coupler): Calculates the overlap integral between a fiber mode (Gaussian) and a waveguide.
 
-- [ ] [directional-coupler](MODE/directional-coupler): Calculates the effective index of the supermodes and plots the coupling as a function of length.
+- [x] [directional-coupler](MODE/directional-coupler): Calculates the effective index of the supermodes and plots the coupling as a function of length.
 
 - [ ] [disk-waveguide](MODE/disk-waveguide): Calculates the effective index and mode profiles of the disk waveguide.
 
