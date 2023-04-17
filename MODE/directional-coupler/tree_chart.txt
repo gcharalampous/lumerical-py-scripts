@@ -1,6 +1,7 @@
 directional-coupler -> user_inputs
 directional-coupler -> mode_profile
 directional-coupler -> coupling_sweep
+directional-coupler -> get_mode.py
 
 user_inputs -> lumerical_files
 user_inputs -> user_simulation_parameters.py
