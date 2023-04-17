@@ -1,4 +1,4 @@
-## 2D Verttical Simulations (MODE Solutions)
+## 2D Verttical Taper Simulations (MODE Solutions)
 
     ┌───────────────────────────────────┐                                            
     │vertical-taper                     │                                            
