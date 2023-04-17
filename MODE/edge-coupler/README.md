@@ -1,4 +1,4 @@
-## Edge-Coupler Simulations (MODE Solutions)
+## 2D Edge-Coupler Simulations (MODE Solutions)
 
     ┌─────────┐┌───────────────────────────┐                      
     │waveguide││edge_coupler               │                      
