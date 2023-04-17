@@ -1,4 +1,4 @@
-## 2D Waveguide Simulations (MODE Solutions)
+## 3D Waveguide Bend Simulations (3D FDTD)
 
     ┌───────────────────────────────────────────────┐                                         
     │waveguide-bend                                 │                                         
