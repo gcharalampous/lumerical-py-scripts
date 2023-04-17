@@ -28,7 +28,21 @@ sys.path.append("..")
 
 # Import user-defined parameters
 from user_inputs.user_sweep_parameters import *
-from mode_profile.mode_profile_2D import *
+from get_mode import mode_profile
+
+
+# Get the path of the current directory and the filename of the Lumerical file
+
+cur_path = os.path.dirname(__file__)
+print(cur_path)
+
+filename = "waveguide_coupler.lms"
+# Set the name of the waveguide constructor
+waveguide_constructor = 'waveguide-constructor'
+
+# Get the path of the Lumerical file
+file_path = os.path.relpath('..\\user_inputs\\lumerical_files\\'+filename, cur_path)
+print(file_path)
 
 # Initialize empty lists
 nTE = []
@@ -37,6 +51,9 @@ nTM = []
 # Create an array of coupling lengths to sweep over
 length_array = np.arange(coupling_length_start, coupling_length_stop, coupling_length_step)
 
+
+
+polariz_mode, sym_mode, neff, wavelength, num_modes, mode = mode_profile(file_path)
 
 
 # Locate the Super-mode
@@ -87,3 +104,4 @@ plt.title("TM Mode")
 plt.xlabel('coupling length (um)')
 plt.legend(['Through', 'Cross'])
 
+mode.close()
