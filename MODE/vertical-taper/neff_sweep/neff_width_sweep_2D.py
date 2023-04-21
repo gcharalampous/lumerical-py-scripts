@@ -29,7 +29,7 @@ sys.path.append("..")
 
 
 from user_inputs.user_sweep_parameters import *    
-from vertical_taper_plot import plot_tapers
+
 
 cur_path = os.path.dirname(__file__)
 filename = ["taper_waveguide_layer1.lms", "taper_waveguide_layer2.lms"]
