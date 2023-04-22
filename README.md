@@ -102,6 +102,10 @@ In VScode you can add the following in the .json settings.
 
 Click on `Tools` -> `PYTHONPATH manager` and then `Add Path`. Add the path to the lumapi like `C:\\Program Files\\Lumerical\\v222\\api\\python`.
 
+
+
+Probably your actual lumerical python api directory is different than mine.
+
 ## References
 
 1. [Python API overview &ndash; Ansys Optics](https://optics.ansys.com/hc/en-us/articles/360037824513-Python-API-overview)
