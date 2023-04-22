@@ -88,7 +88,7 @@ import lumapi
 
 but you will have to modify all python scripts importing the lumapi enviroment. If Lumerical is installed to a Linux machine remember to change the path `\\` to `/`.
 
-##### Visual Studio Code
+### Visual Studio Code
 
 In VScode you can add the following in the .json settings.
 
@@ -98,13 +98,9 @@ In VScode you can add the following in the .json settings.
     }
 ```
 
-##### Spyder
+### Spyder
 
 Click on `Tools` -> `PYTHONPATH manager` and then `Add Path`. Add the path to the lumapi like `C:\\Program Files\\Lumerical\\v222\\api\\python`.
-
-
-
-
 
 ## References
 
