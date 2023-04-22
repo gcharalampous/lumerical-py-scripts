@@ -88,23 +88,32 @@ import lumapi
 
 but you will have to modify all python scripts importing the lumapi enviroment. If Lumerical is installed to a Linux machine remember to change the path `\\` to `/`.
 
+### Spyder (Recommended)
+
+Click on `Tools` -> `PYTHONPATH manager` and then `Add Path`. Add the path to the lumapi like; `C:\\Program Files\\Lumerical\\v222\\api\\python`.
+
+Your lumerical python api directory probably is different than mine.
+
 ### Visual Studio Code
 
-In VScode you can add the following in the .json settings.
+In VScode you can add the following lines in the .json settings if you are coding on a windows machine.
 
 ```
     "terminal.integrated.env.windows": {
-        "PYTHONPATH": "${workspaceFolder}/C:\\Program Files\\Lumerical\\v222\\api\\python:${env:PYTHONPATH}"
-    }
+    "PYTHONPATH": "C:\\Program Files\\Lumerical\\v222\\api\\python"
+},
+"python.envFile": "${workspaceFolder}/.env"
 ```
 
-### Spyder
+You need to create under the VScode workspace directory a file called `.env` and add your lumapi path in order to be loaded in your virtual enviroment. Like,
 
-Click on `Tools` -> `PYTHONPATH manager` and then `Add Path`. Add the path to the lumapi like `C:\\Program Files\\Lumerical\\v222\\api\\python`.
+```
+PYTHONPATH=C:\\Program Files\\Lumerical\\v222\\api\\python
+```
 
+I reccomend running the code with the interactive window python to avoid adding the paths to VSCode settings.
 
-
-Probably your actual lumerical python api directory is different than mine.
+### 
 
 ## References
 
