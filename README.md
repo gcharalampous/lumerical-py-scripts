@@ -59,7 +59,7 @@ In this repositoty you will find useful scripts to optimize your workflow and au
 
 - [ ] [disk-waveguide](MODE/disk-waveguide): Calculates the effective index and mode profiles of the disk waveguide.
 
-- [ ] [waveguide-heater](MODE/waveguide-heater): Calculate the propagation loss as a function of the metal heater gap.
+- [x] [waveguide-heater](MODE/waveguide-heater): Calculate the propagation loss as a function of the metal heater gap.
 
 ## Requirements
 
