@@ -94,6 +94,9 @@ Click on `Tools` -> `PYTHONPATH manager` and then `Add Path`. Add the path to th
 
 Your lumerical python api directory probably is different than mine.
 
+In addition you need to assign to your `PYTHONPATH manager` the root of the project directory because I am using absolute paths to load the modules. For example, `D:\Georgios\Python - Scripts\lumerical-py-scripts`
+
+
 ### Visual Studio Code
 
 In VScode you can add the following lines in the .json settings if you are coding on a windows machine.
@@ -111,7 +114,7 @@ You need to create under the VScode workspace directory a file called `.env` and
 PYTHONPATH=C:\\Program Files\\Lumerical\\v222\\api\\python
 ```
 
-I reccomend running the code with the interactive window python to avoid adding the paths to VSCode settings.
+I reccomend running the code with the Jupyter Interactive Python kernel.
 
 ### 
 
