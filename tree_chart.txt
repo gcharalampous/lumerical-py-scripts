@@ -10,6 +10,8 @@ lumerical-py-scripts
 		mmi-coupler
 		disk-resonator-coupler
 		directional-coupler
+		Results
+			../.../
 
 	MODE 
 		waveguide 
@@ -18,3 +20,5 @@ lumerical-py-scripts
 		directional-coupler
 		disk-waveguide
 		waveguide-heater
+		Results
+			../.../

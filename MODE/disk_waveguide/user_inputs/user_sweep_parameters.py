@@ -22,7 +22,7 @@ The waveguide parameters to sweep are 'wg_thickness' .
                |        | |                                                              
            waveguide    | | wg_thickness                                                 
                |        | |                                                              
-   ------------|----------v--------------------->                                        
+   ----+-------|----------v--------------------->                                        
           (0,0)|                                                                         
                |                                                                         
                |                                                                         
@@ -33,10 +33,10 @@ The waveguide parameters to sweep are 'wg_thickness' .
 
 
 
-wg_height_start = 0.01e-6     # Choose the start waveguide height 'wg_height_start' 
+wg_height_start = 0.15e-6     # Choose the start waveguide height 'wg_height_start' 
 #you want to start sweeping
 wg_height_stop = 0.50e-6      # Choose the stop waveguide height 'wg_height_stop' you 
 #want to finish sweeping
-wg_height_step = 0.025e-6     # Choose the step of each sweep 'wg_height_step'
+wg_height_step = 0.05e-6     # Choose the step of each sweep 'wg_height_step'
 
 

@@ -35,8 +35,8 @@ from MODE.disk_waveguide.fde_region import add_fde_region
 # ------------------------- Directories for Results ---------------------------
 
 # specify the directory path
-path_to_write = ["MODE\\Results\\disk_waveguide\\Figures",
-"MODE\\Results\\disk_waveguide\\lumerical_files"]
+path_to_write = ["MODE\\Results\\disk_waveguide\\Figures\\mode_profile",
+"MODE\\Results\\disk_waveguide\\lumerical_files\\mode_profile"]
 directory_to_write = ['']*len(path_to_write)
 
 # get the current file path
@@ -108,9 +108,10 @@ for m in range(1,num_modes+1):
 
 
     plt.pcolormesh(x*1e6,y*1e6,np.transpose(E1),shading = 'gouraud',cmap = 'jet')
+    plt.colorbar()
     plt.xlabel("x (\u00B5m)")
     plt.ylabel("y (\u00B5m)")
-    plt.title("Mode-"+str(m) + "(E-field): " + polariz_mode[m-1] + ", neff=" + str(neff[m-1]))
+    plt.title("Mode-"+str(m) + "(E-field): " + polariz_mode[m-1] + ", neff=" + str(np.round(neff[m-1],4)))
 
 
     #add the disk waveguide
@@ -122,7 +123,8 @@ for m in range(1,num_modes+1):
 
 
     # Save the figure files as .png
-    file_name_plot = os.path.join(directory_to_write[0], "mode_profile" + str(m) + ".png")
+    file_name_plot = os.path.join(directory_to_write[0], "mode_profile_" + str(m) + ".png")
+    plt.tight_layout()
     plt.savefig(file_name_plot, dpi=my_dpi, format="png")
 
 
