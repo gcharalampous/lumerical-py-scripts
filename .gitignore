@@ -5,3 +5,6 @@ __pycache__/
 
 ### Results directory
 Results/
+
+# Enviroment file
+.env
