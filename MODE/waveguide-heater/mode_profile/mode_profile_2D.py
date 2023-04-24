@@ -23,13 +23,10 @@ import numpy as np
 import lumapi
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
-import sys 
 
-sys.path.append("..")
-from waveguide_render import waveguide_draw  
-from user_inputs.user_simulation_parameters import *  
-from user_inputs.user_materials import *  
-from fde_region import add_fde_region  
+
+from MODE.waveguide.waveguide_render import *
+from MODE.waveguide.fde_region import add_fde_region 
 
 
 # -------------------_----- No inputs are required ---------------------------
