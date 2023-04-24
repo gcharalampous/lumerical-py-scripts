@@ -57,7 +57,7 @@ In this repositoty you will find useful scripts to optimize your workflow and au
 
 - [x] [directional-coupler](MODE/directional-coupler): Calculates the effective index of the supermodes and plots the coupling as a function of length.
 
-- [ ] [disk-waveguide](MODE/disk-waveguide): Calculates the effective index and mode profiles of the disk waveguide.
+- [x] [disk-waveguide](MODE/disk_waveguide): Calculates the effective index and mode profiles of the disk waveguide.
 
 - [x] [waveguide-heater](MODE/waveguide-heater): Calculate the propagation loss as a function of the metal heater gap.
 
@@ -99,16 +99,17 @@ In addition you need to assign to your `PYTHONPATH manager` the root of the proj
 
 ### Visual Studio Code
 
-In VScode you can add the following lines in the .json settings if you are coding on a windows machine.
+In VScode you can add the following lines in the .json settings if you are coding on a Windows machine.
 
 ```
     "terminal.integrated.env.windows": {
-    "PYTHONPATH": "C:\\Program Files\\Lumerical\\v222\\api\\python"
-},
-"python.envFile": "${workspaceFolder}/.env"
+        "PYTHONPATH": "C:\\Program Files\\Lumerical\\v222\\api\\python;D:\\Georgios\\Python - Scripts\\lumerical-py-scripts"
+    },
+    "python.envFile": "${workspaceFolder}/.env"
 ```
+The separator for Window's path is `;` while for Linux path is `:`. The Pythonpath here contains the path of the `lumapi` and the root path of the project.
 
-You need to create under the VScode workspace directory a file called `.env` and add your lumapi path in order to be loaded in your virtual enviroment. Like,
+In addition, you need to create under the root project directory a file called `.env` to add your lumapi path and the directory of the root project. Like,
 
 ```
 PYTHONPATH=C:\\Program Files\\Lumerical\\v222\\api\\python
