@@ -1,25 +1,29 @@
 # Welcome
 
     lumerical-py-scripts
-     └──FDTD
-         ├──waveguide-straight
-         ├──waveguide-bend
-         ├──waveguide-mode-taper
-         ├──vertical-taper
-         ├──edge-coupler
-         ├──waveguide-crossing
-         ├──ring-resonator-coupling
-         ├──mmi-coupler
-         ├──disk-resonator-coupler
-         └──directional-coupler
+     └─FDTD
+        ├─waveguide-straight
+        ├─waveguide-bend
+        ├─waveguide-mode-taper
+        ├─vertical-taper
+        ├─edge-coupler
+        ├─waveguide-crossing
+        ├─ring-resonator-coupling
+        ├─mmi-coupler
+        ├─disk-resonator-coupler
+        ├─directional-coupler
+        └─Results
+           └─../.../
     
-     └──MODE 
-         ├──waveguide 
-         ├──vertical-taper 
-         ├──edge-coupler
-         ├──directional-coupler
-         ├──disk-waveguide
-         └──waveguide-heater
+     └─MODE 
+        ├─waveguide 
+        ├─vertical-taper 
+        ├─edge-coupler
+        ├─directional-coupler
+        ├─disk-waveguide
+        ├─waveguide-heater
+        └─Results
+           └─../.../
 
 ## Why this Repository?
 
@@ -96,7 +100,6 @@ Your lumerical python api directory probably is different than mine.
 
 In addition you need to assign to your `PYTHONPATH manager` the root of the project directory because I am using absolute paths to load the modules. For example, `D:\Georgios\Python - Scripts\lumerical-py-scripts`
 
-
 ### Visual Studio Code
 
 In VScode you can add the following lines in the .json settings if you are coding on a Windows machine.
@@ -107,6 +110,7 @@ In VScode you can add the following lines in the .json settings if you are codin
     },
     "python.envFile": "${workspaceFolder}/.env"
 ```
+
 The separator for Window's path is `;` while for Linux path is `:`. The Pythonpath here contains the path of the `lumapi` and the root path of the project.
 
 In addition, you need to create under the root project directory a file called `.env` to add your lumapi path and the directory of the root project. Like,
