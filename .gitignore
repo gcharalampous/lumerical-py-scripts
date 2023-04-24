@@ -1,0 +1,9 @@
+
+
+### Python ###
+# Exlude Python cache files
+ __pycache__/
+ *.pyc
+
+### Results directory
+Results/
