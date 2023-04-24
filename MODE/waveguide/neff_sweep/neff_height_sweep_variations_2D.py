@@ -22,35 +22,27 @@ vs width.
 import numpy as np
 import lumapi
 import matplotlib.pyplot as plt
-from matplotlib.patches import Rectangle
-import sys 
 
-sys.path.append("..")
+# Import user-defined input parameters
+from MODE.waveguide.user_inputs.user_sweep_parameters import *    
+from MODE.waveguide.waveguide_render import *
 
-from waveguide_render import waveguide_draw  
-from user_inputs.user_simulation_parameters import *  
-from user_inputs.user_materials import *
-from user_inputs.user_sweep_parameters import *    
-from fde_region import add_fde_region  
+# Runs the module to calculate the neff vs height
 from neff_height_sweep_2D import *
 
 
+# Plots the effective index width variations as a function of heigt
 
-
-
-plt.figure(m-1, figsize=(512/my_dpi, 256/my_dpi), dpi=my_dpi)
+plt.figure(figsize=(512/my_dpi, 256/my_dpi), dpi=my_dpi)
 
 for m in range(1,num_modes+1):
-    
-    dneffdwidth = np.gradient(neff_array[:,m-1], wg_height_array)
-    
 
-    plt.semilogy(wg_height_array*1e6,dneffdwidth*1e-9,'-o', label = 'M-'+str(m))
+    # Calculates the derivative    
+    dneffdwidth = np.gradient(neff_array[:,m-1], wg_height_array)
+    plt.semilogy(wg_height_array*1e6,np.real(dneffdwidth)*1e-9,'-o', label = 'M-'+str(m))
 
 plt.legend()
 plt.xlabel("height (um)")
 plt.ylabel('$\partial(n_{eff})/\partial(h)\quad (nm^{-1})$')
 plt.title("width "+ str(wg_width*1e6) + " um") 
 plt.show()    
-
-mode.close()

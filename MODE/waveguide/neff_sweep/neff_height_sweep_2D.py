@@ -20,15 +20,13 @@ import numpy as np
 import lumapi
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
-import sys 
 
 # Import user-defined input parameters
-sys.path.append("..")
-from waveguide_render import waveguide_draw  
-from user_inputs.user_simulation_parameters import *  
-from user_inputs.user_materials import *
-from user_inputs.user_sweep_parameters import *    
-from fde_region import add_fde_region  
+from MODE.waveguide.user_inputs.user_sweep_parameters import *    
+from MODE.waveguide.waveguide_render import *
+from MODE.waveguide.fde_region import add_fde_region  
+
+
 
 # Create a MODE object
 mode = lumapi.MODE()
@@ -75,7 +73,7 @@ polariz_frac_array = np.squeeze(polariz_frac)
 # Create a plot of neff vs. waveguide height for each mode
 plt.figure(m-1, figsize=(512/my_dpi, 256/my_dpi), dpi=my_dpi)
 for m in range(1,num_modes+1):
-    plt.plot(wg_height_array*1e6,neff_array[:,m-1],'-o', label = 'M-'+str(m))
+    plt.plot(wg_height_array*1e6,np.real(neff_array[:,m-1]),'-o', label = 'M-'+str(m))
 
 plt.legend()
 plt.xlabel("height (um)")
@@ -83,5 +81,7 @@ plt.ylabel("neff")
 plt.title("width "+ str(wg_width*1e6) + " um") 
 plt.show()    
 
-# Turn on redraw
+# Turn on redraw feature to update simulation layout
 mode.redrawon()
+# Close the session
+mode.close()
