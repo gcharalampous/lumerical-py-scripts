@@ -20,8 +20,8 @@ properties of the beam
    ***
                                                                      
 
-You can also use the thinlense approach by adding your own variabls and filling
-the appropriate values in gaussian_beam_render.py
+You can also use the thin lense approach by adding your own variables and filling
+the appropriate values in the gaussian_beam_render.py
 
 """
 
@@ -32,7 +32,7 @@ refractive_index = 1.0
 theta = 0.0
 phi = 0.0
 polarization_angle = 0         # 0 for TE Mode, 90 for TM Mode
-sample_span = 10e-6;
+sample_span = 10e-6
 sample_resolution = 200
 
 

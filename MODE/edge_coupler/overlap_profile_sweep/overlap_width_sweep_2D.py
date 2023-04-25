@@ -19,31 +19,55 @@ import numpy as np
 import lumapi
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
-import sys, os 
-
-sys.path.append("..")
-from user_inputs.gaussian_beam_parameters import *  
-from gaussian_beam_render import add_gaussian_beam  
+import os 
 
 
-# Get current working directory
-cdir = os.getcwd()
-print("Current directory:", cdir)
+# Import user-defined input parameters from the waveguide package
+from MODE.edge_coupler.user_inputs.user_sweep_parameters import *    
+from MODE.edge_coupler.waveguide_render import *
+from MODE.edge_coupler.fde_region import add_fde_region  
 
-# Change directory to a new path
-os.chdir(cdir + "..\\..\\..\\waveguide")
+from MODE.edge_coupler.gaussian_beam_render import *  
 
-# Get current working directory after changing
-print("New current directory:", os.getcwd())
+# ------------------------- Directories for Results ---------------------------
+
+# specify the directory path
+path_to_write = ["MODE\\Results\\edge_coupler\\Figures\\sweep_width_tip\\TE",
+"MODE\\Results\\edge_coupler\\lumerical_files\\sweep_width_tip\\TE",
+"MODE\\Results\\edge_coupler\\Figures\\sweep_width_tip\\TM",
+"MODE\\Results\\edge_coupler\\lumerical_files\\sweep_width_tip\\TM"]
+directory_to_write = ['']*len(path_to_write)
+
+# get the current file path
+current_path = os.path.abspath(__file__)
+
+# get the directory of the current file
+current_dir = os.path.dirname(current_path)
 
 
-# Append parent directory to system path to import user-defined scripts
-sys.path.append("..")
-from waveguide_render import waveguide_draw  
-from user_inputs.user_simulation_parameters import *  
-from user_inputs.user_materials import *
-from user_inputs.user_sweep_parameters import *    
-from fde_region import add_fde_region  
+# find the project root directory by traversing up the directory 
+# tree until a specific file is found
+while not os.path.isfile(os.path.join(current_dir, ".gitignore")):
+    # move up to the parent directory
+    current_dir = os.path.dirname(current_dir)
+
+for i in range(0,len(path_to_write)):
+    directory_to_write[i] = os.path.join(current_dir, path_to_write[i])
+
+    # create the directory if it doesn't exist already
+    if not os.path.exists(directory_to_write[i]):
+        os.makedirs(directory_to_write[i])
+        print("Directory:" + directory_to_write[i] + "\n created successfully!")
+    else:
+        print("Directory:" + directory_to_write[i] + "\n already exists!")
+
+
+
+# ---------------------------------------------------------------------------
+
+
+
+
 
 # Create a MODE instance and turn off redraw feature
 mode = lumapi.MODE()
@@ -64,8 +88,11 @@ wg_width_array = np.arange(wg_width_start, wg_width_stop, wg_width_step)
 
 
 polariz_frac = [0]*len(wg_width_array)
-overlap_TE = [0]*len(wg_width_array)
-overlap_TM = [0]*len(wg_width_array)
+
+w, h = 2, len(wg_width_array)
+overlap_TE = [[0 for x in range(w)] for y in range(h)] 
+overlap_TM = [[0 for x in range(w)] for y in range(h)] 
+
 
 
 # Nested for loop to iterate over each waveguide width and mode - Fundamental TE
@@ -78,6 +105,10 @@ if(polarization_angle == 0):
         mode.run()
         mode.mesh()
         mode.findmodes()
+
+        # Save the file
+        file_name_mode = os.path.join(directory_to_write[1], "overlap_TE_width_sweep_" + str(wd) + ".lms")
+        mode.save(file_name_mode)
         
         for m in range(1,num_modes+1):
                     polariz_frac[m-1] = (mode.getdata("FDE::data::mode"+str(m),"TE polarization fraction"))
@@ -122,18 +153,22 @@ if(polarization_angle == 0):
     plt.legend()
     plt.xlabel("width (um)")
     plt.ylabel("TE Mode Overlap (%)")
+    plt.ylim([0,1])
     plt.title("waist radius "+ str(waist_radius*1e6) + " um") 
     
     plt.legend()
     plt.xlabel("width (um)")
     plt.ylabel("TE overlap (%)")
 
-
+    # Save the figure files as .png     
+    file_name_plot = os.path.join(directory_to_write[0], "overlap_tip_width_sweep" + ".png")
+    plt.tight_layout()
+    plt.savefig(file_name_plot, dpi=my_dpi, format="png")
 
 
 
     
-# Uncomment for TM
+# If you set the source polarization angle, you will get the TM mode
 
 if(polarization_angle == 90):
     
@@ -152,6 +187,10 @@ if(polarization_angle == 90):
         mode.run()
         mode.mesh()
         mode.findmodes()
+
+        # Save the file
+        file_name_mode = os.path.join(directory_to_write[3], "overlap_TM_width_sweep_" + str(wd) + ".lms")
+        mode.save(file_name_mode)
         
         for m in range(1,num_modes+1):
                     polariz_frac[m-1] = (mode.getdata("FDE::data::mode"+str(m),"TE polarization fraction"))
@@ -185,9 +224,17 @@ if(polarization_angle == 90):
     plt.legend()
     plt.xlabel("width (um)")
     plt.ylabel("TM Mode Overlap (%)")
+    plt.ylim([0,1])
     plt.title("waist radius "+ str(waist_radius*1e6) + " um") 
 
+    # Save the figure files as .png
+    file_name_plot = os.path.join(directory_to_write[2], "overlap_tip_width_sweep" + ".png")
+    plt.tight_layout()
+    plt.savefig(file_name_plot, dpi=my_dpi, format="png")
 
 # Turn on redraw feature to update simulation layout
 mode.redrawon()
+
+
+# Close the session
 mode.close()

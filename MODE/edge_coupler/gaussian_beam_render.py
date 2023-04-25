@@ -10,7 +10,7 @@ Created on Thu Apr 13 19:26:57 2023
 # Imports from user files
 # ---------------------------------------------------------------------------
 
-from user_inputs.gaussian_beam_parameters import *  
+from MODE.edge_coupler.user_inputs.gaussian_beam_parameters import *  
 
 
 def add_gaussian_beam(mode):
