@@ -33,7 +33,7 @@ from neff_height_sweep_2D import *
 
 # Plots the effective index width variations as a function of heigt
 
-plt.figure(figsize=(512/my_dpi, 256/my_dpi), dpi=my_dpi)
+plt.figure(2,figsize=(512/my_dpi, 256/my_dpi), dpi=my_dpi)
 
 for m in range(1,num_modes+1):
 
@@ -42,7 +42,12 @@ for m in range(1,num_modes+1):
     plt.semilogy(wg_height_array*1e6,np.real(dneffdwidth)*1e-9,'-o', label = 'M-'+str(m))
 
 plt.legend()
+plt.ylim([1e-5,1e-2])
 plt.xlabel("height (um)")
 plt.ylabel('$\partial(n_{eff})/\partial(h)\quad (nm^{-1})$')
 plt.title("width "+ str(wg_width*1e6) + " um") 
-plt.show()    
+
+# Save the figure files as .png
+file_name_plot = os.path.join(directory_to_write[0], "neff_height_sweep_variations" + ".png")
+plt.tight_layout()
+plt.savefig(file_name_plot, dpi=my_dpi, format="png")
