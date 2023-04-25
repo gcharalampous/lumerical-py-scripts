@@ -110,7 +110,7 @@ for m in range(1,num_modes+1):
     plt.ylabel("y (\u00B5m)")
     plt.title("Mode-"+str(m) + "(E-field): " + polariz_mode[m-1] + ", neff=" + str(np.round(neff[m-1],4)))
 
-    #add the disk waveguide
+    #add the waveguide
     plt.gca().add_patch(Rectangle((-0.5*wg_width*1e6, 0),
                         wg_width*1e6,wg_thickness*1e6,
                         ec='white',
