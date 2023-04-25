@@ -1,14 +1,17 @@
 ## 2D Edge-Coupler Simulations (MODE Solutions)
 
-    ┌─────────┐┌───────────────────────────┐                      
-    │waveguide││edge_coupler               │                      
-    └─────────┘└┬──┬──────────────────────┬┘                      
-    ┌───────────▽┐┌▽────────────────────┐┌▽──────────────────────┐
-    │user_inputs ││overlap_profile_sweep││gaussian_beam_render.py│
-    └┬───────────┘└───────────────┬─────┘└───────────────────────┘
-    ┌▽──────────────────────────┐┌▽──────────────────────────┐    
-    │gaussian_beam_parameters.py││overlap_profile_sweep_2D.py│    
-    └───────────────────────────┘└───────────────────────────┘    
+    edge_coupler
+    ├── fde_region.py
+    ├── gaussian_beam_render.py
+    ├── overlap_profile_sweep
+    │   └── overlap_width_sweep_2D.py
+    ├── README.md
+    ├── user_inputs
+    │   ├── gaussian_beam_parameters.py
+    │   ├── user_materials.py
+    │   ├── user_simulation_parameters.py
+    │   └── user_sweep_parameters.py
+    └── waveguide_render.py
 
 ### Quick Simulation Setup
 
