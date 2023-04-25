@@ -1,9 +1,0 @@
-waveguide-heater -> waveguide_render.py
-waveguide-heater -> fde_region.py
-waveguide-heater -> user_inputs
-waveguide-heater -> mode_profile
-
-user_inputs -> user_materials.py
-
-mode_profile -> mode_profile_2D.py
-
