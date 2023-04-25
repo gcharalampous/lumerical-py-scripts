@@ -1,6 +1,7 @@
 ## 2D Waveguide Heater (MODE Solutions)
+
 ```
-waveguide_-_heater
+waveguide-heater
 ├── fde_region.py
 ├── mode_profile
 │   └── mode_profile_2D.py
@@ -9,10 +10,7 @@ waveguide_-_heater
 │   ├── user_materials.py
 │   └── user_simulation_parameters.py
 └── waveguide_render.py
-
 ```
-    
-    
 
 ### Quick Simulation Setup
 
