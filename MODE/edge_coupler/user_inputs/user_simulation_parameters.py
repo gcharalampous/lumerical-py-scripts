@@ -87,7 +87,7 @@ clad_max_y = 5e-6
 
 
 # 3. Waveguide Dimensions
-wg_width = 1.2e-6
+wg_width = .25e-6
 wg_thickness = 0.22e-6
 
 # 3.1 Bend Waveguide at the center of the simualation ?

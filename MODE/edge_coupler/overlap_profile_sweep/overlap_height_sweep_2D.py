@@ -7,8 +7,8 @@
 """
 No user-inputs are required.
 
-The scripts sweeps the mfd of the waveguide and calculates the overlap
-integral for the fundamental TE or TM mode.
+The scripts sweeps the height of the waveguide and calculates the overlap
+integral for the given mode-number.
 """
 
 #----------------------------------------------------------------------------
@@ -32,10 +32,10 @@ from MODE.edge_coupler.gaussian_beam_render import *
 # ------------------------- Directories for Results ---------------------------
 
 # specify the directory path
-path_to_write = ["MODE\\Results\\edge_coupler\\Figures\\sweep_mfd\\TE",
-"MODE\\Results\\edge_coupler\\lumerical_files\\sweep_mfd\\TE",
-"MODE\\Results\\edge_coupler\\Figures\\sweep_mfd\\TM",
-"MODE\\Results\\edge_coupler\\lumerical_files\\sweep_mfd\\TM"]
+path_to_write = ["MODE\\Results\\edge_coupler\\Figures\\sweep_height\\TE",
+"MODE\\Results\\edge_coupler\\lumerical_files\\sweep_height\\TE",
+"MODE\\Results\\edge_coupler\\Figures\\sweep_height\\TM",
+"MODE\\Results\\edge_coupler\\lumerical_files\\sweep_height\\TM"]
 directory_to_write = ['']*len(path_to_write)
 
 # get the current file path
@@ -80,33 +80,35 @@ add_fde_region(mode)
 # Add the Gaussian Mode on the Global Deck
 add_gaussian_beam(mode)
 
-# Create an empty list for mode waist and use numpy to generate a list based on user-defined parameters
-waist_array = np.arange(waist_start, waist_stop, waist_step) 
+# Create an empty list for waveguide height and use numpy to generate a list based on user-defined parameters
+wg_height_array = []
+wg_height_array = np.arange(wg_height_start, wg_height_stop, wg_height_step) 
 
-# Initialize empty 2D lists to store effective index and polarization fraction for each mode and width
-polariz_frac = [0]*len(waist_array)
+# Initialize empty 2D lists to store effective index and polarization fraction for each mode and height
 
-w, h = 2, len(waist_array)
+
+polariz_frac = [0]*len(wg_height_array)
+
+w, h = 2, len(wg_height_array)
 overlap_TE = [[0 for x in range(w)] for y in range(h)] 
 overlap_TM = [[0 for x in range(w)] for y in range(h)] 
 
 
 
-# Nested for loop to iterate over each waveguide width and mode - Fundamental TE
+# Nested for loop to iterate over each waveguide height and mode - Fundamental TE
 if(polarization_angle == 0):
 
-    for mfd in range(0,len(waist_array)):
+    for wd in range(0,len(wg_height_array)):
         mode.switchtolayout()    
-        mode.setnamed("FDE","waist radius",waist_array[mfd])
-        mode.createbeam()
+        mode.setnamed("waveguide","y max",wg_height_array[wd])
+        mode.setnamed("mesh","y max",wg_height_array[wd])
         mode.run()
         mode.mesh()
         mode.findmodes()
-        
-        # Save the file
-        file_name_mode = os.path.join(directory_to_write[1], "overlap_TE_waist_sweep_" + str(mfd) + ".lms")
-        mode.save(file_name_mode)           
 
+        # Save the file
+        file_name_mode = os.path.join(directory_to_write[1], "overlap_TE_height_sweep_" + str(wd) + ".lms")
+        mode.save(file_name_mode)
         
         for m in range(1,num_modes+1):
                     polariz_frac[m-1] = (mode.getdata("FDE::data::mode"+str(m),"TE polarization fraction"))
@@ -115,8 +117,8 @@ if(polarization_angle == 0):
             
                         # Do something when you find the TE Mode
                         print("TE Mode " + str(m) + "\n")
-                        mode.copydcard("mode"+str(m),"mode"+str(m))
-                        overlap_TE[mfd] = mode.overlap("global_" + "mode"+str(m),"gaussian"+str(mfd+1))
+                        mode.copydcard("mode"+str(m),"mode"+str(m));
+                        overlap_TE[wd] = mode.overlap("global_" + "mode"+str(m),"gaussian1");
                         mode.cleardcard("global_" +"mode"+str(m))
                         break;
             
@@ -143,23 +145,23 @@ if(polarization_angle == 0):
     
     
     
-    # Plot mode overlap integral versus waveguide width for given mode
+    # Plot mode overlap integral versus waveguide height for given mode
     plt.figure(1,figsize=(512/my_dpi, 256/my_dpi), dpi=my_dpi)
     
-    plt.plot(waist_array*1e6,overlap_TE_coupling,'-o', label = 'Mode Coupling')
-    plt.plot(waist_array*1e6,overlap_TE_power,'-o', label = 'Power Coupling')
+    plt.plot(wg_height_array*1e6,overlap_TE_coupling,'-o', label = 'Mode Coupling')
+    plt.plot(wg_height_array*1e6,overlap_TE_power,'-o', label = 'Power Coupling')
     plt.legend()
-    plt.xlabel("width (um)")
+    plt.xlabel("height (um)")
     plt.ylabel("TE Mode Overlap (%)")
     plt.ylim([0,1])
-    plt.title("tip width "+ str(np.round(wg_width*1e6,2)) + " um") 
+    plt.title("waist radius "+ str(waist_radius*1e6) + " um") 
     
     plt.legend()
-    plt.xlabel("waist radius (um)")
+    plt.xlabel("height (um)")
     plt.ylabel("TE overlap (%)")
 
     # Save the figure files as .png     
-    file_name_plot = os.path.join(directory_to_write[0], "overlap_waist_sweep" + ".png")
+    file_name_plot = os.path.join(directory_to_write[0], "overlap_tip_height_sweep" + ".png")
     plt.tight_layout()
     plt.savefig(file_name_plot, dpi=my_dpi, format="png")
 
@@ -177,17 +179,17 @@ if(polarization_angle == 90):
     
     
     
-    # Nested for loop to iterate over each waveguide width and mode - Fundamental TM
-    for mfd in range(0,len(waist_array)):
+    # Nested for loop to iterate over each waveguide height and mode - Fundamental TM
+    for wd in range(0,len(wg_height_array)):
         mode.switchtolayout()    
-        mode.setnamed("FDE","waist radius",waist_array[mfd])
-        mode.createbeam()
+        mode.setnamed("waveguide","y max",wg_height_array[wd])
+        mode.setnamed("mesh","y max",wg_height_array[wd])
         mode.run()
         mode.mesh()
         mode.findmodes()
 
         # Save the file
-        file_name_mode = os.path.join(directory_to_write[3], "overlap_TM_width_sweep_" + str(mfd) + ".lms")
+        file_name_mode = os.path.join(directory_to_write[3], "overlap_TM_height_sweep_" + str(wd) + ".lms")
         mode.save(file_name_mode)
         
         for m in range(1,num_modes+1):
@@ -203,7 +205,7 @@ if(polarization_angle == 90):
                         # Do something when you find the TM Mode
                         print("TM Mode " + str(m) + "\n")
                         mode.copydcard("mode"+str(m),"mode"+str(m));
-                        overlap_TM[mfd] = mode.overlap("global_" + "mode"+str(m),"gaussian"+str(mfd+1))
+                        overlap_TM[wd] = mode.overlap("global_" + "mode"+str(m),"gaussian1");
                         mode.cleardcard("global_" +"mode"+str(m))
                         break;
     
@@ -213,20 +215,20 @@ if(polarization_angle == 90):
         overlap_TM_power[i] = overlap_TM[i][1]
         
     
-    # Plot mode overlap integral versus waveguide width for given mode
+    # Plot mode overlap integral versus waveguide height for given mode
     plt.figure(2,figsize=(512/my_dpi, 256/my_dpi), dpi=my_dpi)
     
-    plt.plot(waist_array*1e6,overlap_TM_coupling,'-o', label = 'Mode Coupling')
-    plt.plot(waist_array*1e6,overlap_TM_power,'-o', label = 'Power Coupling')
+    plt.plot(wg_height_array*1e6,overlap_TM_coupling,'-o', label = 'Mode Coupling')
+    plt.plot(wg_height_array*1e6,overlap_TM_power,'-o', label = 'Power Coupling')
     
     plt.legend()
-    plt.xlabel("width (um)")
+    plt.xlabel("height (um)")
     plt.ylabel("TM Mode Overlap (%)")
     plt.ylim([0,1])
-    plt.title("waist radius "+ str(np.round(wg_width*1e6,2)) + " um") 
+    plt.title("waist radius "+ str(waist_radius*1e6) + " um") 
 
     # Save the figure files as .png
-    file_name_plot = os.path.join(directory_to_write[2], "overlap_tip_width_sweep" + ".png")
+    file_name_plot = os.path.join(directory_to_write[2], "overlap_tip_height_sweep" + ".png")
     plt.tight_layout()
     plt.savefig(file_name_plot, dpi=my_dpi, format="png")
 
