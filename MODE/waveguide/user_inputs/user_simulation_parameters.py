@@ -90,7 +90,10 @@ clad_max_y = 5e-6
 wg_width = 1.2e-6
 wg_thickness = 0.22e-6
 
-# 3.1 Bend Waveguide at the center of the simualation ?
+# 3.1 Set slab thickness > 0 to enable a slab waveguide
+slab_thickness = 0.e-6
+
+# 3.2 Bend Waveguide at the center of the simualation ?
 bend_waveguide = False
 bend_radius = 25e-6
 bend_orientation = 0

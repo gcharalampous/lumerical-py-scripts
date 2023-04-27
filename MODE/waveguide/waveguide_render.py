@@ -56,6 +56,12 @@ def waveguide_draw(mode):
     mode.addrect(name = "cladding")
     mode.addrect(name = "box")
     mode.addrect(name = "substrate")
+    mode.addrect(name = "slab")
+    
+    if(slab_thickness>0):
+      slab_enable  = 1
+    else:
+      slab_enable = 0
 
 
 
@@ -73,6 +79,16 @@ def waveguide_draw(mode):
                    ("override mesh order from material database",1),
                    ("mesh order",2))),
     
+    ("slab",       (("x", 0.),
+                   ("y min", 0.),
+                   ("z", 0.),
+                   ("x span", simulation_span_x),
+                   ("y max", slab_thickness),
+                   ("z span", 5e-6),
+                   ("index",wg_index),
+                   ("material",wg_material),
+                   ("enabled", slab_enable),
+                   ("override mesh order from material database",1))),
     
     ("cladding",  (("x", 0.),
                    ("y", 0.),

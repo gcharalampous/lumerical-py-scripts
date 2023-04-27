@@ -116,6 +116,14 @@ for m in range(1,num_modes+1):
                         ec='white',
                         fc='none',
                         lw=0.5))
+    
+    if(slab_thickness > 0):
+        #add the slab
+        plt.gca().add_patch(Rectangle((-0.5*simulation_span_x*1e6, 0),
+                            simulation_span_x*1e6,slab_thickness*1e6,
+                            ec='white',
+                            fc='none',
+                            lw=0.5))
 
     # Save the figure files as .png
     file_name_plot = os.path.join(directory_to_write[0], "mode_profile_" + str(m) + ".png")
