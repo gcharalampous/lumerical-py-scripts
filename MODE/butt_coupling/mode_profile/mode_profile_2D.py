@@ -159,7 +159,7 @@ for i in range(0,len(filename)):
                                     lw=0.5))
 
             # Save the figure files as .png
-            file_name_plot = os.path.join(directory_to_write[0], "mode_profile_" + str(m) + ".png")
+            file_name_plot = os.path.join(directory_to_write[0], "waveguide_" +str(i+1) + "_mode_profile_" +  str(m) + ".png")
             plt.tight_layout()
             plt.savefig(file_name_plot, dpi=my_dpi, format="png")
             plt.show()
