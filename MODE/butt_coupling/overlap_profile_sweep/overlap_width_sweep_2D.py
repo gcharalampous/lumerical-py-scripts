@@ -195,7 +195,7 @@ with lumapi.MODE() as mode:
         plt.ylabel("TE overlap (%)")
 
         # Save the figure files as .png     
-        file_name_plot = os.path.join(directory_to_write[0], "overlap_tip_height_sweep" + ".png")
+        file_name_plot = os.path.join(directory_to_write[1], "overlap_waveguide2_width_sweep" + ".png")
         plt.tight_layout()
         plt.savefig(file_name_plot, dpi=my_dpi, format="png")
 
@@ -288,7 +288,7 @@ with lumapi.MODE() as mode:
         plt.ylabel("TM overlap (%)")
 
         # Save the figure files as .png     
-        file_name_plot = os.path.join(directory_to_write[0], "overlap_tip_height_sweep" + ".png")
+        file_name_plot = os.path.join(directory_to_write[1], "overlap_waveguide2_width_sweep" + ".png")
         plt.tight_layout()
         plt.savefig(file_name_plot, dpi=my_dpi, format="png")
         
