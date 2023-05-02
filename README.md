@@ -1,29 +1,23 @@
 # Welcome
 
-    lumerical-py-scripts
-     └─FDTD
-        ├─waveguide-straight
-        ├─waveguide-bend
-        ├─waveguide-mode-taper
-        ├─vertical-taper
-        ├─edge-coupler
-        ├─waveguide-crossing
-        ├─ring-resonator-coupling
-        ├─mmi-coupler
-        ├─disk-resonator-coupler
-        ├─directional-coupler
-        └─Results
-           └─../.../
-    
-     └─MODE 
-        ├─waveguide 
-        ├─vertical-taper 
-        ├─edge-coupler
-        ├─directional-coupler
-        ├─disk-waveguide
-        ├─waveguide-heater
-        └─Results
-           └─../.../
+    lumerical-py-scripts/
+    ├── FDTD
+    │   ├── directional-coupler
+    │   ├── disk-resonator-coupling
+    │   ├── mmi-couplers
+    │   ├── ring-resonator-coupler
+    │   ├── waveguide-bend
+    │   ├── waveguide-crossing
+    │   ├── waveguide-mode-taper
+    │   └── waveguide-straight
+    └── MODE
+        ├── butt_coupling
+        ├── directional-coupler
+        ├── disk_waveguide
+        ├── edge_coupler
+        ├── vertical-taper
+        ├── waveguide
+        └── waveguide_heater
 
 ## Why this Repository?
 
@@ -31,37 +25,39 @@ In this repositoty you will find useful scripts to optimize your workflow and au
 
 ### 1. [FDTD](/FDTD)
 
-- [x] [waveguide-straight](FDTD/waveguide-straight): Mode profile and transmission simulations for a straight waveguide.
+- [ ] [disk-resonator-coupler](FDTD/disk-resonator-coupler): Calculates the coupling of a (a) weakly tapered disk resonator.
+
+- [ ] [directional-coupler](FDTD/directional-coupler): Calculates the coupling and plots the E-field of an s-bend directional coupler.
+
+- [ ] [edge-coupler](FDTD/edge-coupler): Calculates the coupling loss between a fiber (Gaussian) mode and a waveguide mode.
+
+- [ ] [mmi-coupler](FDTD/mmi-coupler): Calculates the coupling and plots the E-field image of a (a) 2x2 MMI coupler.
 
 - [x] [waveguide-bend](FDTD/waveguide-bend): Calculates the bending loss and mode profile. 
+
+- [x] [waveguide-straight](FDTD/waveguide-straight): Mode profile and transmission simulations for a straight waveguide.
 
 - [x] [waveguide-mode-taper](FDTD/waveguide-mode-taper): Calculates the adiabatic length of the tapered waveguide.
 
 - [ ] [vertical-taper](FDTD/vertical-taper): Calculates the transmission on the upper waveguide.
 
-- [ ] [edge-coupler](FDTD/edge-coupler): Calculates the coupling loss between a fiber (Gaussian) mode and a waveguide mode.
-
 - [ ] [waveguide-crossing](FDTD/waveguide-crossing): Calculations the transmission and crosstalk of a linear taper waveguide-crossing.
 
 - [ ] [ring-resonator-coupler](FDTD/ring-resonator-coupler): Calculates the coupling of a (a) rectangular, (b) concentric, and (c) straight sections ring.
 
-- [ ] [mmi-coupler](FDTD/mmi-coupler): Calculates the coupling and plots the E-field image of a (a) 2x2 MMI coupler.
-
-- [ ] [disk-resonator-coupler](FDTD/disk-resonator-coupler): Calculates the coupling of a (a) weakly tapered disk resonator.
-
-- [ ] [directional-coupler](FDTD/directional-coupler): Calculates the coupling and plots the E-field of an s-bend directional coupler.
-
 ### 2. [MODE Solutions](/MODE)
 
-- [x] [waveguide](MODE/waveguide): Calculates the effective index and the mode profile of waveguide.
-
-- [x] [vertical-taper](MODE/vertical-taper): Calcuates the effective index of vertical tapers over the propagation distance.
-
-- [x] [edge-coupler](MODE/edge_coupler): Calculates the overlap integral between a fiber mode (Gaussian) and a waveguide.
+- [x] [butt-coupling](MODE/butt_coupling): Calculates the overlap integral between two waveguides.
 
 - [x] [directional-coupler](MODE/directional-coupler): Calculates the effective index of the supermodes and plots the coupling as a function of length.
 
 - [x] [disk-waveguide](MODE/disk_waveguide): Calculates the effective index and mode profiles of the disk waveguide.
+
+- [x] [edge-coupler](MODE/edge_coupler): Calculates the overlap integral between a fiber mode (Gaussian) and a waveguide.
+
+- [x] [vertical-taper](MODE/vertical-taper): Calcuates the effective index of vertical tapers over the propagation distance.
+
+- [x] [waveguide](MODE/waveguide): Calculates the effective index and the mode profile of waveguide.
 
 - [x] [waveguide-heater](MODE/waveguide-heater): Calculate the propagation loss as a function of the metal heater gap.
 
@@ -71,7 +67,7 @@ You need installed on your operating system the following software
 
 - Lumerical Software
 
-- Python3
+- Python3 (Numpy, Matplotlib, Pandas)
 
 - Python IDE Software (i.e. Spyder)
 
