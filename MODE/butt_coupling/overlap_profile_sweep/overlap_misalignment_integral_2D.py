@@ -124,7 +124,7 @@ with lumapi.MODE() as mode:
                             "waveguide_2_mode" + str(m_waveguide2)
                             ,0,misalign_y_array[i],0)
 
-    for i in range(len(misalign_y_array)):
+    for i in range(len(misalign_z_array)):
         overlap_z[i] = mode.overlap("waveguide_1_mode" + str(m_waveguide1), 
                             "waveguide_2_mode" + str(m_waveguide2)
                             ,0,0,misalign_z_array[i])
