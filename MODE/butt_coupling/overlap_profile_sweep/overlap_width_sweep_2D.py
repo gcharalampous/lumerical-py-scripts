@@ -29,7 +29,7 @@ from MODE.butt_coupling.mode_profile.mode_profile_2D import *
 
 # specify the directory path
 path_to_write = ["MODE\\Results\\butt_coupling\\lumerical_files\\sweep_width",
-"MODE\\Results\\butt_coupling\\Figures\\sweep"]
+"MODE\\Results\\butt_coupling\\Figures\\sweep_width"]
 directory_to_write = ['']*len(path_to_write)
 
 
@@ -186,7 +186,7 @@ with lumapi.MODE() as mode:
         plt.plot(wg_2_width_array*1e6,overlap_TE_power,'-o', label = 'Power Coupling')
         plt.legend()
         plt.xlabel("width (um)")
-        plt.ylabel("TE Mode Overlap (%)")
+        plt.ylabel("TE Mode Overlap")
         plt.ylim([0,1])
         plt.title("Waveguide-2 width Sweep") 
 
@@ -279,13 +279,13 @@ with lumapi.MODE() as mode:
         plt.plot(wg_2_width_array*1e6,overlap_TM_power,'-o', label = 'Power Coupling')
         plt.legend()
         plt.xlabel("width (um)")
-        plt.ylabel("TM Mode Overlap (%)")
+        plt.ylabel("TM Mode Overlap")
         plt.ylim([0,1])
         plt.title("Waveguide-2 width Sweep") 
 
         plt.legend()
         plt.xlabel("width (um)")
-        plt.ylabel("TM overlap (%)")
+        plt.ylabel("TM overlap")
 
         # Save the figure files as .png     
         file_name_plot = os.path.join(directory_to_write[1], "overlap_waveguide2_width_sweep" + ".png")
