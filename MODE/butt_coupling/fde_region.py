@@ -60,13 +60,16 @@ def add_fde_region(mode):
     ("FDE", (("x", 0.),
              ("y", 0.),
              ("z", 0.),
-             ("y span", simulation_span_y - 1e-6),
-             ("z span", simulation_span_z - 1e-6),
              ("mesh cells y", fde_mesh_cell_y),
              ("mesh cells z", fde_mesh_cell_z),
              ("solver type","2D X normal"),
              ("wavelength",wavelength),
              ("number of trial modes",num_modes))),  
+    
+    ("::model", (("FDE_span_y",simulation_span_y),
+                ("FDE_span_z",simulation_span_z))
+    )
+
     )
 
     # Populate the waveguide simulation region
@@ -74,4 +77,6 @@ def add_fde_region(mode):
     for obj, parameters in configuration:
            for k, v in parameters:
                mode.setnamed(obj, k, v)
+               
 
+               
