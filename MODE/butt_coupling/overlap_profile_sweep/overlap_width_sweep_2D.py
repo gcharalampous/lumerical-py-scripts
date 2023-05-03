@@ -22,6 +22,7 @@ import os
 
 
 # Import user-defined input parameters from the waveguide package
+from MODE.butt_coupling.fde_region import *
 from MODE.butt_coupling.user_inputs.user_sweep_parameters import *    
 from MODE.butt_coupling.mode_profile.mode_profile_2D import *
 
@@ -125,6 +126,10 @@ with lumapi.MODE() as mode:
         mode.load(file_mode_directory[1])    
         mode.loaddata(file_data_directory[0])
         
+        # Reload the simulation region from user_inputs.user_simualtion_parameters
+        add_fde_region(mode)
+
+        
         for wd in range(0,len(wg_2_width_array)):
             mode.switchtolayout()
             mode.redrawoff()
@@ -216,6 +221,9 @@ with lumapi.MODE() as mode:
         mode.load(file_mode_directory[1])    
         mode.loaddata(file_data_directory[0])
         
+        # Reload the simulation region from user_inputs.user_simualtion_parameters
+        add_fde_region(mode)
+                
         for wd in range(0,len(wg_2_width_array)):
             mode.switchtolayout()
             mode.redrawoff()
