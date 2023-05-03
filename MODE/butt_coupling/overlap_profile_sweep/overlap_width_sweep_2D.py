@@ -191,8 +191,8 @@ with lumapi.MODE() as mode:
         plt.title("Waveguide-2 width Sweep") 
 
         plt.legend()
-        plt.xlabel("height (um)")
-        plt.ylabel("TE overlap (%)")
+        plt.xlabel("width (um)")
+        plt.ylabel("TE overlap")
 
         # Save the figure files as .png     
         file_name_plot = os.path.join(directory_to_write[1], "overlap_waveguide2_width_sweep" + ".png")
