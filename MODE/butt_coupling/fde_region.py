@@ -56,7 +56,8 @@ from MODE.butt_coupling.user_inputs.user_simulation_parameters import *
 def add_fde_region(mode):
     
     configuration = (
-    
+        
+
     ("FDE", (("x", 0.),
              ("y", 0.),
              ("z", 0.),
@@ -65,10 +66,7 @@ def add_fde_region(mode):
              ("solver type","2D X normal"),
              ("wavelength",wavelength),
              ("number of trial modes",num_modes))),  
-    
-    ("::model", (("FDE_span_y",simulation_span_y),
-                ("FDE_span_z",simulation_span_z))
-    )
+
 
     )
 

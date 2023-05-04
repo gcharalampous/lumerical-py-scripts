@@ -60,7 +60,7 @@ is not shown on the figures above. You can disable it by selecting 'mesh_enable 
 
 
 The user needs to define
-1. The span of the simulation region, along with other FDE parameters
+1. The span of the simulation region, along with other FDE parameters from the template files
 2. FDE simulation parameters, like the number of trial modes, the wavelength and
 the number of mesh cells across the x and y axes.
 3. A mesh with equal dimensions and coordinates as the waveguide. Set 'mesh_enable = True' 
@@ -74,33 +74,27 @@ in the two lumerical template files.
 
 # Length units are in meters!
 
-
-# 1. Simulation Paramters
-simulation_span_y = 10e-6
-simulation_span_z = 10e-6
-
-
-# 2. FDE Parameters. 
-num_modes = 6
+# 1. FDE Parameters. 
+num_modes = 20
 wavelength = 4.0e-6
-fde_mesh_cell_y = 300
-fde_mesh_cell_z = 300
+fde_mesh_cell_y = 200
+fde_mesh_cell_z = 200
 
-# 3. Mesh (waveguide)
-mesh_enable = True
+# 2. Mesh (waveguide)
+mesh_enable = False
 mesh_dx = 5e-9
 mesh_dy = 5e-9
 
 
-# 4. Overlap Intgral
+# 3. Overlap Intgral
 # Pick the order of modes you want to overlap
 
-# 4.1 Waveguide_1.lms
-m_waveguide1=2
+# 3.1 Waveguide_1.lms
+m_waveguide1=5
 
-# 4.2 Waveguide_2.lms
-m_waveguide2=1
+# 3.2 Waveguide_2.lms
+m_waveguide2=10
 
 
-# 5. Figures
+# 4. Figures
 my_dpi = 96

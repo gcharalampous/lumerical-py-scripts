@@ -94,6 +94,7 @@ for i in range(0,len(filename)):
         wg_width = mode.getnamed("waveguide-constructor::waveguide_core","y span")
         wg_thickness = mode.getnamed("waveguide-constructor::waveguide_core","z max")
         slab_thickness = mode.getnamed("waveguide-constructor::rib","z max")
+        simulation_span_y = mode.getnamed("::model","FDE_span_y")
         
         
         mode.mesh()
