@@ -92,8 +92,8 @@ for i in range(0,len(filename)):
         # Set and Get the data
         mode.setnamed("FDE","number of trial modes",num_modes)
         wg_width = mode.getnamed("waveguide-constructor::waveguide_core","y span")
-        wg_thickness = mode.getnamed("waveguide-constructor::waveguide_core","z max")
-        slab_thickness = mode.getnamed("waveguide-constructor::rib","z max")
+        wg_thickness = mode.getnamed("waveguide-constructor::waveguide_core","z span")
+        slab_thickness = mode.getnamed("waveguide-constructor::rib","z span")
         simulation_span_y = mode.getnamed("::model","FDE_span_y")
         
         
@@ -145,7 +145,7 @@ for i in range(0,len(filename)):
             
             
             #add the waveguide
-            plt.gca().add_patch(Rectangle((-0.5*wg_width*1e6, 0),
+            plt.gca().add_patch(Rectangle((-0.5*wg_width*1e6, -0.5*wg_thickness*1e6),
                                 wg_width*1e6,wg_thickness*1e6,
                                 ec='white',
                                 fc='none',
@@ -153,7 +153,7 @@ for i in range(0,len(filename)):
             
             if(slab_thickness > 0):
                 #add the slab
-                plt.gca().add_patch(Rectangle((-0.5*simulation_span_y*1e6, 0),
+                plt.gca().add_patch(Rectangle((-0.5*simulation_span_y*1e6, -0.5*wg_thickness*1e6),
                                     simulation_span_y*1e6,slab_thickness*1e6,
                                     ec='white',
                                     fc='none',
