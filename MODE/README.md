@@ -20,7 +20,7 @@ Feel free to explore the following;
   - Calculates the effective index as a function of width and height.
   - Calculates the effective index variation as a function of the width and height.
 
-- [edge-coupler](edge-coupler)
+- [edge-coupler](edge_coupler)
   
   - Plots the overlap integral between the Gaussian beam and the waveguide mode.
   - Calculates the overlap integral as a function of the Gaussian beam Mode-Field Diameter (MFD).
