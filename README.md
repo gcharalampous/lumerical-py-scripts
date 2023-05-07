@@ -55,7 +55,7 @@ In this repositoty you will find useful scripts to optimize your workflow and au
 
 - [x] [edge-coupler](MODE/edge_coupler): Calculates the overlap integral between a fiber mode (Gaussian) and a waveguide.
 
-- [x] [vertical-taper](MODE/vertical-taper): Calcuates the effective index of vertical tapers over the propagation distance.
+- [x] [vertical-taper](MODE/vertical_taper): Calcuates the effective index of vertical tapers over the propagation distance.
 
 - [x] [waveguide](MODE/waveguide): Calculates the effective index and the mode profile of waveguide.
 
