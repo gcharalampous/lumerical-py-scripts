@@ -161,7 +161,6 @@ for i in range(0,len(file_waveguide)):
             mode.switchtolayout()    
             mode.setnamed(waveguide_constructor,"width",wg_width_array[wd])
             mode.setnamed("mesh_waveguide","x span",wg_width_array[wd])
-            mode.save()
             mode.mesh()
             mode.run()
             mode.findmodes()
