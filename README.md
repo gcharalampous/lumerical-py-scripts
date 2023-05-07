@@ -49,17 +49,17 @@ In this repositoty you will find useful scripts to optimize your workflow and au
 
 - [x] [butt-coupling](MODE/butt_coupling): Calculates the overlap integral between two waveguides.
 
-- [x] [directional-coupler](MODE/directional-coupler): Calculates the effective index of the supermodes and plots the coupling as a function of length.
+- [x] [directional-coupler](MODE/directional_coupler): Calculates the effective index of the supermodes and plots the coupling as a function of length.
 
 - [x] [disk-waveguide](MODE/disk_waveguide): Calculates the effective index and mode profiles of the disk waveguide.
 
 - [x] [edge-coupler](MODE/edge_coupler): Calculates the overlap integral between a fiber mode (Gaussian) and a waveguide.
 
-- [x] [vertical-taper](MODE/vertical-taper): Calcuates the effective index of vertical tapers over the propagation distance.
+- [x] [vertical-taper](MODE/vertical_taper): Calcuates the effective index of vertical tapers over the propagation distance.
 
 - [x] [waveguide](MODE/waveguide): Calculates the effective index and the mode profile of waveguide.
 
-- [x] [waveguide-heater](MODE/waveguide-heater): Calculate the propagation loss as a function of the metal heater gap.
+- [x] [waveguide-heater](MODE/waveguide_heater): Calculate the propagation loss as a function of the metal heater gap.
 
 ## Requirements
 
