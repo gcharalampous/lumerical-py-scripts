@@ -1,47 +1,56 @@
 # Welcome
 
-    lumerical-py-scripts/
-    ├── FDTD
-    │   ├── directional-coupler
-    │   ├── disk-resonator-coupling
-    │   ├── mmi-couplers
-    │   ├── ring-resonator-coupler
-    │   ├── waveguide-bend
-    │   ├── waveguide-crossing
-    │   ├── waveguide-mode-taper
-    │   └── waveguide-straight
-    └── MODE
-        ├── butt_coupling
-        ├── directional-coupler
-        ├── disk_waveguide
-        ├── edge_coupler
-        ├── vertical-taper
-        ├── waveguide
-        └── waveguide_heater
+```
+lumerical-py-scripts/
+├── FDTD
+│   ├── directional-coupler
+│   ├── disk-resonator-coupling
+│   ├── edge_coupler
+│   ├── mmi-couplers
+│   ├── ring-resonator-coupler
+│   ├── swg_grating
+│   ├── vertical_taper
+│   ├── waveguide-bend
+│   ├── waveguide-crossing
+│   ├── waveguide-mode-taper
+│   └── waveguide-straight
+└── MODE
+    ├── butt_coupling
+    ├── directional_coupler
+    ├── disk_waveguide
+    ├── edge_coupler
+    ├── swg_grating
+    ├── vertical-taper
+    ├── vertical_taper
+    ├── waveguide
+    └── waveguide_heater
+```
 
 ## Why this Repository?
 
 In this repositoty you will find useful scripts to optimize your workflow and automate your daily design tasks. All you need to do is to modify the files under `user_inputs` in each subdirectory and run the scripts. The repo is splitted into two main simulation branches with multiple subcategories each:
 
-### 1. [FDTD](/FDTD)
-
-- [ ] [disk-resonator-coupler](FDTD/disk-resonator-coupler): Calculates the coupling of a (a) weakly tapered disk resonator.
+### 1. [3D FDTD](/FDTD)
 
 - [ ] [directional-coupler](FDTD/directional-coupler): Calculates the coupling and plots the E-field of an s-bend directional coupler.
 
-- [ ] [edge-coupler](FDTD/edge-coupler): Calculates the coupling loss between a fiber (Gaussian) mode and a waveguide mode.
+- [ ] [disk-resonator-coupler](FDTD/disk-resonator-coupler): Calculates the coupling of a (a) weakly tapered disk resonator.
+
+- [x] [edge-coupler](FDTD/edge_coupler): Calculates the coupling loss between a fiber (Gaussian) mode and a waveguide mode.
 
 - [ ] [mmi-coupler](FDTD/mmi-coupler): Calculates the coupling and plots the E-field image of a (a) 2x2 MMI coupler.
 
+- [x] [swg_grating](FDTD/swg_grating): Calculates the frequency response (T/R) of a sub-waveelength grating.
+
+- [x] [vertical-taper](FDTD/vertical-taper): Calculates the transmission on the upper waveguide.
+
 - [x] [waveguide-bend](FDTD/waveguide-bend): Calculates the bending loss and mode profile. 
 
-- [x] [waveguide-straight](FDTD/waveguide-straight): Mode profile and transmission simulations for a straight waveguide.
+- [ ] [waveguide-crossing](FDTD/waveguide-crossing): Calculations the transmission and crosstalk of a linear taper waveguide-crossing.
 
 - [x] [waveguide-mode-taper](FDTD/waveguide-mode-taper): Calculates the adiabatic length of the tapered waveguide.
 
-- [ ] [vertical-taper](FDTD/vertical-taper): Calculates the transmission on the upper waveguide.
-
-- [ ] [waveguide-crossing](FDTD/waveguide-crossing): Calculations the transmission and crosstalk of a linear taper waveguide-crossing.
+- [x] [waveguide-straight](FDTD/waveguide-straight): Mode profile and transmission simulations for a straight waveguide.
 
 - [ ] [ring-resonator-coupler](FDTD/ring-resonator-coupler): Calculates the coupling of a (a) rectangular, (b) concentric, and (c) straight sections ring.
 
@@ -55,7 +64,9 @@ In this repositoty you will find useful scripts to optimize your workflow and au
 
 - [x] [edge-coupler](MODE/edge_coupler): Calculates the overlap integral between a fiber mode (Gaussian) and a waveguide.
 
-- [x] [vertical-taper](MODE/vertical_taper): Calcuates the effective index of vertical tapers over the propagation distance.
+- [x] [swg_grating](MODE/swg_grating): Calculates the frequency response (T/R) of a sub-waveelength grating (2.5D var FDTD).
+
+- [x] [vertical-taper](MODE/vertical_taper): Calculates the effective index of vertical tapers over the propagation distance.
 
 - [x] [waveguide](MODE/waveguide): Calculates the effective index and the mode profile of waveguide.
 
@@ -67,7 +78,7 @@ You need installed on your operating system the following software
 
 - Lumerical Software
 
-- Python3 (Numpy, Matplotlib, Pandas)
+- Python3 (Numpy, Matplotlib)
 
 - Python IDE Software (i.e. Spyder)
 
