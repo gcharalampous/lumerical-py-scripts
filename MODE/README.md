@@ -9,7 +9,7 @@ Feel free to explore the following;
   - Calculates the overlap integral misalignment between the two waveguides.
   - Calculates the overlap integral as a function of the second waveguide width for the TE/TM fundamental modes.
 
-- [directional-coupler](directional-coupler)
+- [directional-coupler](directional_coupler)
   
   - Plots the symmetric and antisymmetric mode profiles of the waveguide.
   - Calculates the L<sub>π</sub> as a function of gap and distance.
@@ -26,7 +26,7 @@ Feel free to explore the following;
   - Calculates the overlap integral as a function of the Gaussian beam Mode-Field Diameter (MFD).
   - Calculates the overlap integral as a function of the thickness of the waveguide.
 
-- [vertical-taper](vertical-taper)
+- [vertical-taper](vertical_taper)
   
   - Calculates the effective index as a function of the taper length.
 
