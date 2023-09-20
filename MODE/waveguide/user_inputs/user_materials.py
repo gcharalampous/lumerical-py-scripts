@@ -38,27 +38,35 @@ database.
 
 # Cladding
 is_clad_index = False                            # If true ignore clad_material
-clad_material = "SiO2 (Glass) - Palik"
-clad_index = 1
+clad_material = "Si3N4 (Silicon Nitride) - Luke"
+clad_index = 1.8882
 
 
 # Waveguide Core
 is_wg_index = False                              # If true ignore wg_material
-wg_material = "Si3N4 (Silicon Nitride) - Phillip"
-wg_index = 3.9846
+wg_material = "Ge (Germanium) - Palik"
+wg_index = 3.9793
+
+
+
+# Waveguide Slab
+is_slab_index = False                              # If true ignore wg_material
+slab_material = "Si (Silicon) - Palik"
+slab_index = 3.4285
+
 
 
 # Box
 is_box_index = False                             # If true ignore box_material
-box_material = "SiO2 (Glass) - Palik"
-box_index = 3.4304
+box_material = "etch"
+box_index = 1.0
 
 
 
 # Substrate
 is_sub_index = False                            # If true ignore sub_material
 sub_material = "Si (Silicon) - Palik"
-sub_index = 3.4304
+sub_index = 3.4285
 
 
 # -------------------------- End of Input Section -----------------------------
@@ -68,6 +76,11 @@ if(is_wg_index):
     wg_material = "<Object defined dielectric>"
 else:
     wg_material = wg_material
+    
+if(is_slab_index):
+    slab_material = "<Object defined dielectric>"
+else:
+    slab_material = slab_material
     
 if(is_clad_index):
     clad_material = "<Object defined dielectric>"
