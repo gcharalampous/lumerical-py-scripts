@@ -23,7 +23,7 @@ import numpy as np
 import lumapi
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
-import sys 
+import sys, os 
 
 
 from MODE.waveguide.waveguide_render import *
