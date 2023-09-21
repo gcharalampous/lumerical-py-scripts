@@ -17,6 +17,7 @@ waveguide
 └── waveguide_render.py
 
 
+
 ### Quick Simulation Setup
 
 1. After downloading the repository, navigate through the `waveguide/user-inputs` directory.
