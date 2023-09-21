@@ -98,7 +98,7 @@ index_x = np.squeeze(mode.getdata("FDE::data::material","index_x"));
 index_y = np.squeeze(mode.getdata("FDE::data::material","index_y"));
 
 
-plt.pcolormesh(x*1e6,y*1e6,np.transpose(index_x),shading = 'gouraud',cmap = 'jet')
+plt.pcolormesh(x*1e6,y*1e6,np.real(np.transpose(index_x)),shading = 'gouraud',cmap = 'jet')
 plt.colorbar()
 
 plt.xlabel("x (\u00B5m)")
