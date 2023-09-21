@@ -1,20 +1,20 @@
 ## 2D Waveguide Simulations (MODE Solutions)
-
-waveguide
-├── fde_region.py
-├── mode_profile
-│   └── mode_profile_2D.py
-├── neff_sweep
-│   ├── neff_height_sweep_2D.py
-│   ├── neff_height_sweep_variations_2D.py
-│   ├── neff_width_sweep_2D.py
-│   └── neff_width_sweep_variations_2D.py
-├── README.md
-├── user_inputs
-│   ├── user_materials.py
-│   ├── user_simulation_parameters.py
-│   └── user_sweep_parameters.py
-└── waveguide_render.py
+  
+  waveguide
+  ├── fde_region.py
+  ├── mode_profile
+  │   └── mode_profile_2D.py
+  ├── neff_sweep
+  │   ├── neff_height_sweep_2D.py
+  │   ├── neff_height_sweep_variations_2D.py
+  │   ├── neff_width_sweep_2D.py
+  │   └── neff_width_sweep_variations_2D.py
+  ├── README.md
+  ├── user_inputs
+  │   ├── user_materials.py
+  │   ├── user_simulation_parameters.py
+  │   └── user_sweep_parameters.py
+  └── waveguide_render.py
 
 
 
