@@ -1,5 +1,6 @@
 ## 2D Waveguide Simulations (MODE Solutions)
-  
+
+  `
   waveguide
   ├── fde_region.py
   ├── mode_profile
@@ -15,7 +16,7 @@
   │   ├── user_simulation_parameters.py
   │   └── user_sweep_parameters.py
   └── waveguide_render.py
-
+`
 
 
 ### Quick Simulation Setup
