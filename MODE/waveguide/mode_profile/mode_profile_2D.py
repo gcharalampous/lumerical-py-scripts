@@ -82,6 +82,7 @@ mode.findmodes()
 
 # Initialize empty lists to store mode properties
 neff = []           # effective index
+ng = []             # group index
 polariz_frac = []   # polarization fraction
 polariz_mode = []   # polarization mode (TE or TM)
 
@@ -89,6 +90,7 @@ polariz_mode = []   # polarization mode (TE or TM)
 for m in range(1,num_modes+1):
     # Extract effective index and polarization fraction
     neff.append(mode.getdata("FDE::data::mode"+str(m),"neff"))
+    ng.append(mode.getdata("FDE::data::mode"+str(m),"ng"))
     polariz_frac.append(mode.getdata("FDE::data::mode"+str(m),"TE polarization fraction"))
     
     # Determine if mode is TE-like or TM-like based on polarization fraction
