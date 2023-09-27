@@ -151,15 +151,15 @@ for g in range(0,len(gap_array)):
             if(sym_mode[i] < 0 and sym_mode[i+1] >= 0 or 
             sym_mode[i] >= 0 and sym_mode[i+1] < 0):
                 print('Great, TE supermode-found')
-                nTE[0] = neff[i]
-                nTE[1] = neff[i+1]
+                nTE[0] = np.real(neff[i])
+                nTE[1] = np.real(neff[i+1])
             
         if (polariz_mode[i] == 'TM' and polariz_mode[i+1] == 'TM'):
             if(sym_mode[i] < 0 and sym_mode[i+1] >= 0 or 
             sym_mode[i] >= 0 and sym_mode[i+1] < 0):
                 print('Great, TM supermode-found')
-                nTM[0] = neff[i]
-                nTM[1] = neff[i+1]
+                nTM[0] = np.real(neff[i])
+                nTM[1] = np.real(neff[i+1])
     
     # Convert lists to numpy arrays and squeeze to remove redundant dimensions
     nTE = np.squeeze(nTE)
