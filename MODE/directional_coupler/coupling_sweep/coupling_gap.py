@@ -202,9 +202,16 @@ plt.figure(1, figsize=(512 * px, 256 * px))
 # Plot the Lpi coefficients for TE and TM mode
 Lx_tm = np.squeeze(Lx_tm)
 Lx_te = np.squeeze(Lx_te)
-plt.semilogy(gap_array * 1e6, Lx_te * 1e6,gap_array * 1e6, Lx_tm * 1e6)
+
+#Lpi dB plot
+# plt.semilogy(gap_array * 1e6, Lx_te * 1e6,gap_array * 1e6, Lx_tm * 1e6)
+#-30 dB plot
+plt.semilogy(gap_array * 1e6, 0.001*Lx_te * 1e6,gap_array * 1e6, 0.001*Lx_tm * 1e6)
+
+plt.grid(which='both')
 plt.xlabel('coupling gap (um)')
-plt.ylabel('$L_\pi$ (um)')
+#plt.ylabel('$L_\pi$ (um)')
+plt.ylabel('$L_{-30dB}$ (um)')
 plt.legend(['TE','TM'])
 plt.tight_layout()
 file_name_plot_writing = os.path.join(directory_to_write[1], 
@@ -217,6 +224,7 @@ C_te = np.squeeze(C_te)
 C_tm = np.squeeze(C_tm)
 plt.figure(2, figsize=(512 * px, 256 * px))
 plt.semilogy(gap_array * 1e6, C_te * 1e-6,gap_array * 1e6, C_tm * 1e-6)
+plt.grid('both')
 plt.xlabel('coupling gap (um)')
 plt.ylabel('Coupling Coefficient (/um)')
 plt.legend(['TE','TM'])
