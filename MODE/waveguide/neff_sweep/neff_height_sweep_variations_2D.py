@@ -46,6 +46,7 @@ plt.ylim([1e-5,1e-2])
 plt.xlabel("height (um)")
 plt.ylabel('$\partial(n_{eff})/\partial(h)\quad (nm^{-1})$')
 plt.title("width "+ str(wg_width*1e6) + " um") 
+plt.grid(True, which='both')
 
 # Save the figure files as .png
 file_name_plot = os.path.join(directory_to_write[0], "neff_height_sweep_variations" + ".png")
