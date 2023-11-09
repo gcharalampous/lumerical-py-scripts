@@ -72,6 +72,37 @@ for i in range(0,len(FDTD_VERTICAL_DIRECTORY_WRITE)):
 
 
 
+# WAVEGUIDE MODE TAPER FDTD
+FDTD_WGTAPER_FILENAME = "waveguide_mode_taper.fsp"
+FDTD_WGTAPER_PATH_READ = "FDTD\\waveguide_mode_taper\\user_inputs\\lumerical_files"
+FDTD_WGTAPER_PATH_WRITE_FIGURES = "FDTD\\Results\\waveguide_mode_taper\\Figures"
+FDTD_WGTAPER_PATH_WRITE_LUMERICAL = "FDTD\\Results\\waveguide_mode_taper\\lumerical_files"
+
+FDTD_WGTAPER_PATH_WRITE_DATA = ["Sweep Transmission", "Frequency Response","E-fields"]
+FDTD_WGTAPER_DIRECTORY_READ = os.path.join(PACKAGE_DIR,FDTD_WGTAPER_PATH_READ,FDTD_WGTAPER_FILENAME[0])
+FDTD_WGTAPER_DIRECTORY_WRITE = [str]*len(FDTD_WGTAPER_PATH_WRITE_DATA)
+for i,data in enumerate(FDTD_WGTAPER_PATH_WRITE_DATA):
+    FDTD_WGTAPER_DIRECTORY_WRITE[i] = os.path.join(PACKAGE_DIR,FDTD_WGTAPER_PATH_WRITE_FIGURES,FDTD_WGTAPER_PATH_WRITE_DATA[i])
+for i in range(0,len(FDTD_WGTAPER_DIRECTORY_WRITE)):
+    # create the directory if it doesn't exist already
+    if not os.path.exists(FDTD_WGTAPER_DIRECTORY_WRITE[i]):
+        os.makedirs(FDTD_WGTAPER_DIRECTORY_WRITE[i])
+        #print("Directory:" + FDTD_WGTAPER_DIRECTORY_WRITE[i] + "\n created successfully!")
+    else:
+        #print("Directory:" + FDTD_WGTAPER_DIRECTORY_WRITE[i] + "\n already exists!")
+        break
+
+
+FDTD_WGTAPER_DIRECTORY_WRITE_FILE = os.path.join(PACKAGE_DIR, FDTD_WGTAPER_PATH_WRITE_LUMERICAL)
+if not os.path.exists(FDTD_WGTAPER_DIRECTORY_WRITE_FILE):
+    os.makedirs(FDTD_WGTAPER_DIRECTORY_WRITE_FILE)
+    #print("Directory:" + FDTD_WGTAPER_DIRECTORY_WRITE[i] + "\n created successfully!")
+
+
+
+
+
+
 # --------------------------------MODE SOLUTIONS---------------------------------
 
 
