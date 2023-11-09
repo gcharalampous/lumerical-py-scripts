@@ -27,10 +27,10 @@ There are in total
 # Imports from user files
 # ---------------------------------------------------------------------------
 
-from user_inputs.user_simulation_parameters import *  
+from FDTD.waveguide_mode_taper.user_inputs.user_simulation_parameters import *  
 
 
-def add_fdtd_region(fdtd):
+def add_fdtd_region(fdtd,taper_length):
 
     # Add the mesh and the FDE regions
     fdtd.addmode()
@@ -87,27 +87,27 @@ def add_fdtd_region(fdtd):
    
     
     ("transmission",(("monitor type", 5),
-                     ("x", simulation_span_x - offset_x/2),
+                     ("x", taper_length + offset_x - offset_x/2),
                      ("y", 0.),
                      ("z", 0.),
                      ("y span", simulation_span_y),
                      ("z span", simulation_span_z))),
     
     ("linear_y",    (("monitor type", 3),
-                     ("x", simulation_span_x - offset_x/2),
+                     ("x", taper_length + offset_x - offset_x/2),
                      ("y", 0.),
                      ("z", wg_thickness/2),
                      ("y span", simulation_span_y))),
         
     ("linear_z",    (("monitor type", 4),
-                     ("x", simulation_span_x - offset_x/2),
+                     ("x", taper_length + offset_x - offset_x/2),
                      ("y", 0.),
                      ("z", 0),
                      ("z span", simulation_span_z))),
    
     
     ("monitor_exp", (("mode selection", mode_monitor),
-                     ("x", simulation_span_x - offset_x/2),
+                     ("x", taper_length + offset_x - offset_x/2),
                      ("y", 0.),
                      ("z", 0.),
                      ("y span", simulation_span_y),
@@ -115,7 +115,7 @@ def add_fdtd_region(fdtd):
     
      
     ("FDTD",        (("x min", -offset_x),
-                     ("x max", simulation_span_x),
+                     ("x max", taper_length + offset_x),
                      ("y", 0.),
                      ("z", 0.),
                      ("y span", simulation_span_y),

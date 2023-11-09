@@ -97,10 +97,10 @@ import numpy as np
 # Imports from user files
 # ---------------------------------------------------------------------------
 
-from user_inputs.user_simulation_parameters import *  
-from user_inputs.user_materials import *
+from FDTD.waveguide_mode_taper.user_inputs.user_simulation_parameters import *  
+from FDTD.waveguide_mode_taper.user_inputs.user_materials import *
 
-def waveguide_taper_draw(fdtd):
+def waveguide_taper_draw(fdtd,taper_length,wg_width_right):
     
     # Adds the four rectangulars shown above
     

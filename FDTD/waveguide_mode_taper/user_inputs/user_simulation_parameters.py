@@ -122,8 +122,8 @@ clad_max_z = 10e-6
 
 
 # 2. Waveguide Dimensions
-wg_width_left = 1.2e-6          # Taper start width
-wg_width_right = 3.0e-6         # Taper end width
+wg_width_left = 2.0e-6          # Taper start width
+wg_width_right = 5.0e-6         # Taper end width
 wg_thickness = 0.15e-6          # Taper and waveguide thickness
 taper_length = 100e-6           # Taper Length
 poly_res = 10                   # Polygon Resolution
@@ -140,8 +140,6 @@ sub_thickness = 5e-6
 
 
 # 5. Simulation Paramters
-#simulation_span_x = taper_length + offset_x  ---- The values are defined later
-simulation_span_x = taper_length + offset_x
 simulation_span_y = 20e-6
 simulation_max_z = clad_max_z - 1e-6
 simulation_min_z = -box_thickness
@@ -149,7 +147,7 @@ simulation_min_z = -box_thickness
 
 # 6. FDTD Parameters. 
 mode_source = "TE"              # Select TE for fundamental TE or TM for fundamental TM
-wavelength_start = 1.31e-6      
+wavelength_start = 1.55e-6      
 wavelength_stop = wavelength_start# Only Single Frequency is supported at the moment
 mesh_accuracy = 1
 simulation_time = 5000e-15
