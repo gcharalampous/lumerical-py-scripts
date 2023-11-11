@@ -20,7 +20,6 @@ vs width.
 # ---------------------------------------------------------------------------
 
 import numpy as np
-import lumapi
 import matplotlib.pyplot as plt
 
 # Import user-defined input parameters
@@ -28,27 +27,43 @@ from MODE.waveguide.user_inputs.user_sweep_parameters import *
 from MODE.waveguide.waveguide_render import *
 
 # Runs the module to calculate the neff vs height
-from neff_height_sweep_2D import *
+from MODE.waveguide.neff_sweep.neff_height_sweep_2D import *
 
 
-# Plots the effective index width variations as a function of heigt
 
-plt.figure(2,figsize=(512/my_dpi, 256/my_dpi), dpi=my_dpi)
+# Plots the effective index width variations as a function of width
+if(__name__=="__main__"):
+    with lumapi.MODE() as mode:
+        
+        # Disable Rendering
+        mode.redrawoff()
 
-for m in range(1,num_modes+1):
+        # Draw the waveguide structure using a custom function
+        waveguide_draw(mode)
 
-    # Calculates the derivative    
-    dneffdwidth = np.gradient(neff_array[:,m-1], wg_height_array)
-    plt.semilogy(wg_height_array*1e6,np.real(dneffdwidth)*1e-9,'-o', label = 'M-'+str(m))
+        # Add a finite-difference eigenmode (FDE) region to the simulation environment
+        add_fde_region(mode)
 
-plt.legend()
-plt.ylim([1e-5,1e-2])
-plt.xlabel("height (um)")
-plt.ylabel('$\partial(n_{eff})/\partial(h)\quad (nm^{-1})$')
-plt.title("width "+ str(wg_width*1e6) + " um") 
-plt.grid(True, which='both')
 
-# Save the figure files as .png
-file_name_plot = os.path.join(directory_to_write[0], "neff_height_sweep_variations" + ".png")
-plt.tight_layout()
-plt.savefig(file_name_plot, dpi=my_dpi, format="png")
+        neff_array, wg_height_array, polariz_frac, polariz_mode = heightSweep(mode=mode)
+    
+        # Plots the effective index width variations as a function of heigt
+        plt.figure(2,figsize=(512/my_dpi, 256/my_dpi), dpi=my_dpi)
+
+        for m in range(1,num_modes+1):
+
+            # Calculates the derivative    
+            dneffdwidth = np.gradient(neff_array[:,m-1], wg_height_array)
+            plt.semilogy(wg_height_array*1e6,np.real(dneffdwidth)*1e-9,'-o', label = 'M-'+str(m))
+
+        plt.legend()
+        plt.ylim([1e-5,1e-2])
+        plt.xlabel("height (um)")
+        plt.ylabel('$\partial(n_{eff})/\partial(h)\quad (nm^{-1})$')
+        plt.title("width "+ str(wg_width*1e6) + " um") 
+        plt.grid(True, which='both')
+        plt.tight_layout()
+
+        # Save the figure files as .png
+        file_name_plot = os.path.join(MODE_WAVEGUIDE_DIRECTORY_WRITE[2], "neff_height_sweep_variations.png")
+        plt.savefig(file_name_plot, dpi=my_dpi, format="png")
