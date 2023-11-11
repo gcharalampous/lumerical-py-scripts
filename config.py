@@ -105,6 +105,29 @@ if not os.path.exists(FDTD_WGTAPER_DIRECTORY_WRITE_FILE):
 
 # --------------------------------MODE SOLUTIONS---------------------------------
 
+# WAVEGUIDE MODE
+MODE_WAVEGUIDE_PATH_WRITE_FIGURES = "MODE\\Results\\waveguide\\Figures"
+MODE_WAVEGUIDE_PATH_WRITE_DATA = ["Index Profile", "Mode Profile","Neff"]
+MODE_WAVEGUIDE_DIRECTORY_WRITE = [str]*len(MODE_WAVEGUIDE_PATH_WRITE_DATA)
+MODE_WAVEGUIDE_PATH_WRITE_LUMERICAL = "MODE\\Results\\waveguide\\lumerical_files"
+
+for i,data in enumerate(MODE_WAVEGUIDE_PATH_WRITE_DATA):
+    MODE_WAVEGUIDE_DIRECTORY_WRITE[i] = os.path.join(PACKAGE_DIR,MODE_WAVEGUIDE_PATH_WRITE_FIGURES,MODE_WAVEGUIDE_PATH_WRITE_DATA[i])
+for i in range(0,len(MODE_WAVEGUIDE_DIRECTORY_WRITE)):
+    # create the directory if it doesn't exist already
+    if not os.path.exists(MODE_WAVEGUIDE_DIRECTORY_WRITE[i]):
+        os.makedirs(MODE_WAVEGUIDE_DIRECTORY_WRITE[i])
+        #print("Directory:" + MODE_WAVEGUIDE_DIRECTORY_WRITE[i] + "\n created successfully!")
+    else:
+        #print("Directory:" + MODE_WAVEGUIDE_DIRECTORY_WRITE[i] + "\n already exists!")
+        break
+
+MODE_WAVEGUIDE_DIRECTORY_WRITE_FILE = os.path.join(PACKAGE_DIR, MODE_WAVEGUIDE_PATH_WRITE_LUMERICAL)
+if not os.path.exists(MODE_WAVEGUIDE_DIRECTORY_WRITE_FILE):
+    os.makedirs(MODE_WAVEGUIDE_DIRECTORY_WRITE_FILE)
+    #print("Directory:" + MODE_WAVEGUIDE_DIRECTORY_WRITE_FILE[i] + "\n created successfully!")
+
+
 
 # SWG MODE
 MODE_SWG_FILENAME = ["sub_wavelength_grating_layer_1.fsp","sub_wavelength_grating_layer_2.fsp"]
@@ -123,3 +146,4 @@ for i in range(0,len(MODE_SWG_DIRECTORY_WRITE)):
     else:
         #print("Directory:" + MODE_SWG_DIRECTORY_WRITE[i] + "\n already exists!")
         break
+
