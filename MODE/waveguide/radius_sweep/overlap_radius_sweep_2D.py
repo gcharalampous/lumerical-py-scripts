@@ -28,64 +28,93 @@ from MODE.waveguide.fde_region import add_fde_region
 
 
 
-# ------------------------- No inputs are required ---------------------------
+# ------------------------- You may change the FDE Boundaries below ---------------------------
 
-wg_radius_array = []
 wg_radius_array = np.arange(wg_radius_start, wg_radius_stop, wg_radius_step) 
+# Append 0 radius at the beginning of the list
+wg_radius_array = np.concatenate(([0.0], wg_radius_array))
+N = len(wg_radius_array)
 
 # Initialize empty 2D lists to store effective index and polarization fraction for each mode and width
 h, w = len(wg_radius_array), num_modes
 neff = [[0 for y in range(w)] for x in range(h)] 
 polariz_frac = [[0 for y in range(w)] for x in range(h)] 
-polariz_mode = [[0 for y in range(w)] for x in range(h)] 
-
+prop_loss = [[0 for y in range(w)] for x in range(h)] 
 
 def radiusSweep(mode):
     # Create an empty list for waveguide widths and use numpy to generate a list based on user-defined parameters
-    
+    loss_TE=[]
+    overlap_TE=[]
+    overlap_TM=[]
+    loss_TM=[]
 
     # Nested for loop to iterate over each waveguide width and mode
-    for wd in range(0,len(wg_radius_array)):
+    for r in range(0,len(wg_radius_array)):
         mode.switchtolayout()  
         
-        mode.setanalysis("bent waveguide", 1)
-        mode.setanalysis("bend radius",wg_radius_array[wd])
+        if(r>0):
+            mode.setanalysis("bent waveguide", 1)
+            mode.setanalysis("bend radius",wg_radius_array[r])
+        else:
+            mode.setanalysis("bent waveguide", 0)
+        
+        # Set the Boundaries to PML
+        mode.setnamed("FDE","x max bc","PML")
+        mode.setnamed("FDE","y min bc","PML")
+        mode.setnamed("FDE","y max bc","PML")
+
     
         # Run the simulation, create a mesh, and compute the modes, then save
         mode.run()
         mode.findmodes()
         mode.redrawon()  
-        mode.save(MODE_WAVEGUIDE_DIRECTORY_WRITE_FILE + "\\waveguide_mode_radius_sweep_"+str(wd) + ".lms")
+        mode.save(MODE_WAVEGUIDE_DIRECTORY_WRITE_FILE + "\\waveguide_mode_radius_sweep_"+str(r) + ".lms")
 
         
         for m in range(1,num_modes+1):
             # Get effective index and polarization fraction for each mode and store in corresponding 2D list
-            neff[wd][m-1] = (mode.getdata("FDE::data::mode"+str(m),"neff"))
-            polariz_frac[wd][m-1] = (mode.getdata("FDE::data::mode"+str(m),"TE polarization fraction"))
+            neff[r][m-1] = (mode.getdata("FDE::data::mode"+str(m),"neff"))
+            polariz_frac[r][m-1] = (mode.getdata("FDE::data::mode"+str(m),"TE polarization fraction"))
+            prop_loss[r][m-1] = (mode.getdata("FDE::data::mode"+str(m),"loss"))
             
-    #        if ( polariz_frac[m-1] > 0.5 ):   # identify the TE-like or TM-like modes
-    #        	polariz_mode[wd][m-1] = ("TE")
-    #        else:
-    #            polariz_mode[wd][m-1] = ("TM")    
-        
+            if ( polariz_frac[r][m-1] > 0.5 ):   # identify the TE-like or TM-like modes
+                if(track_mode == 'TE'):
+                    loss_TE.append(prop_loss[r][m-1])
+                    mode.copydcard("mode"+str(m),"mode_TE"+"_radius_"+str(r));
+                    mode.save(MODE_WAVEGUIDE_DIRECTORY_WRITE_FILE + "\\waveguide_mode_radius_sweep_"+str(r) + ".lms")
+                    overlap_TE.append(mode.overlap("mode_TE_radius_0","mode_TE"+"_radius_"+str(r)))
+                    print(overlap_TE)
+                    
+                    break
+            else:
+                if(track_mode == 'TM'):
+                    loss_TM.append(prop_loss[r][m-1])
+                    mode.copydcard("mode"+str(m),"mode_TM"+"_radius_"+str(r));
+                    mode.save(MODE_WAVEGUIDE_DIRECTORY_WRITE_FILE + "\\waveguide_mode_radius_sweep_"+str(r) + ".lms")
+                    overlap_TM.append(mode.overlap("mode_TM_radius_0","mode_TM"+"_radius_"+str(r)))
+                    print(overlap_TM)
+                    
+                    break
+    
+
     neff_array = np.squeeze(neff)
     polariz_frac_array = np.squeeze(polariz_frac)
 
-    # Plot effective index versus waveguide width for each mode
-    plt.figure(1, figsize=(512/my_dpi, 256/my_dpi), dpi=my_dpi)
-    for m in range(1,num_modes+1):
-        plt.plot(wg_radius_array*1e6,np.real(neff_array[:,m-1]),'-o', label = 'M-'+str(m))
-    plt.legend()
-    plt.xlabel("width (um)")
-    plt.ylabel("neff")
-    plt.title("thickness "+ str(wg_thickness*1e6) + " um") 
-    plt.tight_layout()
+    # # Plot effective index versus waveguide width for each mode
+    # plt.figure(1, figsize=(512/my_dpi, 256/my_dpi), dpi=my_dpi)
+    # for m in range(1,num_modes+1):
+    #     plt.plot(wg_radius_array*1e6,np.real(neff_array[:,m-1]),'-o', label = 'M-'+str(m))
+    # plt.legend()
+    # plt.xlabel("width (um)")
+    # plt.ylabel("neff")
+    # plt.title("thickness "+ str(wg_thickness*1e6) + " um") 
+    # plt.tight_layout()
 
-    # Save the figure files as .png
-    file_name_plot = os.path.join(MODE_WAVEGUIDE_DIRECTORY_WRITE[2], "neff_width_sweep.png")
-    plt.savefig(file_name_plot, dpi=my_dpi, format="png")
+    # # Save the figure files as .png
+    # file_name_plot = os.path.join(MODE_WAVEGUIDE_DIRECTORY_WRITE[2], "neff_width_sweep.png")
+    # plt.savefig(file_name_plot, dpi=my_dpi, format="png")
 
-    return neff_array, wg_radius_array, polariz_frac, polariz_mode
+    return loss_TE, loss_TM, overlap_TE, overlap_TM
 
 
 
@@ -105,7 +134,59 @@ if(__name__=="__main__"):
         # Add a finite-difference eigenmode (FDE) region to the simulation environment
         add_fde_region(mode)
 
-        # Plots effective index with widths
 
-        neff_array, wg_radius_array, polariz_frac, polariz_mode = radiusSweep(mode=mode)
+        loss_TE, loss_TM, overlap_TE, overlap_TM = radiusSweep(mode=mode)
         
+        # Mode Missmatch Loss
+        overlap_TE_array_dB = [0]*(N)
+        overlap_TM_array_dB = [0]*(N)
+        
+
+        
+        
+        
+        # Plots the loss as a function of the bend radius
+        plt.figure(1, figsize=(512/my_dpi, 256/my_dpi), dpi=my_dpi)
+        plt.xlabel('bend radius (um)')
+        plt.ylabel('Loss/90deg (dB)')
+        plt.grid()
+
+        if(track_mode == 'TE'):    
+            
+            # Radiation Loss [dB] per quarter
+
+            radiation_loss_TE_dB = (np.squeeze(np.abs(loss_TE)) - 
+                                np.abs(loss_TE[0]))*0.5*np.pi*wg_radius_array.reshape(1,N)
+            radiation_loss_TE_dB = radiation_loss_TE_dB.reshape(N)
+            
+            for i in range(0,len(wg_radius_array)):
+                # Per Quarter Loss Missmatch
+                overlap_TE_array_dB[i] = -10*np.log10(overlap_TE[i][1][0])
+                
+                # Total Loss
+            total_loss_TE_dB = np.dot(1,overlap_TE_array_dB) + np.dot(1,radiation_loss_TE_dB)
+                
+            plt.plot(wg_radius_array[1:N]*1e6,overlap_TE_array_dB[1:N],'-o',label='Mode-missmatch')
+            plt.plot(wg_radius_array[1:N]*1e6,radiation_loss_TE_dB[1:N],'-o',label='Radiation Loss')
+            plt.plot(wg_radius_array[1:N]*1e6,total_loss_TE_dB[1:N],label = 'Total Loss')
+            plt.legend()
+        else:
+            
+            # Radiation Loss [dB] per quarter
+
+            radiation_loss_TM_dB = np.abs((np.squeeze(loss_TM) - 
+                                loss_TM[0])*0.5*np.pi*wg_radius_array.reshape(1,N))
+            radiation_loss_TM_dB = radiation_loss_TM_dB.reshape(N)
+            
+            for i in range(0,len(wg_radius_array)):
+                # Per Quarter Loss Missmatch
+                overlap_TM_array_dB[i] = -10*np.log10(overlap_TM[i][1][0])
+                
+                # Total Loss
+            total_loss_TM_dB = np.dot(1,overlap_TM_array_dB) + np.dot(1,radiation_loss_TM_dB)
+                
+            plt.plot(wg_radius_array[1:N]*1e6,overlap_TM_array_dB[1:N],'-o',label='Mode-missmatch')
+            plt.plot(wg_radius_array[1:N]*1e6,radiation_loss_TM_dB[1:N],'-o',label='Radiation Loss')
+            plt.plot(wg_radius_array[1:N]*1e6,total_loss_TM_dB[1:N],label = 'Total Loss')
+            plt.legend()
+

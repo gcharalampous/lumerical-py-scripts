@@ -50,9 +50,10 @@ wg_height_stop = 0.55e-6      # Choose the stop waveguide height 'wg_height_stop
 wg_height_step = 0.05e-6     # Choose the step of each sweep 'wg_height_step'
 
 
-wg_radius_start = 10e-6     # Choose the start waveguide radius 'wg_radius_start' 
+track_mode = 'TE'           # Select the fundamental mode to track 'track_mode = 'TE' or 'TM'
+wg_radius_start = 80e-6    # Choose the start waveguide radius 'wg_radius_start' 
 #you want to start sweeping
-wg_radius_stop = 200e-6      # Choose the stop waveguide radius 'wg_radius_stop' you 
+wg_radius_stop = 210e-6     # Choose the stop waveguide radius 'wg_radius_stop' you 
 #want to finish sweeping
 wg_radius_step = 10e-6     # Choose the step of each sweep 'radius'
 

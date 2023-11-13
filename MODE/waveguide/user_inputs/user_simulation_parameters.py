@@ -77,9 +77,9 @@ for enabling the mesh. Overide mesh across x and y axes with 'dx' and 'dy', resp
 
 
 # 1. Simulation Paramters
-simulation_span_x = 10e-6
-simulation_min_y = -5e-6
-simulation_max_y = 5e-6
+simulation_span_x = 8e-6
+simulation_min_y = -2.5e-6
+simulation_max_y = 2.55e-6
 
 
 # 2. Cladding Dimensions. Note, waveguide y min = 0.
@@ -111,7 +111,7 @@ sub_thickness = 10e-6
 
 
 # 6. FDE Parameters. 
-num_modes = 6
+num_modes = 2
 wavelength = 1.55e-6
 fde_mesh_cell_x = 300
 fde_mesh_cell_y = 300
