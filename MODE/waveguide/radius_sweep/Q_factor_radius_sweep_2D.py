@@ -47,15 +47,14 @@ if(__name__=="__main__"):
         
 
         # Propagation loss
-        PropagationLoss=PropagationLoss*100     # dB/cm *100 --- dB/m
-        PropagationLoss_dB=PropagationLoss*2*np.pi*R/4       # quarter turn
+        PropagationLoss_dB_m=PropagationLoss_dB_cm*100     # dB/cm *100 --- dB/m
+        PropagationLoss_dB=PropagationLoss_dB_m*2*np.pi*R/4       # quarter turn
         
         
         # Plots the loss as a function of the bend radius
         fig, ax1 = plt.subplots(figsize=(512/my_dpi, 256/my_dpi), dpi=my_dpi)
         ax1.grid()
         ax2 = ax1.twinx()
-        
         ax1.set_xlabel('bend radius (um)')
         ax1.set_ylabel('intrinsic Q-factor')
         ax2.set_ylabel('FSR (THz)')
@@ -85,7 +84,8 @@ if(__name__=="__main__"):
            
             ax1.semilogy(R[1:N]*1e6,Qi)
             ax2.semilogy(R[1:N]*1e6,fsr_TE[1:N]*1e-12,'r')
-            
+
+
         else:
             
             # Radiation Loss [dB] per quarter
