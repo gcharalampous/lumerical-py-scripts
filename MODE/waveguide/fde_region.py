@@ -66,7 +66,7 @@ def add_fde_region(mode):
               ("x", 0.),
               ("y min", 0.),
               ("x span", wg_width),
-              ("y max", wg_thickness+slab_thickness))),    
+              ("y max", wg_thickness))),    
     
     ("FDE", (("x", 0.),
              ("y", 0.),
