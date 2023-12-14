@@ -72,7 +72,7 @@ def waveguide_draw(mode):
                    ("y min", slab_thickness),
                    ("z", 0.),
                    ("x span", wg_width),
-                   ("y max", slab_thickness + wg_thickness),
+                   ("y max", wg_thickness),
                    ("z span", 5e-6),
                    ("index",wg_index),
                    ("material",wg_material),

@@ -37,33 +37,34 @@ database.
 """
 
 # Cladding
-is_clad_index = False                            # If true ignore clad_material
+is_clad_index = True                            # If true ignore clad_material
 clad_material = "SiO2 (Glass) - Palik"
-clad_index = 1.4440
+clad_index = 1.5362
 
 
 # Waveguide Core
-is_wg_index = False                              # If true ignore wg_material
-wg_material = "Si3N4 (Silicon Nitride) - Luke"
-wg_index = 1.9963
+is_wg_index = True
+wg_material = "Si (Silicon) - Palik"
+wg_index = 3.4777
 
 
 # Waveguide Slab
-is_slab_index = False                              # If true ignore wg_material
-slab_material = "Si3N4 (Silicon Nitride) - Luke"
-slab_index = 1.9963
+is_slab_index = True                              # If true ignore wg_material
+slab_material = "Si (Silicon) - Palik"
+slab_index = 3.4777
 
 
 # Box
-is_box_index = False                             # If true ignore box_material
+is_box_index = True
 box_material = "SiO2 (Glass) - Palik"
-box_index = 1.4440
+box_index = 1.5362
 
 
 # Substrate
 is_sub_index = False                            # If true ignore sub_material
 sub_material = "Si (Silicon) - Palik"
 sub_index = 3.4777
+
 
 
 # -------------------------- End of Input Section -----------------------------
