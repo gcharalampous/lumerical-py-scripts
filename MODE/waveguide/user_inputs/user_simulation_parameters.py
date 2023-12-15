@@ -97,7 +97,7 @@ slab_thickness = 0.11e-6
 
 
 # 3.2 Bend Waveguide at the center of the simualation ?
-bend_waveguide = True
+bend_waveguide = False
 bend_radius = 3e-6
 bend_orientation = 0
 

@@ -69,7 +69,7 @@ def waveguide_draw(mode):
 
     configuration = (
     ("waveguide", (("x", 0.),
-                   ("y min", slab_thickness),
+                   ("y min", 0),
                    ("z", 0.),
                    ("x span", wg_width),
                    ("y max", wg_thickness),
