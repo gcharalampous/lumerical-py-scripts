@@ -53,7 +53,7 @@ if(__name__=="__main__"):
         
         # Plots the loss as a function of the bend radius
         fig, ax1 = plt.subplots(figsize=(512/my_dpi, 256/my_dpi), dpi=my_dpi)
-        ax1.grid()
+        ax1.grid(which='both')
         ax2 = ax1.twinx()
         ax1.set_xlabel('bend radius (um)')
         ax1.set_ylabel('intrinsic Q-factor')
