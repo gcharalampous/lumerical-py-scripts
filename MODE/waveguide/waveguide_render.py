@@ -50,6 +50,21 @@ from MODE.waveguide.user_inputs.user_materials import *
 
 def waveguide_draw(mode):
     
+
+
+    # Adds the material for the Doping Section
+    p_material = "P++"
+    temp = mode.addmaterial("(n,k) Material")
+    mode.setmaterial(temp, "name",p_material)
+    mode.setmaterial(p_material,{"Refractive Index": slab_index, "Imaginary Refractive Index": k_P})
+
+
+    n_material = "N++"
+    temp = mode.addmaterial("(n,k) Material")
+    mode.setmaterial(temp, "name",n_material)
+    mode.setmaterial(n_material,{"Refractive Index": slab_index, "Imaginary Refractive Index": k_N})
+    
+
     # Adds the four rectangulars shown above
 
     mode.addrect(name = "waveguide")
@@ -57,7 +72,10 @@ def waveguide_draw(mode):
     mode.addrect(name = "box")
     mode.addrect(name = "substrate")
     mode.addrect(name = "slab")
-    
+    mode.addrect(name = "slab_P++")
+    mode.addrect(name = "slab_N++")
+
+
     if(slab_thickness>0):
       slab_enable  = 1
     else:
@@ -82,14 +100,37 @@ def waveguide_draw(mode):
     ("slab",       (("x", 0.),
                    ("y min", 0.),
                    ("z", 0.),
-                   ("x span", simulation_span_x + 1e-6),
+                   ("x span", simulation_span_x),
                    ("y max", slab_thickness),
                    ("z span", 5e-6),
                    ("index",slab_index),
                    ("material",slab_material),
                    ("enabled", slab_enable),
                    ("override mesh order from material database",1))),
+
+    ("slab_P++",  (("x min", -simulation_span_x/2),
+                   ("x max", -offset_P),
+                   ("y min", 0.),
+                   ("z", 0.),
+                   ("y max", slab_thickness),
+                   ("z span", 5e-6),
+                   ("index",slab_index),
+                   ("material",p_material),
+                   ("enabled", doping_enable),
+                   ("override mesh order from material database",1))),
     
+    ("slab_N++",  (("x min", offset_N),
+                   ("x max", simulation_span_x/2),
+                   ("y min", 0.),
+                   ("z", 0.),
+                   ("y max", slab_thickness),
+                   ("z span", 5e-6),
+                   ("index",slab_index),
+                   ("material",n_material),
+                   ("enabled", doping_enable),
+                   ("override mesh order from material database",1))),
+
+
     ("cladding",  (("x", 0.),
                    ("y", 0.),
                    ("x span", simulation_span_x + 1e-6),

@@ -93,14 +93,18 @@ wg_thickness = 0.22e-6
 
 
 # 3.1 Set slab thickness > 0 to enable a slab waveguide
-slab_thickness = 0.11e-6
+slab_thickness = 0.05e-6
 
 
 # 3.2 Bend Waveguide at the center of the simualation ?
 bend_waveguide = False
-bend_radius = 3e-6
+bend_radius = 4e-6
 bend_orientation = 0
 
+# 3.3 Distance of the p++ boundary to the pn junction centre
+doping_enable = False     # Set True to Enable doping profiles
+offset_P = 1e-6
+offset_N = 1e-6
 
 # 4. Box Layer Thickness
 box_thickness = 6.0e-6

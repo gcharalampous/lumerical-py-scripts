@@ -21,6 +21,8 @@ it also quantifies if the mode is TE or TM based on the polarization fraction.
 
 import numpy as np
 import lumapi, os
+import shapely.geometry as sg
+import shapely.ops as so
 import matplotlib.pyplot as plt
 from matplotlib.patches import Rectangle
 from config import *
@@ -68,20 +70,34 @@ def modeProfiles():
         plt.ylabel("y (\u00B5m)")
         plt.title("Mode-"+str(m) + "(E-field): " + polariz_mode[m-1] + ", neff=" + str(np.round(neff[m-1],4)))
 
-        #add the waveguide
-        plt.gca().add_patch(Rectangle((-0.5*wg_width*1e6, 0*1e6),
-                            wg_width*1e6,(wg_thickness)*1e6,
-                            ec='white',
-                            fc='none',
-                            lw=0.5))
+
+        # Add the waveguide
+        wg_xmin = mode.getnamed("waveguide","x min")
+        wg_xmax = mode.getnamed("waveguide","x max")
+
+        r1 = sg.box(wg_xmin*1e6,0,wg_xmax*1e6,wg_thickness*1e6)
+
+    
         
         if(slab_thickness > 0):
-            #add the slab
-            plt.gca().add_patch(Rectangle((-0.5*simulation_span_x*1e6, 0),
-                                simulation_span_x*1e6,slab_thickness*1e6,
-                                ec='white',
-                                fc='none',
-                                lw=0.5))
+        
+            #Add the slab
+            slab_xmin = mode.getnamed("slab","x min")
+            slab_xmax = mode.getnamed("slab","x max")
+            r2 = sg.box(slab_xmin*1e6,0,slab_xmax*1e6,slab_thickness*1e6)
+
+            # Cascaded union can work on a list of shapes
+            merged_shape = so.unary_union([r1,r2])
+
+            #exterior coordinates split into two arrays, xs and ys
+            # which is how matplotlib will need for plotting
+            xs, ys = merged_shape.exterior.xy
+            plt.fill(xs, ys, alpha=0.5, fc='none', ec='w')
+        else:
+            xs, ys = r1.exterior.xy
+            plt.fill(xs, ys, alpha=0.5, fc='none', ec='w')
+
+
 
         # Save the figure files as .png
         plt.tight_layout()

@@ -4,6 +4,10 @@
 # @author: Georgios Gcharalampous (gcharalampous)
 # version ='1.0'
 # ---------------------------------------------------------------------------
+
+import numpy as np
+from MODE.waveguide.user_inputs.user_simulation_parameters import wavelength
+
 """
 User-inputs are required.
 
@@ -67,6 +71,10 @@ sub_index = 3.4777
 
 
 
+## ------ Doping
+N=5e17                                          # N++ 
+P=7e17                                          # P++
+
 # -------------------------- End of Input Section -----------------------------
 
 
@@ -94,3 +102,10 @@ if(is_sub_index):
     sub_material = "<Object defined dielectric>"
 else:
     sub_material = sub_material
+
+# Calculates the attenulation coefficients
+alphaN_m = 3.52e-6*wavelength**2*N*100
+alphaP_m = 2.4e-6*wavelength**2*P*100
+# Calculates the extnction coefficients
+k_P = wavelength * alphaP_m /4/np.pi;
+k_N = wavelength * alphaN_m /4/np.pi;

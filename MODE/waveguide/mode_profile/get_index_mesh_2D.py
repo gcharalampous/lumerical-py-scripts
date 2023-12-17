@@ -67,7 +67,7 @@ if(__name__=="__main__"):
 
 
 
-        # Extract electric and magnetic fields and plot the electric field
+        # Real Index Mesh
         plt.figure(1, figsize=(512/my_dpi, 256/my_dpi), dpi=my_dpi)
 
 
@@ -76,13 +76,38 @@ if(__name__=="__main__"):
 
         plt.xlabel("x (\u00B5m)")
         plt.ylabel("y (\u00B5m)")
-        plt.title("Waveguide Index Mesh")
+        plt.title("Waveguide Real Index Mesh")
         plt.tight_layout()
 
 
         # Save the file
-        file_name_plot = os.path.join(MODE_WAVEGUIDE_DIRECTORY_WRITE[0], "index_profile_2D.png")
+        file_name_plot = os.path.join(MODE_WAVEGUIDE_DIRECTORY_WRITE[0], "index_real_profile_2D.png")
         plt.savefig(file_name_plot)
+
+
+
+        # Imaginary Index Mesh
+        plt.figure(2, figsize=(512/my_dpi, 256/my_dpi), dpi=my_dpi)
+
+
+        plt.pcolormesh(x*1e6,y*1e6,np.imag(np.transpose(index_x)),shading = 'gouraud',cmap = 'jet')
+        plt.colorbar()
+
+        plt.xlabel("x (\u00B5m)")
+        plt.ylabel("y (\u00B5m)")
+        plt.title("Waveguide Imag Index Mesh")
+        plt.tight_layout()
+
+
+        # Save the file
+        file_name_plot = os.path.join(MODE_WAVEGUIDE_DIRECTORY_WRITE[0], "index_imag_profile_2D.png")
+        plt.savefig(file_name_plot)
+
+
+
+
+
+
 
 
 
