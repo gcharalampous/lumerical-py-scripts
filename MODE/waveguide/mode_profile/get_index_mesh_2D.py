@@ -21,7 +21,8 @@ import numpy as np
 import lumapi, os
 import matplotlib.pyplot as plt
 from config import *
-
+import shapely.geometry as sg
+import shapely.ops as so
 
 from MODE.waveguide.waveguide_render import *
 from MODE.waveguide.fde_region import add_fde_region  
@@ -88,8 +89,6 @@ if(__name__=="__main__"):
 
         # Imaginary Index Mesh
         plt.figure(2, figsize=(512/my_dpi, 256/my_dpi), dpi=my_dpi)
-
-
         plt.pcolormesh(x*1e6,y*1e6,np.imag(np.transpose(index_x)),shading = 'gouraud',cmap = 'jet')
         plt.colorbar()
 
@@ -107,8 +106,34 @@ if(__name__=="__main__"):
 
 
 
+        for i in range(1,3):
+            # Add the waveguide
+            wg_xmin = mode.getnamed("waveguide","x min")
+            wg_xmax = mode.getnamed("waveguide","x max")
 
+            r1 = sg.box(wg_xmin*1e6,0,wg_xmax*1e6,wg_thickness*1e6)
 
+        
+            
+            if(slab_thickness > 0):
+            
+                #Add the slab
+                slab_xmin = mode.getnamed("slab","x min")
+                slab_xmax = mode.getnamed("slab","x max")
+                r2 = sg.box(slab_xmin*1e6,0,slab_xmax*1e6,slab_thickness*1e6)
+
+                # Cascaded union can work on a list of shapes
+                merged_shape = so.unary_union([r1,r2])
+
+                #exterior coordinates split into two arrays, xs and ys
+                # which is how matplotlib will need for plotting
+                xs, ys = merged_shape.exterior.xy
+                plt.figure(i)
+                plt.fill(xs, ys, alpha=0.5, fc='none', ec='w')
+            else:
+                xs, ys = r1.exterior.xy
+                plt.figure(i)
+                plt.fill(xs, ys, alpha=0.5, fc='none', ec='w')
 
 
 
