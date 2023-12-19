@@ -120,6 +120,10 @@ wavelength = 1.55e-6
 fde_mesh_cell_x = 300
 fde_mesh_cell_y = 300
 
+# 6.1 FDE Boundaries
+fde_xmax_boundary = 'Metal'
+fde_ymax_boundary = 'Metal'
+fde_ymin_boundary = 'Metal'
 
 # 7. Mesh (waveguide)
 mesh_enable = True

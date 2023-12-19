@@ -72,8 +72,8 @@ sub_index = 3.4777
 
 
 ## ------ Doping
-N=5e17                                          # N++ 
-P=7e17                                          # P++
+N=5e19                                          # N++ 
+P=1e20                                          # P++
 
 # -------------------------- End of Input Section -----------------------------
 
@@ -103,7 +103,7 @@ if(is_sub_index):
 else:
     sub_material = sub_material
 
-# Calculates the attenulation coefficients
+# Calculates the attenulation coefficients [Silicon only]
 alphaN_m = 3.52e-6*wavelength**2*N*100
 alphaP_m = 2.4e-6*wavelength**2*P*100
 # Calculates the extnction coefficients
