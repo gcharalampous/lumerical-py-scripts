@@ -41,6 +41,11 @@ remains the propagation. The z-axis is not used during mode simulations.
 
 
 """
+
+import lumapi
+from config import *
+
+
 #----------------------------------------------------------------------------
 # Imports from user files
 # ---------------------------------------------------------------------------
@@ -64,7 +69,12 @@ def waveguide_draw(mode):
     mode.setmaterial(temp, "name",n_material)
     mode.setmaterial(n_material,{"Refractive Index": slab_index, "Imaginary Refractive Index": k_N})
     
-
+    silicon_np = "silicon_np"
+    temp = mode.addmaterial("Index perturbation")
+    mode.setmaterial(temp, "name",silicon_np)
+    mode.setmaterial(silicon_np, "np density model", "Soref and Bennett"); # use "Soref" model type
+    mode.setmaterial(silicon_np, "Base Material", "Si (Silicon) - Palik"); # use "Silicon" model type
+    
     # Adds the four rectangulars shown above
 
     mode.addrect(name = "waveguide")
@@ -74,7 +84,7 @@ def waveguide_draw(mode):
     mode.addrect(name = "slab")
     mode.addrect(name = "slab_P++")
     mode.addrect(name = "slab_N++")
-
+    mode.addgridattribute("np density");
 
     if(slab_thickness>0):
       slab_enable  = 1
@@ -167,6 +177,11 @@ def waveguide_draw(mode):
                    ("override mesh order from material database",1),
                    ("mesh order",3),
                    ("render type","wireframe"))),   
+     
+     
+     ("np density",(("enabled", False),
+                   ("x",0))),   
+     
         
     )
 
@@ -180,3 +195,17 @@ def waveguide_draw(mode):
 
 
 
+if(__name__=="__main__"):
+    with lumapi.MODE(hide=True) as mode:
+    
+      # Disable Rendering
+      mode.redrawoff()
+
+      # Draw the waveguide structure using a custom function
+      waveguide_draw(mode)
+
+      # Turn redraw back on and close LumAPI connection
+      mode.redrawon()        
+
+      mode.save(MODE_WAVEGUIDE_DIRECTORY_WRITE_FILE + "\\waveguide_modes.lms")
+      
