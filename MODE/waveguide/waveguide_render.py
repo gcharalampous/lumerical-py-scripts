@@ -84,7 +84,6 @@ def waveguide_draw(mode):
     mode.addrect(name = "slab")
     mode.addrect(name = "slab_P++")
     mode.addrect(name = "slab_N++")
-    mode.addgridattribute("np density");
 
     if(slab_thickness>0):
       slab_enable  = 1
@@ -179,8 +178,7 @@ def waveguide_draw(mode):
                    ("render type","wireframe"))),   
      
      
-     ("np density",(("enabled", False),
-                   ("x",0))),   
+
      
         
     )
