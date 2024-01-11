@@ -9,6 +9,19 @@ No user-inputs are required.
 
 The scripts sweeps the P-I-N clear width of the waveguide, and calculates
 the propagation loss due to dopants
+
+    ______________________________________      
+   |              _______                |
+   |             |       |               |
+   |             |  Rib  |               |
+   |_____________|_______|_______________|
+   |_P++_|_________slab_____________|N++_|
+
+         < ------------------------->
+                clear Width
+
+    
+
 """
 
 #----------------------------------------------------------------------------
@@ -26,8 +39,6 @@ from MODE.waveguide.waveguide_render import *
 from MODE.waveguide.fde_region import add_fde_region  
 
 
-
-# ------------------------- You may change the FDE Boundaries below ---------------------------
 
 wg_offset_N_array = np.arange(offset_P_start, offset_P_stop, offset_P_step) 
 wg_offset_P_array = np.arange(offset_N_start, offset_N_stop, offset_N_step) 
@@ -55,7 +66,10 @@ def dopingSweep(mode):
         print('clear width: ',clear_width[r])
 
 
-        mode.switchtolayout()  
+        mode.switchtolayout()
+        mode.setnamed("slab_N++", "enabled", True)   
+        mode.setnamed("slab_N++", "enabled", True)   
+          
         mode.setnamed("slab_N++", "x min", wg_offset_N_array[r])   
         mode.setnamed("slab_P++", "x max", -wg_offset_P_array[r])   
 
@@ -86,8 +100,6 @@ def dopingSweep(mode):
                     break
     
 
-    neff_array = np.squeeze(neff)
-    polariz_frac_array = np.squeeze(polariz_frac)
 
     return loss_TE, loss_TM, ng_TE, ng_TM
 
