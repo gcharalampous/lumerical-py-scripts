@@ -9,6 +9,9 @@ No user-inputs are required.
 
 The scripts sweeps the radius of the waveguide, tracks the TE or TM fundamental
 modes and calculates the radiation loss, and mode missmatch
+
+
+!! You may change the FDE Boundaries, for tight radius set at least xmax to PML
 """
 
 #----------------------------------------------------------------------------
@@ -28,7 +31,7 @@ from MODE.waveguide.fde_region import add_fde_region
 
 
 
-# ------------------------- You may change the FDE Boundaries below ---------------------------
+# ------------------------- You may change the FDE Boundaries ---------------------------
 
 wg_radius_array = np.arange(wg_radius_start, wg_radius_stop, wg_radius_step) 
 # Append 0 radius at the beginning of the list
@@ -100,9 +103,6 @@ def radiusSweep(mode):
                     print(overlap_TM)
                     break
     
-
-    neff_array = np.squeeze(neff)
-    polariz_frac_array = np.squeeze(polariz_frac)
 
     return loss_TE, loss_TM, overlap_TE, overlap_TM, ng_TE, ng_TM
 
