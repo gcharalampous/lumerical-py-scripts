@@ -136,8 +136,12 @@ if(__name__=="__main__"):
 
             propagation_loss_TE_dB = np.squeeze(np.abs(loss_TE))          
             plt.semilogy(clear_width*1e6,propagation_loss_TE_dB*1e-2,'o-')
-
+            plt.tight_layout()
+            file_name_plot = os.path.join(MODE_WAVEGUIDE_DIRECTORY_WRITE[3], "pin_doping_offset.png")
+            plt.savefig(file_name_plot)
         else:
             propagation_loss_TM_dB = np.squeeze(np.abs(loss_TM))          
             plt.semilogy(clear_width*1e6,propagation_loss_TM_dB*1e-2,'o-')
- 
+            plt.tight_layout()
+            file_name_plot = os.path.join(MODE_WAVEGUIDE_DIRECTORY_WRITE[3], "pin_doping_offset.png")
+            plt.savefig(file_name_plot)

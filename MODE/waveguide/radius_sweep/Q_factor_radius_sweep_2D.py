@@ -112,3 +112,5 @@ if(__name__=="__main__"):
             
             
         plt.tight_layout()
+        file_name_plot = os.path.join(MODE_WAVEGUIDE_DIRECTORY_WRITE[4], "Qfactor_radius.pdf")
+        plt.savefig(file_name_plot)

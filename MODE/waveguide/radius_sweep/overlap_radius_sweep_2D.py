@@ -184,3 +184,5 @@ if(__name__=="__main__"):
             plt.semilogy(wg_radius_array[1:N]*1e6,total_loss_TM_dB[1:N],'--', label = 'Total Loss')
             plt.legend()
         plt.tight_layout()
+        file_name_plot = os.path.join(MODE_WAVEGUIDE_DIRECTORY_WRITE[4], "overlap_radius.pdf")
+        plt.savefig(file_name_plot)

@@ -106,10 +106,10 @@ def waveguide_draw(mode):
                    ("override mesh order from material database",1),
                    ("mesh order",2))),
     
-    ("slab",       (("x", 0.),
+    ("slab",       (("x", 0),
                    ("y min", 0.),
                    ("z", 0.),
-                   ("x span", simulation_span_x),
+                   ("x span", simulation_span_x + 1e-6),
                    ("y max", slab_thickness),
                    ("z span", 5e-6),
                    ("index",slab_index),
@@ -117,7 +117,7 @@ def waveguide_draw(mode):
                    ("enabled", slab_enable),
                    ("override mesh order from material database",1))),
 
-    ("slab_P++",  (("x min", -simulation_span_x/2),
+    ("slab_P++",  (("x min", -simulation_span_x/2 - 0.5e-6),
                    ("x max", -offset_P),
                    ("y min", 0.),
                    ("z", 0.),
@@ -129,7 +129,7 @@ def waveguide_draw(mode):
                    ("override mesh order from material database",1))),
     
     ("slab_N++",  (("x min", offset_N),
-                   ("x max", simulation_span_x/2),
+                   ("x max", simulation_span_x/2 + 0.5e-6),
                    ("y min", 0.),
                    ("z", 0.),
                    ("y max", slab_thickness),
