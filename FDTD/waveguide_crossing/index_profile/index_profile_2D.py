@@ -53,12 +53,13 @@ if(__name__=="__main__"):
 
         px = 1/plt.rcParams['figure.dpi']  # pixel in inches
         fig, ax = plt.subplots(figsize=(512*px, 256*px))
+        ax.axis('equal')
         cmap = ax.pcolormesh(x*1e6, y*1e6,np.transpose(index_x))
         fig.colorbar(cmap)
-        plt.xlabel("x (um)")
-        plt.ylabel("y (um)")
-        plt.title('Top-view(xy)')
-        plt.tight_layout()
+        ax.set_xlabel("x (um)")
+        ax.set_ylabel("y (um)")
+        ax.set_title('Top-view(xy)')
+        fig.tight_layout()
         file_name_plot = os.path.join(FDTD_CROSS_DIRECTORY_WRITE[0], "index_profile_xy.png")
         plt.savefig(file_name_plot)
         plt.show()
