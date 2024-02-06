@@ -11,6 +11,27 @@ PACKAGE_DIR = os.path.dirname(os.path.realpath(__file__))
 #PACKAGE DIRECTORIES
 
 
+# WAVEGUIDE CROSSING FDTD
+FDTD_CROSS_FILENAME = ["waveguide_crossing_multi_wg_taper.fsp"]
+FDTD_CROSS_PATH_READ = "FDTD\\waveguide_crossing\\user_inputs\\lumerical_files"
+FDTD_CROSS_PATH_WRITE_FIGURES = "FDTD\\Results\\waveguide_crossing\\Figures"
+FDTD_CROSS_PATH_WRITE_DATA = ["Index Profile", "Frequency Response","E-fields"]
+FDTD_CROSS_DIRECTORY_READ = os.path.join(PACKAGE_DIR,FDTD_CROSS_PATH_READ,FDTD_CROSS_FILENAME[0])
+FDTD_CROSS_DIRECTORY_WRITE = [str]*len(FDTD_CROSS_PATH_WRITE_DATA)
+for i,data in enumerate(FDTD_CROSS_PATH_WRITE_DATA):
+    FDTD_CROSS_DIRECTORY_WRITE[i] = os.path.join(PACKAGE_DIR,FDTD_CROSS_PATH_WRITE_FIGURES,FDTD_CROSS_PATH_WRITE_DATA[i])
+for i in range(0,len(FDTD_CROSS_DIRECTORY_WRITE)):
+    # create the directory if it doesn't exist already
+    if not os.path.exists(FDTD_CROSS_DIRECTORY_WRITE[i]):
+        os.makedirs(FDTD_CROSS_DIRECTORY_WRITE[i])
+        #print("Directory:" + FDTD_SWG_DIRECTORY_WRITE[i] + "\n created successfully!")
+    else:
+        #print("Directory:" + FDTD_SWG_DIRECTORY_WRITE[i] + "\n already exists!")
+        break
+
+
+
+
 
 # EDGE COUPLER FDTD
 FDTD_EDGE_FILENAME = ["edge_taper.fsp"]
