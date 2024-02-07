@@ -2,6 +2,9 @@
 
 ```
 lumerical-py-scripts/
+.
+├── DEVICE
+│   └── pin_modulator
 ├── FDTD
 │   ├── directional-coupler
 │   ├── disk-resonator-coupling
@@ -11,16 +14,16 @@ lumerical-py-scripts/
 │   ├── swg_grating
 │   ├── vertical_taper
 │   ├── waveguide-bend
-│   ├── waveguide-crossing
-│   ├── waveguide-mode-taper
+│   ├── waveguide_crossing
+│   ├── waveguide_mode_taper
 │   └── waveguide-straight
 └── MODE
+    ├── awg_star_coupler
     ├── butt_coupling
     ├── directional_coupler
     ├── disk_waveguide
     ├── edge_coupler
     ├── swg_grating
-    ├── vertical-taper
     ├── vertical_taper
     ├── waveguide
     └── waveguide_heater
@@ -28,7 +31,7 @@ lumerical-py-scripts/
 
 ## Why this Repository?
 
-In this repositoty you will find useful scripts to optimize your workflow and automate your daily design tasks. All you need to do is to modify the files under `user_inputs` in each subdirectory and run the scripts. The repo is splitted into two main simulation branches with multiple subcategories each:
+In this repositoty you will find useful scripts to optimize your workflow and automate your daily design tasks. All you need to do is to modify the files under `user_inputs` in each subdirectory and run the scripts. The repo is splitted into three main simulation branches with multiple subcategories each:
 
 ### 1. [3D FDTD](/FDTD)
 
@@ -46,7 +49,7 @@ In this repositoty you will find useful scripts to optimize your workflow and au
 
 - [x] [waveguide-bend](FDTD/waveguide-bend): Calculates the bending loss and mode profile. 
 
-- [ ] [waveguide-crossing](FDTD/waveguide-crossing): Calculations the transmission and crosstalk of a linear taper waveguide-crossing.
+- [x] [waveguide-crossing](FDTD/waveguide-crossing): Calculations the transmission and crosstalk of a linear taper waveguide-crossing.
 
 - [x] [waveguide-mode-taper](FDTD/waveguide-mode-taper): Calculates the adiabatic length of the tapered waveguide.
 
@@ -72,32 +75,29 @@ In this repositoty you will find useful scripts to optimize your workflow and au
 
 - [x] [waveguide-heater](MODE/waveguide_heater): Calculate the propagation loss as a function of the metal heater gap.
 
+### 3. [DEVICE](/DEVICE)
+
+- [x] [pin-modulator](DEVICE/pin_modulator): Calculates the electrical parameters for the pin junction and extracts data for waveguide mode simulations.
+
 ## Requirements
 
 You need installed on your operating system the following software
 
 - Lumerical Software
 
-- Python3 (Numpy, Matplotlib)
+- Python3
+
+- Python Packages in [requirements.txt](requirements.txt) (Numpy, Matplotlib, Shapely, etc)
 
 - Python IDE Software (i.e. Spyder)
 
 ## Installation
 
-Make sure you have Python 3 and the latest version of Lumerical Design Suite installed. In this repository, the *lumapi* is assumed integrated into the Python environment. Here you can find all information how to integrate Lumerical Python API with your system. 
+Make sure you have Python 3 and the latest version of Lumerical Design Suite installed. In this repository, the *lumapi* is assumed integrated into the Python environment. Here you can find all information how to integrate Lumerical Python API with your system.
 
 [Session management - Python API &ndash; Ansys Optics](https://optics.ansys.com/hc/en-us/articles/360041873053) 
 
-Alternative you can temporary add the lumapi enviroment like,
-
-```
-import sys, os
-sys.path.append("C:\\Program Files\\Lumerical\\v231\\api\\python\\") #Default windows lumapi path
-
-import lumapi
-```
-
-but you will have to modify all python scripts importing the lumapi enviroment. If Lumerical is installed to a Linux machine remember to change the path `\\` to `/`.
+If Lumerical is installed to a Linux machine remember to change the path `\\` to `/` in [config.py](config.py)
 
 ### Spyder (Recommended)
 
