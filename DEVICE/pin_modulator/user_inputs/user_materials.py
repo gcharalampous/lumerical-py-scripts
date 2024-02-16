@@ -44,7 +44,7 @@ oxide_material = "SiO2 (Glass) - Sze"
 
 
 # Waveguide Core
-wg_material = "Si (Silicon)"
+wg_material = "AlGaAs (Aluminium Gallium Arsenide)"
 
 
 # Contacts
