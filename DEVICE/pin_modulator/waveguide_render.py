@@ -114,7 +114,8 @@ def waveguide_draw(device):
                     ("x span", wg_width),
                     ("y max", wg_thickness),
                     ("z span", 5e-6),
-                    ("material", wg_material))),
+                    ("material", wg_material),
+                    ("mole frac constant", wg_mole_fract))),
     
     ("slab",       (("x min", -simulation_span_x/2 + plateau_width),
                     ("y min", 0.),
