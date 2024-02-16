@@ -91,13 +91,16 @@ You need installed on your operating system the following software
 
 - Python IDE Software (i.e. Spyder)
 
+
 ## Installation
 
 Make sure you have Python 3 and the latest version of Lumerical Design Suite installed. In this repository, the *lumapi* is assumed integrated into the Python environment. Here you can find all information how to integrate Lumerical Python API with your system.
 
 [Session management - Python API &ndash; Ansys Optics](https://optics.ansys.com/hc/en-us/articles/360041873053) 
 
-If Lumerical is installed to a Linux machine remember to change the path `\\` to `/` in [config.py](config.py)
+Clone the repository and run the scripts under the project folder. The code will create a Results folder and you can check the saved data there. If Lumerical is installed to a Linux machine remember to change the path `\\` to `/` in [config.py](config.py)
+
+
 
 ### Spyder (Recommended)
 
