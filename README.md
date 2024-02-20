@@ -123,7 +123,7 @@ The separator for Window's path is `;` while for Linux path is `:`. The Pythonpa
 In addition, you need to create under the root project directory a file called `.env` to add your lumapi path and the directory of the root project. Like,
 
 ```
-PYTHONPATH=C:\\Program Files\\Lumerical\\v222\\api\\python
+PYTHONPATH=C:\\Program Files\\Lumerical\\v222\\api\\python;D:\\Georgios\\Python-Scripts\\lumerical-py-scripts\\
 ```
 
 I reccomend running the code with the Jupyter Interactive Python kernel.
