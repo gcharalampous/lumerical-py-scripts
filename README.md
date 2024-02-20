@@ -30,7 +30,7 @@ lumerical-py-scripts/
 
 ## Why this Repository?
 
-In this repositoty you will find useful scripts to optimize your workflow and automate your daily design tasks. All you need to do is to modify the files under `user_inputs` in each subdirectory and run the scripts. The repo is splitted into three main simulation branches with multiple subcategories each:
+In this repository, you will find useful scripts to optimize your workflow and automate your daily design tasks. All you need to do is modify the .py files under `user_inputs` in each subdirectory and run the scripts. The results will be shown on the interactive terminal and stored under a `Result` directory that will be created after you run the scripts. The repository is divided into three main simulation branches with multiple subcategories each:
 
 ### 1. [3D FDTD](/FDTD)
 
@@ -66,7 +66,7 @@ In this repositoty you will find useful scripts to optimize your workflow and au
 
 - [x] [edge-coupler](MODE/edge_coupler): Calculates the overlap integral between a fiber mode (Gaussian) and a waveguide.
 
-- [x] [swg_grating](MODE/swg_grating): Calculates the frequency response (T/R) of a sub-waveelength grating (2.5D var FDTD).
+- [x] [swg_grating](MODE/swg_grating): Calculates the frequency response (T/R) of a sub-waveelength grating (2.5D varFDTD).
 
 - [x] [vertical-taper](MODE/vertical_taper): Calculates the effective index of vertical tapers over the propagation distance.
 
@@ -91,42 +91,41 @@ You need installed on your operating system the following software
 
 ## Installation
 
-Make sure you have Python 3 and the latest version of Lumerical Design Suite installed. In this repository, the *lumapi* is assumed integrated into the Python environment. Here you can find all information how to integrate Lumerical Python API with your system.
+Make sure you have Python 3 and the latest version of Lumerical Design Suite installed. In this repository, it is assumed that *lumapi* is integrated into the Python environment. Check the instructions below for Spyder and VSC.
 
-[Session management - Python API &ndash; Ansys Optics](https://optics.ansys.com/hc/en-us/articles/360041873053) 
-
-Clone the repository and run the scripts under the project folder. The code will create a Results folder and you can check the saved data there. If Lumerical is installed to a Linux machine remember to change the path `\\` to `/` in [config.py](config.py)
+Clone the repository and run the scripts under the root project folder. The code will create a Results folder, and you can check the saved data there. If Lumerical is installed on a Linux machine, remember to change the path `\\` to `/` in [config.py](config.py).
 
 
 
 ### Spyder (Recommended)
 
-Click on `Tools` -> `PYTHONPATH manager` and then `Add Path`. Add the path to the lumapi like; `C:\\Program Files\\Lumerical\\v222\\api\\python`.
+1. Click on `Tools` -> `PYTHONPATH manager` and then `Add Path`.
+2. Add the path to the lumapi, for example: `C:\\Program Files\\Lumerical\\v222\\api\\python`.
 
-Your lumerical python api directory probably is different than mine.
+(Note: Your Lumerical Python API directory may differ from mine.)
 
-In addition you need to assign to your `PYTHONPATH manager` the root of the project directory because I am using absolute paths to load the modules. For example, `D:\Georgios\Python - Scripts\lumerical-py-scripts`
+3. Additionally, assign the root of the project directory to your `PYTHONPATH manager` since absolute paths are used to load the modules. For example: `D:\Georgios\Python - Scripts\lumerical-py-scripts`
 
 ### Visual Studio Code
 
-In VScode you can add the following lines in the .json settings if you are coding on a Windows machine.
+If you're coding on a Windows machine, add the following lines in the .json settings:
 
+```json
+"terminal.integrated.env.windows": {
+    "PYTHONPATH": "C:\\Program Files\\Lumerical\\v222\\api\\python;D:\\Georgios\\Python - Scripts\\lumerical-py-scripts"
+},
+"python.envFile": "${workspaceFolder}/.env"
 ```
-    "terminal.integrated.env.windows": {
-        "PYTHONPATH": "C:\\Program Files\\Lumerical\\v222\\api\\python;D:\\Georgios\\Python - Scripts\\lumerical-py-scripts"
-    },
-    "python.envFile": "${workspaceFolder}/.env"
-```
 
-The separator for Window's path is `;` while for Linux path is `:`. The Pythonpath here contains the path of the `lumapi` and the root path of the project.
+(Note: The separator for Windows path is `;` while for Linux path is `:`. The Pythonpath here contains the path of the `lumapi` and the root path of the project.)
 
-In addition, you need to create under the root project directory a file called `.env` to add your lumapi path and the directory of the root project. Like,
+Alternatively, you can create a file called `.env` under the root project directory to add your lumapi path and the directory of the root project. For example:
 
-```
+``` mathematica
 PYTHONPATH=C:\\Program Files\\Lumerical\\v222\\api\\python;D:\\Georgios\\Python-Scripts\\lumerical-py-scripts\\
 ```
 
-I reccomend running the code with the Jupyter Interactive Python kernel.
+Make sure to run the code with the Jupyter Interactive Python kernel to see the plots appear in the interactive terminal.
 
 ### 
 
