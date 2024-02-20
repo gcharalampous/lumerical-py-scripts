@@ -43,7 +43,7 @@ database.
 # Cladding
 is_clad_index = True                            # If true ignore clad_material
 clad_material = "SiO2 (Glass) - Palik"
-clad_index = 1.5362
+clad_index = 1.444
 
 
 # Waveguide Core
@@ -66,7 +66,7 @@ metal_index = [3.6845, 0.52406] # Not sure how imaginary numbers can be used as 
 # Box
 is_box_index = True
 box_material = "SiO2 (Glass) - Palik"
-box_index = 1.5362
+box_index = 1.444
 
 
 # Substrate
