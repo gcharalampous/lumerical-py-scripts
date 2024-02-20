@@ -125,6 +125,29 @@ if not os.path.exists(FDTD_WGTAPER_DIRECTORY_WRITE_FILE):
 
 
 # --------------------------------MODE SOLUTIONS---------------------------------
+    
+# AWG STAR COUPLER FIELD MODE
+MODE_AWG_FILENAME = ["awg_input_taper.lms"]
+MODE_AWG_PATH_READ = "MODE\\awg_star_coupler\\user_inputs\\lumerical_files"
+MODE_AWG_PATH_WRITE_FIGURES = "MODE\\Results\\awg_star_coupler\\Figures"
+MODE_AWG_PATH_WRITE_DATA = ["Index Profile", "Far Field"]
+MODE_AWG_DIRECTORY_READ = os.path.join(PACKAGE_DIR,MODE_AWG_PATH_READ,MODE_AWG_FILENAME[0])
+MODE_AWG_DIRECTORY_WRITE = [str]*len(MODE_AWG_PATH_WRITE_DATA)
+for i,data in enumerate(MODE_AWG_PATH_WRITE_DATA):
+    MODE_AWG_DIRECTORY_WRITE[i] = os.path.join(PACKAGE_DIR,MODE_AWG_PATH_WRITE_FIGURES,MODE_AWG_PATH_WRITE_DATA[i])
+for i in range(0,len(MODE_AWG_DIRECTORY_WRITE)):
+    # create the directory if it doesn't exist already
+    if not os.path.exists(MODE_AWG_DIRECTORY_WRITE[i]):
+        os.makedirs(MODE_AWG_DIRECTORY_WRITE[i])
+        #print("Directory:" + FDTD_SWG_DIRECTORY_WRITE[i] + "\n created successfully!")
+    else:
+        #print("Directory:" + FDTD_SWG_DIRECTORY_WRITE[i] + "\n already exists!")
+        break
+
+
+
+
+
 
 # WAVEGUIDE MODE
 MODE_WAVEGUIDE_PATH_WRITE_FIGURES = "MODE\\Results\\waveguide\\Figures"
