@@ -24,7 +24,7 @@ import lumapi, os
 import shapely.geometry as sg
 import shapely.ops as so
 import matplotlib.pyplot as plt
-from matplotlib.patches import Rectangle
+from matplotlib.colors import LogNorm, Normalize
 from config import *
 
 
@@ -43,14 +43,15 @@ def modeProfiles():
     ng = []             # group index
     polariz_frac = []   # polarization fraction
     polariz_mode = []   # polarization mode (TE or TM)
-
+    loss = []           # Waveguide Propagation Loss
     # Loop over each mode and extract its properties
     for m in range(1,num_modes+1):
         # Extract effective index and polarization fraction
         neff.append(mode.getdata("FDE::data::mode"+str(m),"neff"))
         ng.append(mode.getdata("FDE::data::mode"+str(m),"ng"))
         polariz_frac.append(mode.getdata("FDE::data::mode"+str(m),"TE polarization fraction"))
-        
+        loss.append((mode.getdata("FDE::data::mode"+str(m),"loss")))
+
         # Determine if mode is TE-like or TM-like based on polarization fraction
         if ( polariz_frac[m-1] > 0.5 ):
             polariz_mode.append("TE")
@@ -63,11 +64,18 @@ def modeProfiles():
         y= np.squeeze(mode.getdata("FDE::data::mode"+str(m),"y"));
         E1 = np.squeeze(mode.getelectric("FDE::data::mode"+str(m)))
         H1 = np.squeeze(mode.getmagnetic("FDE::data::mode"+str(m)))
-        plt.pcolormesh(x*1e6,y*1e6,np.transpose(E1),shading = 'gouraud',cmap = 'jet')
+        if colormesh_plot_log:
+            plt.pcolormesh(x*1e6,y*1e6,np.transpose(E1),shading = 'gouraud',cmap = 'jet', norm=LogNorm(vmin=1e-3, vmax=1))
+        else:
+            plt.pcolormesh(x*1e6,y*1e6,np.transpose(E1),shading = 'gouraud',cmap = 'jet', norm=Normalize(vmin=0, vmax=1))
+        # Add a colorbar to the plot
+        cbar = plt.colorbar()
+        cbar.set_label('Intensity')
 
 
         plt.xlabel("x (\u00B5m)")
         plt.ylabel("y (\u00B5m)")
+        plt.axis('scaled')
         plt.title("Mode-"+str(m) + "(E-field): " + polariz_mode[m-1] + ", neff=" + str(np.round(neff[m-1],4)))
 
 
@@ -96,6 +104,27 @@ def modeProfiles():
         else:
             xs, ys = r1.exterior.xy
             plt.fill(xs, ys, alpha=0.5, fc='none', ec='w')
+
+
+
+        if(metal_layer_enable):
+        
+            #Add the metal layer Stac
+            for i in range(0,len(metal_index)):
+                metal_xmin[i] = mode.getnamed("metal_"+str(i),"x min")
+                metal_xmax[i] = mode.getnamed("metal_"+str(i),"x max")
+
+                # slab_xmin = mode.getnamed("slab","x min")
+                # slab_xmax = mode.getnamed("slab","x max")
+                bmetal = sg.box(metal_xmin[i]*1e6,metal_min_y[i]*1e6,metal_xmax[i]*1e6,(metal_min_y[i]+metal_thickness[i])*1e6)
+
+
+                #exterior coordinates split into two arrays, xs and ys
+                # which is how matplotlib will need for plotting
+                xss, yss = bmetal.exterior.xy
+                plt.fill(xss, yss, alpha=0.5, fc='none', ec='w')
+            plt.title("Mode-"+str(m) + "(E-field): " + polariz_mode[m-1] + ", loss=" + str(np.round(loss[m-1],4))+" dB/cm")
+
 
 
 

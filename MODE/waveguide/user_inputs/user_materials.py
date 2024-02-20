@@ -58,6 +58,11 @@ slab_material = "Si (Silicon) - Palik"
 slab_index = 3.4777
 
 
+#  Metal Layers (You can use a metal stuck using arrays)
+is_metal_index = [False,False]                    # If true ignore metal_material
+metal_material = ["Ti (Titanium) - CRC","Au (Gold) - Johnson and Christy"]
+metal_index = [3.6845, 0.52406] # Not sure how imaginary numbers can be used as indices
+
 # Box
 is_box_index = True
 box_material = "SiO2 (Glass) - Palik"
@@ -102,6 +107,15 @@ if(is_sub_index):
     sub_material = "<Object defined dielectric>"
 else:
     sub_material = sub_material
+
+for i in range(0,len(metal_material)):
+    if(is_metal_index[i]):
+        metal_material[i] = "<Object defined dielectric>"
+    else:
+        metal_material[i] = metal_material[i]
+
+
+
 
 # Calculates the attenulation coefficients [Silicon only]
 alphaN_m = 3.52e-6*wavelength**2*N*100

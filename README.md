@@ -25,8 +25,7 @@ lumerical-py-scripts/
     ├── edge_coupler
     ├── swg_grating
     ├── vertical_taper
-    ├── waveguide
-    └── waveguide_heater
+    └── waveguide
 ```
 
 ## Why this Repository?
@@ -71,9 +70,7 @@ In this repositoty you will find useful scripts to optimize your workflow and au
 
 - [x] [vertical-taper](MODE/vertical_taper): Calculates the effective index of vertical tapers over the propagation distance.
 
-- [x] [waveguide](MODE/waveguide): Calculates the effective index and the mode profile of waveguide.
-
-- [x] [waveguide-heater](MODE/waveguide_heater): Calculate the propagation loss as a function of the metal heater gap.
+- [x] [waveguide](MODE/waveguide): Calculates the effective index, propagation loss, FSR and Q-factor. Metal and doping layers included.
 
 ### 3. [DEVICE](/DEVICE)
 

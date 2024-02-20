@@ -79,12 +79,12 @@ for enabling the mesh. Overide mesh across x and y axes with 'dx' and 'dy', resp
 # 1. Simulation Paramters
 simulation_span_x = 5e-6
 simulation_min_y = -1.0e-6
-simulation_max_y = 1.0e-6
+simulation_max_y = 2.0e-6
 
 
 # 2. Cladding Dimensions. Note, waveguide y min = 0.
 clad_min_y = 0e-6
-clad_max_y = 5e-6
+clad_max_y = 5.0e-6
 
 
 # 3. Waveguide Dimensions
@@ -101,10 +101,20 @@ bend_waveguide = False
 bend_radius = 4e-6
 bend_orientation = 0
 
+
 # 3.3 Distance of the p++ boundary to the pn junction centre
 doping_enable = False     # Set True to Enable doping profiles
 offset_P = 1e-6
 offset_N = 1e-6
+
+
+# 3. 4. Metal Layer Stack (You can use a metal stuck using arrays)
+metal_layer_enable = False
+metal_xmin = [-wg_width/2, -wg_width/2]
+metal_xmax = [2e-6, 2e-6]
+metal_thickness = [10.0e-9, 200.0e-9]
+metal_min_y = [1.5e-6, 1.5e-6 + metal_thickness[0]]
+
 
 # 4. Box Layer Thickness
 box_thickness = 6.0e-6
@@ -120,10 +130,12 @@ wavelength = 1.55e-6
 fde_mesh_cell_x = 300
 fde_mesh_cell_y = 300
 
+
 # 6.1 FDE Boundaries
 fde_xmax_boundary = 'Metal'
 fde_ymax_boundary = 'Metal'
 fde_ymin_boundary = 'Metal'
+
 
 # 7. Mesh (waveguide)
 mesh_enable = True
@@ -133,3 +145,4 @@ mesh_dy = 5e-9
 
 # 8. Figures
 my_dpi = 96
+colormesh_plot_log = True

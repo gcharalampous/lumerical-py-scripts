@@ -90,7 +90,10 @@ def waveguide_draw(mode):
     else:
       slab_enable = 0
 
-
+    # Adds the Metal Layers
+    if metal_layer_enable:
+      for i in range(0,len(metal_index)):
+        mode.addrect(name = "metal_"+str(i))
 
     # Set the parameters of each structure from the user file
 
@@ -184,11 +187,39 @@ def waveguide_draw(mode):
     )
 
 
+
+
+
     # Populate the 2D waveguide structure
     
     for obj, parameters in configuration:
            for k, v in parameters:
                mode.setnamed(obj, k, v)    
+
+
+
+    if metal_layer_enable:
+      for i in range(0,len(metal_index)):
+        configuration = (
+            ("metal_"+str(i), (("x", 0.),
+                          ("y min", metal_min_y[i]),
+                          ("z", 0.),
+                          ("x min", metal_xmin[i]),
+                          ("x max", metal_xmax[i]),
+                          ("y max", metal_min_y[i]+metal_thickness[i]),
+                          ("z span", 5e-6),
+                          ("index",metal_index[i]),
+                          ("material",metal_material[i]),
+                          ("override mesh order from material database",1),
+                          ("mesh order",2))),
+
+        )
+          
+        for obj, parameters in configuration:
+              for k, v in parameters:
+                  mode.setnamed(obj, k, v)       
+
+
 
 
 
