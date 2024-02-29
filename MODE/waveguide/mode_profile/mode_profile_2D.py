@@ -123,7 +123,7 @@ def modeProfiles():
                 # which is how matplotlib will need for plotting
                 xss, yss = bmetal.exterior.xy
                 plt.fill(xss, yss, alpha=0.5, fc='none', ec='w')
-            plt.title("Mode-"+str(m) + "(E-field): " + polariz_mode[m-1] + ", loss=" + str(np.round(loss[m-1],4))+" dB/cm")
+            plt.title("Mode-"+str(m) + "(E-field): " + polariz_mode[m-1] + ", loss=" + str(np.round(loss[m-1]*1e-2,4))+" dB/cm")
 
 
 
