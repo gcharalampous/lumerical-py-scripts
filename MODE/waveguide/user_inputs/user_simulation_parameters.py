@@ -97,7 +97,9 @@ slab_thickness = 0.05e-6
 
 
 # 3.2 Bend Waveguide at the center of the simualation ?
-bend_waveguide = False
+bend_waveguide = True
+
+disk_enable = False        # If False, ring resonator
 bend_radius = 4e-6
 bend_orientation = 0
 
@@ -110,11 +112,11 @@ offset_N = 1e-6
 
 # 3. 4. Metal Layer Stack (You can use a metal stuck using arrays)
 metal_layer_enable = False
-metal_xmin = [-wg_width/2, -wg_width/2]
-metal_xmax = [2e-6, 2e-6]
+metal_xmin = [-0.5e-6, -0.5e-6]
+metal_xmax = [ 0.5e-6, 0.5e-6]
 metal_thickness = [10.0e-9, 200.0e-9]
-metal_min_y = [1.5e-6, 1.5e-6 + metal_thickness[0]]
-
+metal_min_y = [1e-6, 1e-6 + metal_thickness[0]]
+clad_max_y = metal_min_y[0]
 
 # 4. Box Layer Thickness
 box_thickness = 6.0e-6

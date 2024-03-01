@@ -90,6 +90,11 @@ def waveguide_draw(mode):
     else:
       slab_enable = 0
 
+    if(disk_enable):
+       slab_x_max = wg_width/2
+    else:
+       slab_x_max = simulation_span_x  + 1e-6
+
     # Adds the Metal Layers
     if metal_layer_enable:
       for i in range(0,len(metal_index)):
@@ -109,10 +114,10 @@ def waveguide_draw(mode):
                    ("override mesh order from material database",1),
                    ("mesh order",2))),
     
-    ("slab",       (("x", 0),
+    ("slab",       (("x min", -simulation_span_x - 1e-6),
                    ("y min", 0.),
                    ("z", 0.),
-                   ("x span", simulation_span_x + 1e-6),
+                   ("x max", slab_x_max),
                    ("y max", slab_thickness),
                    ("z span", 5e-6),
                    ("index",slab_index),
