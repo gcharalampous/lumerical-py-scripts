@@ -10,6 +10,35 @@ PACKAGE_DIR = os.path.dirname(os.path.realpath(__file__))
 
 #PACKAGE DIRECTORIES
 
+# Ring Coupler FDTD
+FDTD_RING_FILENAME = ["straight_ring_coupling_section.fsp","coocentric_ring_coupling_section.fsp","rectangular_ring_coupling_section"]
+FDTD_RING_PATH_READ = "FDTD\\ring_resonator_coupler\\user_inputs\\lumerical_files"
+FDTD_RING_PATH_WRITE_FIGURES = "FDTD\\Results\\ring_resonator_coupler\\Figures"
+FDTD_RING_PATH_WRITE_DATA = ["Index Profile", "Frequency Response","E-fields", "Coupling"]
+#FDTD_RING_DIRECTORY_READ = os.path.join(PACKAGE_DIR,FDTD_RING_PATH_READ,FDTD_RING_FILENAME[0])
+FDTD_RING_DIRECTORY_WRITE = [str]*len(FDTD_RING_PATH_WRITE_DATA)
+FDTD_RING_DIRECTORY_READ = [str]*len(FDTD_RING_FILENAME)
+
+for i,data in enumerate(FDTD_RING_FILENAME):
+    FDTD_RING_DIRECTORY_READ[i] = os.path.join(PACKAGE_DIR,FDTD_RING_PATH_READ,FDTD_RING_FILENAME[i])
+
+for i,data in enumerate(FDTD_RING_PATH_WRITE_DATA):
+    FDTD_RING_DIRECTORY_WRITE[i] = os.path.join(PACKAGE_DIR,FDTD_RING_PATH_WRITE_FIGURES,FDTD_RING_PATH_WRITE_DATA[i])
+for i in range(0,len(FDTD_RING_DIRECTORY_WRITE)):
+    # create the directory if it doesn't exist already
+    if not os.path.exists(FDTD_RING_DIRECTORY_WRITE[i]):
+        os.makedirs(FDTD_RING_DIRECTORY_WRITE[i])
+        #print("Directory:" + FDTD_SWG_DIRECTORY_WRITE[i] + "\n created successfully!")
+    else:
+        #print("Directory:" + FDTD_SWG_DIRECTORY_WRITE[i] + "\n already exists!")
+        break
+
+
+
+
+
+
+
 
 # WAVEGUIDE CROSSING FDTD
 FDTD_CROSS_FILENAME = ["waveguide_crossing_multi_wg_taper.fsp"]
@@ -217,4 +246,29 @@ PIN_MODULATOR_DIRECTORY_WRITE_FILE = os.path.join(PACKAGE_DIR, PIN_MODULATOR_PAT
 if not os.path.exists(PIN_MODULATOR_DIRECTORY_WRITE_FILE):
     os.makedirs(PIN_MODULATOR_DIRECTORY_WRITE_FILE)
     #print("Directory:" + PIN_MODULATOR_DIRECTORY_WRITE_FILE[i] + "\n created successfully!")
+
+
+
+
+# ELECTROOPTIC MODULATOR
+EO_MODULATOR_PATH_WRITE_FIGURES = "DEVICE\\Results\\eo_modulator\\Figures"
+EO_MODULATOR_PATH_WRITE_DATA = ["Charge Profile", "DC Sweep","AC Sweep"]
+EO_MODULATOR_DIRECTORY_WRITE = [str]*len(EO_MODULATOR_PATH_WRITE_DATA)
+EO_MODULATOR_PATH_WRITE_LUMERICAL = "DEVICE\\Results\\eo_modulator\\lumerical_files"
+
+for i,data in enumerate(EO_MODULATOR_PATH_WRITE_DATA):
+    EO_MODULATOR_DIRECTORY_WRITE[i] = os.path.join(PACKAGE_DIR,EO_MODULATOR_PATH_WRITE_FIGURES,EO_MODULATOR_PATH_WRITE_DATA[i])
+for i in range(0,len(EO_MODULATOR_DIRECTORY_WRITE)):
+    # create the directory if it doesn't exist already
+    if not os.path.exists(EO_MODULATOR_DIRECTORY_WRITE[i]):
+        os.makedirs(EO_MODULATOR_DIRECTORY_WRITE[i])
+        #print("Directory:" + EO_MODULATOR_DIRECTORY_WRITE[i] + "\n created successfully!")
+    else:
+        #print("Directory:" + EO_MODULATOR_DIRECTORY_WRITE[i] + "\n already exists!")
+        break
+
+EO_MODULATOR_DIRECTORY_WRITE_FILE = os.path.join(PACKAGE_DIR, EO_MODULATOR_PATH_WRITE_LUMERICAL)
+if not os.path.exists(EO_MODULATOR_DIRECTORY_WRITE_FILE):
+    os.makedirs(EO_MODULATOR_DIRECTORY_WRITE_FILE)
+    #print("Directory:" + EO_MODULATOR_DIRECTORY_WRITE_FILE[i] + "\n created successfully!")
 
