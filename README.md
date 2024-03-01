@@ -10,7 +10,7 @@ lumerical-py-scripts/
 │   ├── disk-resonator-coupling
 │   ├── edge_coupler
 │   ├── mmi-couplers
-│   ├── ring-resonator-coupler
+│   ├── ring_resonator_coupler
 │   ├── swg_grating
 │   ├── vertical_taper
 │   ├── waveguide-bend
@@ -21,11 +21,11 @@ lumerical-py-scripts/
     ├── awg_star_coupler
     ├── butt_coupling
     ├── directional_coupler
-    ├── disk_waveguide
     ├── edge_coupler
     ├── swg_grating
     ├── vertical_taper
     └── waveguide
+
 ```
 
 ## Why this Repository?
