@@ -30,11 +30,12 @@ def override_ring_coupler(fdtd):
 
     
     configuration = (
-    ("straight-ring",  (("ring_radius", ring_radius),
+    ("ring",  (("ring_radius", ring_radius),
                         ("wg_ring_width", wg_ring_width),
                         ("wg_bus_width", wg_bus_width),
                         ("wg_thickness", wg_thickness),
                         ("slab_thickness", slab_thickness),
+                        ("bus_angle", bus_angle),
                         ("gap", gap))),
     
     )
