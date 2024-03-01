@@ -36,7 +36,7 @@ mesh_dx = 100e-9
 mesh_dy = 100e-9
 
 # 3. Mode Source
-mode_polarization = 'fundamental TM mode'    # or fundamental TM mode
+mode_polarization = 'fundamental TE mode'    # or fundamental TM mode
 wavelength_start = 1.55e-6
 wavelength_stop = 1.55e-6
 
@@ -46,8 +46,8 @@ frequency_points = 64
 
 # 5. Ring Coupler Parameters
 ring_radius = 4e-6
-wg_ring_width = 1.5e-6
+wg_ring_width = 0.48e-6
 wg_bus_width = wg_ring_width
-wg_thickness = 0.5e-6
+wg_thickness = 0.22e-6
 slab_thickness = 0.05e-6
-gap = 0.25e-6
+gap = 0.30e-6

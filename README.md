@@ -54,15 +54,13 @@ In this repository, you will find useful scripts to optimize your workflow and a
 
 - [x] [waveguide-straight](FDTD/waveguide-straight): Mode profile and transmission simulations for a straight waveguide.
 
-- [ ] [ring-resonator-coupler](FDTD/ring-resonator-coupler): Calculates the coupling of a (a) rectangular, (b) concentric, and (c) straight sections ring.
+- [x] [ring-resonator-coupler](FDTD/ring_-_resonator_-_coupler): Calculates the coupling of a (a) rectangular, (b) concentric, and (c) straight sections ring.
 
 ### 2. [MODE Solutions](/MODE)
 
 - [x] [butt-coupling](MODE/butt_coupling): Calculates the overlap integral between two waveguides.
 
 - [x] [directional-coupler](MODE/directional_coupler): Calculates the effective index of the supermodes and plots the coupling as a function of length.
-
-- [x] [disk-waveguide](MODE/disk_waveguide): Calculates the effective index and mode profiles of the disk waveguide.
 
 - [x] [edge-coupler](MODE/edge_coupler): Calculates the overlap integral between a fiber mode (Gaussian) and a waveguide.
 
