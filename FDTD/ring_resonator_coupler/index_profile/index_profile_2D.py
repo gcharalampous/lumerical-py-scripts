@@ -25,6 +25,10 @@ from config import *
 from FDTD.ring_resonator_coupler.user_inputs.user_simulation_parameters import *
 # from FDTD.ring_resonator_coupler.override_cross_region import *
 
+
+from FDTD.ring_resonator_coupler.override_fdtd_region import *
+from FDTD.ring_resonator_coupler.override_ring_coupler_region import *
+
 # -------------------_----- No inputs are required ---------------------------
 
 
@@ -40,8 +44,9 @@ if(__name__=="__main__"):
     with lumapi.FDTD(FDTD_RING_DIRECTORY_READ[file_index]) as fdtd:
         
         # ------------Comment for Avoiding Overriding the Simulation Region
-        # override_cross(fdtd=fdtd)
-        
+        override_fdtd(fdtd=fdtd)
+        override_ring_coupler(fdtd=fdtd)
+
         index_xy, index_yz = getIndex(fdtd=fdtd)
 
 
