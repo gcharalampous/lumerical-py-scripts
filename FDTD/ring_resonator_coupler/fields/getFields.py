@@ -59,7 +59,7 @@ if(__name__=="__main__"):
 # --------------------------------Top-View---------------------------------
         fig, ax = plt.subplots(figsize=(512*px, 256*px))
         cmap = ax.pcolormesh(x*1e6,y*1e6,(np.transpose(E_xy[:,:,0,int(c_wavelength)])),
-                             shading = 'gouraud',cmap = 'jet', norm = LogNorm())
+                             shading = 'gouraud',cmap = 'jet', norm = LogNorm(vmin=1e-4, vmax=1))
         fig.colorbar(cmap)
         plt.xlabel("x (um)")
         plt.ylabel("y (um)")

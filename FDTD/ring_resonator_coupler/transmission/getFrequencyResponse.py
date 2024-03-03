@@ -42,8 +42,8 @@ if(__name__=="__main__"):
     with lumapi.FDTD(FDTD_RING_DIRECTORY_READ[file_index]) as fdtd:
         
 # ------------ Comment for Avoiding Overriding the Simulation Region defined in the file
-        # override_fdtd(fdtd=fdtd)
-        # override_ring_coupler(fdtd=fdtd)
+        override_fdtd(fdtd=fdtd)
+        override_ring_coupler(fdtd=fdtd)
         
 # --------------------------------Plot-T/R---------------------------------
 
@@ -51,30 +51,32 @@ if(__name__=="__main__"):
 
 # --------------------------------Plot-T/R---------------------------------
 
-        px = 1/plt.rcParams['figure.dpi']  # pixel in inches
-        fig, ax = plt.subplots(figsize=(512*px, 256*px))
-        ax.semilogy((scpy.c/f)*1e6,T,label = 'Through')
-        ax.grid(which='both')
-        ax.legend()
-        ax.set_xlabel("wavelength (um)")
-        ax.set_ylabel("Magnitude")
-        plt.tight_layout()
-        file_name_plot = os.path.join(FDTD_RING_DIRECTORY_WRITE[1], "frequency_response_T.png")
-        plt.savefig(file_name_plot)        
-        
-        px = 1/plt.rcParams['figure.dpi']  # pixel in inches
-        fig, ax = plt.subplots(figsize=(512*px, 256*px))
-        ax.semilogy((scpy.c/f)*1e6,C,label = 'Crosstalk')
-        ax.grid(which='both')
-        ax.legend()
-        ax.set_xlabel("wavelength (um)")
-        ax.set_ylabel("Magnitude")
-        plt.tight_layout()
-        file_name_plot = os.path.join(FDTD_RING_DIRECTORY_WRITE[1], "frequency_response_C.png")
-        plt.savefig(file_name_plot)   
-       
+        if(T.size==1):
+            print("T: " + str(round(T*100,2)) + ' %')
+            print("C: " + str(round(C*100,2)) + ' %')
+        else:
 
+            px = 1/plt.rcParams['figure.dpi']  # pixel in inches
+            fig, ax = plt.subplots(figsize=(512*px, 256*px))
+            ax.semilogy((scpy.c/f)*1e6,T,label = 'Through')
+            ax.grid(which='both')
+            ax.legend()
+            ax.set_xlabel("wavelength (um)")
+            ax.set_ylabel("Magnitude")
+            plt.tight_layout()
+            file_name_plot = os.path.join(FDTD_RING_DIRECTORY_WRITE[1], "frequency_response_T.png")
+            plt.savefig(file_name_plot)        
+            
+            px = 1/plt.rcParams['figure.dpi']  # pixel in inches
+            fig, ax = plt.subplots(figsize=(512*px, 256*px))
+            ax.semilogy((scpy.c/f)*1e6,C,label = 'Coupling')
+            ax.grid(which='both')
+            ax.legend()
+            ax.set_xlabel("wavelength (um)")
+            ax.set_ylabel("Magnitude")
+            plt.tight_layout()
+            file_name_plot = os.path.join(FDTD_RING_DIRECTORY_WRITE[1], "frequency_response_C.png")
+            plt.savefig(file_name_plot)          
+            plt.show()
 
-
-        
-        plt.show()
+            
