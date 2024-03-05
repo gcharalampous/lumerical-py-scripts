@@ -127,11 +127,21 @@ def modeProfiles():
 
 
 
+        if(pcm_layer_enable):
+            pcm_min = mode.getnamed("pcm","x min")
+            pcm_max = mode.getnamed("pcm","x max")
+
+            bpcm = sg.box(pcm_min*1e6,(wg_thickness)*1e6,pcm_max*1e6,(wg_thickness + pcm_thickness)*1e6)
+            xss, yss = bpcm.exterior.xy
+            plt.fill(xss, yss, alpha=0.5, fc='none', ec='w')
+
 
         # Save the figure files as .png
         plt.tight_layout()
         file_name_plot = os.path.join(MODE_WAVEGUIDE_DIRECTORY_WRITE[1], "mode_profile_"+str(m)+".png")
         plt.savefig(file_name_plot)
+
+        
     return neff, ng, polariz_frac, polariz_mode
 
 

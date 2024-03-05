@@ -63,6 +63,11 @@ is_metal_index = [False,False]                    # If true ignore metal_materia
 metal_material = ["Ti (Titanium) - CRC","Au (Gold) - Johnson and Christy"]
 metal_index = [3.6845, 0.52406] # Not sure how imaginary numbers can be used as indices
 
+
+# PCM Material Index
+pcm_index = 2.7631
+
+
 # Box
 is_box_index = True
 box_material = "SiO2 (Glass) - Palik"
@@ -73,7 +78,6 @@ box_index = 1.444
 is_sub_index = False                            # If true ignore sub_material
 sub_material = "Si (Silicon) - Palik"
 sub_index = 3.4777
-
 
 
 ## ------ Doping

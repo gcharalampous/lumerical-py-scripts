@@ -78,6 +78,7 @@ def waveguide_draw(mode):
     # Adds the four rectangulars shown above
 
     mode.addrect(name = "waveguide")
+    mode.addrect(name = "pcm")
     mode.addrect(name = "cladding")
     mode.addrect(name = "box")
     mode.addrect(name = "substrate")
@@ -88,7 +89,7 @@ def waveguide_draw(mode):
     if(slab_thickness>0):
       slab_enable  = 1
     else:
-      slab_enable = 0
+      slab_enable = 0 
 
     if(disk_enable):
        slab_x_max = wg_width/2
@@ -124,6 +125,17 @@ def waveguide_draw(mode):
                    ("material",slab_material),
                    ("enabled", slab_enable),
                    ("override mesh order from material database",1))),
+
+       ("pcm",     (("x", 0.),
+                   ("y min", wg_thickness),
+                   ("z", 0.),
+                   ("x span", pcm_width),
+                   ("y max", wg_thickness + pcm_thickness),
+                   ("z span", 5e-6),
+                   ("index",pcm_index),
+                   ("material","<Object defined dielectric>"),
+                   ("override mesh order from material database",1),
+                   ("mesh order",2))),                
 
     ("slab_P++",  (("x min", -simulation_span_x/2 - 0.5e-6),
                    ("x max", -offset_P),

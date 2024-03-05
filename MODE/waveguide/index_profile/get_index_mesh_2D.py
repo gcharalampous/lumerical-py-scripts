@@ -115,7 +115,13 @@ if(__name__=="__main__"):
 
             r1 = sg.box(wg_xmin*1e6,0,wg_xmax*1e6,wg_thickness*1e6)
 
-        
+            if(pcm_layer_enable):
+                pcm_min = mode.getnamed("pcm","x min")
+                pcm_max = mode.getnamed("pcm","x max")
+
+                bpcm = sg.box(pcm_min*1e6,(wg_thickness)*1e6,pcm_max*1e6,(wg_thickness + pcm_thickness)*1e6)
+                xss, yss = bpcm.exterior.xy
+                plt.fill(xss, yss, alpha=0.5, fc='none', ec='w')
             
             if(slab_thickness > 0):
             
