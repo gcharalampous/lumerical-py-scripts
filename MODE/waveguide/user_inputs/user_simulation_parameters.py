@@ -97,7 +97,7 @@ slab_thickness = 0.05e-6
 
 
 # 3.2 Bend Waveguide at the center of the simualation ?
-bend_waveguide = True
+bend_waveguide = False
 
 disk_enable = False        # If False, ring resonator
 bend_radius = 4e-6
