@@ -52,6 +52,10 @@ boundaries.
 
 from MODE.waveguide.user_inputs.user_simulation_parameters import *  
 
+if(pcm_layer_enable):
+     mesh_y_max = wg_thickness + pcm_thickness
+else:
+  mesh_y_max = wg_thickness
 
 def add_fde_region(mode):
 
@@ -66,7 +70,7 @@ def add_fde_region(mode):
               ("x", 0.),
               ("y min", 0.),
               ("x span", wg_width),
-              ("y max", wg_thickness))),    
+              ("y max", mesh_y_max))),    
     
     ("FDE", (("x", 0.),
              ("y", 0.),
