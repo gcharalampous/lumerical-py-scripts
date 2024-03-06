@@ -1,10 +1,11 @@
 ## 2D Waveguide Simulations (MODE Solutions)
 
 ````
-.
+MODE/waveguide/
 ├── fde_region.py
+├── index_profile
+│   └── get_index_mesh_2D.py
 ├── mode_profile
-│   ├── get_index_mesh_2D.py
 │   ├── mode_profile_1D.py
 │   └── mode_profile_2D.py
 ├── neff_sweep
@@ -14,6 +15,8 @@
 │   └── neff_width_sweep_variations_2D.py
 ├── np_density_sweep
 │   └── voltage_sweep_2D.py
+├── pcm
+│   └── confinement_factor.py
 ├── pin_offset_sweep
 │   └── loss_offset_sweep_2D.py
 ├── radius_sweep

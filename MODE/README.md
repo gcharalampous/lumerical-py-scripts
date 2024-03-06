@@ -27,3 +27,4 @@ Feel free to explore the following:
   - Calculates the absorption loss when a metal layer stack is deposited on top of the waveguide.
   - Calculates the Q-factor and FSR for racetrack resonators.
   - Calculates the straight to bend waveguide loss.
+  - Calculates the confinfmenet factor in PCM materials
