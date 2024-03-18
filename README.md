@@ -2,8 +2,9 @@
 
 ```
 lumerical-py-scripts/
-.
+
 ├── DEVICE
+│   ├── electro_optic
 │   └── pin_modulator
 ├── FDTD
 │   ├── directional-coupler
@@ -25,6 +26,7 @@ lumerical-py-scripts/
     ├── swg_grating
     ├── vertical_taper
     └── waveguide
+
 
 ```
 
@@ -71,7 +73,7 @@ In this repository, you will find useful scripts to optimize your workflow and a
 - [x] [waveguide](MODE/waveguide): Calculates the effective index, propagation loss, FSR and Q-factor. Metal and doping layers included.
 
 ### 3. [DEVICE](/DEVICE)
-
+- [x] [electro-optic](DEVICE/electro_optic/): Calcuates the Electrostatic Field across the waveguide layers, and calculates the index change for AlGaAs.
 - [x] [pin-modulator](DEVICE/pin_modulator): Calculates the electrical parameters for the pin junction and extracts data for waveguide mode simulations.
 
 ## Requirements

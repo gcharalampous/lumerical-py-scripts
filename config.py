@@ -252,7 +252,7 @@ if not os.path.exists(PIN_MODULATOR_DIRECTORY_WRITE_FILE):
 
 # ELECTROOPTIC MODULATOR
 EO_MODULATOR_PATH_WRITE_FIGURES = "DEVICE\\Results\\eo_modulator\\Figures"
-EO_MODULATOR_PATH_WRITE_DATA = ["Charge Profile", "DC Sweep","AC Sweep"]
+EO_MODULATOR_PATH_WRITE_DATA = ["E-field", "Index Change"]
 EO_MODULATOR_DIRECTORY_WRITE = [str]*len(EO_MODULATOR_PATH_WRITE_DATA)
 EO_MODULATOR_PATH_WRITE_LUMERICAL = "DEVICE\\Results\\eo_modulator\\lumerical_files"
 
