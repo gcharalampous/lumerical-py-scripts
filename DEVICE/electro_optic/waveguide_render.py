@@ -48,8 +48,8 @@ from config import *
 # Imports from user files
 # ---------------------------------------------------------------------------
 
-from DEVICE.pin_modulator.user_inputs.user_simulation_parameters import *  
-from DEVICE.pin_modulator.user_inputs.user_materials import *
+from DEVICE.electro_optic.user_inputs.user_simulation_parameters import *  
+from DEVICE.electro_optic.user_inputs.user_materials import *
 
 def waveguide_draw(device):
     
@@ -74,17 +74,9 @@ def waveguide_draw(device):
     device.addrect(name = "cladding")
     device.addrect(name = "box")
     device.addrect(name = "slab")
-    device.addrect(name = "plateau_left")
-    device.addrect(name = "plateau_right")
-    device.addrect(name = "metal_anode")
-    device.addrect(name = "metal_cathode")
-
-
-
-
-    # device.addrect(name = "slab_P++")
-    # device.addrect(name = "slab_N++")
-
+    device.addrect(name = "metal_left")
+    device.addrect(name = "metal_center")
+    device.addrect(name = "metal_right")
 
 
 
@@ -104,78 +96,78 @@ def waveguide_draw(device):
       slab_enable = 0
 
 
+    if(GSG_pads_enable):
+        pads_pitch = metal_pitch
+    else:
+        pads_pitch = metal_pitch/2
+
+
 
     # Set the parameters of each structure from the user file
 
     configuration = (
     ("waveguide", (("x", 0.),
-                    ("y min", slab_thickness),
-                    ("z", 0.),
+                    ("z min", slab_thickness),
+                    ("y", 0.),
                     ("x span", wg_width),
-                    ("y max", wg_thickness),
-                    ("z span", 5e-6),
+                    ("z max", wg_thickness),
+                    ("y span", 5e-6),
                     ("material", wg_material),
                     ("mole frac constant", wg_mole_fract))),
     
-    ("slab",       (("x min", -simulation_span_x/2 + plateau_width),
-                    ("y min", 0.),
-                    ("z", 0.),
-                    ("x max", simulation_span_x/2 - plateau_width),
-                    ("y max", slab_thickness),
-                    ("z span", 5e-6),
+    ("slab",       (("x min", -simulation_span_x/2 - 0.5e-6),
+                    ("z min", 0.),
+                    ("y", 0.),
+                    ("x max", simulation_span_x/2 + 0.5e-6),
+                    ("z max", slab_thickness),
+                    ("y span", 5e-6),
                     ("enabled", slab_enable),
                     ("material", wg_material))),
     
-    ("plateau_left",(("x min", -simulation_span_x/2),
-                    ("y min", 0),
-                    ("z", 0.),
-                    ("x max", -simulation_span_x/2 + plateau_width),
-                    ("y max", plateau_thickness),
-                    ("z span", 5e-6),
-                    ("material", wg_material))),   
-
-    ("plateau_right",(("x min", simulation_span_x/2 - plateau_width),
-                    ("y min", 0),
-                    ("z", 0.),
-                    ("x max", simulation_span_x/2),
-                    ("y max", plateau_thickness),
-                    ("z span", 5e-6),
-                    ("material", wg_material))),   
-
-    ("metal_anode",(("x min", -simulation_span_x/2),
-                    ("y min", plateau_thickness),
-                    ("z", 0.),
-                    ("x max", -simulation_span_x/2 + metal_anode_width),
-                    ("y max", simulation_max_z/4),
-                    ("z span", 5e-6),
+    ("metal_left", (("x", -pads_pitch),
+                    ("z min", clad_max_y),
+                    ("y", 0.),
+                    ("x span", metal_left_width),
+                    ("z max", clad_max_y + metal_thicknes),
+                    ("y span", 5e-6),
                     ("material", contact_material),
                     ("enabled", True))),        
 
-    ("metal_cathode",(("x min", simulation_span_x/2 - metal_cathode_width),
-                    ("y min", plateau_thickness),
-                    ("z", 0.),
-                    ("x max", simulation_span_x/2),
-                    ("y max", simulation_max_z/4),
-                    ("z span", 5e-6),
+    ("metal_center",(("x", 0),
+                    ("z min", clad_max_y),
+                    ("y", 0.),
+                    ("x span", metal_center_width),
+                    ("z max", clad_max_y + metal_thicknes),
+                    ("y span", 5e-6),
+                    ("material", contact_material),
+                    ("enabled", GSG_pads_enable))),      
+
+
+    ("metal_right",(("x", pads_pitch),
+                    ("z min", clad_max_y),
+                    ("y", 0.),
+                    ("x span", metal_right_width),
+                    ("z max", clad_max_y + metal_thicknes),
+                    ("y span", 5e-6),
                     ("material", contact_material),
                     ("enabled", True))),      
 
     ("cladding",  (("x", 0.),
-                    ("y", 0.),
-                    ("x span", simulation_span_x),
-                    ("y min", clad_min_y),
-                    ("y max", clad_max_y),
-                    ("z span", 5e-6),
+                    ("z", 0.),
+                    ("x span", simulation_span_x + 1e-6),
+                    ("z min", clad_min_y),
+                    ("z max", clad_max_y),
+                    ("y span", 5e-6),
                     ("material", oxide_material),
                     ("mesh order",3),
                     ("render type","wireframe"))),
 
     ("box",       (("x", 0.),
-                    ("z", 0.),
-                    ("x span", simulation_span_x),
-                    ("y min", clad_min_y- box_thickness),
-                    ("y max", clad_min_y),
-                    ("z span", 5e-6),
+                    ("y", 0.),
+                    ("x span", simulation_span_x + 1e-6),
+                    ("z min", clad_min_y- box_thickness - 0.5e-6),
+                    ("z max", clad_min_y),
+                    ("y span", 5e-6),
                     ("material", oxide_material),
                     ("mesh order",3),
                     ("render type","wireframe"))),
@@ -199,5 +191,5 @@ if(__name__=="__main__"):
       device.redrawoff()
       waveguide_draw(device)
 
-      device.save(PIN_MODULATOR_DIRECTORY_WRITE_FILE + "\\pin_waveguide_render.ldev")
+      device.save(EO_MODULATOR_DIRECTORY_WRITE_FILE + "\\eo_waveguide_render.ldev")
 
