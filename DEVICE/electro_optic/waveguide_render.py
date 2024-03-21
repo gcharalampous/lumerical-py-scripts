@@ -81,11 +81,19 @@ def waveguide_draw(device):
 
 
     # Add Materials
-    for material in unique_material_list:    
-    
+    for i, material in enumerate(unique_material_list_e):    
         device.addmodelmaterial()
         device.setnamed("materials::New Material","name", material)
         device.addmaterialproperties("CT", material)
+        device.select("materials::" + material);
+        device.addmaterialproperties("EM", material_list_o[i])
+        if(material_list_o[i] == wg_material_o):
+            device.setnamed("materials::" + material + "::"+ wg_material_o,
+                            "refractive index",wg_index);
+
+        
+                
+         
 
 
 
@@ -112,7 +120,7 @@ def waveguide_draw(device):
                     ("x span", wg_width),
                     ("z max", wg_thickness),
                     ("y span", 5e-6),
-                    ("material", wg_material),
+                    ("material", wg_material_e),
                     ("mole frac constant", wg_mole_fract))),
     
     ("slab",       (("x min", -simulation_span_x/2 - 0.5e-6),
@@ -122,24 +130,24 @@ def waveguide_draw(device):
                     ("z max", slab_thickness),
                     ("y span", 5e-6),
                     ("enabled", slab_enable),
-                    ("material", wg_material))),
+                    ("material", wg_material_e))),
     
     ("metal_left", (("x", -pads_pitch),
                     ("z min", clad_max_y),
                     ("y", 0.),
                     ("x span", metal_left_width),
-                    ("z max", clad_max_y + metal_thicknes),
+                    ("z max", clad_max_y + metal_thickness),
                     ("y span", 5e-6),
-                    ("material", contact_material),
+                    ("material", contact_material_e),
                     ("enabled", True))),        
 
     ("metal_center",(("x", 0),
                     ("z min", clad_max_y),
                     ("y", 0.),
                     ("x span", metal_center_width),
-                    ("z max", clad_max_y + metal_thicknes),
+                    ("z max", clad_max_y + metal_thickness),
                     ("y span", 5e-6),
-                    ("material", contact_material),
+                    ("material", contact_material_e),
                     ("enabled", GSG_pads_enable))),      
 
 
@@ -147,9 +155,9 @@ def waveguide_draw(device):
                     ("z min", clad_max_y),
                     ("y", 0.),
                     ("x span", metal_right_width),
-                    ("z max", clad_max_y + metal_thicknes),
+                    ("z max", clad_max_y + metal_thickness),
                     ("y span", 5e-6),
-                    ("material", contact_material),
+                    ("material", contact_material_e),
                     ("enabled", True))),      
 
     ("cladding",  (("x", 0.),
@@ -158,7 +166,7 @@ def waveguide_draw(device):
                     ("z min", clad_min_y),
                     ("z max", clad_max_y),
                     ("y span", 5e-6),
-                    ("material", oxide_material),
+                    ("material", oxide_material_e),
                     ("mesh order",3),
                     ("render type","wireframe"))),
 
@@ -168,7 +176,7 @@ def waveguide_draw(device):
                     ("z min", clad_min_y- box_thickness - 0.5e-6),
                     ("z max", clad_min_y),
                     ("y span", 5e-6),
-                    ("material", oxide_material),
+                    ("material", oxide_material_e),
                     ("mesh order",3),
                     ("render type","wireframe"))),
 

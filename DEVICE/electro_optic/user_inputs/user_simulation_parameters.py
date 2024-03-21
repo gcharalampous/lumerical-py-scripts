@@ -1,139 +1,94 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 #----------------------------------------------------------------------------
-# @author: Georgios Gcharalampous (gcharalampous)
-# version ='1.0'
-# ---------------------------------------------------------------------------
+# Author: Georgios Gcharalampous (gcharalampous)
+# Version: 1.0
+# Description: User inputs required to set up the simulation file.
+#----------------------------------------------------------------------------
+
 """
-User-inputs are required.
+User inputs are required.
 
-In this file, the user is rmust enter the parameters required to setup the
-simulation file. The simulation parameters along with their dimensions are
-presented below.
-
-                                                                  
-                                   simulation_span_x                                                                  
-                                                                                                                      
-     clad_max_y    <---------------------------------------------->                                                   
-          ------ ^ +----------------------------------------------+                                                   
-                   | Cladding         wg_width                    |                                                   
-                   |+--------------------------------------------+| ^                                                 
-                   ||                <---------->                || |                                                 
-                   ||               +-----------+ ^              || |                                                 
-                   ||               |           | | wg_thickness || |                                                 
-                   ||               | waveguide | |              || |                                                 
-     clad_min_y    ||               |           | v              || |                                                 
-          ------ ^ +|--------------------------------------------|+ | simulation_span_y                               
-  box_thickness  | ||                    Box                     || |                                                 
-          ------ v +|--------------------------------------------|+ |                                                 
-                 ^ ||                                            || |                                                 
-                 | ||                               FDE region   || |                                                 
-   sub_thickness | |+--------------------------------------------+| v                                                 
-                 | |                                              |                                                   
-                 | | Substrate                                    |                                                   
-                 v +----------------------------------------------+                                                   
-                                                                                                                      
-  
- Be aware, the waveguide 'y min = 0' starts at zero and it is centered at the 
-'x=0'.
-                                                                                                                                 
-                                                                                                             
-               ^                                                                         
-               |                                                                         
-               |                                                                         
-               |                    -                                                    
-            wg_width                                                                     
-        <--------------->                                                                
-       +-------|--------+ ^                                                              
-       |       |        | |                                                              
-       |   waveguide    | | wg_thickness                                                 
-       |       |        | |                                                              
-   ------------|----------v--------------------->                                        
-          (0,0)|                                                                         
-               |                                                                         
-               |                                                                         
-               |                                                                         
-
-
-In addition, there is a mesh layer with the exact dimensions as the waveguide, which
-is not shown on the figures above. You can disable it by selecting 'mesh_enable = False'.
-
-
-The user needs to define
-1. The span of the simulation region
-2. The ''y min'' and ''y max'' of the cladding 
-3. The waveguide width and thickness.
-4. The thickness of the Box Layer sitting below the waveguide
-5. The thickness of the Substrate Layer sitting below the box layer
-6. FDE simulation parameters, like the number of trial modes, the wavelength and
-the number of mesh cells across the x and y axes.
-7. A mesh with equal dimensions and coordinates as the waveguide. Set 'mesh_enable = True' 
-for enabling the mesh. Overide mesh across x and y axes with 'dx' and 'dy', respectively.
-8. Set the DPI of your screen for getting the right image resolution.
+This script prompts the user to enter parameters needed to set up the simulation file.
 """
-
 
 # Length units are in meters!
 
+# 1. Simulation Region Parameters
+simulation_span_x = 10.5e-6   # X-axis span of simulation
+simulation_min_z = -3.0e-6    # Minimum Z-coordinate of simulation region
+simulation_max_z = 3.5e-6     # Maximum Z-coordinate of simulation region
 
-# 1. Simulation Paramters
-simulation_span_x = 8e-6
-simulation_min_z = -3.0e-6
-simulation_max_z = 3.5e-6
 
-
-# 2. Cladding Dimensions. Note, waveguide y min = 0.
-clad_min_y = 0e-6
-clad_max_y = 1.0e-6
+# 2. Cladding Dimensions. Note: waveguide y min = 0.
+clad_min_y = 0e-6             # Minimum Y-coordinate of cladding
+clad_max_y = 1.0e-6           # Maximum Y-coordinate of cladding
 
 
 # 3. Waveguide Dimensions
-wg_width = 0.5e-6
-wg_thickness = 0.3e-6
-wg_angle = 80  #deg
-
-# 3.2 Set slab thickness > 0 to enable a slab waveguide
-slab_thickness = 0.05e-6
+wg_width = 0.5e-6             # Width of waveguide
+wg_thickness = 0.4e-6         # Thickness of waveguide
+wg_angle = 80                 # Angle of waveguide (degrees) - Not yet implemented
 
 
-# 3.3 Metal Layer
-metal_left_width = 1e-6
-metal_center_width = metal_left_width
-metal_right_width = metal_left_width
-metal_thicknes = 1.0e-6
-metal_pitch = 2.0e-6
+# 3.1 Set slab thickness > 0 to enable a slab waveguide
+slab_thickness = 0.05e-6      # Thickness of slab waveguide (set > 0 to enable)
 
 
-# 3.3.1 GSG Pads
-GSG_pads_enable = True  # False = GS Pads
+# 3.2 Metal Layer
+metal_left_width = 2.0e-6     # Width of left metal layer
+metal_center_width = metal_left_width   # Width of center metal layer
+metal_right_width = metal_left_width    # Width of right metal layer
+metal_thickness = 1.0e-6      # Thickness of metal layer
+metal_pitch = 4e-6            # Pitch of metal layer
+
+
+# 3.2.1 GSG Pads
+GSG_pads_enable = True        # True for GSG Pads, False for GS Pads
 
 
 # 3.4 Voltage of Signal and Ground
-v_signal = 1
+v_signal = 1                  # Voltage of signal
 
 
 # 4. Box Layer Thickness
-box_thickness = abs(simulation_min_z)
+box_thickness = abs(simulation_min_z)   # Thickness of box layer
 
 
 # 5. Substrate Layer Thickness
-sub_thickness = 10e-6
+sub_thickness = 10e-6         # Thickness of substrate layer
 
 
-# 6. Charge Parameters. 
-# 6.1 
-min_edge_length = 4e-9
-max_edge_length = 600e-9
+# 6. Charge Parameters.
+# 6.1 Mesh Parameters
+min_edge_length = 4e-9        # Minimum edge length for mesh
+max_edge_length = 600e-9      # Maximum edge length for mesh
 
 
-# 3D Expansion
-norm_length = 1e-6
+# 6.2 3D Expansion
+norm_length = 1e-6            # Normalization length for 3D expansion
 
 
-# 7. Mesh (waveguide)
-mesh_enable = True
-max_edge_length_mesh_override = 500e-9
+# 6.3 Doping
+# 6.3.1 Background Doping
+pepi_p_doping_enable = True   # Enable background doping
+
+
+# 6.3.2 Waveguide Doping (thickness starts from top)
+waveguide_pp_doping_enable = False    # Enable waveguide doping
+waveguide_pp_thickness = 100e-9      # Thickness of waveguide doping
+
+
+# 7 FEEM Parameters
+wavelength = 1.55e-6          # Wavelength
+num_modes = 6                 # Number of modes
+
+
+# 7.1 Mesh (waveguide)
+mesh_enable = True            # Enable mesh
+max_edge_length_mesh_override = 500e-9   # Maximum edge length for mesh override
+
 
 
 # 8. Figures
-my_dpi = 96
+my_dpi = 96                   # DPI for figures

@@ -65,9 +65,22 @@ def add_charge_region(device):
     device.addchargemesh()
     
     # Adds the anode and cathode
-    device.addelectricalcontact(name = "ground_left")
-    device.addelectricalcontact(name = "signal")
-    device.addelectricalcontact(name = "ground_right")
+    device.addelectricalcontact(name = "metal_left")
+    device.addelectricalcontact(name = "metal_center")
+    device.addelectricalcontact(name = "metal_right")
+    
+    # Adds the doping
+    device.adddope(name = "pepi")
+    device.adddope(name = "ppepi")
+
+
+    if(GSG_pads_enable == True):
+      v_metal_center = v_signal
+      v_metal_right = 0
+    else:
+      v_metal_center = 0
+      v_metal_right = v_signal
+
 
     # Monitors
     device.addefieldmonitor(name = "electric_monitor")
@@ -78,7 +91,30 @@ def add_charge_region(device):
     ("CHARGE", 
               (("min edge length", min_edge_length),
               ("max edge length", max_edge_length))),
-
+    
+    
+    ("CHARGE::pepi", 
+             (("x min", -simulation_span_x/2 - 0.5e-6),
+              ("x max", simulation_span_x/2 + 0.5e-6),
+              ("y", 0),
+              ("z", 0.),
+              ("y span", 5e-6),
+              ("z span", wg_thickness+0.5e-6),
+              ("dopant type","p"),
+              ("enabled", pepi_p_doping_enable),
+              ("concentration", pepi_p_doping*1e6))),
+    
+    
+    ("CHARGE::ppepi", 
+             (("x min", -simulation_span_x/2 - 0.5e-6),
+              ("x max", simulation_span_x/2 + 0.5e-6),
+              ("y", 0),
+              ("z max", wg_thickness),
+              ("z min", wg_thickness - waveguide_pp_thickness),
+              ("dopant type","p"),
+              ("enabled", pepi_p_doping_enable),
+              ("concentration", pepi_p_doping*1e6))),
+    
         
     ("CHARGE::mesh", 
              (("x", 0.),
@@ -97,19 +133,19 @@ def add_charge_region(device):
               ("x span", simulation_span_x),
               ("z min", simulation_min_z),
               ("z max", simulation_max_z),
-              ("background material", background_material))),  
+              ("background material", background_material_e))),  
         
-    ("CHARGE::boundary conditions::ground_left",
+    ("CHARGE::boundary conditions::metal_left",
              (("bc mode", "steady state"),
               ('sweep type', 'single'),
               ('voltage', 0),
               ("surface type", "solid"),
               ("solid", "metal_left"))),
     
-    ("CHARGE::boundary conditions::signal",
+    ("CHARGE::boundary conditions::metal_center",
              (("bc mode", "steady state"),
               ('sweep type', 'single'),
-              ('voltage', v_signal),
+              ('voltage', v_metal_center),
               ("surface type", "solid"),
               ("solid", "metal_center"))),
     
@@ -123,10 +159,10 @@ def add_charge_region(device):
               ("z max", simulation_max_z))),
 
 
-    ("CHARGE::boundary conditions::ground_right",
+    ("CHARGE::boundary conditions::metal_right",
              (("bc mode", "steady state"),
               ('sweep type', 'single'),
-              ('voltage', 0),
+              ('voltage', v_metal_right),
               ("surface type", "solid"),
               ("solid", "metal_right"))),
      

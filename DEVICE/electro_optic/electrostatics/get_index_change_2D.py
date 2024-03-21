@@ -33,7 +33,7 @@ N_z = 1000
 
 def index_permutation(Ex, Ez, wg_index_x, wg_index_z):
     
-    if(wg_material == "AlGaAs (Aluminium Gallium Arsenide)"):
+    if(wg_material_e == "AlGaAs (Aluminium Gallium Arsenide)"):
         r41 = 1.46e-12
         index_permutation_tri_x = 0.5*((wg_index_x)**3)*r41*Ez
         index_permutation_tri_z = 0 * Ex
@@ -91,7 +91,7 @@ if __name__ == "__main__":
         Ex_tri, Ez_tri = E_2D[:, 0], E_2D[:, 1]
             
         index_permutation_tri_x, index_permutation_tri_z = index_permutation(
-            Ex=Ex_tri, Ez=Ez_tri, wg_index_x=wg_index_x, wg_index_z=wg_index_z )
+            Ex=Ex_tri, Ez=Ez_tri, wg_index_x=wg_index, wg_index_z=wg_index )
 
         
         # Define grid
@@ -167,7 +167,7 @@ if __name__ == "__main__":
                 plt.figure(i)
                 plt.axis('equal')
                 plt.fill(xs, ys, alpha=0.5, fc='none', ec='r')
-                file_name_plot = os.path.join(EO_MODULATOR_DIRECTORY_WRITE[0], f"Efield_{i}.png")
+                file_name_plot = os.path.join(EO_MODULATOR_DIRECTORY_WRITE[1], f"Index_{i}.png")
                 plt.savefig(file_name_plot)
         else:
             # Plot waveguide only
@@ -176,5 +176,5 @@ if __name__ == "__main__":
                 plt.axis('equal')
                 plt.figure(i)
                 plt.fill(xs, ys, alpha=0.5, fc='none', ec='r')
-                file_name_plot = os.path.join(EO_MODULATOR_DIRECTORY_WRITE[0], f"Efield_{i}.png")
+                file_name_plot = os.path.join(EO_MODULATOR_DIRECTORY_WRITE[1], f"Index_{i}.png")
                 plt.savefig(file_name_plot)

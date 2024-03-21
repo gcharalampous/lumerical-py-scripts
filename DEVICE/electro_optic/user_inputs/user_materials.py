@@ -40,36 +40,66 @@ database.
 """
 ### Electrical Materials
 # Oxide
-oxide_material = "SiO2 (Glass) - Sze"
+oxide_material_e = "SiO2 (Glass) - Sze"
 
 
 # Waveguide Core
-wg_material = "AlGaAs (Aluminium Gallium Arsenide)"
+wg_material_e = "AlGaAs (Aluminium Gallium Arsenide)"
 wg_mole_fract = 0.2                                 # If applicable, otherwise will be neglected
 
 # Contacts
-contact_material = "Au (Gold) - CRC"
+contact_material_e = "Au (Gold) - CRC"
 
 # Background Material
-background_material = "Air"
+background_material_e = "Air"
 
 
 ### 
 
-## Optical
+### Optical Materials
+# Oxide
+oxide_material_o = "SiO2 (Glass) - Palik"
 
-wg_index_x = 3.28               #   'ordinary'
-wg_index_z = 3.28               #   'extraordinary'
 
+# Waveguide Core
+wg_material_o = 'Dielectric'
+wg_index = 3.28               #   'ordinary'
+
+
+# Contacts
+contact_material_o = "Au (Gold) - CRC"
+
+# Background Material
+background_material_o = "etch"
+
+
+# Background p Doping
+pepi_p_doping = 1e15
+
+# Waveguide pp Doping
+waveguide_pp_doping = 1e18
 
 
 
 # -------------------------- End of Input Section -----------------------------
 
-material_list = [oxide_material, wg_material, contact_material, background_material]
+material_list_e = [oxide_material_e, wg_material_e, 
+                 contact_material_e, background_material_e]
 
 # Remove Duplicate strings
-unique_material_list = []
-for item in material_list:
-    if item not in unique_material_list:
-        unique_material_list.append(item)
+unique_material_list_e = []
+for item in material_list_e:
+    if item not in unique_material_list_e:
+        unique_material_list_e.append(item)
+
+
+material_list_o = [oxide_material_o, wg_material_o, 
+                 contact_material_o, background_material_o]
+
+        
+# Remove Duplicate strings
+unique_material_list_o = []
+for item in material_list_o:
+    if item not in unique_material_list_o:
+        unique_material_list_o.append(item)      
+      
