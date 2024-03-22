@@ -112,7 +112,7 @@ def add_charge_region(device):
               ("z max", wg_thickness),
               ("z min", wg_thickness - waveguide_pp_thickness),
               ("dopant type","p"),
-              ("enabled", pepi_p_doping_enable),
+              ("enabled", waveguide_pp_doping_enable),
               ("concentration", pepi_p_doping*1e6))),
     
         
