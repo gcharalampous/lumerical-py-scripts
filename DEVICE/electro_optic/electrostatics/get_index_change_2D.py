@@ -28,7 +28,7 @@ from config import *
 
 # Define grid dimensions
 N_x = 500
-N_z = 1000
+N_z = 500
 
 
 def index_permutation(Ex, Ez, wg_index_x, wg_index_z):
@@ -36,7 +36,7 @@ def index_permutation(Ex, Ez, wg_index_x, wg_index_z):
     if(wg_material_e == "AlGaAs (Aluminium Gallium Arsenide)"):
         r41 = 1.46e-12
         index_permutation_tri_x = 0.5*((wg_index_x)**3)*r41*Ez
-        index_permutation_tri_z = 0 * Ex
+        index_permutation_tri_z = 0.5*((wg_index_x)**3)*r41*Ex
     else:
         print('Non-linear material, not defined')
         index_permutation_tri_x = 0 * Ez
