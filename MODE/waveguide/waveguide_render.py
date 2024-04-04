@@ -134,6 +134,7 @@ def waveguide_draw(mode):
                    ("z span", 5e-6),
                    ("index",pcm_index),
                    ("material","<Object defined dielectric>"),
+                   ("enabled", pcm_layer_enable),
                    ("override mesh order from material database",1),
                    ("mesh order",2))),                
 
