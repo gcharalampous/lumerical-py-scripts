@@ -8,7 +8,7 @@ lumerical-py-scripts/
 │   └── pin_modulator
 ├── FDTD
 │   ├── directional-coupler
-│   ├── disk-resonator-coupling
+│   ├── disk_resonator_coupler
 │   ├── edge_coupler
 │   ├── mmi-couplers
 │   ├── ring_resonator_coupler
@@ -38,7 +38,7 @@ In this repository, you will find useful scripts to optimize your workflow and a
 
 - [ ] [directional-coupler](FDTD/directional-coupler): Calculates the coupling and plots the E-field of an s-bend directional coupler.
 
-- [ ] [disk-resonator-coupler](FDTD/disk-resonator-coupler): Calculates the coupling of a (a) weakly tapered disk resonator.
+- [x] [disk-resonator-coupler](FDTD/disk_resonator_coupler): Calculates the coupling of a (a) straight coupled disk resonator.
 
 - [x] [edge-coupler](FDTD/edge_coupler): Calculates the coupling loss between a fiber (Gaussian) mode and a waveguide mode.
 
