@@ -31,7 +31,7 @@ def override_taper(fdtd):
     ("taper",                   (("width_wg_left", wg_width_left),
                                  ("width_wg_right", wg_width_right),
                                  ("taper_thickness", wg_thickness),
-                                 ("rib_thickness", wg_bottom_rib_thickness))),
+                                 ("slab_thickness", slab_thickness))),
     
     ("::model",                 (("taper_length", taper_length),
                                  ("port_extension", port_extension),

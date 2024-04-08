@@ -27,10 +27,10 @@ taper_length = 100e-6
 
 # 1.1. Taper-bottom Parameters - Soyrce is attached on this taper
 wg_width_left = 0.25e-6
-wg_width_right = 1.20e-6
-wg_thickness = 0.15e-6
+wg_width_right = 0.50e-6
+wg_thickness = 0.30e-6
 
-wg_bottom_rib_thickness = 0.0e-6
+slab_thickness = 0.0e-6
 
 
 
@@ -54,9 +54,9 @@ enable_dz = 0
 
 
 # 2.3 Source/Monitor Properties
-waist_radius = 4.0e-6
-wavelength_start = 1.2e-6
-wavelength_stop = 1.4e-6
+waist_radius = 1.25e-6
+wavelength_start = 1.55e-6 - (25.6/2)*1e-9
+wavelength_stop = 1.55e-6 + (25.6/2)*1e-9
 mode_fundamental = "TE"             # Select TE for fundamental TE or TM for fundamental TM
 frequency_points = 32
 
