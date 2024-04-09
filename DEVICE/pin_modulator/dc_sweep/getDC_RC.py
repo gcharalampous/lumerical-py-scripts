@@ -115,10 +115,11 @@ if(__name__=="__main__"):
               
                 
         plt.figure(1, figsize=(512/my_dpi, 256/my_dpi), dpi=my_dpi)
-        plt.grid(True, which='both')   
-        plt.semilogy(V_a,R*1e-3,'o-')
+        plt.grid(visible=True, which='both')   
+        plt.semilogy(V_a,R*1e-3,'-')
         plt.xlabel("Voltage (V)")
         plt.ylabel("Resistance ($k\Omega \cdot \mu m$)")
+        plt.tight_layout()
         file_name_plot = os.path.join(PIN_MODULATOR_DIRECTORY_WRITE[1], "Resistance_DC.png")
         plt.savefig(file_name_plot)
         
@@ -128,7 +129,7 @@ if(__name__=="__main__"):
         C_static = 0.5*(Cn+Cp)  # F/m
 
         
-        plt.semilogy(V_a,C_static*1e15*1e-6,'o-', label='Cstatic')
+        plt.semilogy(V_a,C_static*1e15*1e-6,'-', label='Cstatic')
         
 
         plt.hlines(Cj*1e15*1e-6, xmin=min(V_a), xmax = 0, color='r', linestyle='--', 
@@ -139,7 +140,8 @@ if(__name__=="__main__"):
         plt.xlabel("Voltage (V)")
         plt.ylabel("Capacitance ($fF~/~\mu m$)")
         plt.grid(which='both')   
-        
+        plt.tight_layout()
+
         file_name_plot = os.path.join(PIN_MODULATOR_DIRECTORY_WRITE[1], "Capacitance_DC.png")
         plt.savefig(file_name_plot)
 
@@ -157,7 +159,7 @@ if(__name__=="__main__"):
         plt.ylabel("3-dB Bandwidth (MHz)")
         
         plt.figure(4, figsize=(512/my_dpi, 256/my_dpi), dpi=my_dpi)
-        plt.plot(V_a,i_a*(Lrt/norm_length)*1e3,'o-', label='Cn')
+        plt.plot(V_a,i_a*(Lrt/norm_length)*1e3,'-', label='Cn')
         plt.grid(True, which='both')   
         plt.xlabel("Voltage (V)")
         plt.ylabel("Current (mA)")
