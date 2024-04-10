@@ -98,10 +98,11 @@ slab_thickness = 0.05e-6
 
 # 3.2 Bend Waveguide at the center of the simualation ?
 bend_waveguide = False
-
-disk_enable = False        # If False, ring resonator
 bend_radius = 4e-6
 bend_orientation = 0
+
+disk_enable = False        # If False, ring resonator
+
 
 
 # 3.3 Distance of the p++ boundary to the pn junction centre
