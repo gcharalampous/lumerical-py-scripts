@@ -89,7 +89,7 @@ for i in range(0,len(FDTD_CROSS_DIRECTORY_WRITE)):
 FDTD_EDGE_FILENAME = ["edge_taper.fsp"]
 FDTD_EDGE_PATH_READ = "FDTD\\edge_coupler\\user_inputs\\lumerical_files"
 FDTD_EDGE_PATH_WRITE_FIGURES = "FDTD\\Results\\edge_coupler\\Figures"
-FDTD_EDGE_PATH_WRITE_DATA = ["Index Profile", "Frequency Response","E-fields"]
+FDTD_EDGE_PATH_WRITE_DATA = ["Index Profile", "Frequency Response","E-fields", "Coupling"]
 FDTD_EDGE_DIRECTORY_READ = os.path.join(PACKAGE_DIR,FDTD_EDGE_PATH_READ,FDTD_EDGE_FILENAME[0])
 FDTD_EDGE_DIRECTORY_WRITE = [str]*len(FDTD_EDGE_PATH_WRITE_DATA)
 for i,data in enumerate(FDTD_EDGE_PATH_WRITE_DATA):
