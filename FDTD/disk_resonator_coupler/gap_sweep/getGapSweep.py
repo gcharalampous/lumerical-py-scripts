@@ -29,7 +29,6 @@ from FDTD.disk_resonator_coupler.override_fdtd_region import *
 from FDTD.disk_resonator_coupler.override_disk_coupler_region import *
 
 def getCouplingResponse(fdtd):
-    fdtd.run()
     T  = (fdtd.getsweepresult("sweep_gap","T"))
     C  = (fdtd.getsweepresult("sweep_gap","C"))
 
