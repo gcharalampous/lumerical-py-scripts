@@ -60,6 +60,7 @@ In this repository, you will find useful scripts to optimize your workflow and a
 
 ### 2. [MODE Solutions](/MODE)
 
+- [x] [awg-star-coupler](MODE/awg_star_coupler): Calculates the far-field of an awg star-coupler.
 - [x] [butt-coupling](MODE/butt_coupling): Calculates the overlap integral between two waveguides.
 
 - [x] [directional-coupler](MODE/directional_coupler): Calculates the effective index of the supermodes and plots the coupling as a function of length.
