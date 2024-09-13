@@ -117,7 +117,7 @@ metal_xmin = [-0.5e-6, -0.5e-6]
 metal_xmax = [ 0.5e-6, 0.5e-6]
 metal_thickness = [10.0e-9, 200.0e-9]
 metal_min_y = [1e-6, 1e-6 + metal_thickness[0]]
-clad_max_y = metal_min_y[0]
+# clad_max_y = metal_min_y[0]
 
 
 # 3.5 PCM material
