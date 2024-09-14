@@ -33,18 +33,6 @@ from MODE.directional_coupler.user_inputs.user_simulation_parameters import *
 def super_mode_profile(mode):
 
 
-        # xmin  = mode.getnamed("waveguide-constructor::wg1","x min")
-        # xmax = mode.getnamed("waveguide-constructor::wg2","x max")
-        # mode.switchtolayout()
-        # mode.setnamed("mesh","x min",xmin)
-        # mode.setnamed("mesh","x max",xmax)
-        # print("Repositioning mesh..")
-        # print("xmin: " +str(xmin)+"\n"+"xmax: " + str(xmax))
-        # mode.mesh()
-        # mode.run()
-
-
-        mode.findmodes()
 
 
 
