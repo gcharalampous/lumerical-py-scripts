@@ -200,6 +200,30 @@ for i in range(0,len(MODE_AWG_DIRECTORY_WRITE)):
 
 
 
+# WAVEGUIDE MODE DIRECTIONAL COUPLER
+MODE_DC_FILENAME = ["waveguide_coupler.lms"]
+MODE_DC_PATH_READ = "MODE\\directional_coupler\\user_inputs\\lumerical_files"
+MODE_DC_PATH_WRITE_FIGURES = "MODE\\Results\\waveguide_coupler\\Figures"
+MODE_DC_PATH_WRITE_DATA = ["Mode Profile"]
+MODE_DC_PATH_WRITE_LUMERICAL = "MODE\\Results\\waveguide_coupler\\lumerical_files"
+MODE_DC_DIRECTORY_READ = os.path.join(PACKAGE_DIR,MODE_DC_PATH_READ,MODE_DC_FILENAME[0])
+MODE_DC_DIRECTORY_WRITE = [str]*len(MODE_DC_PATH_WRITE_DATA)
+for i,data in enumerate(MODE_DC_PATH_WRITE_DATA):
+    MODE_DC_DIRECTORY_WRITE[i] = os.path.join(PACKAGE_DIR,MODE_DC_PATH_WRITE_FIGURES,MODE_DC_PATH_WRITE_DATA[i])
+for i in range(0,len(MODE_DC_DIRECTORY_WRITE)):
+    # create the directory if it doesn't exist already
+    if not os.path.exists(MODE_DC_DIRECTORY_WRITE[i]):
+        os.makedirs(MODE_DC_DIRECTORY_WRITE[i])
+        #print("Directory:" + MODE_DC_DIRECTORY_WRITE[i] + "\n created successfully!")
+    else:
+        #print("Directory:" + MODE_DC_DIRECTORY_WRITE[i] + "\n already exists!")
+        break
+
+MODE_DC_DIRECTORY_WRITE_FILE = os.path.join(PACKAGE_DIR, MODE_DC_PATH_WRITE_LUMERICAL)
+if not os.path.exists(MODE_DC_DIRECTORY_WRITE_FILE):
+    os.makedirs(MODE_DC_DIRECTORY_WRITE_FILE)
+    #print("Directory:" + MODE_DC_DIRECTORY_WRITE_FILE[i] + "\n created successfully!")
+
 
 # WAVEGUIDE MODE
 MODE_WAVEGUIDE_PATH_WRITE_FIGURES = "MODE\\Results\\waveguide\\Figures"

@@ -22,8 +22,7 @@ it also quantifies if the mode is TE or TM based on the polarization fraction.
 import numpy as np
 import lumapi
 import matplotlib.pyplot as plt
-import sys, os 
-
+from config import *
 
 # Import user-defined parameters from another file
 from MODE.directional_coupler.user_inputs.user_simulation_parameters import *
@@ -31,55 +30,95 @@ from MODE.directional_coupler.user_inputs.user_simulation_parameters import *
 
 # -------------------_----- No inputs are required ---------------------------
 
-def mode_profile(file_path):
+def super_mode_profile(mode):
 
-    # Open a Lumerical MODE session
 
-    with lumapi.MODE() as mode:
-        mode.load(file_path)     
-        mode.switchtolayout()
-        xmin  = mode.getnamed("waveguide-constructor::wg1","x min")
-        xmax = mode.getnamed("waveguide-constructor::wg2","x max")
-        mode.setnamed("mesh","x min",xmin)
-        mode.setnamed("mesh","x max",xmax)
-        print("Repositioning mesh..")
-        print("xmin: " +str(xmin)+"\n"+"xmax: " + str(xmax))
-        mode.run()
-        mode.mesh()
+        # xmin  = mode.getnamed("waveguide-constructor::wg1","x min")
+        # xmax = mode.getnamed("waveguide-constructor::wg2","x max")
+        # mode.switchtolayout()
+        # mode.setnamed("mesh","x min",xmin)
+        # mode.setnamed("mesh","x max",xmax)
+        # print("Repositioning mesh..")
+        # print("xmin: " +str(xmin)+"\n"+"xmax: " + str(xmax))
+        # mode.mesh()
+        # mode.run()
+
+
         mode.findmodes()
-        
+
+
+
         # Get the wavelength from the simulation region
         Ef = mode.getresult("FDE::data::mode"+str(1),"E")
         wavelength = np.squeeze(Ef['lambda'])
-        
+
         neff = []
         polariz_frac = []
         polariz_mode = []
         sym_mode = [0]*(num_modes)
-        
-        
-        
+
+
+
         for m in range(1,num_modes+1):
-            neff.append(mode.getdata("FDE::data::mode"+str(m),"neff"))
-            polariz_frac.append(mode.getdata("FDE::data::mode"+str(m),"TE polarization fraction"))
-            
-            if ( polariz_frac[m-1] > 0.5 ):   # identify the TE-like or TM-like modes
-                    polariz_mode.append("TE")
-                    E1 = np.squeeze(mode.getdata("FDE::data::mode"+str(m),"Ex"))
-                    H1 = np.squeeze(mode.getdata("FDE::data::mode"+str(m),"Hx"))
+                neff.append(mode.getdata("FDE::data::mode"+str(m),"neff"))
+                polariz_frac.append(mode.getdata("FDE::data::mode"+str(m),"TE polarization fraction"))
                 
-            else:
-                    polariz_mode.append("TM")
-                    E1 = np.squeeze(mode.getdata("FDE::data::mode"+str(m),"Ey"))
-                    H1 = np.squeeze(mode.getdata("FDE::data::mode"+str(m),"Hy"))
+                if ( polariz_frac[m-1] > 0.5 ):   # identify the TE-like or TM-like modes
+                        polariz_mode.append("TE")
+                        E1 = np.squeeze(mode.getdata("FDE::data::mode"+str(m),"Ex"))
+                        H1 = np.squeeze(mode.getdata("FDE::data::mode"+str(m),"Hx"))
                 
-            sym_mode[m-1] = np.real(E1.min())
-            x  = np.squeeze(mode.getdata("FDE::data::mode"+str(m),"x")); 
-            y= np.squeeze(mode.getdata("FDE::data::mode"+str(m),"y"));
+                else:
+                        polariz_mode.append("TM")
+                        E1 = np.squeeze(mode.getdata("FDE::data::mode"+str(m),"Ey"))
+                        H1 = np.squeeze(mode.getdata("FDE::data::mode"+str(m),"Hy"))
+                
+                sym_mode[m-1] = np.real(E1.min())
+                x  = np.squeeze(mode.getdata("FDE::data::mode"+str(m),"x")); 
+                y= np.squeeze(mode.getdata("FDE::data::mode"+str(m),"y"));
         
         
         
         
 
-    return polariz_mode, sym_mode, neff, wavelength, num_modes, mode
+        return polariz_mode, sym_mode, neff, wavelength, num_modes
+
+
+
+
+
+
+
+
+
+
+if(__name__=="__main__"):
+
+    with lumapi.MODE(MODE_DC_DIRECTORY_READ) as mode:
+
+    # Run the simulation, create a mesh, and compute the modes, then save
+    
+
+        # Mode Profiles
+        # Initialize empty lists to store mode properties
+        neff = []           # effective index
+        polariz_frac = []   # polarization fraction
+        polariz_mode = []   # polarization mode (TE or TM)
+        sym_mode = []       # symmetry of the mode
+
+        # Switch to layout mode
+        mode.switchtolayout()
+        
+        # Generate the mesh for the simulation
+        mode.mesh()
+        
+        # Run the simulation
+        mode.run()
+        
+        # Find the modes in the simulation
+        # mode.findmodes()
+        
+        
+        # Retrieve mode profiles and assign to respective variables
+        polariz_mode, sym_mode, neff, wavelength, num_modes = super_mode_profile(mode)
 

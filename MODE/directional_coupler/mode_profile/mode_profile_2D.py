@@ -22,102 +22,18 @@ it also quantifies if the mode is TE or TM based on the polarization fraction.
 import numpy as np
 import lumapi
 import matplotlib.pyplot as plt
-import os 
+from config import *
 
-
-# Import user-defined parameters from another file
 from MODE.directional_coupler.user_inputs.user_simulation_parameters import *
 
 
-# ------------------------- Directories for Results ---------------------------
-
-# specify the directory path
-path_to_write = ["MODE\\Results\\directional_coupler\\lumerical_files\\mode_profile",
-"MODE\\Results\\directional_coupler\\Figures\\mode_profile"]
-directory_to_write = ['']*len(path_to_write)
+# ------------------------- No inputs are required ---------------------------
 
 
-# get the current file path
-current_path = os.path.abspath(__file__)
+def modeProfiles(mode):
 
-# get the directory of the current file
-current_dir = os.path.dirname(current_path)
-
-# find the project root directory by traversing up the directory 
-# tree until a specific file is found
-while not os.path.isfile(os.path.join(current_dir, ".gitignore")):
-    # move up to the parent directory
-    current_dir = os.path.dirname(current_dir)
-
-for i in range(0,len(path_to_write)):
-    directory_to_write[i] = os.path.join(current_dir, path_to_write[i])
-
-    # create the directory if it doesn't exist already
-    if not os.path.exists(directory_to_write[i]):
-        os.makedirs(directory_to_write[i])
-        print("Directory:" + directory_to_write[i] + "\n created successfully!")
-    else:
-        print("Directory:" + directory_to_write[i] + "\n already exists!")
-
-
-
-# ---------------------------------------------------------------------------
-# ------------------------- Directories for Reading ---------------------------
-
-# Define path to read files from
-path_to_read = "MODE\\directional_coupler\\user_inputs\\lumerical_files"
-
-# Define the list of waveguide files to be loaded into Lumerical MODE
-file_waveguide = ["waveguide_coupler.lms"]
-
-# Get the current path and directory of this Python script
-current_path = os.path.abspath(__file__)
-current_dir = os.path.dirname(current_path)
-
-# Move up the directory hierarchy until we find the .gitignore file,
-# which is assumed to be in the root directory of the project
-while not os.path.isfile(os.path.join(current_dir, ".gitignore")):
-    current_dir = os.path.dirname(current_dir)
-
-# Define the directory to read the files from, based on the project root directory
-dir_to_read = os.path.join(current_dir, path_to_read)
-
-# Initialize a list to store the names of the waveguide modes in Lumerical MODE
-file_name_mode = [str]*len(file_waveguide)
-# Get the current path and directory of this Python script
-current_path = os.path.abspath(__file__)
-current_dir = os.path.dirname(current_path)
-
-# Move up the directory hierarchy until we find the .gitignore file,
-# which is assumed to be in the root directory of the project
-while not os.path.isfile(os.path.join(current_dir, ".gitignore")):
-    current_dir = os.path.dirname(current_dir)
-
-# Define the directory to read the files from, based on the project root directory
-dir_to_read = os.path.join(current_dir, path_to_read)
-
-# Initialize a list to store the names of the waveguide modes in Lumerical MODE
-file_name_mode = [str]*len(file_waveguide)
-
-# ---------------------------------------------------------------------------
-
-
-# ---------------------------- Get Odd/Even Modes ---------------------------
-
-file_name_mode[0] = os.path.join(dir_to_read, file_waveguide[0])
-
-
-
-with lumapi.MODE() as mode:
-    mode.switchtolayout()
-    mode.load(file_name_mode[0])
-    mode.run()
-    mode.mesh()
     mode.findmodes()
-    file_name_mode_writing = os.path.join(directory_to_write[0], 
-                                                    "waveguide_mode_profile.lms")
-    mode.save(file_name_mode_writing)            
-    # Get the wavelength from the simulation region
+
     Ef = mode.getresult("FDE::data::mode"+str(1),"E")
     wavelength = np.squeeze(Ef['lambda'])
 
@@ -159,7 +75,45 @@ with lumapi.MODE() as mode:
         ax.set_ylabel("y (\u00B5m)")
         ax.set_title("Mode-"+str(m) + "(E-field): " + polariz_mode[m-1] + ", neff=" + str(neff[m-1]))
         
-        file_name_plot_writing = os.path.join(directory_to_write[1], 
-                                                    "mode_profile_"+str(m)+".png")
+        file_name_plot = os.path.join(MODE_DC_DIRECTORY_WRITE[0], "mode_profile_"+str(m)+".png")
+        plt.savefig(file_name_plot)
+
+    return neff, polariz_frac, polariz_mode, sym_mode
+
+
+
+
+
+
+
+if(__name__=="__main__"):
+
+    with lumapi.MODE(MODE_DC_DIRECTORY_READ) as mode:
+
+    # Run the simulation, create a mesh, and compute the modes, then save
+    
+
+        # Mode Profiles
+        # Initialize empty lists to store mode properties
+        neff = []           # effective index
+        polariz_frac = []   # polarization fraction
+        polariz_mode = []   # polarization mode (TE or TM)
+        sym_mode = []       # symmetry of the mode
+
+        # Switch to layout mode
+        mode.switchtolayout()
         
-        fig.savefig(file_name_plot_writing, dpi=my_dpi, format="png")
+        # Generate the mesh for the simulation
+        mode.mesh()
+        
+        # Run the simulation
+        mode.run()
+        
+        # Find the modes in the simulation
+        # mode.findmodes()
+        
+        
+        # Retrieve mode profiles and assign to respective variables
+        neff, polariz_frac, polariz_mode, sym_mode = modeProfiles(mode)
+
+    
