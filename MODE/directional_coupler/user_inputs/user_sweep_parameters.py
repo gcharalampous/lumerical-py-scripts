@@ -28,7 +28,7 @@ You can disable it from the .lms file in order to speed up the simulation result
 
 # 1. Define the coupling length array
 coupling_length_start = 1e-6
-coupling_length_stop = 20e-6
+coupling_length_stop = 80e-6
 coupling_length_step = 0.5e-6
 
 # 2. Define the coupling gap array
