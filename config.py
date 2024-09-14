@@ -204,7 +204,7 @@ for i in range(0,len(MODE_AWG_DIRECTORY_WRITE)):
 MODE_DC_FILENAME = ["waveguide_coupler.lms"]
 MODE_DC_PATH_READ = "MODE\\directional_coupler\\user_inputs\\lumerical_files"
 MODE_DC_PATH_WRITE_FIGURES = "MODE\\Results\\waveguide_coupler\\Figures"
-MODE_DC_PATH_WRITE_DATA = ["Mode Profile"]
+MODE_DC_PATH_WRITE_DATA = ["Mode Profile", "Gap Sweep", "Length Sweep"]
 MODE_DC_PATH_WRITE_LUMERICAL = "MODE\\Results\\waveguide_coupler\\lumerical_files"
 MODE_DC_DIRECTORY_READ = os.path.join(PACKAGE_DIR,MODE_DC_PATH_READ,MODE_DC_FILENAME[0])
 MODE_DC_DIRECTORY_WRITE = [str]*len(MODE_DC_PATH_WRITE_DATA)
