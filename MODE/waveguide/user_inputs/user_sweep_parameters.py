@@ -65,8 +65,8 @@ wg_radius_step = 0.50e-6            # Choose the step of each sweep 'radius'
 
 
 offset_P_start = 0.0e-6                     # Choose the start clear width (offset) 'offset_P_start' 
-offset_P_stop = 1.1e-6                     # Choose the stop clear width (offset) 'offset_P_stop'  
-offset_P_step = 0.05e-6                     # Choose the step clear width (offset) 'offset_P_step'
+offset_P_stop = 2.25e-6                     # Choose the stop clear width (offset) 'offset_P_stop'  
+offset_P_step = 0.250e-6                     # Choose the step clear width (offset) 'offset_P_step'
 
 offset_N_start = offset_P_start             # Choose the start clear width (offset) 'offset_N_start' 
 offset_N_stop = offset_P_stop               # Choose the stop clear width (offset) 'offset_N_stop'  

@@ -68,7 +68,7 @@ def dopingSweep(mode):
 
         mode.switchtolayout()
         mode.setnamed("slab_N++", "enabled", True)   
-        mode.setnamed("slab_N++", "enabled", True)   
+        mode.setnamed("slab_P++", "enabled", True)   
           
         mode.setnamed("slab_N++", "x min", wg_offset_N_array[r])   
         mode.setnamed("slab_P++", "x max", -wg_offset_P_array[r])   

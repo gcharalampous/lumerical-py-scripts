@@ -78,7 +78,7 @@ for enabling the mesh. Overide mesh across x and y axes with 'dx' and 'dy', resp
 
 # 1. Simulation Paramters
 simulation_span_x = 5e-6
-simulation_min_y = -1.0e-6
+simulation_min_y = -2.0e-6
 simulation_max_y = 2.0e-6
 
 
@@ -93,12 +93,12 @@ wg_thickness = 0.22e-6
 
 
 # 3.1 Set slab thickness > 0 to enable a slab waveguide
-slab_thickness = 0.05e-6
+slab_thickness = 0.110e-6
 
 
 # 3.2 Bend Waveguide at the center of the simualation ?
 bend_waveguide = False
-bend_radius = 4e-6
+bend_radius = 5e-6
 bend_orientation = 0
 
 disk_enable = False        # If False, ring resonator
@@ -109,7 +109,8 @@ disk_enable = False        # If False, ring resonator
 doping_enable = False     # Set True to Enable doping profiles
 offset_P = 1e-6
 offset_N = 1e-6
-
+doping_P_depth = 40e-9
+doping_N_depth = 50e-9
 
 # 3. 4. Metal Layer Stack (You can use a metal stuck using arrays)
 metal_layer_enable = False

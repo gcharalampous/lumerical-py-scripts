@@ -140,7 +140,7 @@ def waveguide_draw(mode):
 
     ("slab_P++",  (("x min", -simulation_span_x/2 - 0.5e-6),
                    ("x max", -offset_P),
-                   ("y min", 0.),
+                   ("y min", slab_thickness - doping_P_depth),
                    ("z", 0.),
                    ("y max", slab_thickness),
                    ("z span", 5e-6),
@@ -151,7 +151,7 @@ def waveguide_draw(mode):
     
     ("slab_N++",  (("x min", offset_N),
                    ("x max", simulation_span_x/2 + 0.5e-6),
-                   ("y min", 0.),
+                   ("y min", slab_thickness - doping_N_depth),
                    ("z", 0.),
                    ("y max", slab_thickness),
                    ("z span", 5e-6),
