@@ -45,10 +45,10 @@ frequency_points = 64
 
 
 # 5. Ring Coupler Parameters
-ring_radius = 4e-6
+ring_radius = 10e-6
 wg_ring_width = 0.48e-6
 wg_bus_width = wg_ring_width
 wg_thickness = 0.22e-6
-slab_thickness = 0.05e-6
+slab_thickness = 0.11e-6
 gap = 0.30e-6
 bus_angle = 60
