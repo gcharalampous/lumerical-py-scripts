@@ -81,7 +81,7 @@ def getDCVbi(device):
 
 
 if(__name__=="__main__"):
-    with lumapi.DEVICE(hide=True) as device:
+    with lumapi.DEVICE() as device:
     
         
         # Draw the waveguide structure using a custom function
@@ -118,7 +118,7 @@ if(__name__=="__main__"):
         plt.grid(visible=True, which='both')   
         plt.semilogy(V_a,R*1e-3,'-')
         plt.xlabel("Voltage (V)")
-        plt.ylabel("Resistance ($k\Omega \cdot \mu m$)")
+        plt.ylabel("Resistance ($k\\Omega \\cdot \\mu m$)")
         plt.tight_layout()
         file_name_plot = os.path.join(PIN_MODULATOR_DIRECTORY_WRITE[1], "Resistance_DC.png")
         plt.savefig(file_name_plot)
@@ -138,7 +138,7 @@ if(__name__=="__main__"):
         
         plt.legend()
         plt.xlabel("Voltage (V)")
-        plt.ylabel("Capacitance ($fF~/~\mu m$)")
+        plt.ylabel("Capacitance ($fF~/~\\mu m$)")
         plt.grid(which='both')   
         plt.tight_layout()
 

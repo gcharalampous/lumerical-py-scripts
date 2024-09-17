@@ -47,7 +47,8 @@ def voltage_sweep(device, v_anode_start,v_anode_stop,v_num_pts):
     
     ("CHARGE",
              (("norm length", norm_length),
-              ('solver type', 'newton'))),
+              ("max refine steps", max_refine_steps),
+              ('solver type', solver_type))),
     
     
     ("CHARGE::charge_monitor",
@@ -69,7 +70,7 @@ def voltage_sweep(device, v_anode_start,v_anode_stop,v_num_pts):
                
                
 if(__name__=="__main__"):
-    with lumapi.DEVICE(hide=True) as device:
+    with lumapi.DEVICE(hide=False) as device:
     
         
         # Draw the waveguide structure using a custom function

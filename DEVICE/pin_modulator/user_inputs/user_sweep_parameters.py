@@ -34,9 +34,9 @@ The waveguide parameters to sweep are 'wg_thickness' and 'wg_width' .
 
 
 # Voltage Sweep
-v_anode_start = -0.75
+v_anode_start = -0.1
 v_anode_stop = 2.0
-v_anode_step = 0.1
+v_anode_step = 25e-3
 v_num_pts = int((v_anode_stop - v_anode_start)/v_anode_step)+1
 
 

@@ -70,7 +70,9 @@ def add_charge_region(device):
     device.adddope(name = "pepi")
     device.adddope(name = "p++")
     device.adddope(name = "n++")
-    
+    device.adddope(name = "contact_p++")
+    device.adddope(name = "contact_n++")
+
     # Adds the anode and cathode
     device.addelectricalcontact(name = "anode")
     device.addelectricalcontact(name = "cathode")
@@ -113,13 +115,32 @@ def add_charge_region(device):
               ("z span", 5e-6),
               ("dopant type","p"),
               ("concentration", pepi_p_doping*1e6))),
+
+    ("CHARGE::contact_p++",
+            (("x min", -simulation_span_x/2),
+             ("y min", 0),
+             ("z", 0.),
+             ("x max", -simulation_span_x/2 + plateau_width),
+             ("y max", plateau_thickness),
+             ("dopant type","p"),
+             ("concentration", Ppp*1e6))),
+
+  ("CHARGE::contact_n++",
+            (("x min", simulation_span_x/2 - plateau_width),
+             ("y min", 0),
+             ("z", 0.),
+             ("x max", simulation_span_x/2),
+             ("y max", plateau_thickness),
+             ("dopant type","n"),
+             ("concentration", Nnn*1e6))),
+
     
     ("CHARGE::p++", 
              (("x min", -simulation_span_x/2 - 0.5e-6),
               ("x max", -offset_Ppp),
-              ("y min", -30e-9),
+              ("y min", slab_thickness - doping_P_depth),
               ("z", 0.),
-              ("y max", wg_thickness + 30e-9),
+              ("y max", slab_thickness + 30e-9),
               ("z span", 5e-6),
               ("dopant type","p"),
               ("concentration", Ppp*1e6))),
@@ -128,9 +149,9 @@ def add_charge_region(device):
     ("CHARGE::n++", 
              (("x min", offset_Nnn),
               ("x max", simulation_span_x/2 + 0.5e-6),
-              ("y min", -30e-9),
+              ("y min", slab_thickness - doping_N_depth),
               ("z", 0.),
-              ("y max", wg_thickness + 30e-9),
+              ("y max", slab_thickness + 30e-9),
               ("z span", 5e-6),
               ("dopant type","n"),
               ("concentration", Nnn*1e6))),

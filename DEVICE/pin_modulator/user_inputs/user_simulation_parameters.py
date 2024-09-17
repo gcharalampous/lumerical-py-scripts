@@ -93,7 +93,7 @@ wg_thickness = 0.22e-6
 
 
 # 3.1 Set slab thickness > 0 to enable a slab waveguide
-slab_thickness = 0.05e-6
+slab_thickness = 0.11e-6
 
 
 # 3.2 Plateau Left and Right
@@ -112,6 +112,9 @@ v_anode = 0
 # 3.5 Distance of the p++ and n++ boundaries to the pn junction centre
 offset_Ppp = 1.0e-6
 offset_Nnn = 1.0e-6
+
+doping_P_depth = 40e-9
+doping_N_depth = 50e-9
 
 # 3.6 Recombination models
 ## 3.6.1 Metal to semiconductor
@@ -134,19 +137,20 @@ sub_thickness = 10e-6
 
 
 # 6. Charge Parameters. 
-# 6.1 
+# 6.1 Device mesh settings
 min_edge_length = 4e-9
-max_edge_length = 600e-9
+max_edge_length = 200e-9
+max_refine_steps = 40000
 
-# 3D Expansion
+# 3D Expansion (Don't change, unless you change the plot units)
 norm_length = 1e-6
 
-
-
+# 6.2 Solver Type ('newton' or 'gummel)
+solver_type = 'gummel'
 
 # 7. Mesh (waveguide)
 mesh_enable = True
-max_edge_length_mesh_override = 600e-9
+max_edge_length_mesh_override = 100e-9
 
 
 

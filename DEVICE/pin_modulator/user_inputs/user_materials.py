@@ -62,8 +62,8 @@ contact_material = "Al (Aluminium) - CRC"
 # PEPI [doping in cm^-3]
 pepi_p_doping = 1e15
 
-Nnn=5e19                                          # N++ 
-Ppp=1e20                                          # P++
+Nnn=2.2e20                                            # N++ 
+Ppp=9e19                                              # P++
 
 # -------------------------- End of Input Section -----------------------------
 
