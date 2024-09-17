@@ -146,7 +146,7 @@ max_refine_steps = 40000
 norm_length = 1e-6
 
 # 6.2 Solver Type ('newton' or 'gummel)
-solver_type = 'gummel'
+solver_type = 'newton'
 
 # 7. Mesh (waveguide)
 mesh_enable = True
