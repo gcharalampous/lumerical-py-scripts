@@ -27,25 +27,25 @@ wg_thickness = 0.22e-6
 slab_thickness = 0.110e-6
 
 # 4. Box Layer Thickness
-box_thickness = 6.0e-6
+box_thickness = 3.0e-6
 
 # 5. Substrate Layer Thickness
 sub_thickness = 10e-6
 
 # 6. Grating Coupler Parameters
-period = 0.66e-6                        # Grating Period
+period = 0.657e-6                        # Grating Period
 fill_factor = 0.5                       # Fill Factor
 gc_sections = 50                        # Number of Gratings Sections
 port_extension = 15.0e-6                 # Port Extension
 
 # 7. Input Optical Source Parameters
 wavelength_center = 1.55e-6             # Central Wavelength
-wavelength_span = 0.0e-6                # Wavelength Span
+wavelength_span = 0.1e-6                # Wavelength Span
 polarization = 'TE'                     # 'TE' or 'TM'
 
 # 7.1 Optical Fibre Parameters (Gaussian Source)
 fiber_position_x = 4.5e-6               # Position of the optical source on GC
-fiber_angle = -20                        # Angle of the optical source - Incident Angle
+fiber_angle = -12                       # Angle of the optical source - Incident Angle
 waist_radius = 4.5e-6
 distance_from_waist = 0.0e-6
 
