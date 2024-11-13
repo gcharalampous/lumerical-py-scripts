@@ -36,22 +36,22 @@ def getCouplingResponse(fdtd):
         Returns:
         tuple: Transmission (T), wavelength, and fill factor arrays.
         """
-        T = np.squeeze(fdtd.getsweepresult("sweep_fiber_angle", "transmission").get('T'))
-        wavelength = np.squeeze(fdtd.getsweepresult("sweep_fiber_angle", "transmission").get('lambda'))
-        fiber_angle = np.squeeze(fdtd.getsweepresult("sweep_fiber_angle", "transmission").get('fiber_angle'))
+        T = np.squeeze(fdtd.getsweepresult("sweep_fiber_position_x", "transmission").get('T'))
+        wavelength = np.squeeze(fdtd.getsweepresult("sweep_fiber_position_x", "transmission").get('lambda'))
+        position_x = np.squeeze(fdtd.getsweepresult("sweep_fiber_position_x", "transmission").get('fiber_position_x'))
         
         T = np.abs(T)
 
-        return T, wavelength, fiber_angle
+        return T, wavelength, position_x
 
-def plot_coupling_response(T, wavelength, fiber_angle, output_path):
+def plot_coupling_response(T, wavelength, position_x, output_path):
         """
         Plot the coupling response.
 
         Parameters:
         T (numpy.ndarray): Transmission array.
         wavelength (numpy.ndarray): Wavelength array.
-        fiber_angle (numpy.ndarray): Fiber Angle Array.
+        position_x (numpy.ndarray): Fiber Position Array array.
         output_path (str): Path to save the plot.
         """
         T_log = 10 * np.log10(T)
@@ -60,14 +60,14 @@ def plot_coupling_response(T, wavelength, fiber_angle, output_path):
         fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
 
         if wavelength.ndim == 0:
-                ax.plot(fiber_angle, T_log, label=wavelength * 1e9)
-                ax.set_xlabel("Fiber Angle (degrees)")
+                ax.plot(position_x*1e6, T_log, label=wavelength * 1e9)
+                ax.set_xlabel("Fiber Position x (um)")
                 ax.legend(title="Wavelength (nm)")
         else:
-                for i in range(len(fiber_angle)):
-                        ax.plot(wavelength * 1e9, T_log[:, i], label=f"{fiber_angle[i]:.3f}")
+                for i in range(len(position_x)):
+                        ax.plot(wavelength * 1e9, T_log[:, i], label=f"{position_x[i]*1e6:.3f}")
                         ax.set_xlabel("Wavelength (nm)")
-                        ax.legend(title="Fiber Angle (degrees)")
+                        ax.legend(title="Fiber Position x (um)")
 
         ax.grid(which='major')
         ax.set_ylabel("Magnitude [dB]")
@@ -82,16 +82,16 @@ if __name__ == "__main__":
                         override_fdtd(fdtd=fdtd)
                         override_grating_coupler(fdtd=fdtd)
 
-                        # Comment to skip the sweep
-                        fdtd.runsweep('sweep_fiber_angle')
+                        # Uncomment to run the sweep
+                        fdtd.runsweep('sweep_fiber_position_x')
 
                         # Get Coupling via the getFillFactorSweep function
-                        T, wavelength, fiber_angle = getCouplingResponse(fdtd=fdtd)
+                        T, wavelength, position_x = getCouplingResponse(fdtd=fdtd)
 
                         # Define the output path for the plot
-                        file_name_plot = os.path.join(FDTD_GRATING_COUPLER_2D_DIRECTORY_WRITE[3], "grating_coupler_sweep_fiber_angle.png")
+                        file_name_plot = os.path.join(FDTD_GRATING_COUPLER_2D_DIRECTORY_WRITE[3], "grating_coupler_sweep_fiber_position_x.png")
 
                         # Plot the coupling response
-                        plot_coupling_response(T, wavelength, fiber_angle, file_name_plot)
+                        plot_coupling_response(T, wavelength, position_x, file_name_plot)
         except Exception as e:
                 print(f"An error occurred: {e}")
