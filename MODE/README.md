@@ -1,30 +1,37 @@
-## Mode Solution
+# Mode Solution Library for Photonic Simulations
 
-Feel free to explore the following:
+This repository contains a collection of Python-based simulations and calculations for integrated photonics, focusing on mode analysis, coupling efficiencies, and waveguide characteristics.
 
-- [butt-coupling](butt_coupling)
-  - Plots the mode profile for the two waveguides.
-  - Calculates the overlap integral.
-  - Calculates the overlap integral misalignment between the two waveguides.
-  - Calculates the overlap integral as a function of the second waveguide width for the TE/TM fundamental modes.
+## Features
 
-- [directional-coupler](directional_coupler)
-  - Plots the symmetric and antisymmetric mode profiles of the waveguide.
-  - Calculates the L<sub>π</sub> as a function of gap and distance.
+### [awg-star-coupler](awg_star_coupler)
+  - Simulates the aperture profile of a 2D star coupler.
 
-- [edge-coupler](edge_coupler)
-  - Plots the overlap integral between the Gaussian beam and the waveguide mode.
-  - Calculates the overlap integral as a function of the Gaussian beam Mode-Field Diameter (MFD).
-  - Calculates the overlap integral as a function of the thickness of the waveguide.
+### [butt-coupling](butt_coupling)
+  - Visualizes mode profiles for two coupled waveguides.
+  - Computes overlap integrals to quantify coupling efficiency.
+  - Analyzes misalignment effects on coupling.
+  - Studies coupling efficiency as a function of the second waveguide width for fundamental TE/TM modes.
 
-- [vertical-taper](vertical_taper)
-  - Calculates the effective index as a function of the taper length.
+### [directional-coupler](directional_coupler)
+  - Visualizes symmetric and antisymmetric mode profiles.
+  - Calculates the coupling length, \(L_{\pi}\), as a function of gap and distance between waveguides.
 
-- [waveguide](waveguide)
-  - Plots the mode profile of the waveguide.
-  - Calculates the effective index as a function of width and height.
-  - Calculates the effective index variation as a function of the width and height. 
-  - Calculates the absorption loss when a metal layer stack is deposited on top of the waveguide.
-  - Calculates the Q-factor and FSR for racetrack resonators.
-  - Calculates the straight to bend waveguide loss.
-  - Calculates the confinfmenet factor in PCM materials
+### [edge-coupler](edge_coupler)
+  - Evaluates overlap between Gaussian beam and waveguide mode profiles.
+  - Examines coupling efficiency as a function of Gaussian beam Mode-Field Diameter (MFD).
+  - Analyzes the impact of waveguide thickness on overlap efficiency.
+
+### [swg-grating](swg_grating)
+  - Calculates the transmission and reflection properties of a sub-wavelength grating.
+
+### [vertical-taper](vertical_taper)
+  - Computes effective index variation as a function of taper length for vertically tapered structures.
+
+### [waveguide](waveguide)
+  - Visualizes mode profiles for various waveguide configurations.
+  - Calculates effective index variations with respect to waveguide width and height.
+  - Models absorption loss due to metal layer deposition on waveguides.
+  - Estimates the Q-factor and Free Spectral Range (FSR) for racetrack resonators.
+  - Calculates straight-to-bend waveguide loss.
+  - Determines confinement factors in Phase Change Materials (PCM).
