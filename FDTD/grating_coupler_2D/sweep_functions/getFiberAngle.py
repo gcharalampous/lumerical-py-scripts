@@ -36,9 +36,9 @@ def getCouplingResponse(fdtd):
         Returns:
         tuple: Transmission (T), wavelength, and fill factor arrays.
         """
-        T = np.squeeze(fdtd.getsweepresult("sweep_fill_factor", "transmission").get('T'))
-        wavelength = np.squeeze(fdtd.getsweepresult("sweep_fill_factor", "transmission").get('lambda'))
-        fill_factor = np.squeeze(fdtd.getsweepresult("sweep_fill_factor", "transmission").get('fill_factor'))
+        T = np.squeeze(fdtd.getsweepresult("sweep_fiber_angle", "transmission").get('T'))
+        wavelength = np.squeeze(fdtd.getsweepresult("sweep_fiber_angle", "transmission").get('lambda'))
+        fill_factor = np.squeeze(fdtd.getsweepresult("sweep_fiber_angle", "transmission").get('fiber_angle'))
         
         T = np.abs(T)
 
@@ -61,13 +61,13 @@ def plot_coupling_response(T, wavelength, fill_factor, output_path):
 
         if wavelength.ndim == 0:
                 ax.plot(fill_factor, T_log, label=wavelength * 1e9)
-                ax.set_xlabel("Fill Factor")
+                ax.set_xlabel("Fiber Angle (degrees)")
                 ax.legend(title="Wavelength (nm)")
         else:
                 for i in range(len(fill_factor)):
                         ax.plot(wavelength * 1e9, T_log[:, i], label=f"{fill_factor[i]:.3f}")
                         ax.set_xlabel("Wavelength (nm)")
-                        ax.legend(title="Fill Factor")
+                        ax.legend(title="Fiber Angle (degrees)")
 
         ax.grid(which='major')
         ax.set_ylabel("Magnitude [dB]")
@@ -83,13 +83,13 @@ if __name__ == "__main__":
                         override_grating_coupler(fdtd=fdtd)
 
                         # Uncomment to run the sweep
-                        fdtd.runsweep('sweep_fill_factor')
+                        fdtd.runsweep('sweep_fiber_angle')
 
                         # Get Coupling via the getFillFactorSweep function
                         T, wavelength, fill_factor = getCouplingResponse(fdtd=fdtd)
 
                         # Define the output path for the plot
-                        file_name_plot = os.path.join(FDTD_GRATING_COUPLER_2D_DIRECTORY_WRITE[3], "grating_coupler_sweep_fill_factor.png")
+                        file_name_plot = os.path.join(FDTD_GRATING_COUPLER_2D_DIRECTORY_WRITE[3], "grating_coupler_sweep_fiber_angle.png")
 
                         # Plot the coupling response
                         plot_coupling_response(T, wavelength, fill_factor, file_name_plot)
