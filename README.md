@@ -10,6 +10,7 @@ lumerical-py-scripts/
 │   ├── directional-coupler
 │   ├── disk_resonator_coupler
 │   ├── edge_coupler
+│   ├── grating_coupler_2D
 │   ├── mmi-couplers
 │   ├── ring_resonator_coupler
 │   ├── swg_grating
@@ -26,56 +27,12 @@ lumerical-py-scripts/
     ├── swg_grating
     ├── vertical_taper
     └── waveguide
-
-
 ```
 
 ## Why this Repository?
 
 In this repository, you will find useful scripts to optimize your workflow and automate your daily design tasks. All you need to do is modify the .py files under `user_inputs` in each subdirectory and run the scripts. The results will be shown on the interactive terminal and stored under a `Result` directory that will be created after you run the scripts. The repository is divided into three main simulation branches with multiple subcategories each:
 
-### 1. [3D FDTD](/FDTD)
-
-- [ ] [directional-coupler](FDTD/directional-coupler): Calculates the coupling and plots the E-field of an s-bend directional coupler.
-
-- [x] [disk-resonator-coupler](FDTD/disk_resonator_coupler): Calculates the coupling of a (a) straight coupled disk resonator.
-
-- [x] [edge-coupler](FDTD/edge_coupler): Calculates the coupling loss between a fiber (Gaussian) mode and a waveguide mode.
-
-- [ ] [mmi-coupler](FDTD/mmi-coupler): Calculates the coupling and plots the E-field image of a (a) 2x2 MMI coupler.
-
-- [x] [swg_grating](FDTD/swg_grating): Calculates the frequency response (T/R) of a sub-waveelength grating.
-
-- [x] [vertical-taper](FDTD/vertical-taper): Calculates the transmission on the upper waveguide.
-
-- [x] [waveguide-bend](FDTD/waveguide-bend): Calculates the bending loss and mode profile. 
-
-- [x] [waveguide-crossing](FDTD/waveguide-crossing): Calculations the transmission and crosstalk of a linear taper waveguide-crossing.
-
-- [x] [waveguide-mode-taper](FDTD/waveguide-mode-taper): Calculates the adiabatic length of the tapered waveguide.
-
-- [x] [waveguide-straight](FDTD/waveguide-straight): Mode profile and transmission simulations for a straight waveguide.
-
-- [x] [ring-resonator-coupler](FDTD/ring_-_resonator_-_coupler): Calculates the coupling of a (a) rectangular, (b) concentric, and (c) straight sections ring.
-
-### 2. [MODE Solutions](/MODE)
-
-- [x] [awg-star-coupler](MODE/awg_star_coupler): Calculates the far-field of an awg star-coupler.
-- [x] [butt-coupling](MODE/butt_coupling): Calculates the overlap integral between two waveguides.
-
-- [x] [directional-coupler](MODE/directional_coupler): Calculates the effective index of the supermodes and plots the coupling as a function of length.
-
-- [x] [edge-coupler](MODE/edge_coupler): Calculates the overlap integral between a fiber mode (Gaussian) and a waveguide.
-
-- [x] [swg_grating](MODE/swg_grating): Calculates the frequency response (T/R) of a sub-waveelength grating (2.5D varFDTD).
-
-- [x] [vertical-taper](MODE/vertical_taper): Calculates the effective index of vertical tapers over the propagation distance.
-
-- [x] [waveguide](MODE/waveguide): Calculates the effective index, propagation loss, FSR and Q-factor. Metal and doping layers included.
-
-### 3. [DEVICE](/DEVICE)
-- [x] [electro-optic](DEVICE/electro_optic/): Calcuates the Electrostatic Field across the waveguide layers, and calculates the index change for AlGaAs.
-- [x] [pin-modulator](DEVICE/pin_modulator): Calculates the electrical parameters for the pin junction and extracts data for waveguide mode simulations.
 
 ## Requirements
 
@@ -109,26 +66,13 @@ Clone the repository and run the scripts under the root project folder. The code
 
 ### Visual Studio Code
 
-If you're coding on a Windows machine, add the following lines in the .json settings:
-
-```json
-"terminal.integrated.env.windows": {
-    "PYTHONPATH": "C:\\Program Files\\Lumerical\\v222\\api\\python;D:\\Georgios\\Python - Scripts\\lumerical-py-scripts"
-},
-"python.envFile": "${workspaceFolder}/.env"
-```
-
-(Note: The separator for Windows path is `;` while for Linux path is `:`. The Pythonpath here contains the path of the `lumapi` and the root path of the project.)
-
-Alternatively, you can create a file called `.env` under the root project directory to add your lumapi path and the directory of the root project. For example:
+If you're coding on a Windows machine, you can create a file called `.env` under the root project directory to add your lumapi path and the working directory of the root project. For example:
 
 ``` mathematica
 PYTHONPATH=C:\\Program Files\\Lumerical\\v222\\api\\python;D:\\Georgios\\Python-Scripts\\lumerical-py-scripts\\
 ```
 
-Make sure to run the code with the Jupyter Interactive Python kernel to see the plots appear in the interactive terminal.
-
-### 
+Ensure that you run the code with the Jupyter Interactive Python kernel to view the plots in the interactive terminal. In VSCode, you may need to restart the Python kernel each time you update one of the imported library files.
 
 ## References
 
