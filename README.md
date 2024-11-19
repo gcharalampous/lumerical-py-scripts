@@ -31,7 +31,7 @@ lumerical-py-scripts/
 
 ## Why this Repository?
 
-In this repository, you will find useful scripts to optimize your workflow and automate your daily design tasks. All you need to do is modify the .py files under `user_inputs` in each subdirectory and run the scripts. The results will be shown on the interactive terminal and stored under a `Result` directory that will be created after you run the scripts. The repository is divided into three main simulation branches with multiple subcategories each:
+In this repository, you will find useful scripts to optimize your workflow and automate your daily design tasks. All you need to do is modify the .py files under `user_inputs` in each subdirectory and run the scripts. The results will be shown on the Python interactive terminal and stored under a `Result` directory that will be created after you run the scripts. The repository is divided into three main simulation branches with multiple subcategories each:
 
 
 ## Requirements
@@ -71,8 +71,12 @@ If you're coding on a Windows machine, you can create a file called `.env` under
 ``` mathematica
 PYTHONPATH=C:\\Program Files\\Lumerical\\v222\\api\\python;D:\\Georgios\\Python-Scripts\\lumerical-py-scripts\\
 ```
+Make sure the `.env` file is loaded after restarting VSCode.
 
 Ensure that you run the code with the Jupyter Interactive Python kernel to view the plots in the interactive terminal. In VSCode, you may need to restart the Python kernel each time you update one of the imported library files.
+
+## To-Do List
+See the full [To-Do List](TODO.md) for upcoming tasks and features.
 
 ## References
 
