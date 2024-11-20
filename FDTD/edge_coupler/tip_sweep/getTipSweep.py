@@ -49,7 +49,7 @@ if(__name__=="__main__"):
         T = getCouplingResponse(fdtd=fdtd)
         width_wg_left = np.squeeze(T['width_wg_left'])
         through = np.squeeze(T['T_forward'])
-
+        gaussian_radius = fdtd.getnamed("source","waist radius w0")
 
 # --------------------------------Plot-T/C---------------------------------
 
@@ -60,7 +60,7 @@ if(__name__=="__main__"):
         ax.legend()
         ax.set_xlabel("waveguide tip (nm)")
         ax.set_ylabel("Magnitude")
-        ax.set_title("Waist Radius: " + str(fdtd.getnamed("source","waist radius w0")) + " um")
+        ax.set_title("Waist Radius: {:.2f} um".format(gaussian_radius*1e6))
         plt.tight_layout()
         file_name_plot = os.path.join(FDTD_EDGE_DIRECTORY_WRITE[3], "Coupling_tip_sweep.png")
         plt.savefig(file_name_plot)        
