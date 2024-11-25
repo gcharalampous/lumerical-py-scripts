@@ -8,6 +8,7 @@
 - [ ] Add the scripts for FDTD/mmi_coupler
 - [ ] Add the scripts for FDTD/directional_coupler
 - [ ] Update the code for saving the files in several scripts using the config file
+- [ ] Add a new sub-repo for FDTD/grating_coupler_rectangular_3D
 
 ### Optimization (New Scripts)
 - [ ] Optimize grating period calculation
