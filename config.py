@@ -10,6 +10,39 @@ PACKAGE_DIR = os.path.dirname(os.path.realpath(__file__))
 
 #PACKAGE DIRECTORIES
 
+
+
+# Adiabatic Y-Branch FDTD
+FDTD_ADIAB_Y_BR_FILENAME = "adiabatic_y_branch.fsp"
+FDTD_ADIAB_Y_BR_PATH_READ = "FDTD\\adiabatic_y_branch\\user_inputs\\lumerical_files"
+FDTD_ADIAB_Y_BR_PATH_WRITE_FIGURES = "FDTD\\Results\\adiabatic_y_branch\\Figures"
+FDTD_ADIAB_Y_BR_PATH_WRITE_LUMERICAL = "FDTD\\Results\\adiabatic_y_branch\\lumerical_files"
+
+FDTD_ADIAB_Y_BR_PATH_WRITE_DATA = ["Sweep Transmission", "Frequency Response","E-fields"]
+FDTD_ADIAB_Y_BR_DIRECTORY_READ = os.path.join(PACKAGE_DIR,FDTD_ADIAB_Y_BR_PATH_READ,FDTD_ADIAB_Y_BR_FILENAME)
+FDTD_ADIAB_Y_BR_DIRECTORY_WRITE = [str]*len(FDTD_ADIAB_Y_BR_PATH_WRITE_DATA)
+for i,data in enumerate(FDTD_ADIAB_Y_BR_PATH_WRITE_DATA):
+    FDTD_ADIAB_Y_BR_DIRECTORY_WRITE[i] = os.path.join(PACKAGE_DIR,FDTD_ADIAB_Y_BR_PATH_WRITE_FIGURES,FDTD_ADIAB_Y_BR_PATH_WRITE_DATA[i])
+for i in range(0,len(FDTD_ADIAB_Y_BR_DIRECTORY_WRITE)):
+    # create the directory if it doesn't exist already
+    if not os.path.exists(FDTD_ADIAB_Y_BR_DIRECTORY_WRITE[i]):
+        os.makedirs(FDTD_ADIAB_Y_BR_DIRECTORY_WRITE[i])
+        #print("Directory:" + FDTD_ADIAB_Y_BR_DIRECTORY_WRITE[i] + "\n created successfully!")
+    else:
+        #print("Directory:" + FDTD_ADIAB_Y_BR_DIRECTORY_WRITE[i] + "\n already exists!")
+        break
+
+
+FDTD_ADIAB_Y_BR_DIRECTORY_WRITE_FILE = os.path.join(PACKAGE_DIR, FDTD_ADIAB_Y_BR_PATH_WRITE_LUMERICAL)
+if not os.path.exists(FDTD_ADIAB_Y_BR_DIRECTORY_WRITE_FILE):
+    os.makedirs(FDTD_ADIAB_Y_BR_DIRECTORY_WRITE_FILE)
+    #print("Directory:" + FDTD_ADIAB_Y_BR_DIRECTORY_WRITE[i] + "\n created successfully!")
+
+
+
+
+
+
 # Disk Coupler FDTD
 FDTD_DISK_FILENAME = ["straight_disk_coupling_section.fsp","coocentric_disk_coupling_section.fsp","rectangular_disk_coupling_section.fsp"]
 FDTD_DISK_PATH_READ = "FDTD\\disk_resonator_coupler\\user_inputs\\lumerical_files"
@@ -164,6 +197,34 @@ for i in range(0,len(FDTD_VERTICAL_DIRECTORY_WRITE)):
         break
 
 
+# WAVEGUIDE TAPER LASER
+FDTD_LASER_TAPERED_FILENAME = ["laser_mesa_waveguide_tapered.fsp"]
+FDTD_LASER_TAPERED_PATH_READ = "FDTD\\laser_tapered_waveguide\\user_inputs\\lumerical_files"
+FDTD_LASER_TAPERED_PATH_WRITE_FIGURES = "FDTD\\Results\\laser_mesa_waveguide_tapered\\Figures"
+FDTD_LASER_TAPERED_PATH_WRITE_DATA = ["Index Profile", "Frequency Response","E-fields"]
+FDTD_LASER_TAPERED_PATH_WRITE_LUMERICAL = "FDTD\\Results\\laser_mesa_waveguide_tapered\\lumerical_files"
+FDTD_LASER_TAPERED_DIRECTORY_READ = os.path.join(PACKAGE_DIR,FDTD_LASER_TAPERED_PATH_READ,FDTD_LASER_TAPERED_FILENAME[0])
+FDTD_LASER_TAPERED_DIRECTORY_WRITE = [str]*len(FDTD_LASER_TAPERED_PATH_WRITE_DATA)
+for i,data in enumerate(FDTD_LASER_TAPERED_PATH_WRITE_DATA):
+    FDTD_LASER_TAPERED_DIRECTORY_WRITE[i] = os.path.join(PACKAGE_DIR,FDTD_LASER_TAPERED_PATH_WRITE_FIGURES,FDTD_LASER_TAPERED_PATH_WRITE_DATA[i])
+for i in range(0,len(FDTD_LASER_TAPERED_DIRECTORY_WRITE)):
+    # create the directory if it doesn't exist already
+    if not os.path.exists(FDTD_LASER_TAPERED_DIRECTORY_WRITE[i]):
+        os.makedirs(FDTD_LASER_TAPERED_DIRECTORY_WRITE[i])
+        #print("Directory:" + FDTD_LASER_TAPERED_DIRECTORY_WRITE[i] + "\n created successfully!")
+    else:
+        #print("Directory:" + FDTD_LASER_TAPERED_DIRECTORY_WRITE[i] + "\n already exists!")
+        break
+
+FDTD_LASER_TAPERED_DIRECTORY_WRITE_FILE = os.path.join(PACKAGE_DIR, FDTD_LASER_TAPERED_PATH_WRITE_LUMERICAL)
+if not os.path.exists(FDTD_LASER_TAPERED_DIRECTORY_WRITE_FILE):
+    os.makedirs(FDTD_LASER_TAPERED_DIRECTORY_WRITE_FILE)
+    #print("Directory:" + FDTD_LASER_TAPERED_DIRECTORY_WRITE_FILE[i] + "\n created successfully!")
+
+
+
+
+
 
 
 # WAVEGUIDE MODE TAPER FDTD
@@ -216,6 +277,33 @@ for i in range(0,len(MODE_AWG_DIRECTORY_WRITE)):
     else:
         #print("Directory:" + FDTD_SWG_DIRECTORY_WRITE[i] + "\n already exists!")
         break
+
+
+
+# WAVEGUIDE TAPER LASER
+MODE_LASER_TAPERED_FILENAME = ["laser_taper_waveguide.lms"]
+MODE_LASER_TAPERED_PATH_READ = "MODE\\laser_tapered_waveguide\\user_inputs\\lumerical_files"
+MODE_LASER_TAPERED_PATH_WRITE_FIGURES = "MODE\\Results\\laser_taper_waveguide\\Figures"
+MODE_LASER_TAPERED_PATH_WRITE_DATA = ["Mode Profile"]
+MODE_LASER_TAPERED_PATH_WRITE_LUMERICAL = "MODE\\Results\\laser_taper_waveguide\\lumerical_files"
+MODE_LASER_TAPERED_DIRECTORY_READ = os.path.join(PACKAGE_DIR,MODE_LASER_TAPERED_PATH_READ,MODE_LASER_TAPERED_FILENAME[0])
+MODE_LASER_TAPERED_DIRECTORY_WRITE = [str]*len(MODE_LASER_TAPERED_PATH_WRITE_DATA)
+for i,data in enumerate(MODE_LASER_TAPERED_PATH_WRITE_DATA):
+    MODE_LASER_TAPERED_DIRECTORY_WRITE[i] = os.path.join(PACKAGE_DIR,MODE_LASER_TAPERED_PATH_WRITE_FIGURES,MODE_LASER_TAPERED_PATH_WRITE_DATA[i])
+for i in range(0,len(MODE_LASER_TAPERED_DIRECTORY_WRITE)):
+    # create the directory if it doesn't exist already
+    if not os.path.exists(MODE_LASER_TAPERED_DIRECTORY_WRITE[i]):
+        os.makedirs(MODE_LASER_TAPERED_DIRECTORY_WRITE[i])
+        #print("Directory:" + MODE_LASER_TAPERED_DIRECTORY_WRITE[i] + "\n created successfully!")
+    else:
+        #print("Directory:" + MODE_LASER_TAPERED_DIRECTORY_WRITE[i] + "\n already exists!")
+        break
+
+MODE_LASER_TAPERED_DIRECTORY_WRITE_FILE = os.path.join(PACKAGE_DIR, MODE_LASER_TAPERED_PATH_WRITE_LUMERICAL)
+if not os.path.exists(MODE_LASER_TAPERED_DIRECTORY_WRITE_FILE):
+    os.makedirs(MODE_LASER_TAPERED_DIRECTORY_WRITE_FILE)
+    #print("Directory:" + MODE_LASER_TAPERED_DIRECTORY_WRITE_FILE[i] + "\n created successfully!")
+
 
 
 

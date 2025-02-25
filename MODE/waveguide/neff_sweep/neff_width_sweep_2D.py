@@ -77,7 +77,7 @@ def widthSweep(mode):
     plt.legend()
     plt.xlabel("width (um)")
     plt.ylabel("neff")
-    plt.title("thickness "+ str(wg_thickness*1e6) + " um") 
+    plt.title("thickness "+ str(np.round(wg_thickness*1e6,2)) + " um") 
     plt.tight_layout()
 
     # Save the figure files as .png
