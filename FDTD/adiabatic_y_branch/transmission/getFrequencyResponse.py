@@ -73,13 +73,17 @@ if(__name__=="__main__"):
         ax.axhline(y=min_val, color='black', linestyle='--')
         ax.axhline(y=max_val, color='black', linestyle='--')
         
-        IL =  (-3 - max_val)
-        deviation_from_3dB = (max_val - min_val) - IL
+        # Calculate the deviation from 3dB        
+        deviation_from_3dB_1 = abs(-3.01 - min_val)
+        deviation_from_3dB_2 = abs(-3.01 - max_val)
+        
+        # Get the worst case deviation from 3dB
+        deviation_from_3dB = (max(deviation_from_3dB_1, deviation_from_3dB_2))
+        deviation_percentage = (10**(-deviation_from_3dB/10)-1) * 100
+        
         
         print(f"Deviation: {deviation_from_3dB} dB")
-        deviation_percentage = (10 ** (deviation_from_3dB / 10) - 1) * 100
-        print(f"Deviation: {deviation_percentage:.2f}%")
-
+        print(f"Deviation: {abs(deviation_percentage):.2f}%")
         
         plt.tight_layout()
         file_name_plot = os.path.join(FDTD_ADIAB_Y_BR_DIRECTORY_WRITE[1], "frequency_response_dB.png")
