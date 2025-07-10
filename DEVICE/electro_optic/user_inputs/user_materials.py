@@ -47,6 +47,7 @@ oxide_material_e = "SiO2 (Glass) - Sze"
 wg_material_e = "AlGaAs (Aluminium Gallium Arsenide)"
 wg_mole_fract = 0.2                                 # If applicable, otherwise will be neglected
 
+
 # Contacts
 contact_material_e = "Au (Gold) - CRC"
 
@@ -78,6 +79,7 @@ pepi_p_doping = 1e15
 
 # Waveguide pp Doping
 waveguide_pp_doping = 1e18
+waveguide_nn_doping = 1e18
 
 
 

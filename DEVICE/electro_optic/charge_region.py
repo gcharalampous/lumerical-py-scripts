@@ -72,6 +72,7 @@ def add_charge_region(device):
     # Adds the doping
     device.adddope(name = "pepi")
     device.adddope(name = "ppepi")
+    device.adddope(name = "nnepi")
 
 
     if(GSG_pads_enable == True):
@@ -113,7 +114,18 @@ def add_charge_region(device):
               ("z min", wg_thickness - waveguide_pp_thickness),
               ("dopant type","p"),
               ("enabled", waveguide_pp_doping_enable),
-              ("concentration", pepi_p_doping*1e6))),
+              ("concentration", waveguide_pp_doping*1e6))),
+    
+    ("CHARGE::nnepi", 
+             (("x min", -simulation_span_x/2 - 0.5e-6),
+              ("x max", simulation_span_x/2 + 0.5e-6),
+              ("y", 0),
+              ("z max", waveguide_nn_thickness),
+              ("z min", 0),
+              ("dopant type","n"),
+              ("enabled", waveguide_nn_doping_enable),
+              ("concentration", waveguide_nn_doping*1e6))),
+    
     
         
     ("CHARGE::mesh", 

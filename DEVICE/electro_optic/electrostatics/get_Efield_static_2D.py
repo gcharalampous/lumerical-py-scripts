@@ -27,8 +27,8 @@ from DEVICE.electro_optic.charge_region import add_charge_region
 from config import *
 
 # Define grid dimensions (Reduce for Quiver plot if necessary)
-N_x = 50
-N_z = 50
+N_x = 100
+N_z = 100
 
 def get_Efield_static_2D(device):
     """
@@ -87,31 +87,42 @@ if __name__ == "__main__":
         Ez[:, :] = device.interptri(tri, vt, Ez_tri, x, z)
         
         # Plot the electric field
-        plt.figure(1)
+        plt.figure(1,figsize=(5.12,2.56))
         plt.quiver(X*1e6, Z*1e6, np.transpose(Ex), np.transpose(Ez))
         plt.xlabel('x [um]')
-        plt.ylabel('y [um]')
+        plt.ylabel('z [um]')
         
-        plt.figure(2)
+        plt.figure(2,figsize=(5.12,2.56))
         plt.pcolormesh(X*1e6, Z*1e6, np.transpose(abs(Ez)*1e-3), shading='gouraud', cmap='jet', norm=LogNorm())
         cbar = plt.colorbar()
         cbar.set_label('E-field [kV/m]')
         plt.xlabel('x [um]')
-        plt.ylabel('y [um]')
+        plt.ylabel('z [um]')
         plt.title('Vertical Component $|E_z|$')
         
-        plt.figure(3)
+        plt.figure(3,figsize=(5.12,2.56))
         plt.pcolormesh(X*1e6, Z*1e6, np.transpose(abs(Ex)*1e-3), shading='gouraud', cmap='jet', norm=LogNorm())
         cbar = plt.colorbar()
         cbar.set_label('E-field [kV/m]')
         plt.xlabel('x [um]')
-        plt.ylabel('y [um]')
+        plt.ylabel('z [um]')
         plt.title('Horizontal Component $|E_x|$')
         
         # Plot the waveguide and slab regions
         wg_xmin = device.getnamed("waveguide", "x min")
         wg_xmax = device.getnamed("waveguide", "x max")
         r1 = sg.box(wg_xmin*1e6, 0, wg_xmax*1e6, wg_thickness*1e6)
+        
+        # Optionally set axis limits for all plots
+        set_axis_limits = True  # Set to False if you don't want to define limits
+        if set_axis_limits:
+            xlim = (-2*wg_width*1e6, 2*wg_width*1e6)
+            ylim = (-wg_thickness*1e6, wg_thickness*1e6)
+            for i in range(1, 4):
+                plt.figure(i)
+                plt.axis('equal')
+                plt.xlim(xlim)
+                plt.ylim(ylim)
         
         if slab_thickness > 0:
             # Add the slab
@@ -126,7 +137,7 @@ if __name__ == "__main__":
             xs, ys = merged_shape.exterior.xy
             for i in range(1, 4):
                 plt.figure(i)
-                plt.fill(xs, ys, alpha=0.5, fc='none', ec='r')
+                plt.fill(xs, ys, alpha=0.5, fc='none', ec='k')
                 file_name_plot = os.path.join(EO_MODULATOR_DIRECTORY_WRITE[0], f"Efield_{i}.png")
                 plt.savefig(file_name_plot)
         else:
@@ -134,6 +145,7 @@ if __name__ == "__main__":
             xs, ys = r1.exterior.xy
             for i in range(1, 4):
                 plt.figure(i)
-                plt.fill(xs, ys, alpha=0.5, fc='none', ec='r')
+                plt.fill(xs, ys, alpha=0.5, fc='none', ec='k')
                 file_name_plot = os.path.join(EO_MODULATOR_DIRECTORY_WRITE[0], f"Efield_{i}.png")
                 plt.savefig(file_name_plot)
+

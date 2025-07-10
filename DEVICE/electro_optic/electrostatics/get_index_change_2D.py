@@ -35,8 +35,8 @@ def index_permutation(Ex, Ez, wg_index_x, wg_index_z):
     
     if(wg_material_e == "AlGaAs (Aluminium Gallium Arsenide)"):
         r41 = 1.46e-12
-        index_permutation_tri_x = 0.5*((wg_index_x)**3)*r41*Ez
-        index_permutation_tri_z = 0.5*((wg_index_x)**3)*r41*Ex
+        index_permutation_tri_x = 0.5*((wg_index_x)**3)*r41*np.abs(Ez)
+        index_permutation_tri_z = 0.5*((wg_index_x)**3)*r41*np.abs(Ex)
     else:
         print('Non-linear material, not defined')
         index_permutation_tri_x = 0 * Ez
@@ -68,7 +68,7 @@ def get_Efield_static_2D(device):
     return E, x, z, tri
 
 if __name__ == "__main__":
-    with lumapi.DEVICE(hide=True) as device:
+    with lumapi.DEVICE(hide=False) as device:
         # Draw the waveguide structure using a custom function
         device.redrawoff()
         waveguide_draw(device)
@@ -95,14 +95,14 @@ if __name__ == "__main__":
 
         
         # Define grid
-        x = np.linspace(-2*wg_width, 2*wg_width, N_x)
+        x = np.linspace(-simulation_span_x/2, simulation_span_x/2, N_x)
         y = 0
-        z = np.linspace(-0e-6, wg_thickness, N_z)
+        z = np.linspace(simulation_min_z, simulation_max_z, N_z)
         X, Z = np.meshgrid(x, z)
-        
+                
         Dnx = np.zeros((N_x, N_z))
         Dnz = np.zeros((N_x, N_z))
-        
+               
         vt = np.zeros((len(x_tri), 2))
         vt[:, 0] = x_tri
         vt[:, 1] = z_tri
@@ -110,6 +110,8 @@ if __name__ == "__main__":
         Dnx[:, :] = device.interptri(tri, vt, index_permutation_tri_x, x, z)
         Dnz[:, :] = device.interptri(tri, vt, index_permutation_tri_z, x, z)
         
+        
+ 
         # Cancel out the E-field in the cladding/box region to Perturbate the index
         # only in the Wavegudie Region
         if (slab_thickness>0):
@@ -126,31 +128,50 @@ if __name__ == "__main__":
             filter = filter & (Z<wg_thickness) & (Z>0)
 
 
+        # Clean the arrays before filtering
+        Dnx = np.nan_to_num(Dnx, nan=0.0, posinf=0.0, neginf=0.0)
+        Dnz = np.nan_to_num(Dnz, nan=0.0, posinf=0.0, neginf=0.0)
+
         # Apply the filter at the index
         Dnx = (Dnx) * np.transpose(filter)
         Dnz = (Dnz) * np.transpose(filter)
-        
-        # Plot the Index Change       
-        plt.figure(1)
-        plt.pcolormesh(X*1e6, Z*1e6, np.transpose(abs(Dnz)), shading='gouraud', cmap='jet')
+
+        v_min = 1e-7
+        v_max = 10 ** np.ceil(np.log10(Dnx.max()))
+        # v_max = 1e-4  # Set a maximum value for visualization
+
+        # Plot the Index Change
+        plt.figure(1, figsize=(5.12, 2.56))
+        plt.pcolormesh(X*1e6, Z*1e6, np.transpose(abs(Dnz)), shading='gouraud', cmap='jet', norm=LogNorm(vmin=v_min, vmax=v_max))
         cbar = plt.colorbar()
         cbar.set_label('$\Delta n_z$')
         plt.xlabel('x [um]')
-        plt.ylabel('y [um]')
+        plt.ylabel('z [um]')
         plt.title('Vertical Index Perturbation')
         
-        plt.figure(2)
-        plt.pcolormesh(X*1e6, Z*1e6, np.transpose(abs(Dnx)), shading='gouraud', cmap='jet')
+        plt.figure(2,figsize=(5.12,2.56))
+        plt.pcolormesh(X*1e6, Z*1e6, np.transpose(abs(Dnx)), shading='gouraud', cmap='jet', norm=LogNorm(vmin=1e-7, vmax=v_max))
         cbar = plt.colorbar()
         cbar.set_label('$\Delta n_x$')
         plt.xlabel('x [um]')
-        plt.ylabel('y [um]')
+        plt.ylabel('z [um]')
         plt.title('Horizontal Index Perturbation')
         
         # Plot the waveguide and slab regions
         wg_xmin = device.getnamed("waveguide", "x min")
         wg_xmax = device.getnamed("waveguide", "x max")
         r1 = sg.box(wg_xmin*1e6, 0, wg_xmax*1e6, wg_thickness*1e6)
+        
+        # Optionally set axis limits for all plots
+        set_axis_limits = True  # Set to False if you don't want to define limits
+        if set_axis_limits:
+            xlim = (-2*wg_width*1e6, 2*wg_width*1e6)
+            ylim = (-wg_thickness*1e6, wg_thickness*1e6)
+            for i in range(1, 3):
+                plt.figure(i)
+                plt.axis('equal')
+                plt.xlim(xlim)
+                plt.ylim(ylim)
         
         if slab_thickness > 0:
             # Add the slab
@@ -165,7 +186,6 @@ if __name__ == "__main__":
             xs, ys = merged_shape.exterior.xy
             for i in range(1, 3):
                 plt.figure(i)
-                plt.axis('equal')
                 plt.fill(xs, ys, alpha=0.5, fc='none', ec='r')
                 file_name_plot = os.path.join(EO_MODULATOR_DIRECTORY_WRITE[1], f"Index_{i}.png")
                 plt.savefig(file_name_plot)
@@ -173,7 +193,6 @@ if __name__ == "__main__":
             # Plot waveguide only
             xs, ys = r1.exterior.xy
             for i in range(1, 3):
-                plt.axis('equal')
                 plt.figure(i)
                 plt.fill(xs, ys, alpha=0.5, fc='none', ec='r')
                 file_name_plot = os.path.join(EO_MODULATOR_DIRECTORY_WRITE[1], f"Index_{i}.png")

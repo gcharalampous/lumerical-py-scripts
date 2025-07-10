@@ -27,7 +27,7 @@ clad_max_y = 1.0e-6           # Maximum Y-coordinate of cladding
 
 # 3. Waveguide Dimensions
 wg_width = 0.5e-6             # Width of waveguide
-wg_thickness = 0.4e-6         # Thickness of waveguide
+wg_thickness = 0.3e-6         # Thickness of waveguide
 wg_angle = 80                 # Angle of waveguide (degrees) - Not yet implemented
 
 
@@ -48,7 +48,7 @@ GSG_pads_enable = True        # True for GSG Pads, False for GS Pads
 
 
 # 3.4 Voltage of Signal and Ground
-v_signal = 1                  # Voltage of signal
+v_signal = 3                  # Voltage of signal
 
 
 # 4. Box Layer Thickness
@@ -71,12 +71,15 @@ norm_length = 1e-6            # Normalization length for 3D expansion
 
 # 6.3 Doping
 # 6.3.1 Background Doping
-pepi_p_doping_enable = True   # Enable background doping
+pepi_p_doping_enable = False   # Enable background doping
 
 
 # 6.3.2 Waveguide Doping (thickness starts from top)
 waveguide_pp_doping_enable = False    # Enable waveguide doping
-waveguide_pp_thickness = 100e-9      # Thickness of waveguide doping
+waveguide_pp_thickness = 20e-9      # Thickness of waveguide doping
+
+waveguide_nn_doping_enable = False    # Enable waveguide doping
+waveguide_nn_thickness = 20e-9      # Thickness of waveguide doping
 
 
 # 7 FEEM Parameters
