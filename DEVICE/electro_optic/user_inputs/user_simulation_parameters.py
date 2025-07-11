@@ -40,7 +40,7 @@ metal_left_width = 2.0e-6     # Width of left metal layer
 metal_center_width = metal_left_width   # Width of center metal layer
 metal_right_width = metal_left_width    # Width of right metal layer
 metal_thickness = 1.0e-6      # Thickness of metal layer
-metal_pitch = 4e-6            # Pitch of metal layer
+metal_pitch = 3e-6            # Pitch of metal layer
 
 
 # 3.2.1 GSG Pads
