@@ -93,8 +93,19 @@ def waveguide_draw(mode):
 
     if(disk_enable):
        slab_x_max = wg_width/2
+       offset_N_max = wg_width/2 - offset_N
+       offset_N_min = -(simulation_span_x/2 + 0.5e-6)
+       offset_P_max = wg_width/2 - offset_P
+       offset_P_min = -(simulation_span_x/2 + 0.5e-6)
+       
     else:
-       slab_x_max = simulation_span_x  + 1e-6
+       slab_x_max = simulation_span_x/2  + 0.5e-6
+       offset_N_min = offset_N       
+       offset_N_max = simulation_span_x/2 + 0.5e-6
+       offset_P_max = -offset_P       
+       offset_P_min = -(simulation_span_x/2 + 0.5e-6)
+
+
 
     # Adds the Metal Layers
     if metal_layer_enable:
@@ -115,7 +126,7 @@ def waveguide_draw(mode):
                    ("override mesh order from material database",1),
                    ("mesh order",2))),
     
-    ("slab",       (("x min", -simulation_span_x - 1e-6),
+    ("slab",       (("x min", -simulation_span_x/2 - 0.5e-6),
                    ("y min", 0.),
                    ("z", 0.),
                    ("x max", slab_x_max),
@@ -138,8 +149,8 @@ def waveguide_draw(mode):
                    ("override mesh order from material database",1),
                    ("mesh order",2))),                
 
-    ("slab_P++",  (("x min", -simulation_span_x/2 - 0.5e-6),
-                   ("x max", -offset_P),
+    ("slab_P++",  (("x min", offset_P_min),
+                   ("x max", offset_P_max),
                    ("y min", slab_thickness - doping_P_depth),
                    ("z", 0.),
                    ("y max", slab_thickness),
@@ -149,11 +160,11 @@ def waveguide_draw(mode):
                    ("enabled", doping_enable),
                    ("override mesh order from material database",1))),
     
-    ("slab_N++",  (("x min", offset_N),
-                   ("x max", simulation_span_x/2 + 0.5e-6),
+    ("slab_N++",  (("x min", offset_N_min),
+                   ("x max", offset_N_max),
                    ("y min", slab_thickness - doping_N_depth),
                    ("z", 0.),
-                   ("y max", slab_thickness),
+                   ("y max",slab_thickness),
                    ("z span", 5e-6),
                    ("index",slab_index),
                    ("material",n_material),
