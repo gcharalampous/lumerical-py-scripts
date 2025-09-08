@@ -82,7 +82,7 @@ if(__name__=="__main__"):
         plt.tight_layout()
 
         # Save the file
-        file_name_plot = os.path.join(MODE_WAVEGUIDE_DIRECTORY_WRITE[0], "index_real_profile_2D.png")
+        file_name_plot = os.path.join(str(MODE_WAVEGUIDE_DIRECTORY_WRITE[0]), "index_real_profile_2D.png")
         plt.savefig(file_name_plot)
 
 
@@ -101,7 +101,7 @@ if(__name__=="__main__"):
 
 
         # Save the file
-        file_name_plot = os.path.join(MODE_WAVEGUIDE_DIRECTORY_WRITE[0], "index_imag_profile_2D.png")
+        file_name_plot = os.path.join(str(MODE_WAVEGUIDE_DIRECTORY_WRITE[0]), "index_imag_profile_2D.png")
         plt.savefig(file_name_plot)
 
 

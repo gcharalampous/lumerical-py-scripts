@@ -162,9 +162,9 @@ def waveguide_draw(mode):
     
     ("slab_N++",  (("x min", offset_N_min),
                    ("x max", offset_N_max),
-                   ("y min", slab_thickness - doping_N_depth),
+                   ("y min", slab_thickness-doping_N_depth),
                    ("z", 0.),
-                   ("y max",slab_thickness),
+                   ("y max", slab_thickness),
                    ("z span", 5e-6),
                    ("index",slab_index),
                    ("material",n_material),

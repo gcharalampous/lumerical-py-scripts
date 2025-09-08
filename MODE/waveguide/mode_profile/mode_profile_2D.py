@@ -138,11 +138,11 @@ def modeProfiles():
 
         # Save the figure files as .png
         plt.tight_layout()
-        file_name_plot = os.path.join(MODE_WAVEGUIDE_DIRECTORY_WRITE[1], "mode_profile_"+str(m)+".png")
+        file_name_plot = os.path.join(str(MODE_WAVEGUIDE_DIRECTORY_WRITE[1]), "mode_profile_"+str(m)+".png")
         plt.savefig(file_name_plot)
 
         
-    return neff, ng, polariz_frac, polariz_mode
+    return neff, ng, polariz_frac, polariz_mode, loss
 
 
 
@@ -174,4 +174,4 @@ if(__name__=="__main__"):
         polariz_frac = []   # polarization fraction
         polariz_mode = []   # polarization mode (TE or TM)
 
-        neff, ng, polariz_frac, polariz_mode = modeProfiles()
+        neff, ng, polariz_frac, polariz_mode, loss = modeProfiles()
