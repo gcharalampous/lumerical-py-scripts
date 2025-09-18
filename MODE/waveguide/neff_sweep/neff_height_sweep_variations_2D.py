@@ -60,10 +60,10 @@ if(__name__=="__main__"):
         plt.ylim([1e-5,1e-2])
         plt.xlabel("height (um)")
         plt.ylabel('$\partial(n_{eff})/\partial(h)\quad (nm^{-1})$')
-        plt.title("width "+ str(wg_width*1e6) + " um") 
+        plt.title("width "+ str(round(wg_width*1e6,2)) + " um") 
         plt.grid(True, which='both')
         plt.tight_layout()
 
         # Save the figure files as .png
-        file_name_plot = os.path.join(MODE_WAVEGUIDE_DIRECTORY_WRITE[2], "neff_height_sweep_variations.png")
+        file_name_plot = os.path.join(str(MODE_WAVEGUIDE_DIRECTORY_WRITE[2]), "neff_height_sweep_variations.png")
         plt.savefig(file_name_plot, dpi=my_dpi, format="png")

@@ -24,7 +24,6 @@ import lumapi, os
 import shapely.geometry as sg
 import shapely.ops as so
 import matplotlib.pyplot as plt
-import pandas as pd
 from config import *
 
 
@@ -47,7 +46,10 @@ def modeProfiles1D():
     ng = []             # group index
     polariz_frac = []   # polarization fraction
     polariz_mode = []   # polarization mode (TE or TM)
-
+    Ex = []             # Electric field component Ex
+    Ey = []             # Electric field component Ey
+    y = None            # Initialize y to ensure it is always bound
+    E = None            # Initialize E to ensure it is always bound
 
 
     # Loop over each mode and extract its properties
@@ -60,57 +62,16 @@ def modeProfiles1D():
         # Determine if mode is TE-like or TM-like based on polarization fraction
         if ( polariz_frac[m-1] > 0.5 ):
             polariz_mode.append("TE")
+            Ex.append(np.squeeze(mode.getdata("FDE::data::mode"+str(m),"Ex")))            
         else:
             polariz_mode.append("TM")
+            Ey.append(np.squeeze(mode.getdata("FDE::data::mode"+str(m),"Ey")))
 
-        # Extract electric and magnetic fields and plot the electric field
-        plt.figure(m-1, figsize=(512/my_dpi, 256/my_dpi), dpi=my_dpi)
-        y= np.squeeze(mode.getdata("FDE::data::mode"+str(m),"y"))
-        x= np.squeeze(mode.getdata("FDE::data::mode"+str(m),"x"));
-        E = np.squeeze(mode.getelectric("FDE::data::mode"+str(m)))
-
-        H1 = np.squeeze(mode.getmagnetic("FDE::data::mode"+str(m)))
-        plt.plot(y*1e6,np.transpose(E))
+        # Extract y for each mode
+        y = np.squeeze(mode.getdata("FDE::data::mode"+str(m),"y"))
 
 
-        plt.xlabel("x (\u00B5m)")
-        plt.ylabel("|E|")
-        plt.title("Mode-"+str(m) + "(E-field): " + polariz_mode[m-1] + ", neff=" + str(np.round(neff[m-1],4)))
-
-
-        # Add the waveguide
-        wg_xmin = mode.getnamed("waveguide","x min")
-        wg_xmax = mode.getnamed("waveguide","x max")
-
-        r1 = sg.box(wg_xmin*1e6,0,wg_xmax*1e6,wg_thickness*1e6)
-
-    
-        
-        if(slab_thickness > 0):
-        
-            #Add the slab
-            slab_xmin = mode.getnamed("slab","x min")
-            slab_xmax = mode.getnamed("slab","x max")
-            r2 = sg.box(slab_xmin*1e6,0,slab_xmax*1e6,slab_thickness*1e6)
-
-            # Cascaded union can work on a list of shapes
-            merged_shape = so.unary_union([r1,r2])
-
-            #exterior coordinates split into two arrays, xs and ys
-            # which is how matplotlib will need for plotting
-            xs, ys = merged_shape.exterior.xy
-            # plt.fill(xs, ys, alpha=0.5, fc='none', ec='w')
-        else:
-            xs, ys = r1.exterior.xy
-            # plt.fill(xs, ys, alpha=0.5, fc='none', ec='w')
-
-
-
-        # Save the figure files as .png
-        plt.tight_layout()
-        file_name_plot = os.path.join(MODE_WAVEGUIDE_DIRECTORY_WRITE[1], "mode_profile_1D"+str(m)+".png")
-        plt.savefig(file_name_plot)
-    return neff, ng, polariz_frac, polariz_mode,y, E
+    return neff, ng, polariz_frac, polariz_mode,y, E, Ex, Ey
 
 
 
@@ -146,4 +107,35 @@ if(__name__=="__main__"):
         polariz_mode = []   # polarization mode (TE or TM)
         
 
-        neff, ng, polariz_frac, polariz_mode, y, E = modeProfiles1D()
+        neff, ng, polariz_frac, polariz_mode, y, E, Ex, Ey = modeProfiles1D()
+        
+        
+        
+        # Extract electric field and plot
+        x_=y_=0
+        for m in range(1,num_modes+1):
+            plt.figure(m-1, figsize=(512/my_dpi, 256/my_dpi), dpi=my_dpi)
+            plt.title("Mode-"+str(m) + "(E-field): " + polariz_mode[m-1] + ", neff=" + str(np.round(neff[m-1],4)))
+            plt.axhline(1/(np.exp(1)), color='red', lw=1.5, ls='--')
+            plt.xlabel("y (\u00B5m)")
+            plt.tight_layout()
+            if ( polariz_mode[m-1] == "TE" ):
+                plt.plot(y*1e6,np.transpose(Ex[x_]))
+                plt.ylabel("|Ex|")
+                # Find the 1/exp(1) point on the mode profile
+                mfd_field=np.abs(np.transpose(max(Ex[x_]))/np.exp(1))
+                mfd_index=np.argmin(np.abs(mfd_field - (Ex[x_])))
+                print("Mode-"+str(m) + "(Ex): " + polariz_mode[m-1] + ", neff=" + str(np.round(neff[m-1],4)) + ", MFD: " + str(np.round((y[mfd_index]*2)*1e6,4)) + " um")
+                x_ = x_ + 1
+            else:                
+                plt.plot(y*1e6,np.transpose(Ey[y_]))
+                plt.ylabel("|Ey|")
+                # Find the 1/exp(1) point on the mode profile
+                mfd_field=np.abs(np.transpose(max(Ey[y_]))/np.exp(1))
+                mfd_index=np.argmin(np.abs(mfd_field - (Ey[y_])))
+                print("Mode-"+str(m) + "(Ey): " + polariz_mode[m-1] + ", neff=" + str(np.round(neff[m-1],4)) + ", MFD: " + str(np.round((y[mfd_index]*2)*1e6,4)) + " um")
+                y_ = y_ + 1
+            file_name_plot = os.path.join(str(MODE_WAVEGUIDE_DIRECTORY_WRITE[1]), "mode_profile_1D_"+str(m)+".png")
+            plt.savefig(file_name_plot)
+            plt.grid()
+            plt.show()
