@@ -438,6 +438,58 @@ for i in range(0,len(MODE_SWG_DIRECTORY_WRITE)):
 
 # ------------------------------------ DEVICE -----------------------------------------
 
+# PN Disk MODULATOR
+PN_DISK_MODULATOR_PATH_WRITE_FIGURES = "DEVICE\\Results\\pn_disk_modulator\\Figures"
+PN_DISK_MODULATOR_PATH_WRITE_DATA = ["Charge Profile", "DC Sweep","AC Sweep"]
+PN_DISK_MODULATOR_DIRECTORY_WRITE = [str]*len(PN_DISK_MODULATOR_PATH_WRITE_DATA)
+PN_DISK_MODULATOR_PATH_WRITE_LUMERICAL = "DEVICE\\Results\\pn_disk_modulator\\lumerical_files"
+
+for i,data in enumerate(PN_DISK_MODULATOR_PATH_WRITE_DATA):
+    PN_DISK_MODULATOR_DIRECTORY_WRITE[i] = os.path.join(PACKAGE_DIR,PN_DISK_MODULATOR_PATH_WRITE_FIGURES,PN_DISK_MODULATOR_PATH_WRITE_DATA[i])
+for i in range(0,len(PN_DISK_MODULATOR_DIRECTORY_WRITE)):
+    # create the directory if it doesn't exist already
+    if not os.path.exists(PN_DISK_MODULATOR_DIRECTORY_WRITE[i]):
+        os.makedirs(PN_DISK_MODULATOR_DIRECTORY_WRITE[i])
+        #print("Directory:" + PN_DISK_MODULATOR_DIRECTORY_WRITE[i] + "\n created successfully!")
+    else:
+        #print("Directory:" + PN_DISK_MODULATOR_DIRECTORY_WRITE[i] + "\n already exists!")
+        break
+
+PN_DISK_MODULATOR_DIRECTORY_WRITE_FILE = os.path.join(PACKAGE_DIR, PN_DISK_MODULATOR_PATH_WRITE_LUMERICAL)
+if not os.path.exists(PN_DISK_MODULATOR_DIRECTORY_WRITE_FILE):
+    os.makedirs(PN_DISK_MODULATOR_DIRECTORY_WRITE_FILE)
+    #print("Directory:" + PN_DISK_MODULATOR_DIRECTORY_WRITE_FILE[i] + "\n created successfully!")
+
+
+
+
+
+# PN MODULATOR
+PN_MODULATOR_PATH_WRITE_FIGURES = "DEVICE\\Results\\pn_modulator\\Figures"
+PN_MODULATOR_PATH_WRITE_DATA = ["Charge Profile", "DC Sweep","AC Sweep"]
+PN_MODULATOR_DIRECTORY_WRITE = [str]*len(PN_MODULATOR_PATH_WRITE_DATA)
+PN_MODULATOR_PATH_WRITE_LUMERICAL = "DEVICE\\Results\\pn_modulator\\lumerical_files"
+
+for i,data in enumerate(PN_MODULATOR_PATH_WRITE_DATA):
+    PN_MODULATOR_DIRECTORY_WRITE[i] = os.path.join(PACKAGE_DIR,PN_MODULATOR_PATH_WRITE_FIGURES,PN_MODULATOR_PATH_WRITE_DATA[i])
+for i in range(0,len(PN_MODULATOR_DIRECTORY_WRITE)):
+    # create the directory if it doesn't exist already
+    if not os.path.exists(PN_MODULATOR_DIRECTORY_WRITE[i]):
+        os.makedirs(PN_MODULATOR_DIRECTORY_WRITE[i])
+        #print("Directory:" + PN_MODULATOR_DIRECTORY_WRITE[i] + "\n created successfully!")
+    else:
+        #print("Directory:" + PN_MODULATOR_DIRECTORY_WRITE[i] + "\n already exists!")
+        break
+
+PN_MODULATOR_DIRECTORY_WRITE_FILE = os.path.join(PACKAGE_DIR, PN_MODULATOR_PATH_WRITE_LUMERICAL)
+if not os.path.exists(PN_MODULATOR_DIRECTORY_WRITE_FILE):
+    os.makedirs(PN_MODULATOR_DIRECTORY_WRITE_FILE)
+    #print("Directory:" + PN_MODULATOR_DIRECTORY_WRITE_FILE[i] + "\n created successfully!")
+
+
+
+
+
 
 # PIN MODULATOR
 PIN_MODULATOR_PATH_WRITE_FIGURES = "DEVICE\\Results\\pin_modulator\\Figures"
