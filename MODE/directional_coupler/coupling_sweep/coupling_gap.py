@@ -107,6 +107,10 @@ for g in range(0,len(gap_array)):
         # Calculate the Lpi and Coupling coefficient C for TE mode
         Lx_te[g] = wavelength/((np.abs(np.real(nTE[0] - nTE[1])))*2)
         C_te[g] = ((np.abs(np.real(nTE[0] - nTE[1]))) / wavelength) * np.pi
+        
+        # Calculate the Lpi and Coupling coefficient C for TM mode
+        Lx_tm[g] = wavelength/((np.abs(np.real(nTM[0] - nTM[1])))*2)
+        C_tm[g] = ((np.abs(np.real(nTM[0] - nTM[1]))) / wavelength) * np.pi
 
 
 
