@@ -42,8 +42,8 @@ if(__name__=="__main__"):
     with lumapi.FDTD(FDTD_RING_DIRECTORY_READ[file_index]) as fdtd:
         
 # ------------ Comment for Avoiding Overriding the Simulation Region defined in the file
-        override_fdtd(fdtd=fdtd)
-        override_ring_coupler(fdtd=fdtd)
+        # override_fdtd(fdtd=fdtd)
+        # override_ring_coupler(fdtd=fdtd)
         
 # --------------------------------Plot-T/R---------------------------------
 
