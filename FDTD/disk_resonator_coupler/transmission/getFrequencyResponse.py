@@ -39,7 +39,7 @@ def getCouplingResponse(fdtd):
 
 
 if(__name__=="__main__"):
-    with lumapi.FDTD(FDTD_RING_DIRECTORY_READ[file_index]) as fdtd:
+    with lumapi.FDTD(FDTD_DISK_DIRECTORY_READ[file_index]) as fdtd:
         
 # ------------ Comment for Avoiding Overriding the Simulation Region defined in the file
         # override_fdtd(fdtd=fdtd)
@@ -64,9 +64,9 @@ if(__name__=="__main__"):
             ax.set_xlabel("wavelength (um)")
             ax.set_ylabel("Magnitude")
             plt.tight_layout()
-            file_name_plot = os.path.join(FDTD_DISK_DIRECTORY_WRITE[1], "frequency_response_T.png")
-            plt.savefig(file_name_plot)        
-            
+            file_name_plot = os.path.join(str(FDTD_DISK_DIRECTORY_WRITE[1]), "frequency_response_T.png")
+            plt.savefig(file_name_plot)
+
             px = 1/plt.rcParams['figure.dpi']  # pixel in inches
             fig, ax = plt.subplots(figsize=(512*px, 256*px))
             ax.semilogy((scpy.c/f)*1e6,C,label = 'Coupling')
@@ -75,7 +75,7 @@ if(__name__=="__main__"):
             ax.set_xlabel("wavelength (um)")
             ax.set_ylabel("Magnitude")
             plt.tight_layout()
-            file_name_plot = os.path.join(FDTD_DISK_DIRECTORY_WRITE[1], "frequency_response_C.png")
+            file_name_plot = os.path.join(str(FDTD_DISK_DIRECTORY_WRITE[1]), "frequency_response_C.png")
             plt.savefig(file_name_plot)          
             plt.show()
 
