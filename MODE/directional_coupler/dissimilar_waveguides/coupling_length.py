@@ -108,7 +108,12 @@ if __name__ == "__main__":
         plt.ylabel('Crosstalk (dB)')
         plt.legend(['WG-A', 'WG-B'])
         plt.tight_layout()
+
+        # Save the plot
+        file_name_plot = os.path.join(str(MODE_DC_DIRECTORY_WRITE[2]), "length_TE_dissimilar_waveguides.png")
+        plt.savefig(file_name_plot)
         plt.show()
+
 
         # Save the simulation
         mode.save(MODE_DC_DIRECTORY_WRITE_FILE + "\\dissimilar_waveguide_modes.lms")
