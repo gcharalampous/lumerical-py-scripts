@@ -25,6 +25,7 @@ from DEVICE.electro_optic.user_inputs.user_materials import *
 from DEVICE.electro_optic.waveguide_render import waveguide_draw
 from DEVICE.electro_optic.charge_region import add_charge_region
 from config import *
+import pandas as pd
 
 # Define grid dimensions (Reduce for Quiver plot if necessary)
 N_x = 100
@@ -51,7 +52,7 @@ def get_Efield_static_2D(device):
     return E, x, z, tri
 
 if __name__ == "__main__":
-    with lumapi.DEVICE(hide=True) as device:
+    with lumapi.DEVICE(hide=False) as device:
         # Draw the waveguide structure using a custom function
         device.redrawoff()
         waveguide_draw(device)
@@ -149,3 +150,20 @@ if __name__ == "__main__":
                 file_name_plot = os.path.join(EO_MODULATOR_DIRECTORY_WRITE[0], f"Efield_{i}.png")
                 plt.savefig(file_name_plot)
 
+        # Export the data for the horizontal and vertical components |E_x| and |E_z| to a CSV file
+        # Ex and Ez are already on the (x, z) meshgrid, matching X and Z.
+        # Prepare data for CSV export
+        # Save the full 2D arrays for Ex and Ez as CSV files
+        np.savetxt(
+            os.path.join(EO_MODULATOR_DIRECTORY_WRITE[0], f"Efield_Ex_v_signal_{v_signal}V.csv"),
+            abs(Ex.T) * 1e-3,
+            delimiter=","
+        )
+        np.savetxt(
+            os.path.join(EO_MODULATOR_DIRECTORY_WRITE[0], f"Efield_Ez_v_signal_{v_signal}V.csv"),
+            abs(Ez.T) * 1e-3,
+            delimiter=",",
+        )
+        # df = pd.DataFrame(csv_data)
+        # csv_file = os.path.join(EO_MODULATOR_DIRECTORY_WRITE[0], f"Efield_Ex_Ez_v_signal_{v_signal}V.csv")
+        # df.to_csv(csv_file, index=False)

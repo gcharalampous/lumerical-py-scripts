@@ -114,10 +114,10 @@ def waveguide_draw(device):
     # Set the parameters of each structure from the user file
 
     configuration = (
-    ("waveguide", (("x", 0.),
+    ("waveguide", (("x max", 0.),
                     ("z min", slab_thickness),
                     ("y", 0.),
-                    ("x span", wg_width),
+                    ("x min", -simulation_span_x/2 - 0.5e-6),
                     ("z max", wg_thickness),
                     ("y span", 5e-6),
                     ("material", wg_material_e),
@@ -133,7 +133,7 @@ def waveguide_draw(device):
                     ("material", wg_material_e))),
     
     ("metal_left", (("x", -pads_pitch),
-                    ("z min", clad_max_y),
+                    ("z min", wg_thickness),
                     ("y", 0.),
                     ("x span", metal_left_width),
                     ("z max", clad_max_y + metal_thickness),
@@ -152,7 +152,7 @@ def waveguide_draw(device):
 
 
     ("metal_right",(("x", pads_pitch),
-                    ("z min", clad_max_y),
+                    ("z min", slab_thickness),
                     ("y", 0.),
                     ("x span", metal_right_width),
                     ("z max", clad_max_y + metal_thickness),

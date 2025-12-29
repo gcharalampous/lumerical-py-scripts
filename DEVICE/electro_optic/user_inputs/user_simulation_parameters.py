@@ -32,7 +32,7 @@ wg_angle = 80                 # Angle of waveguide (degrees) - Not yet implement
 
 
 # 3.1 Set slab thickness > 0 to enable a slab waveguide
-slab_thickness = 0.05e-6      # Thickness of slab waveguide (set > 0 to enable)
+slab_thickness = 0.02e-6      # Thickness of slab waveguide (set > 0 to enable)
 
 
 # 3.2 Metal Layer
@@ -40,11 +40,11 @@ metal_left_width = 2.0e-6     # Width of left metal layer
 metal_center_width = metal_left_width   # Width of center metal layer
 metal_right_width = metal_left_width    # Width of right metal layer
 metal_thickness = 1.0e-6      # Thickness of metal layer
-metal_pitch = 3e-6            # Pitch of metal layer
+metal_pitch = 4e-6            # Pitch of metal layer
 
 
 # 3.2.1 GSG Pads
-GSG_pads_enable = True        # True for GSG Pads, False for GS Pads
+GSG_pads_enable = False        # True for GSG Pads, False for GS Pads
 
 
 # 3.4 Voltage of Signal and Ground
@@ -71,14 +71,14 @@ norm_length = 1e-6            # Normalization length for 3D expansion
 
 # 6.3 Doping
 # 6.3.1 Background Doping
-pepi_p_doping_enable = False   # Enable background doping
+pepi_p_doping_enable = True   # Enable background doping
 
 
 # 6.3.2 Waveguide Doping (thickness starts from top)
-waveguide_pp_doping_enable = False    # Enable waveguide doping
+waveguide_pp_doping_enable = True    # Enable waveguide doping
 waveguide_pp_thickness = 20e-9      # Thickness of waveguide doping
 
-waveguide_nn_doping_enable = False    # Enable waveguide doping
+waveguide_nn_doping_enable = True    # Enable waveguide doping
 waveguide_nn_thickness = 20e-9      # Thickness of waveguide doping
 
 
