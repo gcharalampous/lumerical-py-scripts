@@ -48,8 +48,11 @@ if(__name__=="__main__"):
     with lumapi.FDTD(FDTD_DISK_DIRECTORY_READ[file_index]) as fdtd:
         
 # ------------ Comment for Avoiding Overriding the Simulation Region defined in the file
-        override_fdtd(fdtd=fdtd)
-        override_disk_coupler(fdtd=fdtd)
+        # override_fdtd(fdtd=fdtd)
+        # override_disk_coupler(fdtd=fdtd)
+
+# ------------ Comment for Avoiding Running Sweep 
+        fdtd.run()
 
 
         x,y,E_xy = getFields(fdtd=fdtd)
@@ -65,7 +68,7 @@ if(__name__=="__main__"):
         plt.ylabel("y (um)")
         plt.title('Top-view(xy)')
         plt.tight_layout()
-        file_name_plot = os.path.join(FDTD_DISK_DIRECTORY_WRITE[2], "E_profile_xy.png")
+        file_name_plot = os.path.join(str(FDTD_DISK_DIRECTORY_WRITE[2]), "E_profile_xy.png")
         plt.savefig(file_name_plot)
         
 
