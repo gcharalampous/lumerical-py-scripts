@@ -45,7 +45,7 @@ if(__name__=="__main__"):
         # override_disk_coupler(fdtd=fdtd)
 
 # ------------ Comment for Avoiding Running Sweep 
-        fdtd.runsweep()
+        # fdtd.runsweep()
 
 
 # Get Coupling and Through
@@ -66,7 +66,7 @@ if(__name__=="__main__"):
         ax.set_ylabel("Magnitude")
         ax.set_title(fdtd.getnamed("source","mode selection"))
         plt.tight_layout()
-        file_name_plot = os.path.join(FDTD_DISK_DIRECTORY_WRITE[3], "Coupling_gap_linear.png")
+        file_name_plot = os.path.join(str(FDTD_DISK_DIRECTORY_WRITE[3]), "Coupling_gap_linear.png")
         plt.savefig(file_name_plot)        
         
         px = 1/plt.rcParams['figure.dpi']  # pixel in inches
@@ -78,7 +78,7 @@ if(__name__=="__main__"):
         ax.set_xlabel("gap (nm)")
         ax.set_ylabel("Magnitude")
         plt.tight_layout()
-        file_name_plot = os.path.join(FDTD_DISK_DIRECTORY_WRITE[3], "Coupling_gap_log.png")
+        file_name_plot = os.path.join(str(FDTD_DISK_DIRECTORY_WRITE[3]), "Coupling_gap_log.png")
         plt.savefig(file_name_plot)   
        
 
