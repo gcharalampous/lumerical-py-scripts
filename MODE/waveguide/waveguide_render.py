@@ -92,18 +92,22 @@ def waveguide_draw(mode):
       slab_enable = 0 
 
     if(disk_enable):
-       slab_x_max = wg_width/2
+       wg_width_x_max = 0
+       wg_width_x_min = -wg_width
+       slab_x_max = 0
        offset_N_max = wg_width/2 - offset_N
        offset_N_min = -(simulation_span_x/2 + 0.5e-6)
        offset_P_max = wg_width/2 - offset_P
        offset_P_min = -(simulation_span_x/2 + 0.5e-6)
        
     else:
-       slab_x_max = simulation_span_x/2  + 0.5e-6
-       offset_N_min = offset_N       
-       offset_N_max = simulation_span_x/2 + 0.5e-6
-       offset_P_max = -offset_P       
-       offset_P_min = -(simulation_span_x/2 + 0.5e-6)
+      wg_width_x_max = wg_width/2
+      wg_width_x_min = -wg_width/2
+      slab_x_max = simulation_span_x/2  + 0.5e-6
+      offset_N_min = offset_N       
+      offset_N_max = simulation_span_x/2 + 0.5e-6
+      offset_P_max = -offset_P       
+      offset_P_min = -(simulation_span_x/2 + 0.5e-6)
 
 
 
@@ -115,10 +119,10 @@ def waveguide_draw(mode):
     # Set the parameters of each structure from the user file
 
     configuration = (
-    ("waveguide", (("x", 0.),
+    ("waveguide", (("x min", wg_width_x_min),
                    ("y min", 0),
                    ("z", 0.),
-                   ("x span", wg_width),
+                   ("x max", wg_width_x_max),
                    ("y max", wg_thickness),
                    ("z span", 5e-6),
                    ("index",wg_index),
