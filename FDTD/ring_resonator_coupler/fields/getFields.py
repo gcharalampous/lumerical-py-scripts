@@ -30,7 +30,7 @@ from FDTD.ring_resonator_coupler.override_ring_coupler_region import *
 
 def getFields(fdtd):
     
-    fdtd.run()
+    # fdtd.run()
     
     field_xy = fdtd.getelectric("xy_topview")
 
