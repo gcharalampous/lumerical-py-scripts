@@ -1,4 +1,4 @@
-# 2D DEVICE PIN Modulator
+# 2D DEVICE PIN Modulator (DEVICE)
 
 **Purpose:**  
 This module models a PIN optical modulator to study carrier-induced refractive index and absorption changes under electrical bias. The simulation is used to quantify the optoelectronic properties of the PIN junction.
@@ -17,7 +17,7 @@ By sweeping the bias voltage, the simulation characterizes key modulator perform
 ## Quick start
 1. After downloading the repository, navigate through the `pin_modulator/user_inputs/` directory.
 2. Edit the `user_inputs/user_materials.py` and `user_inputs/user_simulation_parameters.py` to define the simulation materials for the cladding, core, box, and substrate layers. Follow the instructions written in the file.
-3. Then define the in `user_inputs/user_sweep_parameters.py` the sweep parameters.
+3. Then define in `user_inputs/user_sweep_parameters.py` the sweep parameters.
 4.  Run scripts in these directories to generate results:
     -  `analytical_calculations/`
     -  `charge_distribution/`
