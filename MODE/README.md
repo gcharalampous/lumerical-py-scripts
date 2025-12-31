@@ -1,37 +1,30 @@
 # Mode Solution Library for Photonic Simulations
 
-This repository contains a collection of Python-based simulations and calculations for integrated photonics, focusing on mode analysis, coupling efficiencies, and waveguide characteristics.
+## Purpose
+This directory contains Lumerical MODE simulations used to extract guided modes, effective indices, and optical field profiles for integrated photonic waveguide structures. These simulations support geometry selection and provide inputs for downstream FDTD simulations.
 
 ## Features
 
 ### [awg-star-coupler](awg_star_coupler)
-  - Simulates the aperture profile of a 2D star coupler.
+    This module simulates the aperture profile of a 2D star coupler using Lumerical MODE solutions. A star coupler is a key component in Arrayed Waveguide Grating (AWG) devices that distributes light from input waveguides to an array of output waveguides.
 
 ### [butt-coupling](butt_coupling)
-  - Visualizes mode profiles for two coupled waveguides.
-  - Computes overlap integrals to quantify coupling efficiency.
-  - Analyzes misalignment effects on coupling.
-  - Studies coupling efficiency as a function of the second waveguide width for fundamental TE/TM modes.
+    This simulation helps analyze how light couples between two waveguides. It focuses on mode interactions and improving device performance in butt-coupling configurations for photonic devices.
 
 ### [directional-coupler](directional_coupler)
-  - Visualizes symmetric and antisymmetric mode profiles.
-  - Calculates the coupling length, \(L_{\pi}\), as a function of gap and distance between waveguides.
+    This module is used to efficiently extract supermode indices required to compute coupling length  without full 3D propagation simulations.
 
 ### [edge-coupler](edge_coupler)
-  - Evaluates overlap between Gaussian beam and waveguide mode profiles.
-  - Examines coupling efficiency as a function of Gaussian beam Mode-Field Diameter (MFD).
-  - Analyzes the impact of waveguide thickness on overlap efficiency.
+    This module focuses on fiber or free-space Gaussian beam coupling and does not model on-chip laser mode evolution.
 
+### [laser-tapered-waveguide](laser_tapered_waveguide)
+    Calculates optical confinement characteristics of a tapered laser waveguide as the width progressively narrows. Tracks how optical modes behave when vertically displaced and determines how tapering affects mode distribution and confinement efficiency.
+    
 ### [swg-grating](swg_grating)
-  - Calculates the transmission and reflection properties of a sub-wavelength grating.
+    Simulate and analyze the transmission and reflection properties of a subwavelength grating (SWG) waveguide structure using MODE Solutions, extracting spectral response and mode characteristics across a wavelength range.
 
 ### [vertical-taper](vertical_taper)
-  - Computes effective index variation as a function of taper length for vertically tapered structures.
+    Effective index evolution is used to assess adiabatic taper behavior and guide taper length selection. The following module provides capabilities for analyzing vertical taper structures in photonics.
 
 ### [waveguide](waveguide)
-  - Visualizes mode profiles for various waveguide configurations.
-  - Calculates effective index variations with respect to waveguide width and height.
-  - Models absorption loss due to metal layer deposition on waveguides.
-  - Estimates the Q-factor and Free Spectral Range (FSR) for racetrack resonators.
-  - Calculates straight-to-bend waveguide loss.
-  - Determines confinement factors in Phase Change Materials (PCM).
+    This directory contains Lumerical MODE simulations used to extract guided modes, effective indices, and optical field profiles for integrated photonic waveguide structures. These simulations support geometry selection and provide inputs for downstream FDTD simulations.

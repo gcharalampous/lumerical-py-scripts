@@ -1,6 +1,72 @@
-## 2D Butt-Coupling Simulations (MODE Solutions)
+# 2D Butt-Coupling Simulations (MODE Solutions)
 
-    MODE/butt_coupling/
+**Purpose:**  
+This simulation helps analyze how light couples between two waveguides. It focuses on mode interactions and improving device performance in butt-coupling configurations for photonic devices.
+
+
+## What this module does
+
+This module simulates a butt-coupling device using the MODE simulation domain. It analyzes coupling efficiency between two waveguides by:
+
+- Extracting mode profiles from both waveguides
+- Calculating transmission characteristics from the overlap integral between modes
+- Examining misalignment effects on coupling performance
+- Optimizing device performance by varying waveguide width
+
+The analysis focuses on mode interactions and identifying potential losses during the coupling process.
+
+
+
+## Quick start
+1. Navigate to `butt_coupling/user_inputs/` and edit `waveguide_1.lms` and `waveguide_2.lms` to define waveguide properties (materials and dimensions).
+2. Edit `user_simulation_parameters.py` to set simulation properties (number of modes, mode order to overlap).
+3. Edit `user_sweep_parameters.py` to define sweep parameters (width of `waveguide_2.lms` and misalignment axis).
+4. Run `mode_profile/mode_profile_2D.py` to extract modes from each waveguide.
+5. Run `overlap_mode/overlap_mode_integral_2D.py` to calculate the overlap integral between mode orders.
+6. Run `overlap_profile_sweep/overlap_misalignment_integral_2D.py` or `overlap_profile_sweep/overlap_width_sweep_2D.py` to sweep over misalignment or width dimensions.
+
+
+
+## Lumerical Templates and Rendering
+
+- `waveguide_1.lms` : Lumerical template for waveguide-1
+- `waveguide_2.lms` : Lumerical template for waveguide-2
+- `fde_region.py` : Setting the FDE simulation region (this script is used for rendering only)
+
+
+
+## Inputs
+
+Editable files are located in:
+
+```
+user_inputs/
+```
+
+Typical inputs include:
+- geometry and material parameters
+- simulation region settings
+- sweep definitions
+- Lumerical template files
+
+
+## Outputs
+
+Results are saved automatically and may include:
+- Mode overlap integrals
+- Coupling efficiency versus misalignment and geometry
+
+Typical output location:
+
+```
+MDOE/Results/butt_coupling
+```
+
+
+## Folder structure
+
+```
+    butt_coupling/
     ├── fde_region.py
     ├── mode_profile
     │   └── mode_profile_2D.py
@@ -16,33 +82,18 @@
         │   └── waveguide_2.lms
         ├── user_simulation_parameters.py
         └── user_sweep_parameters.py
-
-### Quick Simulation Setup
-
-1. After downloading the repository, navigate through the `butt_coupling/user_inputs/` directory.
-2. Edit the two lumerical files `waveguide_1.lms`and `waveguide_2.lms` to define the waveguide properties including the materials and dimensions. 
-3. Edit the `user_inputs/user_simulation_parameters.py` to define the simulation properties like the number of modes, and the mode order to overlap.
-4. Then define in  `user_inputs/user_sweep_parameters.py` the sweep parameters including the width of `waveguide_2.lms` and the misalignment axis.
-5. Run the `mode_profile/mode_profile_2D.py` to get the modes of each waveguide. 
-6. Run the `overlap_mode/overlap_mode_integral_2D.py`to calculate the overlap integral between the two mode orders you defined in `user_inputs/user_simulation_parameters.py`.
-7. Running the `overlap_profile_sweep/overlap_misalignment_integral_2D.py`or `overlap_profile_sweep/overlap_width_sweep_2D.py` you can sweep over the misalignment axis or the width dimensions of the second waveguide, respectively
-
-WARNING: The FDE properties from the two lumerical files `waveguide_1.lms`and `waveguide_2.lms`will be overwritten based on the variables defined in`user_inputs/user_simulation_parameters.py`. This is to make sure, that the overlap integral will be estimated based on the same mesh.
+```
 
 
+## Notes
 
-### Proposed Workflow
+- Requires Lumerical installed and accessible via lumapi
+- Scripts assume paths defined in config.py
+- Designed to be run from the repository root
 
-1. Edit the two lumerical files. For example, `waveguide_1.lms` can be the laser waveguide while the `waveguide_2.lms` can be the passive waveguide.
 
-2. In `user_inputs/user_simulation_parameters.py` define the number of modes you will need to investigate. Typically `num_modes = 6` are enough. 
+## Status
 
-3. Run the `mode_profile/mode_profile_2D.py` to retrieve the 6 modes from each waveguide template file. The script will also store the simulation profiles to an .ldf file which will load later on.
-
-4. From step (3) you get important information like the polarization for each mode order. Go to `user_inputs/user_simulation_parameters.py` and define the order for each lumerical file  like `m_waveguide1=2` and  `m_waveguide2=1`.
-
-5. Running `overlap_mode/overlap_mode_integral_2D.py` will calculate the overlap integral based on the dimensions you set in the template files and for the mode orders you defined in step (4).
-
-6. If everything runs as expected on step (5), you can calculate the missalginemt across the horizontal and vertical axis of the butt-coupling scheme based on the mode-orders you defined in step (4). Run the `overlap_profile_sweep/overlap_misalignment_integral_2D.py`. The variables for the misalignment axis are defined in the `user_inputs/user_sweep_parameters.py`.
-
-7. Running the `overlap_width_sweep_2D.py` script will take the `m_waveguide1=2` and determine if it is a TE or TM mode. If `m_waveguide1=2` is a TE mode, will sweep the width of the `waveguide_2.lms` and track the fundamental TE mode. Likewise for the TM mode. 
+- [ ] Verified
+- [x] Actively used
+- [ ] Legacy or reference
