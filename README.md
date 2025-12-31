@@ -1,5 +1,43 @@
 # Welcome
 
+```
+.
+├── DEVICE
+│   ├── disk_modulator
+│   ├── electro_optic
+│   ├── pin_modulator
+│   └── README.md
+├── FDTD
+│   ├── adiabatic_directional_coupler
+│   ├── adiabatic_y_branch
+│   ├── coupled_ring_coupler
+│   ├── directional_coupler
+│   ├── disk_resonator_coupler
+│   ├── edge_coupler
+│   ├── grating_coupler_2D
+│   ├── grating_coupler_rectangular_3D
+│   ├── laser_tapered_waveguide
+│   ├── mmi_couplers
+│   ├── README.md
+│   ├── ring_resonator_coupler
+│   ├── swg_grating
+│   ├── vertical_taper
+│   ├── waveguide_bend
+│   ├── waveguide_crossing
+│   ├── waveguide_mode_taper
+│   └── waveguide_straight
+└── MODE
+    ├── awg_star_coupler
+    ├── butt_coupling
+    ├── directional_coupler
+    ├── edge_coupler
+    ├── laser_tapered_waveguide
+    ├── README.md
+    ├── swg_grating
+    ├── vertical_taper
+    └── waveguide
+
+```
 ## Why this Repository?
 
 In this repository, you will find useful scripts to optimize your workflow and automate your daily design tasks. All you need to do is modify the .py files under `user_inputs` in each subdirectory and run the scripts. The results will be shown on the Python interactive terminal and stored under a `Result` directory that will be created after you run the scripts. The repository is divided into three main simulation branches with multiple subcategories each:
