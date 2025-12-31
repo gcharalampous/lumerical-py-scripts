@@ -1,34 +1,5 @@
 # Welcome
 
-```
-lumerical-py-scripts/
-
-├── DEVICE
-│   ├── electro_optic
-│   └── pin_modulator
-├── FDTD
-│   ├── directional-coupler
-│   ├── disk_resonator_coupler
-│   ├── edge_coupler
-│   ├── grating_coupler_2D
-│   ├── mmi-couplers
-│   ├── ring_resonator_coupler
-│   ├── swg_grating
-│   ├── vertical_taper
-│   ├── waveguide-bend
-│   ├── waveguide_crossing
-│   ├── waveguide_mode_taper
-│   └── waveguide-straight
-└── MODE
-    ├── awg_star_coupler
-    ├── butt_coupling
-    ├── directional_coupler
-    ├── edge_coupler
-    ├── swg_grating
-    ├── vertical_taper
-    └── waveguide
-```
-
 ## Why this Repository?
 
 In this repository, you will find useful scripts to optimize your workflow and automate your daily design tasks. All you need to do is modify the .py files under `user_inputs` in each subdirectory and run the scripts. The results will be shown on the Python interactive terminal and stored under a `Result` directory that will be created after you run the scripts. The repository is divided into three main simulation branches with multiple subcategories each:

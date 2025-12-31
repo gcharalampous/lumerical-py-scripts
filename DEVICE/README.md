@@ -6,13 +6,13 @@ This library contains Lumerical DEVICE simulations for extracting optoelectronic
 ## Features
 
 ### [electro-optic](electro_optic)
-    This module models a Pockels electro-optic modulator to study electric-field-induced refractive index changes and their effect on optical transmission. The simulation quantifies the electro-optic coefficient and modulation efficiency under applied voltage.
+This module models a Pockels electro-optic modulator to study electric-field-induced refractive index changes and their effect on optical transmission. The simulation quantifies the electro-optic coefficient and modulation efficiency under applied voltage.
 
 
 ### [pin-modulator](pin_modulator)
-    This module models a PIN optical modulator to study carrier-induced refractive index and absorption changes under electrical bias. The simulation is used to quantify the optoelectronic properties of the PIN junction.
+This module models a PIN optical modulator to study carrier-induced refractive index and absorption changes under electrical bias. The simulation is used to quantify the optoelectronic properties of the PIN junction.
 
 ### [disk-modulator](disk_modulator)
-    This module models a high-speed PN junction optical modulator to study carrier-induced refractive index and absorption changes under electrical bias. The simulation quantifies the optoelectronic modulation efficiency and frequency response of the PN junction.
+This module models a high-speed PN junction optical modulator to study carrier-induced refractive index and absorption changes under electrical bias. The simulation quantifies the optoelectronic modulation efficiency and frequency response of the PN junction.
 
 
