@@ -1,29 +1,111 @@
-## 2D Grating Coupler Simulation (2D FDTD)
+# Grating Coupler 2D (2D FDTD)
+
+**Purpose:**  
+Simulates a 2D grating coupler that interfaces between optical fiber (Gaussian beam) and on-chip waveguides. The periodic grating structure enables efficient out-of-plane coupling with wavelength selectivity.
+
+
+## What this module does
+Models the grating coupler in 2D FDTD and extracts:
+- Transmission vs. wavelength (coupling efficiency)
+- Refractive index profiles to visualize grating geometry
+- Field profiles showing mode coupling and grating interaction
+- Sweeps for fiber angle, fiber position, and fill factor optimization
+
+
+## Quick start
+1. Go to `user_inputs/lumerical_files/` and set materials and dimensions in `grating_coupler_2D.fsp`.
+2. (Optional) Adjust overrides in `user_simulation_parameters.py` following the inline notes, then uncomment override calls in the scripts if needed.
+3. Run the scripts to generate results:
+   - `transmission/getFrequencyResponse.py`
+   - `index_profile/index_profile_2D.py`
+   - `sweep_functions/getFiberAngle.py`
+   - `sweep_functions/getFiberPosition.py`
+   - `sweep_functions/getFillFactorSweep.py`
+   - `analytical/1D_grating_coupler_design.ipynb` (Jupyter notebook for analytical design)
+4. Results save to `FDTD/Results/grating_coupler_2D/`.
+
+
+## Rendering scripts
+
+- `override_grating_coupler_region.py`: Override the grating coupler device
+- `override_fdtd_region.py`: Override the fdtd simulation settings
+
+These scripts are used for rendering and you are not required to directly run them
+
+
+## Inputs
+
+Editable files are located in:
 
 ```
-.
-├── analytical
+user_inputs/
+```
+
+Typical inputs include:
+- grating period and fill factor
+- grating depth and width
+- material properties
+- fiber angle and position
+- wavelength or frequency settings
+- sweep definitions
+
+
+## Outputs
+
+Results are saved automatically and may include:
+- Transmission spectra showing grating coupling efficiency
+- Refractive index profile plots
+- Field plots showing fiber-to-chip coupling
+- Sweep data for fiber angle, position, and fill factor optimization
+- Analytical design calculations from Jupyter notebook
+
+
+Typical output location:
+
+```
+FDTD/Results/grating_coupler_2D/
+```
+
+
+## Folder structure
+
+```
+grating_coupler_2D/
+├── analytical/
 │   └── 1D_grating_coupler_design.ipynb
-├── index_profile
+├── index_profile/
 │   └── index_profile_2D.py
-├── override_fdtd_region.py
-├── override_grating_coupler_region.py
-├── sweep_functions
+├── sweep_functions/
 │   ├── getFiberAngle.py
 │   ├── getFiberPosition.py
 │   └── getFillFactorSweep.py
-├── transmission
+├── override_fdtd_region.py
+├── override_grating_coupler_region.py
+├── transmission/
 │   └── getFrequencyResponse.py
-└── user_inputs
-    ├── lumerical_files
-    │   └── grating_coupler_2D.fsp
-    └── user_simulation_parameters.py
-
+└── user_inputs/
+   ├── lumerical_files/
+   │   └── grating_coupler_2D.fsp
+   └── user_simulation_parameters.py
 ```
 
-### Quick Simulation Setup
 
-1. After cloning the repository, navigate to `analytical/1D_grating_coupler_design.ipynb` to estimate roughly the grating period based on the slab effective indices from the waveguides, fiber angle of incidences, and refractive indices.
-2. Navigate through the `user_inputs/lumerical_files` directory and edit the Lumerical file `grating_coupler_2D.fsp` to define the simulation materials for the cladding, core, and box layers along with their dimensions.
-3. Edit the `user_inputs/user_simulation_parameters.py` to define the simulation properties, region, and structure dimensions. Follow the instructions written in the file.
-4. Run the files in the `sweep_functions` directory to perform the desired parameter sweeps and obtain the results.
+## Notes
+
+- Requires Lumerical installed and accessible via lumapi
+- Scripts assume paths defined in config.py
+- Designed to be run from the repository root
+- The analytical design notebook provides theoretical guidance for grating coupler parameters
+
+
+## Related modules
+
+- [FDTD/grating_coupler_rectangular_3D](../grating_coupler_rectangular_3D/README.md)
+- [MODE/swg_grating](../../MODE/swg_grating/README.md)
+
+
+## Status
+
+- [ ] Verified
+- [ ] Actively used
+- [ ] Legacy or reference
