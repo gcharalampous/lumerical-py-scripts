@@ -49,6 +49,14 @@ SIMS: Dict[str, SimSpec] = {
         templates=["adiabatic_y_branch.fsp"],
         figure_groups=["Sweep Transmission", "Frequency Response", "E-fields"],
     ),
+    # FDTD: Coupled ring coupler
+    "fdtd.coupled_ring_coupler": SimSpec(
+        key="fdtd.coupled_ring_coupler",
+        domain="FDTD",
+        module="coupled_ring_coupler",
+        templates=["circular_bend_coupler.fsp", "racetrack_coupler.fsp"],
+        figure_groups=["Sweep Transmission", "Frequency Response", "E-fields"],
+    ),
 }
 
 
