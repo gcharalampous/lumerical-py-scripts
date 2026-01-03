@@ -16,7 +16,7 @@
     - [ ] FDTD/grating_coupler_rectangular_3D
     - [ ] FDTD/laser_tapered_waveguide
     - [ ] FDTD/mmi_couplers
-    - [ ] FDTD/ring_resonator_coupler
+    - [x] FDTD/ring_resonator_coupler
     - [ ] FDTD/swg_grating
     - [ ] FDTD/vertical_taper
     - [ ] FDTD/waveguide_bend

@@ -23,23 +23,30 @@ Mention:
    - `coocentric_ring_coupling_section.fsp` - Concentric ring resonator coupling
    - `rectangular_ring_coupling_section.fsp` - Rectangular ring resonator coupling
 
-2. (Optional) Edit simulation parameters in:
+2. Set the template file index in:
    ```
    user_inputs/user_simulation_parameters.py
    ```
+   Set `file_index` to select which template to use:
+   - `file_index = 0` for straight ring coupling
+   - `file_index = 1` for concentric ring coupling
+   - `file_index = 2` for rectangular ring coupling (required for length sweep)
 
 3. Run the analysis scripts:
    ```
    python fields/getFields.py
    python index_profile/index_profile_2D.py
-   python sweep/getGapSweep.py
-   python sweep/getLengthSweep.py
+   python gap_sweep/getGapSweep.py
+   python length_sweep/getLengthSweep.py
    python transmission/getFrequencyResponse.py
    ```
 
 4. Results will be saved automatically under:
    ```
-   FDTD/Results/ring_resonator_coupler/
+   FDTD/Results/ring_resonator_coupler/Figures/
+   ├── Gap Sweep/
+   ├── Length Sweep/
+   └── (other result folders)
    ```
 
 
@@ -47,8 +54,8 @@ Mention:
 
 - fields/getFields.py : extract electromagnetic field profiles
 - index_profile/index_profile_2D.py : generate refractive index profile visualization
-- sweep/getGapSweep.py : perform coupling gap parametric sweep
-- sweep/getLengthSweep.py : perform coupling length parametric sweep
+- gap_sweep/getGapSweep.py : perform coupling gap parametric sweep
+- length_sweep/getLengthSweep.py : perform coupling length parametric sweep
 - transmission/getFrequencyResponse.py : extract transmission vs. wavelength spectrum
 
 Run these scripts individually to perform different types of analysis on the ring resonator coupler
@@ -59,16 +66,15 @@ Run these scripts individually to perform different types of analysis on the rin
 Editable files are located in:
 
 ```
-user_inputs/
+user_inputs/user_simulation_parameters.py
 ```
 
-Typical inputs include:
-- ring geometry parameters (radius, thickness)
-- coupling gap distance
-- coupling length
-- material properties
-- wavelength or frequency settings
-- sweep definitions
+Set `file_index` to select which Lumerical template file to load:
+- `0` = straight_ring_coupling_section.fsp
+- `1` = concentric_ring_coupling_section.fsp  
+- `2` = rectangular_ring_coupling_section.fsp (required for length sweep)
+
+All other simulation parameters (ring geometry, coupling gap, material properties, wavelength settings, sweep definitions) should be configured within the selected `.fsp` file.
 
 
 ## Outputs
@@ -93,10 +99,11 @@ ring_resonator_coupler/
 ├── README.md
 ├── fields/
 │   └── getFields.py
+├── gap_sweep/
+│   └── getGapSweep.py
 ├── index_profile/
 │   └── index_profile_2D.py
-├── sweep/
-│   ├── getGapSweep.py
+├── length_sweep/
 │   └── getLengthSweep.py
 ├── transmission/
 │   └── getFrequencyResponse.py
