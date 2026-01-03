@@ -12,18 +12,12 @@ Models the adiabatic directional coupler in 3D FDTD and extracts:
 
 
 ## Quick start
-1. Go to `user_inputs/lumerical_files/` and set materials and dimensions in `sbend_adiabatic_directional_coupler.fsp`.
-2. (Optional) Adjust overrides in `user_simulation_parameters.py` following the inline notes.
-3. Run the scripts to generate results:
-   - `fields/getFields.py`
-   - `gap_sweep/getGapSweep.py`
-   - `transmission/getFrequencyResponse.py`
-4. Results save to `FDTD/Results/adiabatic_directional_coupler/`.
-
-
-## Lumerical Template
-
-These scripts are used for rendering and you are not required to directly run them
+1. Navigate to `user_inputs/lumerical_files/` and open `sbend_adiabatic_directional_coupler.fsp` in Lumerical to configure materials and dimensions.
+2. Run any of the scripts to automatically run the simulation and extract results:
+   - `fields/getFields.py` - Extract and visualize electric field profiles
+   - `gap_sweep/getGapSweep.py` - Sweep gap distance and analyze coupling
+   - `transmission/getFrequencyResponse.py` - Extract frequency response (through and coupled ports)
+3. Results save automatically to `FDTD/Results/adiabatic_directional_coupler/`.
 
 
 ## Inputs
@@ -67,17 +61,17 @@ adiabatic_directional_coupler/
 ├── transmission/
 │   └── getFrequencyResponse.py
 └── user_inputs/
-   ├── lumerical_files/
-   │   └── sbend_adiabatic_directional_coupler.fsp
-   └── user_simulation_parameters.py
+    └── lumerical_files/
+        └── sbend_adiabatic_directional_coupler.fsp
 ```
 
 
 ## Notes
 
 - Requires Lumerical installed and accessible via lumapi
-- Scripts assume paths defined in config.py
-- Designed to be run from the repository root
+- All scripts use the `project_layout` system for path management
+- Each script is self-contained and can be run independently
+- Simulation data is cached by Lumerical, so re-running scripts is fast
 
 
 ## Related modules
