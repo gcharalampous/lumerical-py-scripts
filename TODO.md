@@ -18,7 +18,7 @@
     - [ ] FDTD/mmi_couplers
     - [x] FDTD/ring_resonator_coupler
     - [ ] FDTD/swg_grating
-    - [ ] FDTD/vertical_taper
+    - [x] FDTD/vertical_taper
     - [ ] FDTD/waveguide_bend
     - [ ] FDTD/waveguide_crossing
     - [ ] FDTD/waveguide_mode_taper

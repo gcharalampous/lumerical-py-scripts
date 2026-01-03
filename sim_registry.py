@@ -81,7 +81,19 @@ SIMS: Dict[str, SimSpec] = {
         templates=["straight_ring_coupling_section.fsp", "coocentric_ring_coupling_section.fsp", "rectangular_ring_coupling_section.fsp"],
         figure_groups=["Fields", "Index Profile", "Gap Sweep", "Length Sweep", "Transmission"],
     ),
+    # FDTD: Vertical taper
+    "fdtd.vertical_taper": SimSpec(
+        key="fdtd.vertical_taper",
+        domain="FDTD",
+        module="vertical_taper",
+        templates=["vertical_taper.fsp"],
+        figure_groups=["Fields", "Gap Sweep", "Index Profile", "Transmission"],
+    ),
+
 }
+
+
+
 
 
 def get_sim(key: str) -> SimSpec:

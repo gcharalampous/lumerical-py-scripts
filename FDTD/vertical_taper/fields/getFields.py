@@ -18,13 +18,12 @@ defined in the vertical_taper.fsp file
 # ---------------------------------------------------------------------------
 
 import numpy as np
-import lumapi, os
+import lumapi
 import matplotlib.pyplot as plt
 import scipy.constants as scpy
-from config import *
-
-from FDTD.vertical_taper.override_fdtd_region import override_fdtd
-from FDTD.vertical_taper.override_vertical_taper_region import *
+from pathlib import Path
+import sys
+from project_layout import setup
 
 
 def getFields(fdtd):
@@ -48,7 +47,12 @@ def getFields(fdtd):
 
 
 if(__name__=="__main__"):
-    with lumapi.FDTD(FDTD_VERTICAL_DIRECTORY_READ) as fdtd:
+    spec, out, templates = setup("fdtd.vertical_taper", __file__)
+    template_fsp = templates[0]  # vertical_taper.fsp
+    figures_dir = out["figures"] / "Fields"
+    figures_dir.mkdir(parents=True, exist_ok=True)
+    
+    with lumapi.FDTD(str(template_fsp)) as fdtd:
         
 # ------------ Comment for Avoiding Overriding the Simulation Region
         # override_vertical_taper(fdtd=fdtd)
@@ -67,8 +71,7 @@ if(__name__=="__main__"):
         plt.ylabel("y (um)")
         plt.title('Top-view(xy) - Top taper')
         plt.tight_layout()
-        file_name_plot = os.path.join(FDTD_VERTICAL_DIRECTORY_WRITE[2], "E_profile_xy_top.png")
-        plt.savefig(file_name_plot)
+        plt.savefig(figures_dir / "E_profile_xy_top.png")
 
         fig, ax = plt.subplots(figsize=(512*px, 256*px))
         cmap = ax.pcolormesh(x*1e6,y*1e6,np.transpose(E_xy_bottom[:,:,0,int(c_wavelength)]),
@@ -78,8 +81,7 @@ if(__name__=="__main__"):
         plt.ylabel("y (um)")
         plt.title('Top-view(xy) - Bottom taper')
         plt.tight_layout()
-        file_name_plot = os.path.join(FDTD_VERTICAL_DIRECTORY_WRITE[2], "E_profile_xy_bottom.png")
-        plt.savefig(file_name_plot)
+        plt.savefig(figures_dir / "E_profile_xy_bottom.png")
         
 # --------------------------------Side-View---------------------------------
         fig, ax = plt.subplots(figsize=(512*px, 256*px))
@@ -90,8 +92,7 @@ if(__name__=="__main__"):
         plt.ylabel("z (um)")
         plt.title('Side-view(xz)')
         plt.tight_layout()
-        file_name_plot = os.path.join(FDTD_VERTICAL_DIRECTORY_WRITE[2], "E_profile_xz.png")
-        plt.savefig(file_name_plot)
+        plt.savefig(figures_dir / "E_profile_xz.png")
         
         plt.show()
         

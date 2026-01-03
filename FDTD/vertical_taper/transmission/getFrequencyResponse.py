@@ -18,13 +18,12 @@ from the T_exp monitor. The back reflection from the source is also printed
 # ---------------------------------------------------------------------------
 
 import numpy as np
-import lumapi, os
+import lumapi
 import matplotlib.pyplot as plt
 import scipy.constants as scpy
-from config import *
+from pathlib import Path
+from project_layout import setup
 
-from FDTD.vertical_taper.override_fdtd_region import override_fdtd
-from FDTD.vertical_taper.override_vertical_taper_region import *
 
 def getBraggResponse(fdtd):
     fdtd.run()
@@ -38,11 +37,13 @@ def getBraggResponse(fdtd):
 
 
 if(__name__=="__main__"):
-    with lumapi.FDTD(FDTD_VERTICAL_DIRECTORY_READ) as fdtd:
+    spec, out, templates = setup("fdtd.vertical_taper", __file__)
+    template_fsp = templates[0]  # vertical_taper.fsp
+    figures_dir = out["figures"] / "Transmission"
+    figures_dir.mkdir(parents=True, exist_ok=True)
+    
+    with lumapi.FDTD(str(template_fsp)) as fdtd:
         
-# ------------ Comment for Avoiding Overriding the Simulation Region
-        # override_vertical_taper(fdtd=fdtd)
-        # override_fdtd(fdtd=fdtd)
         
 # -----------------------------Plot-T_forward/T_total------------------------------
 
@@ -59,9 +60,8 @@ if(__name__=="__main__"):
         ax.set_ylabel("Magnitude")
         plt.ylim([0,1])
         plt.tight_layout()
-        file_name_plot = os.path.join(FDTD_VERTICAL_DIRECTORY_WRITE[1], "frequency_response.png")
-        plt.savefig(file_name_plot)        
-        
+        plt.savefig(figures_dir / "frequency_response.png")
+
         fig, ax = plt.subplots(figsize=(512*px, 256*px))
         ax.plot((scpy.c/f)*1e6,10*np.log10(T_total),'-o',label = 'Total')
         ax.plot((scpy.c/f)*1e6,10*np.log10(abs(T_forward)),'-o',label = 'Fundamental')
@@ -69,9 +69,8 @@ if(__name__=="__main__"):
         ax.set_xlabel("wavelength (um)")
         ax.set_ylabel("Magnitude (dB)")
         plt.tight_layout()
-        file_name_plot = os.path.join(FDTD_VERTICAL_DIRECTORY_WRITE[1], "frequency_response_dB.png")
-        plt.savefig(file_name_plot)      
-        
+        plt.savefig(figures_dir / "frequency_response_dB.png")
+
         plt.show()
         
         print('Back Reflection: ' + str(round(10*np.log10(abs(R.mean())),2)) + ' dB')

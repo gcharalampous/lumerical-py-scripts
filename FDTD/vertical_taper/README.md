@@ -17,13 +17,21 @@ This analysis is essential for optimizing mode conversion efficiency and minimiz
 
 
 ## Quick start
-1. Go to `vertical_taper/user_inputs/lumerical_files/`.
-2. Set materials and dimensions in `vertical_taper.fsp` (cladding, core, box).
-3. (Optional) Update overrides in `user_simulation_parameters.py` by following the inline notes, then uncomment override calls in the scripts.
-4. Run the scripts to generate results:
-    - `fields/`
-    - `index_profile/`
-    - `transmission/`
+1. Set materials and dimensions in `user_inputs/lumerical_files/vertical_taper.fsp` (cladding, core, box).
+2. Run the scripts to generate results:
+    - `python fields/getFields.py`
+    - `python gap_sweep/getGapSweep.py`
+    - `python index_profile/index_profile_2D.py`
+    - `python transmission/getFrequencyResponse.py`
+
+3. Results will be saved automatically under:
+   ```
+   FDTD/Results/vertical_taper/Figures/
+   ├── Fields/
+   ├── Gap Sweep/
+   ├── Index Profile/
+   └── Transmission/
+   ```
 
 
 
@@ -32,31 +40,18 @@ This analysis is essential for optimizing mode conversion efficiency and minimiz
 - `vertical_taper.fsp` : Lumerical file that defines vertical taper
 
 
-## Inputs
-
-Editable files are located in:
-
-```
-user_inputs/
-```
-
-Typical inputs include:
-- geometry parameters
-- material properties
-- wavelength or frequency settings
-- sweep definitions
-
-
 ## Outputs
 
 Results are saved automatically and may include:
-- Frequency-dependent power transmission
-- Spatial field distributions at input, output, and intermediate planes
+- Electric field distributions at multiple cross-sections (xy-top, xy-bottom, xz)
+- Refractive index profile maps (xy and xz views)
+- Frequency-dependent transmission spectra (linear and dB scales)
+- Back reflection estimates
 
 Typical output location:
 
 ```
-FDTD/Results/vertical_taper/
+FDTD/Results/vertical_taper/Figures/
 ```
 
 
@@ -64,25 +59,24 @@ FDTD/Results/vertical_taper/
 
 ```
 vertical_taper/
-├── fields
-│   └── getFields.py
-├── index_profile
-│   └── index_profile_2D.py
-├── override_fdtd_region.py
-├── override_vertical_taper_region.py
+├── fields/
+│   └── getFields.py
+├── gap_sweep/
+│   └── getGapSweep.py
+├── index_profile/
+│   └── index_profile_2D.py
 ├── README.md
-├── transmission
-│   └── getFrequencyResponse.py
-└── user_inputs
-    ├── lumerical_files
-    └── user_simulation_parameters.py
-
+├── transmission/
+│   └── getFrequencyResponse.py
+└── user_inputs/
+    └── lumerical_files/
+        └── vertical_taper.fsp
 ```
 
 
 ## Notes
 - Requires Lumerical installed and accessible via lumapi
-- Scripts assume paths defined in config.py
+- Scripts use `project_layout.py` for path management
 - Designed to be run from the repository root
 
 

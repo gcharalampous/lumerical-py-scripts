@@ -99,23 +99,6 @@ for i in range(0,len(FDTD_SWG_DIRECTORY_WRITE)):
         #print("Directory:" + FDTD_SWG_DIRECTORY_WRITE[i] + "\n already exists!")
         break
 
-# VERTICAL TAPER FDTD
-FDTD_VERTICAL_FILENAME = ["vertical_taper.fsp"]
-FDTD_VERTICAL_PATH_READ = "FDTD\\vertical_taper\\user_inputs\\lumerical_files"
-FDTD_VERTICAL_PATH_WRITE_FIGURES = "FDTD\\Results\\vertical_taper\\Figures"
-FDTD_VERTICAL_PATH_WRITE_DATA = ["Index Profile", "Frequency Response","E-fields"]
-FDTD_VERTICAL_DIRECTORY_READ = os.path.join(PACKAGE_DIR,FDTD_VERTICAL_PATH_READ,FDTD_VERTICAL_FILENAME[0])
-FDTD_VERTICAL_DIRECTORY_WRITE = [str]*len(FDTD_VERTICAL_PATH_WRITE_DATA)
-for i,data in enumerate(FDTD_VERTICAL_PATH_WRITE_DATA):
-    FDTD_VERTICAL_DIRECTORY_WRITE[i] = os.path.join(PACKAGE_DIR,FDTD_VERTICAL_PATH_WRITE_FIGURES,FDTD_VERTICAL_PATH_WRITE_DATA[i])
-for i in range(0,len(FDTD_VERTICAL_DIRECTORY_WRITE)):
-    # create the directory if it doesn't exist already
-    if not os.path.exists(FDTD_VERTICAL_DIRECTORY_WRITE[i]):
-        os.makedirs(FDTD_VERTICAL_DIRECTORY_WRITE[i])
-        #print("Directory:" + FDTD_VERTICAL_DIRECTORY_WRITE[i] + "\n created successfully!")
-    else:
-        #print("Directory:" + FDTD_VERTICAL_DIRECTORY_WRITE[i] + "\n already exists!")
-        break
 
 
 # WAVEGUIDE TAPER LASER

@@ -18,12 +18,10 @@ defined in the vertical_taper.fsp file
 # ---------------------------------------------------------------------------
 
 import numpy as np
-import lumapi, os
+import lumapi
 import matplotlib.pyplot as plt
-from config import *
-
-from FDTD.vertical_taper.override_fdtd_region import *
-from FDTD.vertical_taper.override_vertical_taper_region import *
+from pathlib import Path
+from project_layout import setup
 
 # -------------------_----- No inputs are required ---------------------------
 
@@ -38,11 +36,13 @@ def getIndex(fdtd):
 
 
 if(__name__=="__main__"):
-    with lumapi.FDTD(FDTD_VERTICAL_DIRECTORY_READ) as fdtd:
+    spec, out, templates = setup("fdtd.vertical_taper", __file__)
+    template_fsp = templates[0]  # vertical_taper.fsp
+    figures_dir = out["figures"] / "Index Profile"
+    figures_dir.mkdir(parents=True, exist_ok=True)
+    
+    with lumapi.FDTD(str(template_fsp)) as fdtd:
         
-        # ------------Comment for Avoiding Overriding the Simulation Region
-        # override_vertical_taper(fdtd=fdtd)
-        # override_fdtd(fdtd=fdtd)
         
         index_xy_top, index_xy_bottom, index_xz = getIndex(fdtd=fdtd)
 
@@ -66,8 +66,7 @@ if(__name__=="__main__"):
         plt.ylabel("y (um)")
         plt.title('Top-view(xy) - Top taper')
         plt.tight_layout()
-        file_name_plot = os.path.join(FDTD_VERTICAL_DIRECTORY_WRITE[0], "top_taper_index_profile_xy.png")
-        plt.savefig(file_name_plot)
+        plt.savefig(figures_dir / "top_taper_index_profile_xy.png")
         plt.show()
 
 
@@ -79,8 +78,7 @@ if(__name__=="__main__"):
         plt.ylabel("y (um)")
         plt.title('Top-view(xy) - Bottom taper')
         plt.tight_layout()
-        file_name_plot = os.path.join(FDTD_VERTICAL_DIRECTORY_WRITE[0], "bottom_taper_index_profile_xy.png")
-        plt.savefig(file_name_plot)
+        plt.savefig(figures_dir / "bottom_taper_index_profile_xy.png")
         plt.show()
         
         
@@ -97,7 +95,6 @@ if(__name__=="__main__"):
         plt.ylabel("z (um)")
         plt.title('Side-view(xz)')
         plt.tight_layout()
-        file_name_plot = os.path.join(FDTD_VERTICAL_DIRECTORY_WRITE[0], "index_profile_xz.png")
-        plt.savefig(file_name_plot)
+        plt.savefig(figures_dir / "index_profile_xz.png")
         plt.show()
         
