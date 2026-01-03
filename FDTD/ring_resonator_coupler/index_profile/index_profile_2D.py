@@ -18,16 +18,12 @@ defined in the *.fsp files
 # ---------------------------------------------------------------------------
 
 import numpy as np
-import lumapi, os
+import lumapi
 import matplotlib.pyplot as plt
-from config import *
-
-from FDTD.ring_resonator_coupler.user_inputs.user_simulation_parameters import *
-# from FDTD.ring_resonator_coupler.override_cross_region import *
+from project_layout import setup
+from FDTD.ring_resonator_coupler.user_inputs.user_simulation_parameters import file_index
 
 
-from FDTD.ring_resonator_coupler.override_fdtd_region import *
-from FDTD.ring_resonator_coupler.override_ring_coupler_region import *
 
 # -------------------_----- No inputs are required ---------------------------
 
@@ -41,12 +37,12 @@ def getIndex(fdtd):
 
 
 if(__name__=="__main__"):
-    with lumapi.FDTD(FDTD_RING_DIRECTORY_READ[file_index]) as fdtd:
+    
+    # Setup project layout
+    spec, out, template_paths = setup("fdtd.ring_resonator_coupler", __file__)
+    
+    with lumapi.FDTD(str(template_paths[file_index])) as fdtd:
         
-        # ------------Comment for Avoiding Overriding the Simulation Region
-        override_fdtd(fdtd=fdtd)
-        override_ring_coupler(fdtd=fdtd)
-
         index_xy, index_yz = getIndex(fdtd=fdtd)
 
 
@@ -66,7 +62,7 @@ if(__name__=="__main__"):
         ax.set_ylabel("y (um)")
         ax.set_title('Top-view(xy)')
         fig.tight_layout()
-        file_name_plot = os.path.join(FDTD_RING_DIRECTORY_WRITE[0], "index_profile_xy.png")
+        file_name_plot = out["figure_groups"]["Index Profile"] / "index_profile_xy.png"
         plt.savefig(file_name_plot)
         plt.show()
 
@@ -85,7 +81,7 @@ if(__name__=="__main__"):
         plt.ylabel("z (um)")
         plt.title('Cross-view(yz)')
         plt.tight_layout()
-        file_name_plot = os.path.join(FDTD_RING_DIRECTORY_WRITE[0], "index_profile_xz.png")
+        file_name_plot = out["figure_groups"]["Index Profile"] / "index_profile_xz.png"
         plt.savefig(file_name_plot)
         plt.show()
         

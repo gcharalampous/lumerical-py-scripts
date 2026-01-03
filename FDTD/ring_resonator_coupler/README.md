@@ -1,38 +1,57 @@
-# Ring Resonator Coupler (3D FDTD)
+# Ring Resonator Coupler
 
 **Purpose:**  
-Simulates a ring resonator coupled to a waveguide using 3D FDTD to extract coupling efficiency, and field profiles. Multiple ring geometries (straight, concentric, rectangular) can be analyzed.
+Simulates a ring resonator coupled to a waveguide using 3D FDTD to extract coupling coefficients, resonance characteristics, and field profiles for optimizing coupling efficiency.
 
 
 ## What this module does
-Models the ring resonator coupling in 3D FDTD and extracts:
-- Transmission vs. wavelength (coupling efficiency and resonance response)
-- Refractive index profiles to visualize device geometry
-- Field profiles showing resonator mode confinement
-- Gap and length sweeps to optimize coupling performance
+Models a ring resonator coupling system in 3D FDTD domain.
+Mention:
+- device type: ring resonator coupled to waveguide
+- simulation domain: FDTD
+- what is being extracted: transmission spectra, coupling efficiency, resonance response, field profiles, gap and length sweep optimization
 
 
 ## Quick start
-1. Go to `user_inputs/lumerical_files/` and select the ring geometry configuration in one of the `.fsp` files:
-   - `straight_ring_coupling_section.fsp`
-   - `concentric_ring_coupling_section.fsp`
-   - `rectangular_ring_coupling_section.fsp`
-2. (Optional) Adjust overrides in `user_simulation_parameters.py` following the inline notes, then uncomment override calls in the scripts if needed.
-3. Run the scripts to generate results:
-   - `fields/getFields.py`
-   - `index_profile/index_profile_2D.py`
-   - `sweep/getGapSweep.py`
-   - `sweep/getLengthSweep.py`
-   - `transmission/getFrequencyResponse.py`
-4. Results save to `FDTD/Results/ring_resonator_coupler/`.
+
+1. Open and select a Lumerical template file from:
+   ```
+   user_inputs/lumerical_files/
+   ```
+   Available templates:
+   - `straight_ring_coupling_section.fsp` - Ring resonator with straight waveguide coupling
+   - `coocentric_ring_coupling_section.fsp` - Concentric ring resonator coupling
+   - `rectangular_ring_coupling_section.fsp` - Rectangular ring resonator coupling
+
+2. (Optional) Edit simulation parameters in:
+   ```
+   user_inputs/user_simulation_parameters.py
+   ```
+
+3. Run the analysis scripts:
+   ```
+   python fields/getFields.py
+   python index_profile/index_profile_2D.py
+   python sweep/getGapSweep.py
+   python sweep/getLengthSweep.py
+   python transmission/getFrequencyResponse.py
+   ```
+
+4. Results will be saved automatically under:
+   ```
+   FDTD/Results/ring_resonator_coupler/
+   ```
 
 
-## Rendering scripts
+## Simulation scripts
 
-- `override_ring_coupler_region.py`: Override the ring resonator coupler device
-- `override_fdtd_region.py`: Override the fdtd simulation settings
+- fields/getFields.py : extract electromagnetic field profiles
+- index_profile/index_profile_2D.py : generate refractive index profile visualization
+- sweep/getGapSweep.py : perform coupling gap parametric sweep
+- sweep/getLengthSweep.py : perform coupling length parametric sweep
+- transmission/getFrequencyResponse.py : extract transmission vs. wavelength spectrum
 
-These scripts are used for rendering and you are not required to directly run them
+Run these scripts individually to perform different types of analysis on the ring resonator coupler
 
 
 ## Inputs
@@ -46,6 +65,7 @@ user_inputs/
 Typical inputs include:
 - ring geometry parameters (radius, thickness)
 - coupling gap distance
+- coupling length
 - material properties
 - wavelength or frequency settings
 - sweep definitions
@@ -54,11 +74,10 @@ Typical inputs include:
 ## Outputs
 
 Results are saved automatically and may include:
-- Transmission spectra showing resonance
-- Refractive index profile plots
-- Field plots showing resonator mode confinement
-- Gap and length sweep data for coupling optimization
-
+- transmission spectra showing resonance peaks
+- field plots showing resonator mode confinement
+- refractive index profile plots
+- gap and length sweep data for coupling optimization
 
 Typical output location:
 
@@ -71,6 +90,7 @@ FDTD/Results/ring_resonator_coupler/
 
 ```
 ring_resonator_coupler/
+├── README.md
 ├── fields/
 │   └── getFields.py
 ├── index_profile/
@@ -78,16 +98,14 @@ ring_resonator_coupler/
 ├── sweep/
 │   ├── getGapSweep.py
 │   └── getLengthSweep.py
-├── override_fdtd_region.py
-├── override_ring_coupler_region.py
 ├── transmission/
 │   └── getFrequencyResponse.py
 └── user_inputs/
-   ├── lumerical_files/
-   │   ├── straight_ring_coupling_section.fsp
-   │   ├── concentric_ring_coupling_section.fsp
-   │   └── rectangular_ring_coupling_section.fsp
-   └── user_simulation_parameters.py
+    ├── lumerical_files/
+    │   ├── straight_ring_coupling_section.fsp
+    │   ├── coocentric_ring_coupling_section.fsp
+    │   └── rectangular_ring_coupling_section.fsp
+    └── user_simulation_parameters.py
 ```
 
 
@@ -102,6 +120,7 @@ ring_resonator_coupler/
 ## Related modules
 
 - [FDTD/disk_resonator_coupler](../disk_resonator_coupler/README.md)
+- [FDTD/coupled_ring_coupler](../coupled_ring_coupler/README.md)
 - [MODE/directional_coupler](../../MODE/directional_coupler/README.md)
 
 
