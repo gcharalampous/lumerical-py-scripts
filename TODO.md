@@ -2,26 +2,85 @@
 
 ### Features (New Scripts)
 - [ ] Adding Confinment Factor Future MODE/waveguide
-- [ ] PN Loss Calculation MODE/waveguide
+- [x] PN Loss Calculation MODE/waveguide
 
 ### Updating Code
 - [ ] Add the scripts for FDTD/mmi_coupler
-- [ ] Add the scripts for FDTD/directional_coupler
-- [ ] Update the code for saving the files in several scripts using the config file
-- [ ] Add a new sub-repo for FDTD/grating_coupler_rectangular_3D
-
-### Optimization (New Scripts)
-- [ ] Optimize grating period calculation
+- [x] Add the scripts for FDTD/directional_coupler
+- [x] Add the scripts for FDTD/coupled_ring_coupler
+- [ ] Migrate all modules from config file to project_layout system:
+  - **FDTD Modules:**
+    - [x] FDTD/adiabatic_directional_coupler
+    - [x] FDTD/adiabatic_y_branch
+    - [x] FDTD/coupled_ring_coupler
+    - [x] FDTD/directional_coupler
+    - [ ] FDTD/disk_resonator_coupler
+    - [ ] FDTD/edge_coupler
+    - [ ] FDTD/grating_coupler_2D
+    - [ ] FDTD/grating_coupler_rectangular_3D
+    - [ ] FDTD/laser_tapered_waveguide
+    - [ ] FDTD/mmi_couplers
+    - [ ] FDTD/ring_resonator_coupler
+    - [ ] FDTD/swg_grating
+    - [ ] FDTD/vertical_taper
+    - [ ] FDTD/waveguide_bend
+    - [ ] FDTD/waveguide_crossing
+    - [ ] FDTD/waveguide_mode_taper
+    - [ ] FDTD/waveguide_straight
+  - **MODE Modules:**
+    - [ ] MODE/awg_star_coupler
+    - [ ] MODE/butt_coupling
+    - [ ] MODE/directional_coupler
+    - [ ] MODE/edge_coupler
+    - [ ] MODE/laser_tapered_waveguide
+    - [ ] MODE/swg_grating
+    - [ ] MODE/vertical_taper
+    - [ ] MODE/waveguide
+  - **DEVICE Modules:**
+    - [ ] DEVICE/disk_modulator
+    - [ ] DEVICE/electro_optic
+    - [ ] DEVICE/pin_modulator
+- [x] Add a new sub-repo for FDTD/grating_coupler_rectangular_3D
 
 ### Documentation
 - Quick Simulation Setup and Project Tree for
-  - [ ] MODE/awg_star_coupler
-  - [ ] MDOE/swg_star_coupler
-  - [ ] FDTD/waveguide_mode_taper
-  - [ ] FDTD/waveguide_crossing
-  - [ ] FDTD/vertical_taper
-  - [ ] FDTD/swg_grating
-  - [ ] FDTD/ring_resonator_coupler
-  - [ ] FDTD/edge_coupler
-  - [ ] FDTD/disk_resonator_coupler
+  - **FDTD Modules:**
+    - [x] FDTD/adiabatic_directional_coupler
+    - [x] FDTD/adiabatic_y_branch
+    - [x] FDTD/coupled_ring_coupler
+    - [x] FDTD/directional_coupler
+    - [x] FDTD/disk_resonator_coupler
+    - [x] FDTD/edge_coupler
+    - [x] FDTD/grating_coupler_2D
+    - [x] FDTD/grating_coupler_rectangular_3D
+    - [ ] FDTD/laser_tapered_waveguide
+    - [ ] FDTD/mmi_couplers
+    - [x] FDTD/ring_resonator_coupler
+    - [x] FDTD/swg_grating
+    - [x] FDTD/vertical_taper
+    - [x] FDTD/waveguide_bend
+    - [ ] FDTD/waveguide_crossing
+    - [x] FDTD/waveguide_mode_taper
+    - [x] FDTD/waveguide_straight
+  - **MODE Modules:**
+    - [x] MODE/awg_star_coupler
+    - [x] MODE/butt_coupling
+    - [x] MODE/directional_coupler
+    - [x] MODE/edge_coupler
+    - [x] MODE/laser_tapered_waveguide
+    - [x] MODE/swg_grating
+    - [x] MODE/vertical_taper
+    - [x] MODE/waveguide
+  - **DEVICE Modules:**
+    - [x] DEVICE/disk_modulator
+    - [x] DEVICE/electro_optic
+    - [x] DEVICE/pin_modulator
+
+### Optimization (New Scripts)
+- [ ] Optimize grating period calculation
+- [ ] Add index_profile visualization scripts to:
+  - [ ] FDTD/coupled_ring_coupler
+  - [ ] FDTD/directional_coupler
+- [ ] Review and add override scripts when needed (geometry rendering):
+  - [ ] FDTD/coupled_ring_coupler
   - [ ] FDTD/directional_coupler
