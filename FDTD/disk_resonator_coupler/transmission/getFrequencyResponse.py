@@ -5,78 +5,84 @@
 # version ='1.0'
 # ---------------------------------------------------------------------------
 """
-User-inputs are Not required.
+Extract and plot transmission response for the disk resonator coupler.
 
-The script plots the transmission and coupling for the ring coupler
-structure defined in the *.fsp files from the 'T' and 'C' monitors.
-
+Assumes monitors named `T` and `C` in the template project.
 """
 
 #----------------------------------------------------------------------------
-# Imports from user input files
+# Imports
 # ---------------------------------------------------------------------------
 
 import numpy as np
-import lumapi, os
+import lumapi
 import matplotlib.pyplot as plt
 import scipy.constants as scpy
-from config import *
+from project_layout import setup
+import sys
+from pathlib import Path
 
-from FDTD.disk_resonator_coupler.user_inputs.user_simulation_parameters import *
+# Import user configuration
+user_inputs_dir = Path(__file__).resolve().parent.parent / "user_inputs"
+sys.path.insert(0, str(user_inputs_dir))
+from user_simulation_parameters import file_index
 
-from FDTD.disk_resonator_coupler.override_fdtd_region import *
-from FDTD.disk_resonator_coupler.override_disk_coupler_region import *
+spec, out, templates = setup("fdtd.disk_resonator_coupler", __file__)
+template_fsp = templates[file_index]
+figures_dir = out["figure_groups"].get("Transmission", out["figures"])
 
 
 def getCouplingResponse(fdtd):
-    fdtd.run()
-    T  = np.squeeze(fdtd.getresult("T","expansion for ").get("T_forward"))
-    C  = np.squeeze(fdtd.getresult("C","expansion for ").get("T_forward"))
-    f  = np.squeeze(fdtd.getdata("through","f"))
-
+    """Return through and coupled transmission along with frequency array."""
+    T = np.squeeze(fdtd.getresult("T", "expansion for ").get("T_forward"))
+    C = np.squeeze(fdtd.getresult("C", "expansion for ").get("T_forward"))
+    f = np.squeeze(fdtd.getdata("through", "f"))
     return T, C, f
 
 
-
-if(__name__=="__main__"):
-    with lumapi.FDTD(FDTD_DISK_DIRECTORY_READ[file_index]) as fdtd:
-        
-# ------------ Comment for Avoiding Overriding the Simulation Region defined in the file
-        # override_fdtd(fdtd=fdtd)
-        # override_disk_coupler(fdtd=fdtd)
-        
-# --------------------------------Plot-T/R---------------------------------
+if __name__ == "__main__":
+    with lumapi.FDTD(str(template_fsp)) as fdtd:
+        fdtd.run()
 
         T, C, f = getCouplingResponse(fdtd=fdtd)
+        wavelength = (scpy.c / f) * 1e6  # micrometers
 
-# --------------------------------Plot-T/R---------------------------------
+        px = 1 / plt.rcParams['figure.dpi']
 
-        if(T.size==1):
-            print("T: " + str(round(T*100,2)) + ' %')
-            print("C: " + str(round(C*100,2)) + ' %')
-        else:
+        # Linear magnitude response (separate plots)
+        fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
+        ax.plot(wavelength, abs(T), label='Through', marker='o')
+        ax.grid(which='both')
+        ax.legend()
+        ax.set_xlabel("Wavelength (um)")
+        ax.set_ylabel("Transmission (Linear)")
+        plt.tight_layout()
+        plt.savefig(figures_dir / "frequency_response_through.png")
 
-            px = 1/plt.rcParams['figure.dpi']  # pixel in inches
-            fig, ax = plt.subplots(figsize=(512*px, 256*px))
-            ax.semilogy((scpy.c/f)*1e6,T,label = 'Through')
-            ax.grid(which='both')
-            ax.legend()
-            ax.set_xlabel("wavelength (um)")
-            ax.set_ylabel("Magnitude")
-            plt.tight_layout()
-            file_name_plot = os.path.join(str(FDTD_DISK_DIRECTORY_WRITE[1]), "frequency_response_T.png")
-            plt.savefig(file_name_plot)
+        fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
+        ax.plot(wavelength, abs(C), label='Coupled', marker='o')
+        ax.grid(which='both')
+        ax.legend()
+        ax.set_xlabel("Wavelength (um)")
+        ax.set_ylabel("Transmission (Linear)")
+        plt.tight_layout()
+        plt.savefig(figures_dir / "frequency_response_coupled.png")
 
-            px = 1/plt.rcParams['figure.dpi']  # pixel in inches
-            fig, ax = plt.subplots(figsize=(512*px, 256*px))
-            ax.semilogy((scpy.c/f)*1e6,C,label = 'Coupling')
-            ax.grid(which='both')
-            ax.legend()
-            ax.set_xlabel("wavelength (um)")
-            ax.set_ylabel("Magnitude")
-            plt.tight_layout()
-            file_name_plot = os.path.join(str(FDTD_DISK_DIRECTORY_WRITE[1]), "frequency_response_C.png")
-            plt.savefig(file_name_plot)          
-            plt.show()
+        # Log magnitude response
+        fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
+        T_db = 10 * np.log10(abs(T))
+        C_db = 10 * np.log10(abs(C))
+
+        ax.plot(wavelength, T_db, label='Through', marker='o')
+        ax.plot(wavelength, C_db, label='Coupled', marker='o')
+        ax.grid(which='major')
+        ax.legend()
+        ax.set_xlabel("Wavelength (um)")
+        ax.set_ylabel("Transmission (dB)")
+
+        plt.tight_layout()
+        plt.savefig(figures_dir / "frequency_response_dB.png")
+
+        plt.show()
 
             

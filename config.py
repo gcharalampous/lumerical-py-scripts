@@ -14,30 +14,6 @@ PACKAGE_DIR = os.path.dirname(os.path.realpath(__file__))
 
 
 
-# Disk Coupler FDTD
-FDTD_DISK_FILENAME = ["straight_disk_coupling_section.fsp","coocentric_disk_coupling_section.fsp","rectangular_disk_coupling_section.fsp"]
-FDTD_DISK_PATH_READ = "FDTD\\disk_resonator_coupler\\user_inputs\\lumerical_files"
-FDTD_DISK_PATH_WRITE_FIGURES = "FDTD\\Results\\disk_resonator_coupler\\Figures"
-FDTD_DISK_PATH_WRITE_DATA = ["Index Profile", "Frequency Response","E-fields", "Coupling"]
-#FDTD_DISK_DIRECTORY_READ = os.path.join(PACKAGE_DIR,FDTD_DISK_PATH_READ,FDTD_DISK_FILENAME[0])
-FDTD_DISK_DIRECTORY_WRITE = [str]*len(FDTD_DISK_PATH_WRITE_DATA)
-FDTD_DISK_DIRECTORY_READ = [str]*len(FDTD_DISK_FILENAME)
-
-for i,data in enumerate(FDTD_DISK_FILENAME):
-    FDTD_DISK_DIRECTORY_READ[i] = os.path.join(PACKAGE_DIR,FDTD_DISK_PATH_READ,FDTD_DISK_FILENAME[i])
-
-for i,data in enumerate(FDTD_DISK_PATH_WRITE_DATA):
-    FDTD_DISK_DIRECTORY_WRITE[i] = os.path.join(PACKAGE_DIR,FDTD_DISK_PATH_WRITE_FIGURES,FDTD_DISK_PATH_WRITE_DATA[i])
-for i in range(0,len(FDTD_DISK_DIRECTORY_WRITE)):
-    # create the directory if it doesn't exist already
-    if not os.path.exists(FDTD_DISK_DIRECTORY_WRITE[i]):
-        os.makedirs(FDTD_DISK_DIRECTORY_WRITE[i])
-        #print("Directory:" + FDTD_SWG_DIRECTORY_WRITE[i] + "\n created successfully!")
-    else:
-        #print("Directory:" + FDTD_SWG_DIRECTORY_WRITE[i] + "\n already exists!")
-        break
-
-
 # Ring Coupler FDTD
 FDTD_RING_FILENAME = ["straight_ring_coupling_section.fsp","coocentric_ring_coupling_section.fsp","rectangular_ring_coupling_section"]
 FDTD_RING_PATH_READ = "FDTD\\ring_resonator_coupler\\user_inputs\\lumerical_files"

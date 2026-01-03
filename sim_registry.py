@@ -65,6 +65,14 @@ SIMS: Dict[str, SimSpec] = {
         templates=["sbend_directional_coupler.fsp"],
         figure_groups=["Sweep Transmission", "Frequency Response", "E-fields"],
     ),
+    # FDTD: Disk resonator coupler
+    "fdtd.disk_resonator_coupler": SimSpec(
+        key="fdtd.disk_resonator_coupler",
+        domain="FDTD",
+        module="disk_resonator_coupler",
+        templates=["straight_disk_coupling_section.fsp", "coocentric_disk_coupling_section.fsp"],
+        figure_groups=["Fields", "Index Profile", "Gap Sweep", "Transmission"],
+    ),
 }
 
 

@@ -1,9 +1,5 @@
 ## To-Do List
 
-### Features (New Scripts)
-- [ ] Adding Confinment Factor Future MODE/waveguide
-- [x] PN Loss Calculation MODE/waveguide
-
 ### Updating Code
 - [ ] Add the scripts for FDTD/mmi_coupler
 - [x] Add the scripts for FDTD/directional_coupler
@@ -14,7 +10,7 @@
     - [x] FDTD/adiabatic_y_branch
     - [x] FDTD/coupled_ring_coupler
     - [x] FDTD/directional_coupler
-    - [ ] FDTD/disk_resonator_coupler
+    - [x] FDTD/disk_resonator_coupler
     - [ ] FDTD/edge_coupler
     - [ ] FDTD/grating_coupler_2D
     - [ ] FDTD/grating_coupler_rectangular_3D
@@ -40,7 +36,6 @@
     - [ ] DEVICE/disk_modulator
     - [ ] DEVICE/electro_optic
     - [ ] DEVICE/pin_modulator
-- [x] Add a new sub-repo for FDTD/grating_coupler_rectangular_3D
 
 ### Documentation
 - Quick Simulation Setup and Project Tree for
@@ -75,12 +70,3 @@
     - [x] DEVICE/disk_modulator
     - [x] DEVICE/electro_optic
     - [x] DEVICE/pin_modulator
-
-### Optimization (New Scripts)
-- [ ] Optimize grating period calculation
-- [ ] Add index_profile visualization scripts to:
-  - [ ] FDTD/coupled_ring_coupler
-  - [ ] FDTD/directional_coupler
-- [ ] Review and add override scripts when needed (geometry rendering):
-  - [ ] FDTD/coupled_ring_coupler
-  - [ ] FDTD/directional_coupler

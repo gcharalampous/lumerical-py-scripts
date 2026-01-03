@@ -1,37 +1,54 @@
-# Disk Resonator Coupler (3D FDTD)
+# Disk Resonator Coupler
 
 **Purpose:**  
-Simulates a disk resonator coupled to a waveguide using 3D FDTD to extract coupling coefficients, and field profiles. Multiple disk geometries (straight, concentric, rectangular) can be analyzed.
+Simulates a disk resonator coupled to a waveguide using 3D FDTD to extract coupling coefficients, resonance characteristics, and field profiles for optimizing coupling efficiency.
 
 
 ## What this module does
-Models the disk resonator coupling in 3D FDTD and extracts:
-- Transmission vs. wavelength (coupling efficiency and resonance response)
-- Refractive index profiles to visualize device geometry
-- Field profiles showing resonator mode confinement
-- Gap sweep to optimize coupling gap
+Models a disk resonator coupling system in 3D FDTD domain.
+Mention:
+- device type: disk resonator coupled to waveguide
+- simulation domain: FDTD
+- what is being extracted: transmission spectra, coupling efficiency, resonance response, field profiles, and coupling gap optimization
 
 
 ## Quick start
-1. Go to `user_inputs/lumerical_files/` and select the disk geometry configuration in one of the `.fsp` files:
-   - `straight_disk_coupling_section.fsp`
-   - `concentric_disk_coupling_section.fsp`
-   - `rectangular_disk_coupling_section.fsp`
-2. (Optional) Adjust overrides in `user_simulation_parameters.py` following the inline notes, then uncomment override calls in the scripts if needed.
-3. Run the scripts to generate results:
-   - `fields/getFields.py`
-   - `index_profile/index_profile_2D.py`
-   - `gap_sweep/getGapSweep.py`
-   - `transmission/getFrequencyResponse.py`
-4. Results save to `FDTD/Results/disk_resonator_coupler/`.
+
+1. Open and select a Lumerical template file from:
+   ```
+   user_inputs/lumerical_files/
+   ```
+   Available templates:
+   - `straight_disk_coupling_section.fsp` - Disk resonator with straight waveguide coupling
+   - `coocentric_disk_coupling_section.fsp` - Concentric disk resonator coupling
+
+2. (Optional) Edit simulation parameters in:
+   ```
+   user_inputs/user_simulation_parameters.py
+   ```
+
+3. Run the analysis scripts:
+   ```
+   python fields/getFields.py
+   python index_profile/index_profile_2D.py
+   python gap_sweep/getGapSweep.py
+   python transmission/getFrequencyResponse.py
+   ```
+
+4. Results will be saved automatically under:
+   ```
+   FDTD/Results/disk_resonator_coupler/
+   ```
 
 
-## Rendering scripts
+## Simulation scripts
 
-- `override_disk_coupler_region.py`: Override the disk resonator coupler device
-- `override_fdtd_region.py`: Override the fdtd simulation settings
+- fields/getFields.py : extract electromagnetic field profiles
+- index_profile/index_profile_2D.py : generate refractive index profile visualization  
+- gap_sweep/getGapSweep.py : perform coupling gap parametric sweep
+- transmission/getFrequencyResponse.py : extract transmission vs. wavelength spectrum
 
-These scripts are used for rendering and you are not required to directly run them
+Run these scripts individually to perform different types of analysis on the disk resonator coupler
 
 
 ## Inputs
@@ -44,7 +61,7 @@ user_inputs/
 
 Typical inputs include:
 - disk geometry parameters (radius, thickness)
-- coupling gap
+- coupling gap distance
 - material properties
 - wavelength or frequency settings
 - sweep definitions
@@ -53,11 +70,10 @@ Typical inputs include:
 ## Outputs
 
 Results are saved automatically and may include:
-- Transmission spectra showing resonance
-- Refractive index profile plots
-- Field plots showing resonator mode confinement
-- Gap sweep data for coupling optimization
-
+- transmission spectra showing resonance peaks
+- field plots showing resonator mode confinement
+- refractive index profile plots
+- gap sweep data for coupling optimization
 
 Typical output location:
 
@@ -70,22 +86,20 @@ FDTD/Results/disk_resonator_coupler/
 
 ```
 disk_resonator_coupler/
+├── README.md
 ├── fields/
 │   └── getFields.py
 ├── gap_sweep/
 │   └── getGapSweep.py
 ├── index_profile/
 │   └── index_profile_2D.py
-├── override_disk_coupler_region.py
-├── override_fdtd_region.py
 ├── transmission/
 │   └── getFrequencyResponse.py
 └── user_inputs/
-   ├── lumerical_files/
-   │   ├── straight_disk_coupling_section.fsp
-   │   ├── concentric_disk_coupling_section.fsp
-   │   └── rectangular_disk_coupling_section.fsp
-   └── user_simulation_parameters.py
+    ├── lumerical_files/
+    │   ├── straight_disk_coupling_section.fsp
+    │   └── coocentric_disk_coupling_section.fsp
+    └── user_simulation_parameters.py
 ```
 
 
@@ -105,6 +119,6 @@ disk_resonator_coupler/
 
 ## Status
 
-- [ ] Verified
+- [x] Verified
 - [ ] Actively used
 - [ ] Legacy or reference

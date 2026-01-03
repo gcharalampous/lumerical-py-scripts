@@ -18,15 +18,12 @@ defined in the *.fsp files
 # ---------------------------------------------------------------------------
 
 import numpy as np
-import lumapi, os
+import lumapi
 import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
-from config import *
+from project_layout import setup
+from FDTD.disk_resonator_coupler.user_inputs.user_simulation_parameters import file_index
 
-from FDTD.disk_resonator_coupler.user_inputs.user_simulation_parameters import *
-
-from FDTD.disk_resonator_coupler.override_fdtd_region import *
-from FDTD.disk_resonator_coupler.override_disk_coupler_region import *
 
 def getFields(fdtd):
     
@@ -45,11 +42,11 @@ def getFields(fdtd):
 
 
 if(__name__=="__main__"):
-    with lumapi.FDTD(FDTD_DISK_DIRECTORY_READ[file_index]) as fdtd:
-        
-# ------------ Comment for Avoiding Overriding the Simulation Region defined in the file
-        # override_fdtd(fdtd=fdtd)
-        # override_disk_coupler(fdtd=fdtd)
+    
+    # Setup project layout
+    spec, out, template_paths = setup("fdtd.disk_resonator_coupler", __file__)
+    
+    with lumapi.FDTD(str(template_paths[file_index])) as fdtd:
 
 # ------------ Comment for Avoiding Running Sweep 
         fdtd.run()
@@ -68,7 +65,7 @@ if(__name__=="__main__"):
         plt.ylabel("y (um)")
         plt.title('Top-view(xy)')
         plt.tight_layout()
-        file_name_plot = os.path.join(str(FDTD_DISK_DIRECTORY_WRITE[2]), "E_profile_xy.png")
+        file_name_plot = out["figure_groups"]["Fields"] / "E_profile_xy.png"
         plt.savefig(file_name_plot)
         
 
