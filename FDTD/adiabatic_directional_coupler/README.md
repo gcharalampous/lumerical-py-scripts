@@ -82,6 +82,6 @@ adiabatic_directional_coupler/
 
 ## Status
 
-- [ ] Verified
+- [x] Verified
 - [ ] Actively used
 - [ ] Legacy or reference
