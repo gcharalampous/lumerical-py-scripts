@@ -12,35 +12,6 @@ PACKAGE_DIR = os.path.dirname(os.path.realpath(__file__))
 
 
 
-# Adiabatic Y-Branch FDTD
-FDTD_ADIAB_Y_BR_FILENAME = "adiabatic_y_branch.fsp"
-FDTD_ADIAB_Y_BR_PATH_READ = "FDTD\\adiabatic_y_branch\\user_inputs\\lumerical_files"
-FDTD_ADIAB_Y_BR_PATH_WRITE_FIGURES = "FDTD\\Results\\adiabatic_y_branch\\Figures"
-FDTD_ADIAB_Y_BR_PATH_WRITE_LUMERICAL = "FDTD\\Results\\adiabatic_y_branch\\lumerical_files"
-
-FDTD_ADIAB_Y_BR_PATH_WRITE_DATA = ["Sweep Transmission", "Frequency Response","E-fields"]
-FDTD_ADIAB_Y_BR_DIRECTORY_READ = os.path.join(PACKAGE_DIR,FDTD_ADIAB_Y_BR_PATH_READ,FDTD_ADIAB_Y_BR_FILENAME)
-FDTD_ADIAB_Y_BR_DIRECTORY_WRITE = [str]*len(FDTD_ADIAB_Y_BR_PATH_WRITE_DATA)
-for i,data in enumerate(FDTD_ADIAB_Y_BR_PATH_WRITE_DATA):
-    FDTD_ADIAB_Y_BR_DIRECTORY_WRITE[i] = os.path.join(PACKAGE_DIR,FDTD_ADIAB_Y_BR_PATH_WRITE_FIGURES,FDTD_ADIAB_Y_BR_PATH_WRITE_DATA[i])
-for i in range(0,len(FDTD_ADIAB_Y_BR_DIRECTORY_WRITE)):
-    # create the directory if it doesn't exist already
-    if not os.path.exists(FDTD_ADIAB_Y_BR_DIRECTORY_WRITE[i]):
-        os.makedirs(FDTD_ADIAB_Y_BR_DIRECTORY_WRITE[i])
-        #print("Directory:" + FDTD_ADIAB_Y_BR_DIRECTORY_WRITE[i] + "\n created successfully!")
-    else:
-        #print("Directory:" + FDTD_ADIAB_Y_BR_DIRECTORY_WRITE[i] + "\n already exists!")
-        break
-
-
-FDTD_ADIAB_Y_BR_DIRECTORY_WRITE_FILE = os.path.join(PACKAGE_DIR, FDTD_ADIAB_Y_BR_PATH_WRITE_LUMERICAL)
-if not os.path.exists(FDTD_ADIAB_Y_BR_DIRECTORY_WRITE_FILE):
-    os.makedirs(FDTD_ADIAB_Y_BR_DIRECTORY_WRITE_FILE)
-    #print("Directory:" + FDTD_ADIAB_Y_BR_DIRECTORY_WRITE[i] + "\n created successfully!")
-
-
-
-
 
 
 # Disk Coupler FDTD

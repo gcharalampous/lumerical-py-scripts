@@ -5,88 +5,105 @@
 # version ='1.0'
 # ---------------------------------------------------------------------------
 """
-User-inputs are Not required.
+Extract and plot transmission response for adiabatic Y-branch.
 
-The script plots the transmission for the waveguide adiabatic y-branch
-structure defined in the adiabatic_y_branch.fsp file
-from the 'Ttop' and 'Tbot' monitor ports.
-
+The script plots the transmission for the adiabatic Y-branch splitter
+structure defined in the adiabatic_y_branch.fsp file,
+extracting data from the top and bottom output port monitors.
 """
 
 #----------------------------------------------------------------------------
-# Imports from user input files
+# Imports
 # ---------------------------------------------------------------------------
 
 import numpy as np
-import lumapi, os
+import lumapi
 import matplotlib.pyplot as plt
 import scipy.constants as scpy
-from config import *
+from project_layout import setup
 
-# from FDTD.waveguide_cross.override_cross_region import *
+# Configuration
+spec, out, templates = setup("fdtd.adiabatic_y_branch", __file__)
+template_fsp = templates[0]
+figures_dir = out["figure_groups"]["Frequency Response"]
+
+# Analysis parameters
+TARGET_3DB = -3.01  # Target 3dB point for Y-branch splitting analysis
+
 
 def getCrossResponse(fdtd):
-    T1  = np.squeeze(fdtd.getresult("T_top","T").get("T"))
-    T2  = np.squeeze(fdtd.getresult("T_bot","T").get("T"))
-    f  = np.squeeze(fdtd.getdata("T_top","f"))
+    """Extract transmission response from FDTD monitors.
+    
+    Args:
+        fdtd: FDTD simulation object from lumapi.
+    
+    Returns:
+        tuple: (T1, T2, f) where
+            - T1: Top port transmission
+            - T2: Bottom port transmission
+            - f: Frequency array
+    """
+    T1 = np.squeeze(fdtd.getresult("T_top", "T").get("T"))
+    T2 = np.squeeze(fdtd.getresult("T_bot", "T").get("T"))
+    f = np.squeeze(fdtd.getdata("T_top", "f"))
 
     return T1, T2, f
 
 
 
-if(__name__=="__main__"):
-    with lumapi.FDTD(FDTD_ADIAB_Y_BR_DIRECTORY_READ) as fdtd:
+if __name__ == "__main__":
+    with lumapi.FDTD(str(template_fsp)) as fdtd:
+        fdtd.run()
         
-# ------------ Comment for Avoiding Overriding the Simulation Region
-        # override_cross(fdtd=fdtd)
-        # fdtd.run()
-
-# --------------------------------Plot-T/R---------------------------------
-
+        # Extract transmission data
         T1, T2, f = getCrossResponse(fdtd=fdtd)
-
-# --------------------------------Plot-T/R---------------------------------
-
-        px = 1/plt.rcParams['figure.dpi']  # pixel in inches
-        fig, ax = plt.subplots(figsize=(512*px, 256*px))
-        ax.plot((scpy.c/f)*1e6,T1,label = 'Port 1')
-        ax.plot((scpy.c/f)*1e6,abs(T2),label = 'Port 2',linestyle='--')
-        ax.set_ylim(0,1)
+        wavelength = (scpy.c / f) * 1e6  # Convert to wavelength in micrometers
+        
+        # ---- Plot 1: Linear magnitude response ----
+        px = 1 / plt.rcParams['figure.dpi']  # pixel in inches
+        fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
+        ax.plot(wavelength, T1, label='Port 1 (Top)')
+        ax.plot(wavelength, abs(T2), label='Port 2 (Bottom)', linestyle='--')
+        ax.set_ylim(0, 1)
         ax.grid(which='both')
         ax.legend()
-        ax.set_xlabel("wavelength (um)")
-        ax.set_ylabel("Magnitude")
+        ax.set_xlabel("Wavelength (µm)")
+        ax.set_ylabel("Transmission (Linear)")
         plt.tight_layout()
-        file_name_plot = os.path.join(FDTD_ADIAB_Y_BR_DIRECTORY_WRITE[1], "frequency_response.png")
-        plt.savefig(file_name_plot)        
+        file_name_plot = figures_dir / "frequency_response.png"
+        plt.savefig(file_name_plot)
         
-        fig, ax = plt.subplots(figsize=(512*px, 256*px))
-        ax.plot((scpy.c/f)*1e6,10*np.log10(T1),label = 'Port 1')
-        ax.plot((scpy.c/f)*1e6,10*np.log10(abs(T2)),label = 'Port 2',linestyle='--')
+        # ---- Plot 2: Logarithmic (dB) response ----
+        fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
+        T1_dB = 10 * np.log10(T1)
+        T2_dB = 10 * np.log10(abs(T2))
+        
+        ax.plot(wavelength, T1_dB, label='Port 1 (Top)')
+        ax.plot(wavelength, T2_dB, label='Port 2 (Bottom)', linestyle='--')
         ax.grid(which='major')
         ax.legend()
-        ax.set_xlabel("wavelength (um)")
-        ax.set_ylabel("Magnitude (dB)")
+        ax.set_xlabel("Wavelength (µm)")
+        ax.set_ylabel("Transmission (dB)")
         
+        # Calculate 3dB point deviations
         min_val = 10 * np.log10(np.min([T1, abs(T2)]))
         max_val = 10 * np.log10(np.max([T1, abs(T2)]))
-        ax.axhline(y=min_val, color='black', linestyle='--')
-        ax.axhline(y=max_val, color='black', linestyle='--')
+        ax.axhline(y=min_val, color='black', linestyle='--', alpha=0.5)
+        ax.axhline(y=max_val, color='black', linestyle='--', alpha=0.5)
         
-        # Calculate the deviation from 3dB        
-        deviation_from_3dB_1 = abs(-3.01 - min_val)
-        deviation_from_3dB_2 = abs(-3.01 - max_val)
+        # Calculate deviation from target 3dB point
+        deviation_from_3dB_min = abs(TARGET_3DB - min_val)
+        deviation_from_3dB_max = abs(TARGET_3DB - max_val)
+        deviation_from_3dB = max(deviation_from_3dB_min, deviation_from_3dB_max)
+        deviation_percentage = (10 ** (-deviation_from_3dB / 10) - 1) * 100
         
-        # Get the worst case deviation from 3dB
-        deviation_from_3dB = (max(deviation_from_3dB_1, deviation_from_3dB_2))
-        deviation_percentage = (10**(-deviation_from_3dB/10)-1) * 100
-        
-        
-        print(f"Deviation: {deviation_from_3dB} dB")
-        print(f"Deviation: {abs(deviation_percentage):.2f}%")
+        print(f"Min value: {min_val:.3f} dB")
+        print(f"Max value: {max_val:.3f} dB")
+        print(f"Deviation from 3dB: {deviation_from_3dB:.3f} dB")
+        print(f"Deviation percentage: {abs(deviation_percentage):.2f}%")
         
         plt.tight_layout()
-        file_name_plot = os.path.join(FDTD_ADIAB_Y_BR_DIRECTORY_WRITE[1], "frequency_response_dB.png")
-        plt.savefig(file_name_plot)      
+        file_name_plot = figures_dir / "frequency_response_dB.png"
+        plt.savefig(file_name_plot)
         
         plt.show()

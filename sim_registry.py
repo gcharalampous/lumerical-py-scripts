@@ -41,6 +41,14 @@ SIMS: Dict[str, SimSpec] = {
         templates=["sbend_adiabatic_directional_coupler.fsp"],
         figure_groups=["Sweep Transmission", "Frequency Response", "E-fields"],
     ),
+    # FDTD: Adiabatic Y-branch
+    "fdtd.adiabatic_y_branch": SimSpec(
+        key="fdtd.adiabatic_y_branch",
+        domain="FDTD",
+        module="adiabatic_y_branch",
+        templates=["adiabatic_y_branch.fsp"],
+        figure_groups=["Sweep Transmission", "Frequency Response", "E-fields"],
+    ),
 }
 
 
