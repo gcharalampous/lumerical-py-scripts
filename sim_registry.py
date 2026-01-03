@@ -57,6 +57,14 @@ SIMS: Dict[str, SimSpec] = {
         templates=["circular_bend_coupler.fsp", "racetrack_coupler.fsp"],
         figure_groups=["Sweep Transmission", "Frequency Response", "E-fields"],
     ),
+    # FDTD: Directional coupler
+    "fdtd.directional_coupler": SimSpec(
+        key="fdtd.directional_coupler",
+        domain="FDTD",
+        module="directional_coupler",
+        templates=["sbend_directional_coupler.fsp"],
+        figure_groups=["Sweep Transmission", "Frequency Response", "E-fields"],
+    ),
 }
 
 
