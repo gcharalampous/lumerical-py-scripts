@@ -73,6 +73,14 @@ SIMS: Dict[str, SimSpec] = {
         templates=["straight_disk_coupling_section.fsp", "coocentric_disk_coupling_section.fsp"],
         figure_groups=["Fields", "Index Profile", "Gap Sweep", "Transmission"],
     ),
+    # FDTD: Edge coupler
+    "fdtd.edge_coupler": SimSpec(
+        key="fdtd.edge_coupler",
+        domain="FDTD",
+        module="edge_coupler",
+        templates=["edge_taper.fsp"],
+        figure_groups=["Fields", "Index Profile", "Tip Sweep", "Length Sweep", "Transmission"],
+    ),
     # FDTD: Ring resonator coupler
     "fdtd.ring_resonator_coupler": SimSpec(
         key="fdtd.ring_resonator_coupler",

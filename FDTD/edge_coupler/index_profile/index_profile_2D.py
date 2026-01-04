@@ -18,12 +18,10 @@ defined in the edge_taper.fsp file
 # ---------------------------------------------------------------------------
 
 import numpy as np
-import lumapi, os
+import lumapi
 import matplotlib.pyplot as plt
-from config import *
-
-from FDTD.edge_coupler.override_fdtd_region import *
-from FDTD.edge_coupler.override_edge_coupler_region import *
+from pathlib import Path
+from project_layout import setup
 
 # -------------------_----- No inputs are required ---------------------------
 
@@ -37,11 +35,13 @@ def getIndex(fdtd):
 
 
 if(__name__=="__main__"):
-    with lumapi.FDTD(FDTD_EDGE_DIRECTORY_READ) as fdtd:
+    spec, out, templates = setup("fdtd.edge_coupler", __file__)
+    template_fsp = templates[0]  # edge_taper.fsp
+    figures_dir = out["figures"] / "Index Profile"
+    figures_dir.mkdir(parents=True, exist_ok=True)
+    
+    with lumapi.FDTD(str(template_fsp)) as fdtd:
         
-        # ------------Comment for Avoiding Overriding the Simulation Region
-        # override_taper(fdtd=fdtd)
-        # override_fdtd(fdtd=fdtd)
         
         index_xy, index_xz = getIndex(fdtd=fdtd)
 
@@ -64,10 +64,9 @@ if(__name__=="__main__"):
         fig.colorbar(cmap)
         plt.xlabel("x (um)")
         plt.ylabel("y (um)")
-        plt.title('Top-view(xy) - Bottom taper')
+        plt.title('Top-view(xy)')
         plt.tight_layout()
-        file_name_plot = os.path.join(FDTD_EDGE_DIRECTORY_WRITE[0], "taper_index_profile_xy.png")
-        plt.savefig(file_name_plot)
+        plt.savefig(figures_dir / "taper_index_profile_xy.png")
         plt.show()
         
         
@@ -84,7 +83,6 @@ if(__name__=="__main__"):
         plt.ylabel("z (um)")
         plt.title('Side-view(xz)')
         plt.tight_layout()
-        file_name_plot = os.path.join(FDTD_EDGE_DIRECTORY_WRITE[0], "taper_index_profile_xz.png")
-        plt.savefig(file_name_plot)
+        plt.savefig(figures_dir / "taper_index_profile_xz.png")
         plt.show()
         

@@ -37,27 +37,6 @@ for i in range(0,len(FDTD_CROSS_DIRECTORY_WRITE)):
 
 
 
-
-
-# EDGE COUPLER FDTD
-FDTD_EDGE_FILENAME = ["edge_taper.fsp"]
-FDTD_EDGE_PATH_READ = "FDTD\\edge_coupler\\user_inputs\\lumerical_files"
-FDTD_EDGE_PATH_WRITE_FIGURES = "FDTD\\Results\\edge_coupler\\Figures"
-FDTD_EDGE_PATH_WRITE_DATA = ["Index Profile", "Frequency Response","E-fields", "Coupling"]
-FDTD_EDGE_DIRECTORY_READ = os.path.join(PACKAGE_DIR,FDTD_EDGE_PATH_READ,FDTD_EDGE_FILENAME[0])
-FDTD_EDGE_DIRECTORY_WRITE = [str]*len(FDTD_EDGE_PATH_WRITE_DATA)
-for i,data in enumerate(FDTD_EDGE_PATH_WRITE_DATA):
-    FDTD_EDGE_DIRECTORY_WRITE[i] = os.path.join(PACKAGE_DIR,FDTD_EDGE_PATH_WRITE_FIGURES,FDTD_EDGE_PATH_WRITE_DATA[i])
-for i in range(0,len(FDTD_EDGE_DIRECTORY_WRITE)):
-    # create the directory if it doesn't exist already
-    if not os.path.exists(FDTD_EDGE_DIRECTORY_WRITE[i]):
-        os.makedirs(FDTD_EDGE_DIRECTORY_WRITE[i])
-        #print("Directory:" + FDTD_EDGE_DIRECTORY_WRITE[i] + "\n created successfully!")
-    else:
-        #print("Directory:" + FDTD_EDGE_DIRECTORY_WRITE[i] + "\n already exists!")
-        break
-
-
 # GRATING COUPLER 2D FDTD
 FDTD_GRATING_COUPLER_2D_FILENAME = ["grating_coupler_2D.fsp"]
 FDTD_GRATING_COUPLER_2D_PATH_READ = "FDTD\\grating_coupler_2D\\user_inputs\\lumerical_files"

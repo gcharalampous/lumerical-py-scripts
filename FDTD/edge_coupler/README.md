@@ -1,60 +1,61 @@
 # Edge Coupler (3D FDTD)
 
 **Purpose:**  
-Simulates a 3D edge coupler (spot-size converter) that transitions from a fiber/PLC mode to an on-chip waveguide. The taper reshapes the mode size and effective index to reduce insertion loss at the chip facet.
+This simulation models a 3D edge coupler (spot-size converter) designed to efficiently couple light between a fiber/PLC mode and an on-chip waveguide. The taper structure gradually transitions the mode profile and effective index to minimize insertion loss at the chip facet.
 
 
 ## What this module does
-Models the edge-coupler taper in 3D FDTD and extracts:
-- Transmission vs. wavelength (coupling efficiency)
-- Forward and backward field profiles (mode matching and reflections)
-- Mode overlap at the input/output facets
+
+This module performs electromagnetic simulations of an edge coupler taper structure using the 3D FDTD computational method.
+
+The simulation extracts:
+- **Transmission frequency response**: Quantifies power coupling efficiency and spectral characteristics across the operating bandwidth
+- **Electric field (E-field) distribution**: Maps the spatially-resolved electromagnetic field intensity and polarization state throughout the simulation domain
+- **Refractive index profile**: Characterizes the spatial variation of the material's refractive index to validate the taper geometry
+
+This analysis is essential for optimizing mode conversion efficiency and minimizing modal mismatch losses in chip-to-fiber coupling interfaces.
 
 
 ## Quick start
-1. Go to `user_inputs/lumerical_files/` and set materials and dimensions in `edge_taper.fsp`.
-2. (Optional) Adjust overrides in `user_simulation_parameters.py` following the inline notes, then uncomment override calls in the scripts if needed.
-3. Run the scripts to generate results:
-   - `fields/getFields.py`
-   - `index_profile/index_profile_2D.py`
-   - `tip_sweep/getTipSweep.py`
-   - `transmission/getFrequencyResponse.py`
-4. Results save to `FDTD/Results/edge_coupler/`.
+1. Set materials and dimensions in `user_inputs/lumerical_files/edge_taper.fsp` (cladding, core, box).
+2. Run the scripts to generate results:
+    - `python fields/getFields.py`
+    - `python index_profile/index_profile_2D.py`
+    - `python tip_sweep/getTipSweep.py`
+    - `python length_sweep/getLengthSweep.py`
+    - `python transmission/getFrequencyResponse.py`
+
+3. Results will be saved automatically under:
+   ```
+   FDTD/Results/edge_coupler/Figures/
+   ├── Fields/
+   ├── Index Profile/
+   ├── Tip Sweep/
+   ├── Length Sweep/
+   └── Transmission/
+   ```
 
 
-## Rendering scripts
 
-- `override_edge_coupler_region.py`: Override the edge coupler device
-- `override_fdtd_region.py`: Override the fdtd simulation settings
- spectrum
+## Lumerical Template file
 
-
-## Inputs
-
-Editable files are located in:
-
-```
-user_inputs/
-```
-
-Typical inputs include:
-- geometry parameters
-- material properties
-- wavelength or frequency settings
-- sweep definitions
+- `edge_taper.fsp` : Lumerical file that defines edge coupler
 
 
 ## Outputs
 
 Results are saved automatically and may include:
-- Transmission or reflection spectra
-- Mode profiles or field plots
-
+- Electric field distributions at multiple cross-sections (xy and xz views)
+- Refractive index profile maps (xy and xz views)
+- Frequency-dependent transmission spectra (linear and dB scales)
+- Back reflection estimates
+- Tip width sweep results (linear and dB scales)
+- Taper length sweep results (linear and dB scales)
 
 Typical output location:
 
 ```
-FDTD/Results/edge_coupler/
+FDTD/Results/edge_coupler/Figures/
 ```
 
 
@@ -66,34 +67,37 @@ edge_coupler/
 │   └── getFields.py
 ├── index_profile/
 │   └── index_profile_2D.py
+├── length_sweep/
+│   └── getLengthSweep.py
 ├── override_edge_coupler_region.py
 ├── override_fdtd_region.py
+├── README.md
 ├── tip_sweep/
 │   └── getTipSweep.py
 ├── transmission/
 │   └── getFrequencyResponse.py
 └── user_inputs/
-   ├── lumerical_files/
-   │   └── edge_taper.fsp
-   └── user_simulation_parameters.py
+    ├── lumerical_files/
+    │   └── edge_taper.fsp
+    └── user_simulation_parameters.py
 ```
 
 
 ## Notes
-
 - Requires Lumerical installed and accessible via lumapi
-- Scripts assume paths defined in config.py
+- Scripts use `project_layout.py` for path management
 - Designed to be run from the repository root
+- Override scripts (`override_edge_coupler_region.py` and `override_fdtd_region.py`) can be used to programmatically modify simulation parameters
 
 
 ## Related modules
-
-- [MODE/butt_coupling](../../MODE/butt_coupling/README.md)
-- [MODE/edge_coupler](../../MODE/edge_coupler/README.md)
+- [MODE/butt_coupling](../../MODE/butt_coupling/)
+- [MODE/edge_coupler](../../MODE/edge_coupler/)
+- [FDTD/vertical_taper](../vertical_taper/)
 
 
 ## Status
 
-- [ ] Verified
+- [x] Verified
 - [ ] Actively used
 - [ ] Legacy or reference
