@@ -20,11 +20,13 @@ import lumapi
 import os
 import matplotlib.pyplot as plt
 import scipy.constants as scpy
-from config import *
+from pathlib import Path
+from project_layout import setup
+import sys
 
-from FDTD.grating_coupler_2D.user_inputs.user_simulation_parameters import *
-from FDTD.grating_coupler_2D.override_fdtd_region import *
-from FDTD.grating_coupler_2D.override_grating_coupler_region import *
+# Import user configuration
+user_inputs_dir = Path(__file__).resolve().parent.parent / "user_inputs"
+sys.path.insert(0, str(user_inputs_dir))
 
 def getCouplingResponse(fdtd):
         """
@@ -75,23 +77,85 @@ def plot_coupling_response(T, wavelength, position_x, output_path):
         plt.tight_layout()
         plt.savefig(output_path)
 
+def plot_max_transmission_at_wavelength(T, wavelength, position_x, target_wavelength, output_path):
+        """
+        Plot the maximum transmission at a specific wavelength.
+
+        Parameters:
+        T (numpy.ndarray): Transmission array.
+        wavelength (numpy.ndarray): Wavelength array.
+        position_x (numpy.ndarray): Fiber Position Array.
+        target_wavelength (float): Target wavelength in meters.
+        output_path (str): Path to save the plot.
+        """
+        # Find the index closest to target wavelength
+        if wavelength.ndim == 0:
+                # Single wavelength case
+                T_at_wavelength = T
+        else:
+                # Multiple wavelengths - find closest index
+                wavelength_idx = np.argmin(np.abs(wavelength - target_wavelength))
+                T_at_wavelength = T[wavelength_idx, :]
+                actual_wavelength = wavelength[wavelength_idx]
+        
+        T_linear = np.abs(T_at_wavelength)
+        T_dB = 10 * np.log10(T_linear)
+
+        px = 1 / plt.rcParams['figure.dpi']
+        
+        # Linear plot
+        fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
+        ax.plot(position_x*1e6, T_linear, '-o')
+        ax.grid(which='major')
+        ax.set_xlabel("Fiber Position x (um)")
+        ax.set_ylabel("Transmission")
+        if wavelength.ndim == 0:
+                ax.set_title(f"Wavelength: {wavelength*1e9:.1f} nm")
+        else:
+                ax.set_title(f"Wavelength: {actual_wavelength*1e9:.1f} nm")
+        plt.tight_layout()
+        plt.savefig(output_path.parent / f"{output_path.stem}_at_wavelength.png")
+        
+        # dB plot
+        fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
+        ax.plot(position_x*1e6, T_dB, '-o')
+        ax.grid(which='major')
+        ax.set_xlabel("Fiber Position x (um)")
+        ax.set_ylabel("Transmission (dB)")
+        if wavelength.ndim == 0:
+                ax.set_title(f"Wavelength: {wavelength*1e9:.1f} nm")
+        else:
+                ax.set_title(f"Wavelength: {actual_wavelength*1e9:.1f} nm")
+        plt.tight_layout()
+        plt.savefig(output_path.parent / f"{output_path.stem}_at_wavelength_dB.png")
+        plt.show()
+
 if __name__ == "__main__":
         try:
-                with lumapi.FDTD(FDTD_GRATING_COUPLER_2D_DIRECTORY_READ) as fdtd:
-                        # Uncomment to override the simulation region defined in the file
-                        override_fdtd(fdtd=fdtd)
-                        override_grating_coupler(fdtd=fdtd)
+                spec, out, templates = setup("fdtd.grating_coupler_rectangular_3D", __file__)
+                template_fsp = templates[0]  # grating_coupler_rectangular_3D.fsp
+                figures_dir = out["figures"] / "Sweep Functions"
+                figures_dir.mkdir(parents=True, exist_ok=True)
+                
+                with lumapi.FDTD(str(template_fsp)) as fdtd:
+
 
                         # Uncomment to run the sweep
-                        fdtd.runsweep('sweep_fiber_position_x')
+                        # fdtd.runsweep('sweep_fiber_position_x')
 
                         # Get Coupling via the getFillFactorSweep function
                         T, wavelength, position_x = getCouplingResponse(fdtd=fdtd)
 
                         # Define the output path for the plot
-                        file_name_plot = os.path.join(FDTD_GRATING_COUPLER_2D_DIRECTORY_WRITE[3], "grating_coupler_sweep_fiber_position_x.png")
+                        file_name_plot = figures_dir / "grating_coupler_sweep_fiber_position_x.png"
 
                         # Plot the coupling response
                         plot_coupling_response(T, wavelength, position_x, file_name_plot)
+
+                        # Define target wavelength for maximum transmission plot (example: 1550 nm)
+                        target_wavelength = 1550e-9  # Convert to meters
+
+                        # Plot maximum transmission at specific wavelength
+                        plot_max_transmission_at_wavelength(T, wavelength, position_x, target_wavelength, file_name_plot)
         except Exception as e:
                 print(f"An error occurred: {e}")

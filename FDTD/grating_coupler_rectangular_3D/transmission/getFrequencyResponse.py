@@ -18,14 +18,12 @@ from the T_exp monitor. The back reflection from the source is also printed.
 
 import numpy as np
 import lumapi
-import os
 import matplotlib.pyplot as plt
 import scipy.constants as scpy
-from config import *
+from pathlib import Path
+from project_layout import setup
 
-from FDTD.grating_coupler_2D.override_fdtd_region import override_fdtd
-from FDTD.grating_coupler_2D.override_grating_coupler_region import override_grating_coupler
-from FDTD.grating_coupler_2D.user_inputs.user_simulation_parameters import mode_fundamental
+
 
 def get_grating_coupler_response(fdtd):
         """
@@ -44,16 +42,8 @@ def get_grating_coupler_response(fdtd):
 
         return T_total, R, f
 
-def plot_response(wavelength, T_total, mode_fundamental, output_dir):
-        """
-        Plots the transmission response.
-
-        Parameters:
-        wavelength (numpy.ndarray): Array of wavelengths.
-        T_total (numpy.ndarray): Total transmission data.
-        mode_fundamental (str): The fundamental mode.
-        output_dir (str): Directory to save the plots.
-        """
+def plot_response(wavelength, T_total, output_dir):
+        """Plot the transmission response and save figures."""
         px = 1 / plt.rcParams['figure.dpi']  # pixel in inches
 
         # Plot T_total
@@ -62,11 +52,11 @@ def plot_response(wavelength, T_total, mode_fundamental, output_dir):
         ax.legend()
         ax.set_xlabel("Wavelength (um)")
         ax.set_ylabel("Magnitude")
-        ax.set_title('Mode: ' + mode_fundamental)
         plt.ylim([0, 1])
         plt.tight_layout()
-        file_name_plot = os.path.join(output_dir, "frequency_response.png")
-        plt.savefig(file_name_plot)        
+        file_name_plot = str(output_dir / "frequency_response.png")
+        plt.savefig(file_name_plot)
+        plt.show()
         
         # Plot T_total in dB
         fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
@@ -74,15 +64,18 @@ def plot_response(wavelength, T_total, mode_fundamental, output_dir):
         ax.legend()
         ax.set_xlabel("Wavelength (um)")
         ax.set_ylabel("Magnitude (dB)")
-        ax.set_title('Mode: ' + mode_fundamental)
         plt.tight_layout()
-        file_name_plot = os.path.join(output_dir, "frequency_response_dB.png")
-        plt.savefig(file_name_plot)      
-        
+        file_name_plot = str(output_dir / "frequency_response_dB.png")
+        plt.savefig(file_name_plot)
         plt.show()
         
 if __name__ == "__main__":
-        with lumapi.FDTD(FDTD_GRATING_COUPLER_2D_DIRECTORY_READ) as fdtd:
+        spec, out, templates = setup("fdtd.grating_coupler_rectangular_3D", __file__)
+        template_fsp = templates[0]  # grating_coupler_rectangular_3D.fsp
+        figures_dir = out["figures"] / "Transmission"
+        figures_dir.mkdir(parents=True, exist_ok=True)
+        
+        with lumapi.FDTD(str(template_fsp)) as fdtd:
                 # Override the simulation region
                 # override_grating_coupler(fdtd=fdtd)
                 # override_fdtd(fdtd=fdtd)
@@ -92,7 +85,7 @@ if __name__ == "__main__":
                 wavelength = (scpy.c / f) * 1e6
 
                 # Plot the response
-                plot_response(wavelength, T_total, mode_fundamental, FDTD_GRATING_COUPLER_2D_DIRECTORY_WRITE[1])
+                plot_response(wavelength, T_total, figures_dir)
 
                 # Print back reflection
                 print('Back Reflection: ' + str(round(10 * np.log10(abs(R.mean())), 2)) + ' dB')

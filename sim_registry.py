@@ -105,6 +105,22 @@ SIMS: Dict[str, SimSpec] = {
         templates=["waveguide_crossing_multi_wg_taper.fsp"],
         figure_groups=["Fields", "Index Profile", "Length Sweep", "Transmission"],
     ),
+    # FDTD: Grating coupler 2D
+    "fdtd.grating_coupler_2D": SimSpec(
+        key="fdtd.grating_coupler_2D",
+        domain="FDTD",
+        module="grating_coupler_2D",
+        templates=["grating_coupler_2D.fsp"],
+        figure_groups=["Index Profile", "Sweep Functions", "Transmission"],
+    ),
+    # FDTD: Grating coupler rectangular 3D
+    "fdtd.grating_coupler_rectangular_3D": SimSpec(
+        key="fdtd.grating_coupler_rectangular_3D",
+        domain="FDTD",
+        module="grating_coupler_rectangular_3D",
+        templates=["grating_coupler_rectangular_3D.fsp"],
+        figure_groups=["Fields", "Index Profile", "Sweep Functions", "Transmission"],
+    ),
 
 }
 

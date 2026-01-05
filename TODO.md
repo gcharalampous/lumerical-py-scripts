@@ -13,8 +13,8 @@
     - [x] FDTD/directional_coupler
     - [x] FDTD/disk_resonator_coupler
     - [x] FDTD/edge_coupler
-    - [ ] FDTD/grating_coupler_2D
-    - [ ] FDTD/grating_coupler_rectangular_3D
+    - [x] FDTD/grating_coupler_2D
+    - [x] FDTD/grating_coupler_rectangular_3D
     - [ ] FDTD/laser_tapered_waveguide
     - [ ] FDTD/mmi_couplers
     - [x] FDTD/ring_resonator_coupler
