@@ -60,29 +60,27 @@ You need installed on your operating system the following software
 
 Make sure you have Python 3 and the latest version of Lumerical Design Suite installed. In this repository, it is assumed that *lumapi* is integrated into the Python environment. Check the instructions below for Spyder and VSC.
 
-Clone the repository and run the scripts under the root project folder. The code will create a Results folder, and you can check the saved data there. If Lumerical is installed on a Linux machine, remember to change the path `\\` to `/` in [config.py](config.py).
+Clone the repository and run the scripts under the root project folder. The code will create a Results folder, and you can check the saved data there. The code is cross-platform compatible and handles path separators automatically.
 
 
 
 ### Spyder (Recommended)
 
 1. Click on `Tools` -> `PYTHONPATH manager` and then `Add Path`.
-2. Add the path to the lumapi, for example: `C:\\Program Files\\Lumerical\\v222\\api\\python`.
+2. Add the path to the lumapi. Your Lumerical Python API directory path depends on your installed version, for example: `C:\Program Files\Lumerical\vXXX\api\python` where `XXX` is your Lumerical version number. Check your Lumerical installation directory to find the correct version.
 
-(Note: Your Lumerical Python API directory may differ from mine.)
-
-3. Additionally, assign the root of the project directory to your `PYTHONPATH manager` since absolute paths are used to load the modules. For example: `D:\Georgios\Python - Scripts\lumerical-py-scripts`
+3. Additionally, assign the root of the project directory to your `PYTHONPATH manager` since absolute paths are used to load the modules. For example: `D:\Georgios\Python-Scripts\lumerical-py-scripts`
 
 ### Visual Studio Code
 
 If you're coding on a Windows machine, you can create a file called `.env` under the root project directory to add your lumapi path and the working directory of the root project. For example:
 
 ``` mathematica
-PYTHONPATH=C:\\Program Files\\Lumerical\\v222\\api\\python;D:\\Georgios\\Python-Scripts\\lumerical-py-scripts\\
+PYTHONPATH=C:\Program Files\Lumerical\vXXX\api\python;D:\Georgios\Python-Scripts\lumerical-py-scripts\
 ```
 Make sure the `.env` file is loaded after restarting VSCode.
 
-Ensure that you run the code with the Jupyter Interactive Python kernel to view the plots in the interactive terminal. In VSCode, you may need to restart the Python kernel each time you update one of the imported library files.
+Ensure that you run the code with the Jupyter Interactive Python kernel to view the plots in the interactive terminal. In VSCode, you may need to restart the Python kernel each time you update one of the imported library files. The code is cross-platform compatible and works on both Windows and Linux machines.
 
 ## To-Do List
 See the full [To-Do List](TODO.md) for upcoming tasks and features.
