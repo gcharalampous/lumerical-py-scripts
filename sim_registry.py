@@ -97,6 +97,14 @@ SIMS: Dict[str, SimSpec] = {
         templates=["vertical_taper.fsp"],
         figure_groups=["Fields", "Gap Sweep", "Index Profile", "Transmission"],
     ),
+    # FDTD: Waveguide crossing
+    "fdtd.waveguide_crossing": SimSpec(
+        key="fdtd.waveguide_crossing",
+        domain="FDTD",
+        module="waveguide_crossing",
+        templates=["waveguide_crossing_multi_wg_taper.fsp"],
+        figure_groups=["Fields", "Index Profile", "Length Sweep", "Transmission"],
+    ),
 
 }
 

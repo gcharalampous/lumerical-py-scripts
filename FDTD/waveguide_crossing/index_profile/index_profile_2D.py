@@ -18,11 +18,10 @@ defined in the waveguide_crossing_multi_wg_taper.fsp file
 # ---------------------------------------------------------------------------
 
 import numpy as np
-import lumapi, os
+import lumapi
 import matplotlib.pyplot as plt
-from config import *
-
-# from FDTD.waveguide_cross.override_cross_region import *
+from pathlib import Path
+from project_layout import setup
 
 # -------------------_----- No inputs are required ---------------------------
 
@@ -36,10 +35,12 @@ def getIndex(fdtd):
 
 
 if(__name__=="__main__"):
-    with lumapi.FDTD(FDTD_CROSS_DIRECTORY_READ) as fdtd:
-        
-        # ------------Comment for Avoiding Overriding the Simulation Region
-        # override_cross(fdtd=fdtd)
+    spec, out, templates = setup("fdtd.waveguide_crossing", __file__)
+    template_fsp = templates[0]  # waveguide_crossing_multi_wg_taper.fsp
+    figures_dir = out["figures"] / "Index Profile"
+    figures_dir.mkdir(parents=True, exist_ok=True)
+    
+    with lumapi.FDTD(str(template_fsp)) as fdtd:
         
         index_xy, index_yz = getIndex(fdtd=fdtd)
 
@@ -60,8 +61,7 @@ if(__name__=="__main__"):
         ax.set_ylabel("y (um)")
         ax.set_title('Top-view(xy)')
         fig.tight_layout()
-        file_name_plot = os.path.join(FDTD_CROSS_DIRECTORY_WRITE[0], "index_profile_xy.png")
-        plt.savefig(file_name_plot)
+        plt.savefig(figures_dir / "index_profile_xy.png")
         plt.show()
 
         
@@ -79,7 +79,6 @@ if(__name__=="__main__"):
         plt.ylabel("z (um)")
         plt.title('Cross-view(yz)')
         plt.tight_layout()
-        file_name_plot = os.path.join(FDTD_CROSS_DIRECTORY_WRITE[0], "index_profile_xz.png")
-        plt.savefig(file_name_plot)
+        plt.savefig(figures_dir / "index_profile_yz.png")
         plt.show()
         

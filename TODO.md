@@ -2,6 +2,7 @@
 
 ### Updating Code
 - [ ] Add the scripts for FDTD/mmi_coupler
+- [x] Add the scripts for FDTD/waveguide_crossing
 - [x] Add the scripts for FDTD/directional_coupler
 - [x] Add the scripts for FDTD/coupled_ring_coupler
 - [ ] Migrate all modules from config file to project_layout system:
@@ -20,7 +21,7 @@
     - [ ] FDTD/swg_grating
     - [x] FDTD/vertical_taper
     - [ ] FDTD/waveguide_bend
-    - [ ] FDTD/waveguide_crossing
+    - [x] FDTD/waveguide_crossing
     - [ ] FDTD/waveguide_mode_taper
     - [ ] FDTD/waveguide_straight
   - **MODE Modules:**
@@ -54,7 +55,7 @@
     - [x] FDTD/swg_grating
     - [x] FDTD/vertical_taper
     - [x] FDTD/waveguide_bend
-    - [ ] FDTD/waveguide_crossing
+    - [x] FDTD/waveguide_crossing
     - [x] FDTD/waveguide_mode_taper
     - [x] FDTD/waveguide_straight
   - **MODE Modules:**

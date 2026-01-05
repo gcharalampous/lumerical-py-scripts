@@ -5,67 +5,56 @@
 # version ='1.0'
 # ---------------------------------------------------------------------------
 """
-User-inputs are Not required.
+Plot E-field profiles for the waveguide crossing structure.
 
-The script plots the E-fields profile for the device structure
-defined in the waveguide_crossing_multi_wg_taper.fsp file
-
+Monitors are expected to be named `xy_topview`.
 """
 
-
 #----------------------------------------------------------------------------
-# Imports from user input files
+# Imports
 # ---------------------------------------------------------------------------
 
 import numpy as np
-import lumapi, os
+import lumapi
 import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
-from config import *
+from project_layout import setup
+from pathlib import Path
 
-# from FDTD.waveguide_cross.override_cross_region import *
+spec, out, templates = setup("fdtd.waveguide_crossing", __file__)
+template_fsp = templates[0]  # waveguide_crossing_multi_wg_taper.fsp
+e_fields_dir = out["figure_groups"].get("E-fields", out["figures"] / "Fields")
 
 
 def getFields(fdtd):
-    
-    fdtd.run()
-    
+    """Extract electric field data from FDTD simulation."""
     field_xy = fdtd.getelectric("xy_topview")
-
-    x = fdtd.getdata("xy_topview","x").squeeze()
-    y = fdtd.getdata("xy_topview","y").squeeze()
-    
-    return x,y,field_xy
+    x = fdtd.getdata("xy_topview", "x").squeeze()
+    y = fdtd.getdata("xy_topview", "y").squeeze()
+    return x, y, field_xy
 
 
+if __name__ == "__main__":
+    with lumapi.FDTD(str(template_fsp)) as fdtd:
+        fdtd.run()
 
+        x, y, E_xy = getFields(fdtd=fdtd)
+        c_wavelength = E_xy.shape[-1] // 2  # central wavelength index
 
-
-
-if(__name__=="__main__"):
-    with lumapi.FDTD(FDTD_CROSS_DIRECTORY_READ) as fdtd:
-        
-# ------------ Comment for Avoiding Overriding the Simulation Region
-        # override_cross(fdtd=fdtd)
-        
-        x,y,E_xy = getFields(fdtd=fdtd)
-        c_wavelength = np.rint(len(E_xy[0,0,0,:])/2)
-        px = 1/plt.rcParams['figure.dpi']  # pixel in inches
-        
-# --------------------------------Top-View---------------------------------
-        fig, ax = plt.subplots(figsize=(512*px, 256*px))
-        cmap = ax.pcolormesh(x*1e6,y*1e6,(np.transpose(E_xy[:,:,0,int(c_wavelength)])),
-                             shading = 'gouraud',cmap = 'jet', norm = LogNorm())
+        px = 1 / plt.rcParams['figure.dpi']  # pixel to inch conversion
+        fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
+        cmap = ax.pcolormesh(
+            x * 1e6,
+            y * 1e6,
+            np.transpose(E_xy[:, :, 0, c_wavelength]),
+            shading='gouraud',
+            cmap='jet',
+            norm=LogNorm(vmin=1e-4, vmax=1),
+        )
         fig.colorbar(cmap)
         plt.xlabel("x (um)")
         plt.ylabel("y (um)")
-        plt.title('Top-view(xy)')
+        plt.title("Top-view (xy)")
         plt.tight_layout()
-        file_name_plot = os.path.join(FDTD_CROSS_DIRECTORY_WRITE[2], "E_profile_xy.png")
-        plt.savefig(file_name_plot)
-        
-
-        
+        plt.savefig(e_fields_dir / "E_profile_xy.png")
         plt.show()
-        
-        
