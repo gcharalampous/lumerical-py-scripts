@@ -18,12 +18,10 @@ defined in the edge_taper.fsp file
 
 import numpy as np
 import lumapi
-import os
 import matplotlib.pyplot as plt
-from config import *
+from pathlib import Path
+from project_layout import setup
 
-from FDTD.grating_coupler_2D.override_fdtd_region import *
-from FDTD.grating_coupler_2D.override_grating_coupler_region import *
 
 # -------------------_----- No inputs are required ---------------------------
 
@@ -50,10 +48,13 @@ def plot_index_profile(x, y, index_x, output_path):
     plt.show()
 
 if __name__ == "__main__":
-    with lumapi.FDTD(FDTD_GRATING_COUPLER_2D_DIRECTORY_READ) as fdtd:
+    spec, out, templates = setup("fdtd.grating_coupler_2D", __file__)
+    template_fsp = templates[0]  # grating_coupler_2D.fsp
+    figures_dir = out["figures"] / "Index Profile"
+    figures_dir.mkdir(parents=True, exist_ok=True)
+    
+    with lumapi.FDTD(str(template_fsp)) as fdtd:
         # Comment for Avoiding Overriding the Simulation Region
-        override_grating_coupler(fdtd=fdtd)
-        override_fdtd(fdtd=fdtd)
         
         index_data = get_index(fdtd=fdtd)
         if index_data is not None:
@@ -62,7 +63,7 @@ if __name__ == "__main__":
             index_x = np.real(index_data["index_x"].squeeze())
             index_y = np.real(index_data["index_y"].squeeze())
 
-            output_file_path = os.path.join(FDTD_GRATING_COUPLER_2D_DIRECTORY_WRITE[0], "taper_index_profile_xy.png")
+            output_file_path = figures_dir / "taper_index_profile_xy.png"
             plot_index_profile(x, y, index_x, output_file_path)
         else:
             print("Failed to retrieve index data.")
