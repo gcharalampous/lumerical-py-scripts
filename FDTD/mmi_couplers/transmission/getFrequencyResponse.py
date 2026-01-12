@@ -5,23 +5,33 @@
 # version ='1.0'
 # ---------------------------------------------------------------------------
 """
-User-inputs are Not required.
+Extract and plot transmission frequency response for the MMI coupler.
 
-The script plots the transmission for the waveguide adiabatic y-branch
-structure defined in the MMI_1x2.fsp file
-from the 'Ttop' and 'Tbot' monitor ports.
+The script plots the transmission for the MMI coupler structure
+from the output monitor ports.
 
 """
 
 #----------------------------------------------------------------------------
-# Imports from user input files
+# Imports
 # ---------------------------------------------------------------------------
 
 import numpy as np
-import lumapi, os
+import lumapi
 import matplotlib.pyplot as plt
 import scipy.constants as scpy
-from config import *
+from project_layout import setup
+import sys
+from pathlib import Path
+
+# Import user configuration
+user_inputs_dir = Path(__file__).resolve().parent.parent / "user_inputs"
+sys.path.insert(0, str(user_inputs_dir))
+from user_simulation_parameters import file_index
+
+spec, out, templates = setup("fdtd.mmi_couplers", __file__)
+template_fsp = templates[file_index]
+figures_dir = out["figure_groups"].get("Transmission", out["figures"])
 
 
 def getCrossResponse(fdtd):
@@ -33,12 +43,11 @@ def getCrossResponse(fdtd):
 
 
 
-if(__name__=="__main__"):
-    with lumapi.FDTD(FDTD_MMI_DIRECTORY_READ[0]) as fdtd:
+if __name__ == "__main__":
+    with lumapi.FDTD(str(template_fsp)) as fdtd:
         
 # ------------ Comment for Avoiding Overriding the Simulation Region
-        # override_cross(fdtd=fdtd)
-        # fdtd.run()
+        fdtd.run()
 
 # --------------------------------Plot-T/R---------------------------------
 
@@ -48,20 +57,20 @@ if(__name__=="__main__"):
 
         px = 1/plt.rcParams['figure.dpi']  # pixel in inches
         fig, ax = plt.subplots(figsize=(512*px, 256*px))
-        ax.plot((scpy.c/f)*1e6,T1,label = 'Port 1')
-        ax.plot((scpy.c/f)*1e6,abs(T2),label = 'Port 2',linestyle='--')
-        ax.set_ylim(0,1)
+        ax.plot((scpy.c/f)*1e6, T1, label = 'Port 1')
+        ax.plot((scpy.c/f)*1e6, abs(T2), label = 'Port 2', linestyle='-', marker='o')
+        ax.set_ylim(0, 1)
         ax.grid(which='both')
         ax.legend()
         ax.set_xlabel("wavelength (um)")
         ax.set_ylabel("Magnitude")
         plt.tight_layout()
-        file_name_plot = os.path.join(FDTD_MMI_DIRECTORY_WRITE[1], "1x2MMI_frequency_response.png")
+        file_name_plot = figures_dir / "MMI_frequency_response.png"
         plt.savefig(file_name_plot)        
         
         fig, ax = plt.subplots(figsize=(512*px, 256*px))
-        ax.plot((scpy.c/f)*1e6,10*np.log10(T1),label = 'Port 1')
-        ax.plot((scpy.c/f)*1e6,10*np.log10(abs(T2)),label = 'Port 2',linestyle='--')
+        ax.plot((scpy.c/f)*1e6, 10*np.log10(T1), label = 'Port 1')
+        ax.plot((scpy.c/f)*1e6, 10*np.log10(abs(T2)), label = 'Port 2', linestyle='-', marker='o')
         ax.grid(which='major')
         ax.legend()
         ax.set_xlabel("wavelength (um)")
@@ -85,7 +94,7 @@ if(__name__=="__main__"):
         print(f"Deviation: {abs(deviation_percentage):.2f}%")
         
         plt.tight_layout()
-        file_name_plot = os.path.join(FDTD_MMI_DIRECTORY_WRITE[1], "1x2MMI_frequency_response_dB.png")
+        file_name_plot = figures_dir / "MMI_frequency_response_dB.png"
         plt.savefig(file_name_plot)      
         
         plt.show()

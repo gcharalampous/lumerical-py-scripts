@@ -61,37 +61,6 @@ if not os.path.exists(FDTD_LASER_TAPERED_DIRECTORY_WRITE_FILE):
 
 
 
-# MMI Couplers FDTD
-FDTD_MMI_FILENAME = ["MMI_1x2.fsp","MMI_2x2.fsp"]
-FDTD_MMI_PATH_READ = ["FDTD\\mmi_couplers\\1x2\\user_inputs\\lumerical_files","FDTD\\mmi_couplers\\2x2\\user_inputs\\lumerical_files"]
-FDTD_MMI_PATH_WRITE_FIGURES = "FDTD\\Results\\mmi_couplers\\Figures"
-FDTD_MMI_PATH_WRITE_LUMERICAL = "FDTD\\Results\\mmi_couplers\\lumerical_files"
-
-FDTD_MMI_PATH_WRITE_DATA = ["Sweep Transmission", "Frequency Response","E-fields"]
-FDTD_MMI_DIRECTORY_READ = [os.path.join(PACKAGE_DIR, path, filename) for path, filename in zip(FDTD_MMI_PATH_READ, FDTD_MMI_FILENAME)]
-FDTD_MMI_DIRECTORY_WRITE = [str]*len(FDTD_MMI_PATH_WRITE_DATA)
-for i,data in enumerate(FDTD_MMI_PATH_WRITE_DATA):
-    FDTD_MMI_DIRECTORY_WRITE[i] = os.path.join(PACKAGE_DIR,FDTD_MMI_PATH_WRITE_FIGURES,FDTD_MMI_PATH_WRITE_DATA[i])
-for i in range(0,len(FDTD_MMI_DIRECTORY_WRITE)):
-    # create the directory if it doesn't exist already
-    if not os.path.exists(FDTD_MMI_DIRECTORY_WRITE[i]):
-        os.makedirs(FDTD_MMI_DIRECTORY_WRITE[i])
-        #print("Directory:" + FDTD_MMI_DIRECTORY_WRITE[i] + "\n created successfully!")
-    else:
-        #print("Directory:" + FDTD_MMI_DIRECTORY_WRITE[i] + "\n already exists!")
-        break
-
-
-FDTD_MMI_DIRECTORY_WRITE_FILE = os.path.join(PACKAGE_DIR, FDTD_MMI_PATH_WRITE_LUMERICAL)
-if not os.path.exists(FDTD_MMI_DIRECTORY_WRITE_FILE):
-    os.makedirs(FDTD_MMI_DIRECTORY_WRITE_FILE)
-    #print("Directory:" + FDTD_MMI_DIRECTORY_WRITE[i] + "\n created successfully!")
-
-
-
-
-
-
 # WAVEGUIDE MODE TAPER FDTD
 FDTD_WGTAPER_FILENAME = "waveguide_mode_taper.fsp"
 FDTD_WGTAPER_PATH_READ = "FDTD\\waveguide_mode_taper\\user_inputs\\lumerical_files"

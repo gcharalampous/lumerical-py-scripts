@@ -1,7 +1,7 @@
 ## To-Do List
 
 ### Updating Code
-- [ ] Add the scripts for FDTD/mmi_coupler
+- [x] Add the scripts for FDTD/mmi_coupler
 - [x] Add the scripts for FDTD/waveguide_crossing
 - [x] Add the scripts for FDTD/directional_coupler
 - [x] Add the scripts for FDTD/coupled_ring_coupler
@@ -16,7 +16,7 @@
     - [x] FDTD/grating_coupler_2D
     - [x] FDTD/grating_coupler_rectangular_3D
     - [ ] FDTD/laser_tapered_waveguide
-    - [ ] FDTD/mmi_couplers
+    - [x] FDTD/mmi_couplers
     - [x] FDTD/ring_resonator_coupler
     - [ ] FDTD/swg_grating
     - [x] FDTD/vertical_taper
@@ -50,7 +50,7 @@
     - [x] FDTD/grating_coupler_2D
     - [x] FDTD/grating_coupler_rectangular_3D
     - [ ] FDTD/laser_tapered_waveguide
-    - [ ] FDTD/mmi_couplers
+    - [x] FDTD/mmi_couplers
     - [x] FDTD/ring_resonator_coupler
     - [x] FDTD/swg_grating
     - [x] FDTD/vertical_taper

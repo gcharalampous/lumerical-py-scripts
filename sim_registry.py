@@ -121,6 +121,15 @@ SIMS: Dict[str, SimSpec] = {
         templates=["grating_coupler_rectangular_3D.fsp"],
         figure_groups=["Fields", "Index Profile", "Sweep Functions", "Transmission"],
     ),
+    # FDTD: MMI couplers
+    "fdtd.mmi_couplers": SimSpec(
+        key="fdtd.mmi_couplers",
+        domain="FDTD",
+        module="mmi_couplers",
+        templates=["MMI_1x2.fsp", "MMI_2x2.fsp"],
+        figure_groups=["Fields", "Index Profile", "Length Sweep", "Transmission"],
+    ),
+    
 
 }
 
