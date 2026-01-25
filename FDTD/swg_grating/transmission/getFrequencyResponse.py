@@ -18,16 +18,14 @@ from the T and R monitors
 # ---------------------------------------------------------------------------
 
 import numpy as np
-import lumapi, os
+import lumapi
 import matplotlib.pyplot as plt
 import scipy.constants as scpy
-from config import *
-
-from FDTD.swg_grating.override_fdtd_region import override_fdtd
-from FDTD.swg_grating.override_swg_region import *
+from project_layout import setup
+from FDTD.swg_grating.user_inputs.user_simulation_parameters import file_index
 
 def getBraggResponse(fdtd):
-    fdtd.run()
+    
     T  = np.squeeze(fdtd.transmission("T"))
     R  = np.squeeze(fdtd.transmission("R"))
     f  = np.squeeze(fdtd.getdata("T","f"))
@@ -37,14 +35,15 @@ def getBraggResponse(fdtd):
 
 
 if(__name__=="__main__"):
-    with lumapi.FDTD(FDTD_SWG_DIRECTORY_READ) as fdtd:
         
-# ------------ Comment for Avoiding Overriding the Simulation Region
-        # override_swg(fdtd=fdtd)
-        # override_fdtd(fdtd=fdtd)
-        
-# --------------------------------Plot-T/R---------------------------------
+    spec, out, templates = setup("fdtd.swg_grating", __file__)
+    template_fsp = templates[file_index]
+    figures_dir = out["figures"] / "Frequency Response"
+    figures_dir.mkdir(parents=True, exist_ok=True)
 
+    with lumapi.FDTD(str(template_fsp)) as fdtd:
+    
+        fdtd.run()    
         T, R, f = getBraggResponse(fdtd=fdtd)
 
 # --------------------------------Plot-T/R---------------------------------
@@ -58,8 +57,7 @@ if(__name__=="__main__"):
         ax.set_ylabel("Magnitude")
         plt.ylim([0,1])
         plt.tight_layout()
-        file_name_plot = os.path.join(FDTD_SWG_DIRECTORY_WRITE[1], "frequency_response.png")
-        plt.savefig(file_name_plot)        
+        plt.savefig(figures_dir / "frequency_response.png")       
         
         fig, ax = plt.subplots(figsize=(512*px, 256*px))
         ax.plot((scpy.c/f)*1e6,10*np.log10(T),label = 'Transmission')
@@ -67,9 +65,8 @@ if(__name__=="__main__"):
         ax.legend()
         ax.set_xlabel("wavelength (um)")
         ax.set_ylabel("Magnitude (dB)")
-        ax.set_ylim([-20,0])
+        # ax.set_ylim([-20,0])
         plt.tight_layout()
-        file_name_plot = os.path.join(FDTD_SWG_DIRECTORY_WRITE[1], "frequency_response_dB.png")
-        plt.savefig(file_name_plot)      
+        plt.savefig(figures_dir / "frequency_response_dB.png")     
         
         plt.show()

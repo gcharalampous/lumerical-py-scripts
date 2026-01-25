@@ -18,18 +18,14 @@ defined in the sub_wavelength_grating.fsp file
 # ---------------------------------------------------------------------------
 
 import numpy as np
-import lumapi, os
+import lumapi
 import matplotlib.pyplot as plt
-import scipy.constants as scpy
-from config import *
-
-from FDTD.swg_grating.override_fdtd_region import override_fdtd
-from FDTD.swg_grating.override_swg_region import *
+from project_layout import setup
+from FDTD.swg_grating.user_inputs.user_simulation_parameters import file_index
 
 
 def getFields(fdtd):
     
-    fdtd.run()
     
     field_xy = fdtd.getelectric("field_xy")
     field_xz = fdtd.getelectric("field_xz")
@@ -46,12 +42,14 @@ def getFields(fdtd):
 
 
 if(__name__=="__main__"):
-    with lumapi.FDTD(FDTD_SWG_DIRECTORY_READ) as fdtd:
-        
-# ------------ Comment for Avoiding Overriding the Simulation Region
-        # override_swg(fdtd=fdtd)
-        # override_fdtd(fdtd=fdtd)
-        
+    spec, out, templates = setup("fdtd.swg_grating", __file__)
+    template_fsp = templates[file_index]
+    figures_dir = out["figures"] / "Fields"
+    figures_dir.mkdir(parents=True, exist_ok=True)
+
+    with lumapi.FDTD(str(template_fsp)) as fdtd:
+
+        fdtd.run()
         x,y,z,E_xy,E_xz = getFields(fdtd=fdtd)
         c_wavelength = np.rint(len(E_xy[0,0,0,:])/2)
         px = 1/plt.rcParams['figure.dpi']  # pixel in inches
@@ -65,8 +63,7 @@ if(__name__=="__main__"):
         plt.ylabel("y (um)")
         plt.title('Top-view(xy)')
         plt.tight_layout()
-        file_name_plot = os.path.join(FDTD_SWG_DIRECTORY_WRITE[2], "E_profile_xy.png")
-        plt.savefig(file_name_plot)
+        plt.savefig(figures_dir / "E_profile_xy.png")
         
 # --------------------------------Side-View---------------------------------
         fig, ax = plt.subplots(figsize=(512*px, 256*px))
@@ -77,8 +74,7 @@ if(__name__=="__main__"):
         plt.ylabel("z (um)")
         plt.title('Side-view(xz)')
         plt.tight_layout()
-        file_name_plot = os.path.join(FDTD_SWG_DIRECTORY_WRITE[2], "E_profile_xz.png")
-        plt.savefig(file_name_plot)
+        plt.savefig(figures_dir / "E_profile_xz.png")
         
         plt.show()
         

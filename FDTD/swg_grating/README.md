@@ -13,23 +13,22 @@ Models the sub-wavelength grating in 3D FDTD and extracts:
 
 
 ## Quick start
-1. Go to `user_inputs/lumerical_files/` and set materials and dimensions in the SWG `.fsp` file:
-   - `sub_wavelength_grating_layer_1.fsp`
+1. Set materials and dimensions in `user_inputs/lumerical_files/`:
+   - `sub_wavelength_grating_layer_1.fsp` (default)
    - `sub_wavelength_grating_layer_2.fsp`
-2. (Optional) Adjust overrides in `user_simulation_parameters.py` following the inline notes, then uncomment override calls in the scripts if needed.
+2. Choose which template to load via `file_index` in `user_inputs/user_simulation_parameters.py` (0 or 1). Other parameters stay inside the .fsp files.
 3. Run the scripts to generate results:
-   - `Fields/getFields.py`
-   - `index_profile/index_profile_2D.py`
-   - `transmission/getFrequencyResponse.py`
-4. Results save to `FDTD/Results/swg_grating/`.
+   - `python FDTD/swg_grating/Fields/getFields.py`
+   - `python FDTD/swg_grating/index_profile/index_profile_2D.py`
+   - `python FDTD/swg_grating/transmission/getFrequencyResponse.py`
 
-
-## Rendering scripts
-
-- `override_swg_region.py`: Override the sub-wavelength grating device
-- `override_fdtd_region.py`: Override the fdtd simulation settings
-
-These scripts are used for rendering and you are not required to directly run them
+4. Results will be saved automatically under:
+   ```
+   FDTD/Results/swg_grating/Figures/
+   ├── Fields/
+   ├── Index Profile/
+   └── Frequency Response/
+   ```
 
 
 ## Inputs
@@ -71,22 +70,20 @@ swg_grating/
 │   └── getFields.py
 ├── index_profile/
 │   └── index_profile_2D.py
-├── override_fdtd_region.py
-├── override_swg_region.py
 ├── transmission/
 │   └── getFrequencyResponse.py
 └── user_inputs/
-   ├── lumerical_files/
-   │   ├── sub_wavelength_grating_layer_1.fsp
-   │   └── sub_wavelength_grating_layer_2.fsp
-   └── user_simulation_parameters.py
+    ├── lumerical_files/
+    │   ├── sub_wavelength_grating_layer_1.fsp
+    │   └── sub_wavelength_grating_layer_2.fsp
+    └── user_simulation_parameters.py
 ```
 
 
 ## Notes
 
 - Requires Lumerical installed and accessible via lumapi
-- Scripts assume paths defined in config.py
+- Scripts use `project_layout.py` for path management
 - Designed to be run from the repository root
 
 ## Related modules
@@ -98,6 +95,6 @@ swg_grating/
 
 ## Status
 
-- [ ] Verified
+- [x] Verified
 - [ ] Actively used
 - [ ] Legacy or reference

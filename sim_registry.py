@@ -121,6 +121,14 @@ SIMS: Dict[str, SimSpec] = {
         templates=["grating_coupler_rectangular_3D.fsp"],
         figure_groups=["Fields", "Index Profile", "Sweep Functions", "Transmission"],
     ),
+    # FDTD: Sub-wavelength grating
+    "fdtd.swg_grating": SimSpec(
+        key="fdtd.swg_grating",
+        domain="FDTD",
+        module="swg_grating",
+        templates=["sub_wavelength_grating_layer_1.fsp", "sub_wavelength_grating_layer_2.fsp"],
+        figure_groups=["Fields", "Index Profile", "Frequency Response"],
+    ),
     # FDTD: MMI couplers
     "fdtd.mmi_couplers": SimSpec(
         key="fdtd.mmi_couplers",
