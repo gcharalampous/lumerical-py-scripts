@@ -110,7 +110,7 @@ SIMS: Dict[str, SimSpec] = {
         key="fdtd.grating_coupler_2D",
         domain="FDTD",
         module="grating_coupler_2D",
-        templates=["grating_coupler_2D.fsp"],
+        templates=["grating_coupler_2D.fsp", "grating_coupler_bilayer_2D.fsp"],
         figure_groups=["Index Profile", "Sweep Functions", "Transmission"],
     ),
     # FDTD: Grating coupler rectangular 3D

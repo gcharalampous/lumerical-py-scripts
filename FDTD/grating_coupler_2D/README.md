@@ -17,8 +17,11 @@ This analysis is essential for designing efficient fiber-to-chip coupling interf
 
 
 ## Quick start
-1. Set materials and dimensions in `user_inputs/lumerical_files/grating_coupler_2D.fsp` (grating period, fill factor, depth).
-2. Run the scripts to generate results:
+1. Set materials and dimensions in `user_inputs/lumerical_files/`:
+   - `grating_coupler_2D.fsp` (default)
+   - `grating_coupler_bilayer_2D.fsp`
+2. Choose which template to load via `file_index` in `user_inputs/user_simulation_parameters.py` (0 or 1). Other parameters stay inside the .fsp files.
+3. Run the scripts to generate results:
     - `python transmission/getFrequencyResponse.py`
     - `python index_profile/index_profile_2D.py`
     - `python sweep_functions/getFiberAngle.py`
@@ -39,9 +42,10 @@ This analysis is essential for designing efficient fiber-to-chip coupling interf
 - `analytical/1D_grating_coupler_design.ipynb` : Jupyter notebook for analytical grating coupler design calculations
 
 
-## Lumerical Template file
+## Lumerical Template files
 
-- `grating_coupler_2D.fsp` : Lumerical file that defines the 2D grating coupler structure
+- `grating_coupler_2D.fsp` : Standard 2D grating coupler structure
+- `grating_coupler_bilayer_2D.fsp` : Bilayer 2D grating coupler variant
 
 
 ## Outputs
@@ -78,7 +82,8 @@ grating_coupler_2D/
 │   └── getFrequencyResponse.py
 └── user_inputs/
     ├── lumerical_files/
-    │   └── grating_coupler_2D.fsp
+    │   ├── grating_coupler_2D.fsp
+    │   └── grating_coupler_bilayer_2D.fsp
     └── user_simulation_parameters.py
 ```
 

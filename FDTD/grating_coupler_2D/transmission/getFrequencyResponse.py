@@ -22,11 +22,7 @@ import matplotlib.pyplot as plt
 import scipy.constants as scpy
 from pathlib import Path
 from project_layout import setup
-import sys
-
-# Import user configuration
-user_inputs_dir = Path(__file__).resolve().parent.parent / "user_inputs"
-sys.path.insert(0, str(user_inputs_dir))
+from FDTD.grating_coupler_2D.user_inputs.user_simulation_parameters import file_index
 
 
 
@@ -81,7 +77,7 @@ def plot_response(wavelength, T_total, output_dir):
         
 if __name__ == "__main__":
         spec, out, templates = setup("fdtd.grating_coupler_2D", __file__)
-        template_fsp = templates[0]  # grating_coupler_2D.fsp
+        template_fsp = templates[file_index]
         figures_dir = out["figures"] / "Transmission"
         figures_dir.mkdir(parents=True, exist_ok=True)
         

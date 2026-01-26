@@ -21,11 +21,7 @@ import matplotlib.pyplot as plt
 import scipy.constants as scpy
 from pathlib import Path
 from project_layout import setup
-import sys
-
-# Import user configuration
-user_inputs_dir = Path(__file__).resolve().parent.parent / "user_inputs"
-sys.path.insert(0, str(user_inputs_dir))
+from FDTD.grating_coupler_2D.user_inputs.user_simulation_parameters import file_index
 
 
 def getCouplingResponse(fdtd):
@@ -92,6 +88,7 @@ def plot_max_transmission_at_wavelength(T, wavelength, position_x, target_wavele
         if wavelength.ndim == 0:
                 # Single wavelength case
                 T_at_wavelength = T
+                actual_wavelength = wavelength
         else:
                 # Multiple wavelengths - find closest index
                 wavelength_idx = np.argmin(np.abs(wavelength - target_wavelength))
@@ -133,7 +130,7 @@ def plot_max_transmission_at_wavelength(T, wavelength, position_x, target_wavele
 if __name__ == "__main__":
         try:
                 spec, out, templates = setup("fdtd.grating_coupler_2D", __file__)
-                template_fsp = templates[0]  # grating_coupler_2D.fsp
+                template_fsp = templates[file_index]
                 figures_dir = out["figures"] / "Sweep Functions"
                 figures_dir.mkdir(parents=True, exist_ok=True)
                 
