@@ -7,7 +7,9 @@ import numpy as np
 import lumapi
 import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm
+from pathlib import Path
 from project_layout import setup
+from FDTD.grating_coupler_rectangular_3D.user_inputs.user_simulation_parameters import file_index
 
 
 def get_fields(fdtd):
@@ -73,7 +75,7 @@ def plot_field_xz(x_axis, z_axis, field, title, output_path, xlabel, ylabel, px)
 if __name__ == "__main__":
     # Setup project layout and figure directory
     spec, out, templates = setup("fdtd.grating_coupler_rectangular_3D", __file__)
-    template_fsp = templates[0]
+    template_fsp = templates[file_index]
     fields_dir = out["figure_groups"].get("Fields", out["figures"])
     fields_dir.mkdir(parents=True, exist_ok=True)
 

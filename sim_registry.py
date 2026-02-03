@@ -118,7 +118,7 @@ SIMS: Dict[str, SimSpec] = {
         key="fdtd.grating_coupler_rectangular_3D",
         domain="FDTD",
         module="grating_coupler_rectangular_3D",
-        templates=["grating_coupler_rectangular_3D.fsp"],
+        templates=["grating_coupler_rectangular_3D.fsp", "grating_coupler_rectangular_bilayer_3D.fsp"],
         figure_groups=["Fields", "Index Profile", "Sweep Functions", "Transmission"],
     ),
     # FDTD: Sub-wavelength grating

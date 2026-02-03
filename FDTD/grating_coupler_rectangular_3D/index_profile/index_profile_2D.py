@@ -21,6 +21,7 @@ import lumapi
 import matplotlib.pyplot as plt
 from pathlib import Path
 from project_layout import setup
+from FDTD.grating_coupler_rectangular_3D.user_inputs.user_simulation_parameters import file_index
 
 
 # -------------------_----- No inputs are required ---------------------------
@@ -50,7 +51,7 @@ def plot_index_profile(x, y, index_x, output_path, title, ylabel):
 
 if __name__ == "__main__":
     spec, out, templates = setup("fdtd.grating_coupler_rectangular_3D", __file__)
-    template_fsp = templates[0]  # grating_coupler_rectangular_3D.fsp
+    template_fsp = templates[file_index]
     figures_dir = out["figures"] / "Index Profile"
     figures_dir.mkdir(parents=True, exist_ok=True)
     

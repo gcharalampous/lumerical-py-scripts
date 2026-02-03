@@ -23,8 +23,6 @@ from pathlib import Path
 from project_layout import setup
 from FDTD.grating_coupler_rectangular_3D.user_inputs.user_simulation_parameters import file_index
 
-
-
 def getCouplingResponse(fdtd):
         """
         Get the coupling response from the FDTD simulation.
@@ -35,22 +33,22 @@ def getCouplingResponse(fdtd):
         Returns:
         tuple: Transmission (T), wavelength, and fill factor arrays.
         """
-        T = np.squeeze(fdtd.getsweepresult("sweep_fill_factor", "transmission").get('T'))
-        wavelength = np.squeeze(fdtd.getsweepresult("sweep_fill_factor", "transmission").get('lambda'))
-        fill_factor = np.squeeze(fdtd.getsweepresult("sweep_fill_factor", "transmission").get('fill_factor'))
+        T = np.squeeze(fdtd.getsweepresult("sweep_taper_width", "transmission").get('T'))
+        wavelength = np.squeeze(fdtd.getsweepresult("sweep_taper_width", "transmission").get('lambda'))
+        width_grating = np.squeeze(fdtd.getsweepresult("sweep_taper_width", "transmission").get('width_grating'))
         
         T = np.abs(T)
 
-        return T, wavelength, fill_factor
+        return T, wavelength, width_grating
 
-def plot_coupling_response(T, wavelength, fill_factor, output_path):
+def plot_coupling_response(T, wavelength, width_grating, output_path):
         """
         Plot the coupling response.
 
         Parameters:
         T (numpy.ndarray): Transmission array.
         wavelength (numpy.ndarray): Wavelength array.
-        fill_factor (numpy.ndarray): Fill factor array.
+        width_grating (numpy.ndarray): Grating width array.
         output_path (str): Path to save the plot.
         """
         T_log = 10 * np.log10(T)
@@ -59,14 +57,14 @@ def plot_coupling_response(T, wavelength, fill_factor, output_path):
         fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
 
         if wavelength.ndim == 0:
-                ax.plot(fill_factor, T_log, label=wavelength * 1e9)
-                ax.set_xlabel("Fill Factor")
+                ax.plot(width_grating*1e6, T_log, label=wavelength * 1e9)
+                ax.set_xlabel("Grating Width (um)")
                 ax.legend(title="Wavelength (nm)")
         else:
-                for i in range(len(fill_factor)):
-                        ax.plot(wavelength * 1e9, T_log[:, i], label=f"{fill_factor[i]:.3f}")
+                for i in range(len(width_grating)):
+                        ax.plot(wavelength * 1e9, T_log[:, i], label=f"{width_grating[i]*1e6:.3f}")
                         ax.set_xlabel("Wavelength (nm)")
-                        ax.legend(title="Fill Factor")
+                        ax.legend(title="Grating Width (um)")
 
         ax.grid(which='major')
         ax.set_ylabel("Magnitude [dB]")
@@ -74,14 +72,14 @@ def plot_coupling_response(T, wavelength, fill_factor, output_path):
         plt.tight_layout()
         plt.savefig(output_path)
 
-def plot_max_transmission_at_wavelength(T, wavelength, fill_factor, target_wavelength, output_path):
+def plot_max_transmission_at_wavelength(T, wavelength, width_grating, target_wavelength, output_path):
         """
         Plot the maximum transmission at a specific wavelength.
 
         Parameters:
         T (numpy.ndarray): Transmission array.
         wavelength (numpy.ndarray): Wavelength array.
-        fill_factor (numpy.ndarray): Fill factor array.
+        width_grating (numpy.ndarray): Grating width array.
         target_wavelength (float): Target wavelength in meters.
         output_path (str): Path to save the plot.
         """
@@ -102,9 +100,9 @@ def plot_max_transmission_at_wavelength(T, wavelength, fill_factor, target_wavel
         
         # Linear plot
         fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
-        ax.plot(fill_factor, T_linear, '-o')
+        ax.plot(width_grating*1e6, T_linear, '-o')
         ax.grid(which='major')
-        ax.set_xlabel("Fill Factor")
+        ax.set_xlabel("Grating Width (um)")
         ax.set_ylabel("Transmission")
         if wavelength.ndim == 0:
                 ax.set_title(f"Wavelength: {wavelength*1e9:.1f} nm")
@@ -115,9 +113,9 @@ def plot_max_transmission_at_wavelength(T, wavelength, fill_factor, target_wavel
         
         # dB plot
         fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
-        ax.plot(fill_factor, T_dB, '-o')
+        ax.plot(width_grating*1e6, T_dB, '-o')
         ax.grid(which='major')
-        ax.set_xlabel("Fill Factor")
+        ax.set_xlabel("Grating Width (um)")
         ax.set_ylabel("Transmission (dB)")
         if wavelength.ndim == 0:
                 ax.set_title(f"Wavelength: {wavelength*1e9:.1f} nm")
@@ -138,21 +136,21 @@ if __name__ == "__main__":
 
 
                         # Uncomment to run the sweep
-                        fdtd.runsweep('sweep_fill_factor')
+                        fdtd.runsweep('sweep_taper_width')
 
                         # Get Coupling via the getFillFactorSweep function
-                        T, wavelength, fill_factor = getCouplingResponse(fdtd=fdtd)
+                        T, wavelength, width_grating = getCouplingResponse(fdtd=fdtd)
 
                         # Define the output path for the plot
-                        file_name_plot = figures_dir / "grating_coupler_sweep_fill_factor.png"
+                        file_name_plot = figures_dir / "grating_coupler_sweep_width_grating.png"
 
                         # Plot the coupling response
-                        plot_coupling_response(T, wavelength, fill_factor, file_name_plot)
+                        plot_coupling_response(T, wavelength, width_grating, file_name_plot)
 
-                        # Define target wavelength (example: 1550 nm)
+                        # Define target wavelength for maximum transmission plot (example: 1550 nm)
                         target_wavelength = 1550e-9  # Convert to meters
 
-                        # Plot maximum transmission at the target wavelength
-                        plot_max_transmission_at_wavelength(T, wavelength, fill_factor, target_wavelength, file_name_plot)
+                        # Plot maximum transmission at specific wavelength
+                        plot_max_transmission_at_wavelength(T, wavelength, width_grating, target_wavelength, file_name_plot)
         except Exception as e:
                 print(f"An error occurred: {e}")

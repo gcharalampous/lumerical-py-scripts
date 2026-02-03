@@ -21,6 +21,7 @@ import matplotlib.pyplot as plt
 import scipy.constants as scpy
 from pathlib import Path
 from project_layout import setup
+from FDTD.grating_coupler_rectangular_3D.user_inputs.user_simulation_parameters import file_index
 
 
 def getCouplingResponse(fdtd):
@@ -130,7 +131,7 @@ if __name__ == "__main__":
         try:
                 # Setup project layout
                 spec, out, templates = setup("fdtd.grating_coupler_rectangular_3D", __file__)
-                template_fsp = templates[0]
+                template_fsp = templates[file_index]
                 figures_dir = out["figure_groups"].get("Sweep Functions", out["figures"])
                 figures_dir.mkdir(parents=True, exist_ok=True)
                 

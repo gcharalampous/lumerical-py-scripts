@@ -22,6 +22,7 @@ import matplotlib.pyplot as plt
 import scipy.constants as scpy
 from pathlib import Path
 from project_layout import setup
+from FDTD.grating_coupler_rectangular_3D.user_inputs.user_simulation_parameters import file_index
 
 
 
@@ -35,7 +36,6 @@ def get_grating_coupler_response(fdtd):
         Returns:
         tuple: Total transmission, reflection, and frequency data.
         """
-        fdtd.run()
         T_total = abs(np.squeeze(fdtd.getresult("T", "T").get("T")))
         R = np.squeeze(fdtd.transmission("R"))
         f = np.squeeze(fdtd.getdata("T", "f"))
@@ -71,14 +71,14 @@ def plot_response(wavelength, T_total, output_dir):
         
 if __name__ == "__main__":
         spec, out, templates = setup("fdtd.grating_coupler_rectangular_3D", __file__)
-        template_fsp = templates[0]  # grating_coupler_rectangular_3D.fsp
+        template_fsp = templates[file_index]
         figures_dir = out["figures"] / "Transmission"
         figures_dir.mkdir(parents=True, exist_ok=True)
         
         with lumapi.FDTD(str(template_fsp)) as fdtd:
-                # Override the simulation region
-                # override_grating_coupler(fdtd=fdtd)
-                # override_fdtd(fdtd=fdtd)
+
+                fdtd.run()
+
 
                 # Get the grating coupler response
                 T_total, R, f = get_grating_coupler_response(fdtd=fdtd)
