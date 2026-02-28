@@ -145,6 +145,14 @@ SIMS: Dict[str, SimSpec] = {
         templates=["straight_wg.fsp"],
         figure_groups=["Fields", "Mode Profile"],
     ),
+    # FDTD: Waveguide mode taper
+    "fdtd.waveguide_mode_taper": SimSpec(
+        key="fdtd.waveguide_mode_taper",
+        domain="FDTD",
+        module="waveguide_mode_taper",
+        templates=["mode_taper.fsp"],
+        figure_groups=["Fields", "Index Profile", "Sweep Transmission"],
+    ),
 
 }
 

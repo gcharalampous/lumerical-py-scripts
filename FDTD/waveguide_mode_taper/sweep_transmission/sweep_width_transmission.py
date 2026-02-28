@@ -5,101 +5,80 @@
 # version ='1.0'
 # ---------------------------------------------------------------------------
 """
-No user-inputs are required.
+Extract and plot width sweep results for the waveguide mode taper.
 
-The scripts sweeps the width of the waveguide and calculates the transmission
-of the fundamental mode.
+Assumes a sweep named ``sweep_width`` with result ``T`` defined in
+the template .fsp file (mode_taper.fsp).
 """
 
 #----------------------------------------------------------------------------
-# Imports from user files
+# Imports
 # ---------------------------------------------------------------------------
-
 
 import numpy as np
 import lumapi
-from config import *
 import matplotlib.pyplot as plt
-
-from FDTD.waveguide_mode_taper.waveguide_taper_render import waveguide_taper_draw  
-from FDTD.waveguide_mode_taper.user_inputs.user_simulation_parameters import *  
-from FDTD.waveguide_mode_taper.user_inputs.user_materials import *
-from FDTD.waveguide_mode_taper.user_inputs.user_sweep_parameters import *    
-from FDTD.waveguide_mode_taper.fdtd_region import add_fdtd_region
+from project_layout import setup
 
 
-
-def sweepWidth(fdtd, wg_width_array, wd):
-    
-    fdtd.switchtolayout()    
-    fdtd.redrawoff()
-    
-    wg_width_right = wg_width_array[wd]
-    
-    
-    fdtd.switchtolayout()    
-    fdtd.selectall()
-    fdtd.delete()
-    fdtd.redrawoff()
-    waveguide_taper_draw(fdtd,taper_length, wg_width_right)
-    add_fdtd_region(fdtd,taper_length)    
-    
-    fdtd.run()
-    trans_f = (fdtd.getresult("monitor_exp","expansion for input").get("T_forward"))
-    trans_t = (fdtd.getresult("monitor_exp","expansion for input").get("T_total"))    
-    
-    return trans_f, trans_t
+spec, out, templates = setup("fdtd.waveguide_mode_taper", __file__)
+template_fsp = templates[0]
+figures_dir = out["figure_groups"]["Sweep Transmission"]
 
 
+def getWidthSweepResponse(fdtd):
+    """Return width sweep transmission results."""
+    T = fdtd.getsweepresult("sweep_width", "T")
+
+    lambda_array = np.squeeze(T['lambda'])
+    taper_width = np.squeeze(T["taper_width"])
+    T_forward = np.squeeze(T["T_forward"])
+
+    if lambda_array.size > 1:
+        index_array = int(np.floor(lambda_array.size / 2))
+        lambda0 = lambda_array[index_array]
+        # T_forward shape after squeeze: (n_wavelengths, n_widths)
+        if T_forward.ndim == 2:
+            transmission = abs(T_forward[index_array, :])
+        else:
+            transmission = abs(T_forward)
+        print(f"The central wavelength is: {lambda0*1e6:.3f} um")
+    else:
+        lambda0 = float(lambda_array)
+        transmission = np.squeeze(abs(T_forward))
+        print(f"The central wavelength is: {lambda0*1e6:.3f} um")
+
+    return transmission, taper_width, lambda0
 
 
-    
-if(__name__=="__main__"):
+if __name__ == "__main__":
+    with lumapi.FDTD(str(template_fsp)) as fdtd:
+        fdtd.runsweep("sweep_width")
 
-    trans_f_=[]
-    trans_t_=[]
+        transmission, taper_width, lambda0 = getWidthSweepResponse(fdtd=fdtd)
 
-    
-    with lumapi.FDTD() as fdtd:
+        px = 1 / plt.rcParams['figure.dpi']
 
-        fdtd.save(os.path.join(FDTD_WGTAPER_DIRECTORY_WRITE_FILE, 
-                               FDTD_WGTAPER_FILENAME))
-   
-  
-        wg_width_array = []
-        wg_width_array = np.arange(wg_width_start, wg_width_stop, wg_width_step) 
-
-
-
-
-
-        for wd in range(0,len(wg_width_array)):
-
-            # Sweeps through the waveguide widths, and calculates the transmission
-            trans_f, trans_t = sweepWidth(fdtd, wg_width_array, wd)
-            trans_f_.append(trans_f)
-            trans_t_.append(trans_t)
-            
-
-            trans_f_array = np.squeeze(trans_f_)   
-            trans_t_array = np.squeeze(trans_t_)
-
-        plt.figure(1, figsize=(512/my_dpi, 256/my_dpi), dpi=my_dpi)        
-        plt.plot(wg_width_array*1e6,trans_t_array,label = 'Total Transmission')
-        
-        plt.plot(wg_width_array*1e6,trans_f_array,'-o',label = mode_source)
-
-        plt.legend()           
-        plt.xlabel("width (um)")
-        plt.ylabel("T")
-        plt.title("thickness "+ str(wg_thickness*1e6) + " um") 
+        # Transmission (linear)
+        fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
+        ax.plot(taper_width * 1e6, abs(transmission), label='Transmission', marker='o')
+        ax.grid(which='both', alpha=0.3)
+        ax.legend()
+        ax.set_xlabel("Taper Width (um)")
+        ax.set_ylabel("Transmission (Linear)")
+        ax.set_title(fdtd.getnamed("source", "mode selection"))
         plt.tight_layout()
-        file_name_plot = os.path.join(FDTD_WGTAPER_DIRECTORY_WRITE[0], "sweep_width.png")
-        plt.savefig(file_name_plot)
-        plt.show()    
+        plt.savefig(figures_dir / "sweep_width_linear.png")
 
-        fdtd.redrawon()
-
-
-
-
+        # Transmission (dB)
+        fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
+        transmission_db = 10 * np.log10(abs(transmission))
+        ax.plot(taper_width * 1e6, transmission_db, label='Transmission', marker='o')
+        ax.grid(which='both', alpha=0.3)
+        ax.legend()
+        ax.set_xlabel("Taper Width (um)")
+        ax.set_ylabel("Transmission (dB)")
+        ax.set_title(fdtd.getnamed("source", "mode selection"))
+        plt.tight_layout()
+        plt.savefig(figures_dir / "sweep_width_dB.png")
+        plt.show()

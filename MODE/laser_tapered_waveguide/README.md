@@ -77,10 +77,6 @@ laser_tapered_waveguide/
 - Designed to be run from the repository root
 
 
-## Related modules
-
-- [FDTD/laser_tapered_waveguide](../../FDTD/laser_tapered_waveguide/)
-
 ## Status
 
 - [x] Verified

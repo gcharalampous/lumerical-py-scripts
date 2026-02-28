@@ -42,11 +42,6 @@ This repository contains various simulations using the Finite-Difference Time-Do
 - Calculates coupling efficiency, directionality, and far-field radiation patterns.
 - Analyzes the influence of grating parameters on coupling performance.
 
-### [Laser Tapered Waveguide](laser_tapered_waveguide)
-- Models tapered waveguide structures for on-chip laser coupling applications.
-- Analyzes mode evolution and confinement as waveguide width varies.
-- Plots field profiles to optimize taper geometry for efficient light coupling.
-
 ### [MMI Couplers](mmi_couplers)
 - Models the multi-mode interference (MMI) coupler performance.
 - Calculates the output power distribution for different input waveguide configurations.

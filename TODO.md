@@ -15,15 +15,14 @@
     - [x] FDTD/edge_coupler
     - [x] FDTD/grating_coupler_2D
     - [x] FDTD/grating_coupler_rectangular_3D
-    - [ ] FDTD/laser_tapered_waveguide
     - [x] FDTD/mmi_couplers
     - [x] FDTD/ring_resonator_coupler
     - [x] FDTD/swg_grating
     - [x] FDTD/vertical_taper
     - [ ] FDTD/waveguide_bend
     - [x] FDTD/waveguide_crossing
-    - [ ] FDTD/waveguide_mode_taper
-    - [ ] FDTD/waveguide_straight
+    - [x] FDTD/waveguide_mode_taper
+    - [x] FDTD/waveguide_straight
   - **MODE Modules:**
     - [ ] MODE/awg_star_coupler
     - [ ] MODE/butt_coupling
@@ -49,7 +48,6 @@
     - [x] FDTD/edge_coupler
     - [x] FDTD/grating_coupler_2D
     - [x] FDTD/grating_coupler_rectangular_3D
-    - [ ] FDTD/laser_tapered_waveguide
     - [x] FDTD/mmi_couplers
     - [x] FDTD/ring_resonator_coupler
     - [x] FDTD/swg_grating
