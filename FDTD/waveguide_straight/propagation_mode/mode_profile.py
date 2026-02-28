@@ -5,137 +5,143 @@
 # version ='1.0'
 # ---------------------------------------------------------------------------
 """
-User-inputs are Not required.
+Plot E-field mode profiles for the straight waveguide template.
 
-The script calculates the mode profile for the mode specified in the
-'user_simulation_parameters.py'.
-
-The scripts calculates a slice of the E-field along the y-direction and x-
+The script calculates a slice of the E-field along the y-direction and z-
 direction. Additionally, the 2D E-field distributions for the top-view,
 side-view and cross-section of the waveguide.
 
+Monitors expected: ``linear_y``, ``linear_z``, ``xy_topdown``, ``xz_sideview``,
+``transmission``.
 """
 
 #----------------------------------------------------------------------------
-# Imports from user files
+# Imports
 # ---------------------------------------------------------------------------
 
 import numpy as np
 import lumapi
 import matplotlib.pyplot as plt
-from matplotlib.patches import Rectangle
-import sys 
-sys.path.append("..")
+from project_layout import setup
 
-from waveguide_render import waveguide_draw  
-from user_inputs.user_simulation_parameters import *  
-from user_inputs.user_materials import *
-from user_inputs.user_sweep_parameters import *    
-from fdtd_region import add_fdtd_region
-
-fdtd = lumapi.FDTD()
-fdtd.redrawoff()
-
-waveguide_draw(fdtd)
-add_fdtd_region(fdtd)
+spec, out, templates = setup("fdtd.waveguide_straight", __file__)
+template_fsp = templates[0]
+mode_profile_dir = out["figure_groups"]["Mode Profile"]
+e_fields_dir = out["figure_groups"]["Fields"]
 
 
+def getFields(fdtd):
+    """Extract electric-field data from all profile monitors."""
+    # 1D slices
+    y = fdtd.getdata("linear_y", "y").squeeze()
+    Ey_lin = np.sqrt(
+        abs(fdtd.getdata("linear_y", "Ex").squeeze())**2
+        + abs(fdtd.getdata("linear_y", "Ey").squeeze())**2
+        + abs(fdtd.getdata("linear_y", "Ez").squeeze())**2
+    )
 
-wav = ((wavelength_start + wavelength_stop)/2)*1e6
-fdtd.save(str(round(wav,2)) + "nm_straight_wg_width_" + str(round(wg_width*1e6,2)) + "_thick_" + str(round(wg_thickness*1e6,2)))
-fdtd.run()
-fdtd.redrawon()
+    z = fdtd.getdata("linear_z", "z").squeeze()
+    Ez_lin = np.sqrt(
+        abs(fdtd.getdata("linear_z", "Ex").squeeze())**2
+        + abs(fdtd.getdata("linear_z", "Ey").squeeze())**2
+        + abs(fdtd.getdata("linear_z", "Ez").squeeze())**2
+    )
 
+    # 2D top-view (xy)
+    x_xy = fdtd.getdata("xy_topdown", "x").squeeze()
+    y_xy = fdtd.getdata("xy_topdown", "y").squeeze()
+    E_xy = np.sqrt(
+        abs(fdtd.getdata("xy_topdown", "Ex").squeeze())**2
+        + abs(fdtd.getdata("xy_topdown", "Ey").squeeze())**2
+        + abs(fdtd.getdata("xy_topdown", "Ez").squeeze())**2
+    )
 
+    # 2D side-view (xz)
+    x_xz = fdtd.getdata("xz_sideview", "x").squeeze()
+    z_xz = fdtd.getdata("xz_sideview", "z").squeeze()
+    E_xz = np.sqrt(
+        abs(fdtd.getdata("xz_sideview", "Ex").squeeze())**2
+        + abs(fdtd.getdata("xz_sideview", "Ey").squeeze())**2
+        + abs(fdtd.getdata("xz_sideview", "Ez").squeeze())**2
+    )
 
+    # 2D cross-section (yz)
+    y_yz = fdtd.getdata("transmission", "y").squeeze()
+    z_yz = fdtd.getdata("transmission", "z").squeeze()
+    E_yz = np.sqrt(
+        abs(fdtd.getdata("transmission", "Ex").squeeze())**2
+        + abs(fdtd.getdata("transmission", "Ey").squeeze())**2
+        + abs(fdtd.getdata("transmission", "Ez").squeeze())**2
+    )
 
-# Plot (Linear - Y)
-y = np.squeeze(fdtd.getdata("linear_y","y"))
-Ex = np.squeeze(fdtd.getdata("linear_y","Ex"))
-Ey = np.squeeze(fdtd.getdata("linear_y","Ey"))
-Ez = np.squeeze(fdtd.getdata("linear_y","Ez"))
-E = np.sqrt(pow(abs(Ex),2) + pow(abs(Ey),2) + pow(abs(Ez),2))
-plt.figure(1, figsize=(512/my_dpi, 256/my_dpi), dpi=my_dpi)
-plt.plot(y*1e6,E)
-plt.axhline(y = 1/np.exp(2), color = 'r',linestyle = '--')
-plt.grid()
-plt.xlabel("y (\u00B5m)")
-plt.ylabel("E$_y$")
-plt.title("Mode profile, w_o"  )
-
-
-
-# Plot (Linear - Z)
-z = np.squeeze(fdtd.getdata("linear_z","z"))
-Ex = np.squeeze(fdtd.getdata("linear_z","Ex"))
-Ey = np.squeeze(fdtd.getdata("linear_z","Ey"))
-Ez = np.squeeze(fdtd.getdata("linear_z","Ez"))
-E = np.sqrt(pow(abs(Ex),2) + pow(abs(Ey),2) + pow(abs(Ez),2))
-plt.figure(2, figsize=(512/my_dpi, 256/my_dpi), dpi=my_dpi)
-plt.plot(z*1e6,E)
-plt.axhline(y = 1/np.exp(2), color = 'r',linestyle = '--')
-plt.xlabel("z (\u00B5m)")
-plt.ylabel("E$_z$")
-plt.title("Mode profile, w_o"  )
-
-
-
-# Plot (Top-view - xy)
-x  = np.squeeze(fdtd.getdata("2D_xy","x"))
-y = np.squeeze(fdtd.getdata("2D_xy","y"))
-z = np.squeeze(fdtd.getdata("2D_xy","z"))
-Ex = np.squeeze(fdtd.getdata("2D_xy","Ex"))
-Ey = np.squeeze(fdtd.getdata("2D_xy","Ey"))
-Ez = np.squeeze(fdtd.getdata("2D_xy","Ez"))
-E = np.sqrt(pow(abs(Ex),2) + pow(abs(Ey),2) + pow(abs(Ez),2))
-
-plt.figure(3, figsize=(512/my_dpi, 256/my_dpi), dpi=my_dpi)
-rect = Rectangle((-offset_x*1e6, (-wg_width/2)*1e6),(simulation_span_x + offset_x)*1e6, wg_width*1e6, color='black', fill = False)
-plt.gca().add_patch(rect)
-plt.pcolormesh(x*1e6,y*1e6,np.transpose(E),shading = 'gouraud',cmap = 'jet')
-plt.xlabel("x (\u00B5m)")
-plt.ylabel("y (\u00B5m)")
-plt.title("Top-view (xy)")
+    return (y, Ey_lin, z, Ez_lin,
+            x_xy, y_xy, E_xy,
+            x_xz, z_xz, E_xz,
+            y_yz, z_yz, E_yz)
 
 
+if __name__ == "__main__":
+    with lumapi.FDTD(str(template_fsp)) as fdtd:
+        fdtd.run()
 
-# Plot (Side-view - xz)
-x  = np.squeeze(fdtd.getdata("2D_xz","x"))
-y = np.squeeze(fdtd.getdata("2D_xz","y"))
-z = np.squeeze(fdtd.getdata("2D_xz","z"))
-Ex = np.squeeze(fdtd.getdata("2D_xz","Ex"))
-Ey = np.squeeze(fdtd.getdata("2D_xz","Ey"))
-Ez = np.squeeze(fdtd.getdata("2D_xz","Ez"))
-Ez = np.squeeze(fdtd.getdata("2D_xz","Ez"))
-E = np.sqrt(pow(abs(Ex),2) + pow(abs(Ey),2) + pow(abs(Ez),2))
+        (y, Ey_lin, z, Ez_lin,
+         x_xy, y_xy, E_xy,
+         x_xz, z_xz, E_xz,
+         y_yz, z_yz, E_yz) = getFields(fdtd)
 
-plt.figure(4, figsize=(512/my_dpi, 256/my_dpi), dpi=my_dpi)
-rect = Rectangle((-offset_x*1e6, 0),(simulation_span_x + offset_x)*1e6, wg_thickness*1e6, color='black', fill = False)
-plt.gca().add_patch(rect)
-plt.pcolormesh(x*1e6,z*1e6,np.transpose(E),shading = 'gouraud',cmap = 'jet')
-plt.xlabel("x (\u00B5m)")
-plt.ylabel("z (\u00B5m)")
-plt.title("Side-view (xz)")
+        px = 1 / plt.rcParams['figure.dpi']
 
+        # ---- Linear-Y mode profile ----
+        fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
+        ax.plot(y * 1e6, Ey_lin)
+        ax.grid()
+        ax.set_xlabel("y (\u00B5m)")
+        ax.set_ylabel("E$_y$")
+        ax.set_title("Mode profile (linear-y)")
+        plt.tight_layout()
+        plt.savefig(mode_profile_dir / "mode_profile_linear_y.png")
 
+        # ---- Linear-Z mode profile ----
+        fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
+        ax.plot(z * 1e6, Ez_lin)
+        ax.grid()
+        ax.set_xlabel("z (\u00B5m)")
+        ax.set_ylabel("E$_z$")
+        ax.set_title("Mode profile (linear-z)")
+        plt.tight_layout()
+        plt.savefig(mode_profile_dir / "mode_profile_linear_z.png")
 
-# Plot (Cross section - yz)
-x  = np.squeeze(fdtd.getdata("transmission","x"))
-y = np.squeeze(fdtd.getdata("transmission","y"))
-z = np.squeeze(fdtd.getdata("transmission","z"))
-Ex = np.squeeze(fdtd.getdata("transmission","Ex"))
-Ey = np.squeeze(fdtd.getdata("transmission","Ey"))
-Ez = np.squeeze(fdtd.getdata("transmission","Ez"))
-Ez = np.squeeze(fdtd.getdata("transmission","Ez"))
-E = np.sqrt(pow(abs(Ex),2) + pow(abs(Ey),2) + pow(abs(Ez),2))
+        # ---- Top-view (xy) ----
+        fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
+        ax.pcolormesh(x_xy * 1e6, y_xy * 1e6,
+                       np.transpose(E_xy), shading='gouraud', cmap='jet')
+        ax.set_xlabel("x (\u00B5m)")
+        ax.set_ylabel("y (\u00B5m)")
+        ax.set_title("Top-view (xy)")
+        plt.tight_layout()
+        plt.savefig(e_fields_dir / "E_profile_xy.png")
 
-plt.figure(5, figsize=(512/my_dpi, 256/my_dpi), dpi=my_dpi)
-rect = Rectangle((-(wg_width/2)*1e6, 0),(wg_width)*1e6, wg_thickness*1e6, color='black', fill = False)
-plt.gca().add_patch(rect)
-plt.pcolormesh(y*1e6,z*1e6,np.transpose(E),shading = 'gouraud',cmap = 'jet')
-plt.xlabel("y (\u00B5m)")
-plt.ylabel("z (\u00B5m)")
-plt.title("Cross-section (yz)")
+        # ---- Side-view (xz) ----
+        fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
+        ax.pcolormesh(x_xz * 1e6, z_xz * 1e6,
+                       np.transpose(E_xz), shading='gouraud', cmap='jet')
+        ax.set_xlabel("x (\u00B5m)")
+        ax.set_ylabel("z (\u00B5m)")
+        ax.set_title("Side-view (xz)")
+        plt.tight_layout()
+        plt.savefig(e_fields_dir / "E_profile_xz.png")
+
+        # ---- Cross-section (yz) ----
+        fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
+        ax.pcolormesh(y_yz * 1e6, z_yz * 1e6,
+                       np.transpose(E_yz), shading='gouraud', cmap='jet')
+        ax.set_xlabel("y (\u00B5m)")
+        ax.set_ylabel("z (\u00B5m)")
+        ax.set_title("Cross-section (yz)")
+        plt.tight_layout()
+        plt.savefig(mode_profile_dir / "E_profile_yz.png")
+
+        plt.show()
 
 
 

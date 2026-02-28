@@ -1,28 +1,74 @@
-## 3D Waveguide Simulations (FDTD)
-                                                                                                     
-                      +---------------------+                                                        
-            +----------- waveguide-straight  ----+-------------------+---------------------+         
-            |          +----------|----------+   |                   |                     |         
-            |                     |              |                   |                     |         
-            |                     |              |                   |                     |         
-            v                     v        +-----v-----+   +---------v--------+   +--------v--------+
-    waveguide_render.py   fdtd_region.py   |user-inputs|   |sweep-transmission|   |propagation-mode |
-                                           +-----|-----+   +---------|--------+   +--------|--------+
-                                                 |                   |                     |       
-                      +-----------+--------------|                   v                     |       
-                      |           |              |      sweep_width_transmission.py        |       
-                      |           |              |                                         |       
-                      |           |              v                                         v       
-                      |           |  user_simulation_parameters.py                  mode_profile.py
-                      |           v        
-                      |   user_materials.py
-                      v             
-            user_sweep_parameters.py    
+# Straight Waveguide (3D FDTD)
 
-### Quick Simulation Setup
+**Purpose:**  
+This simulation models a 3D straight waveguide to characterize its propagation mode profile and electric field distribution. It is useful for verifying waveguide confinement, mode shape, and propagation behaviour before integrating into more complex photonic circuits.
 
-1. After downloading the repository, navigate through the `waveguide-straight/user-inputs` directory.
-2. Edit the `user_materials.py` to define the simulation materials for the cladding, core, box, and substrate layers. Follow the instructions written in the file.
-3. Edit the `user_simulation_parameters.py` to define the simulation properties, region and structure dimensions. Follow the instructions written in the file.
-4. Edit the `user_sweep_parameters.py` to define the parameters to sweep, like the waveguide width.
-5. Navigate under the `waveguide-straight/propagation-mode` and run ` mode_profile.py`file to calculate the transmission for fundamental TE or TM modes and watch the propagated E-field profiles.
+
+## What this module does
+
+This module performs electromagnetic simulations of a straight waveguide structure using the 3D FDTD computational method.
+
+The simulation extracts:
+- **1D mode profiles**: Slices of the electric field along the y-direction and z-direction to characterize mode confinement
+- **2D E-field distributions**: Top-view (xy), side-view (xz), and cross-section (yz) maps of the electromagnetic field intensity throughout the waveguide
+
+
+## Quick start
+1. Set materials and dimensions in `user_inputs/lumerical_files/straight_wg.fsp` (cladding, core, box, substrate).
+2. Run the script to generate results:
+    - `python propagation_mode/mode_profile.py`
+
+3. Results will be saved automatically under:
+   ```
+   FDTD/Results/waveguide_straight/Figures/
+   ├── Fields/
+   └── Mode Profile/
+   ```
+
+
+## Lumerical Template file
+
+- `straight_wg.fsp` : Lumerical file that defines the straight waveguide
+
+
+## Outputs
+
+Results are saved automatically and may include:
+- 1D mode profile slices (linear-y and linear-z)
+- Electric field distributions at multiple views (xy top-view, xz side-view, yz cross-section)
+
+Typical output location:
+
+```
+FDTD/Results/waveguide_straight/Figures/
+```
+
+
+## Folder structure
+
+```
+waveguide_straight/
+├── propagation_mode/
+│   └── mode_profile.py
+├── README.md
+└── user_inputs/
+    └── lumerical_files/
+        └── straight_wg.fsp
+```
+
+
+## Notes
+- Requires Lumerical installed and accessible via lumapi
+- Scripts use `project_layout.py` for path management
+- Designed to be run from the repository root
+
+
+## Related modules
+- [MODE/waveguide](../../MODE/waveguide/)
+
+
+## Status
+
+- [x] Verified
+- [ ] Actively used
+- [ ] Legacy or reference

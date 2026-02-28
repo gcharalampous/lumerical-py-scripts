@@ -137,7 +137,14 @@ SIMS: Dict[str, SimSpec] = {
         templates=["MMI_1x2.fsp", "MMI_2x2.fsp"],
         figure_groups=["Fields", "Index Profile", "Length Sweep", "Transmission"],
     ),
-    
+    # FDTD: Waveguide straight
+    "fdtd.waveguide_straight": SimSpec(
+        key="fdtd.waveguide_straight",
+        domain="FDTD",
+        module="waveguide_straight",
+        templates=["straight_wg.fsp"],
+        figure_groups=["Fields", "Mode Profile"],
+    ),
 
 }
 

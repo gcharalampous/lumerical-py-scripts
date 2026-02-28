@@ -1,8 +1,15 @@
 from __future__ import annotations
 from pathlib import Path
-from typing import Iterable, List, Dict, Optional
+from typing import Iterable, List, Dict, Optional, TypedDict
 import sys
 from sim_registry import get_sim
+
+
+class ResultsLayout(TypedDict):
+    root: Path
+    figures: Path
+    lumerical: Path
+    figure_groups: Dict[str, Path]
 
 
 def _add_repo_root_to_syspath(start_file: str) -> Path:
@@ -74,7 +81,7 @@ def ensure_results_layout(
     module: str,
     figure_groups: Optional[List[str]] = None,
     create_lumerical_dir: bool = True,
-) -> Dict[str, Path]:
+) -> ResultsLayout:
     """Create (if needed) the standard results folders for a module."""
     out_root = results_module_dir(domain, module)
     figures_root = out_root / "Figures"
