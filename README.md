@@ -16,7 +16,6 @@
 │   ├── edge_coupler
 │   ├── grating_coupler_2D
 │   ├── grating_coupler_rectangular_3D
-│   ├── laser_tapered_waveguide
 │   ├── mmi_couplers
 │   ├── README.md
 │   ├── ring_resonator_coupler
