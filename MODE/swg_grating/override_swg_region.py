@@ -20,7 +20,9 @@ There are in total
 
 import lumapi
 from MODE.swg_grating.user_inputs.user_simulation_parameters import *  
-from config import MODE_SWG_DIRECTORY_READ
+from project_layout import setup
+
+spec, out, templates = setup("mode.swg_grating", __file__)
 
 
 
@@ -53,7 +55,7 @@ def override_swg(mode):
 
 if(__name__=="__main__"):
     
-    with lumapi.MODE(MODE_SWG_DIRECTORY_READ) as mode:
+    with lumapi.MODE(str(templates[0])) as mode:
         override_swg(mode=mode)
 
 

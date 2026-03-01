@@ -18,10 +18,10 @@ from the T and R monitors
 # ---------------------------------------------------------------------------
 
 import numpy as np
-import lumapi, os
+import lumapi
 import matplotlib.pyplot as plt
 import scipy.constants as scpy
-from config import *
+from project_layout import setup
 
 from MODE.swg_grating.override_varfdtd_region import override_varfdtd
 from MODE.swg_grating.override_swg_region import *
@@ -37,7 +37,8 @@ def getBraggResponse(mode):
 
 
 if(__name__=="__main__"):
-    with lumapi.MODE(MODE_SWG_DIRECTORY_READ) as mode:
+    spec, out, templates = setup("mode.swg_grating", __file__)
+    with lumapi.MODE(str(templates[0])) as mode:
         
 # ------------ Comment for Avoiding Overriding the Simulation Region
         # override_varfdtd(mode=mode)
@@ -58,7 +59,7 @@ if(__name__=="__main__"):
         ax.set_ylabel("Magnitude")
         plt.ylim([0,1])
         plt.tight_layout()
-        file_name_plot = os.path.join(MODE_SWG_DIRECTORY_WRITE[1], "frequency_response.png")
+        file_name_plot = str(out["figure_groups"]["Frequency Response"] / "frequency_response.png")
         plt.savefig(file_name_plot)        
         
         fig, ax = plt.subplots(figsize=(512*px, 256*px))
@@ -68,7 +69,7 @@ if(__name__=="__main__"):
         ax.set_xlabel("wavelength (um)")
         ax.set_ylabel("Magnitude (dB)")
         plt.tight_layout()
-        file_name_plot = os.path.join(MODE_SWG_DIRECTORY_WRITE[1], "frequency_response_dB.png")
+        file_name_plot = str(out["figure_groups"]["Frequency Response"] / "frequency_response_dB.png")
         plt.savefig(file_name_plot)      
         
         plt.show()

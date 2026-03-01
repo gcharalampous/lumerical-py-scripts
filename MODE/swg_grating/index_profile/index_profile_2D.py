@@ -18,9 +18,9 @@ defined in the sub_wavelength_grating.fsp file
 # ---------------------------------------------------------------------------
 
 import numpy as np
-import lumapi, os
+import lumapi
 import matplotlib.pyplot as plt
-from config import *
+from project_layout import setup
 
 from MODE.swg_grating.override_varfdtd_region import *
 from MODE.swg_grating.override_swg_region import *
@@ -37,7 +37,8 @@ def getIndex(mode):
 
 
 if(__name__=="__main__"):
-    with lumapi.MODE(MODE_SWG_DIRECTORY_READ) as mode:
+    spec, out, templates = setup("mode.swg_grating", __file__)
+    with lumapi.MODE(str(templates[0])) as mode:
         
         # ------------Comment for Avoiding Overriding the Simulation Region
         # override_varfdtd(mode=mode)
@@ -61,7 +62,7 @@ if(__name__=="__main__"):
         plt.ylabel("y (um)")
         plt.title('Side-view(xy)')
         plt.tight_layout()
-        file_name_plot = os.path.join(MODE_SWG_DIRECTORY_WRITE[0], "index_profile_xy.png")
+        file_name_plot = str(out["figure_groups"]["Index Profile"] / "index_profile_xy.png")
         plt.savefig(file_name_plot)
         plt.show()
 
@@ -80,7 +81,7 @@ if(__name__=="__main__"):
         plt.ylabel("z (um)")
         plt.title('Top-view(xz)')
         plt.tight_layout()
-        file_name_plot = os.path.join(MODE_SWG_DIRECTORY_WRITE[0], "index_profile_xz.png")
+        file_name_plot = str(out["figure_groups"]["Index Profile"] / "index_profile_xz.png")
         plt.savefig(file_name_plot)
         plt.show()
         
