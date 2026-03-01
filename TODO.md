@@ -25,7 +25,7 @@
     - [x] FDTD/waveguide_straight
   - **MODE Modules:**
     - [x] MODE/awg_star_coupler
-    - [ ] MODE/butt_coupling
+    - [x] MODE/butt_coupling
     - [x] MODE/directional_coupler
     - [x] MODE/edge_coupler
     - [x] MODE/laser_tapered_waveguide

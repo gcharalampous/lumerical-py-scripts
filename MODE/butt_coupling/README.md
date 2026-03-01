@@ -59,7 +59,7 @@ Results are saved automatically and may include:
 Typical output location:
 
 ```
-MDOE/Results/butt_coupling
+MODE/Results/butt_coupling
 ```
 
 
@@ -88,7 +88,7 @@ MDOE/Results/butt_coupling
 ## Notes
 
 - Requires Lumerical installed and accessible via lumapi
-- Scripts assume paths defined in config.py
+- Scripts assume paths defined in project_layout.py
 - Designed to be run from the repository root
 
 

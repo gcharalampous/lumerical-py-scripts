@@ -18,7 +18,7 @@ Models the sub-wavelength grating in 3D FDTD and extracts:
    - `sub_wavelength_grating_layer_2.fsp`
 2. Choose which template to load via `file_index` in `user_inputs/user_simulation_parameters.py` (0 or 1). Other parameters stay inside the .fsp files.
 3. Run the scripts to generate results:
-   - `python FDTD/swg_grating/Fields/getFields.py`
+   - `python FDTD/swg_grating/fields/getFields.py`
    - `python FDTD/swg_grating/index_profile/index_profile_2D.py`
    - `python FDTD/swg_grating/transmission/getFrequencyResponse.py`
 
@@ -66,7 +66,7 @@ FDTD/Results/swg_grating/
 
 ```
 swg_grating/
-├── Fields/
+├── fields/
 │   └── getFields.py
 ├── index_profile/
 │   └── index_profile_2D.py
