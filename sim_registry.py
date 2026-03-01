@@ -171,6 +171,69 @@ SIMS: Dict[str, SimSpec] = {
         templates=["awg_input_taper.lms"],
         figure_groups=["Index Profile", "Far Field Profile"],
     ),
+    # MODE: Butt Coupling
+    "mode.butt_coupling": SimSpec(
+        key="mode.butt_coupling",
+        domain="MODE",
+        module="butt_coupling",
+        templates=["waveguide_1.lms", "waveguide_2.lms"],
+        figure_groups=["Mode Profile", "Sweep Misalignment", "Sweep Width"],
+        create_lumerical_dir=True,
+    ),
+    # MODE: Directional Coupler
+    "mode.directional_coupler": SimSpec(
+        key="mode.directional_coupler",
+        domain="MODE",
+        module="directional_coupler",
+        templates=["waveguide_coupler.lms"],
+        figure_groups=["Mode Profile", "Gap Sweep", "Length Sweep", "Dissimilar Waveguides"],
+        create_lumerical_dir=True,
+    ),
+    # MODE: Edge Coupler
+    "mode.edge_coupler": SimSpec(
+        key="mode.edge_coupler",
+        domain="MODE",
+        module="edge_coupler",
+        templates=[],
+        figure_groups=["MFD Sweep", "Height Sweep"],
+        create_lumerical_dir=True,
+    ),
+    # MODE: Laser Tapered Waveguide
+    "mode.laser_tapered_waveguide": SimSpec(
+        key="mode.laser_tapered_waveguide",
+        domain="MODE",
+        module="laser_tapered_waveguide",
+        templates=["laser_taper_waveguide.lms"],
+        figure_groups=["Mode Profile", "Index Profile", "Width Sweep"],
+        create_lumerical_dir=True,
+    ),
+    # MODE: Sub-Wavelength Grating
+    "mode.swg_grating": SimSpec(
+        key="mode.swg_grating",
+        domain="MODE",
+        module="swg_grating",
+        templates=["sub_wavelength_grating_layer_1.lms"],
+        figure_groups=["Index Profile", "Frequency Response", "E-fields"],
+    ),
+    # MODE: Vertical Taper
+    "mode.vertical_taper": SimSpec(
+        key="mode.vertical_taper",
+        domain="MODE",
+        module="vertical_taper",
+        templates=["taper_waveguide_layer1.lms", "taper_waveguide_layer2.lms"],
+        figure_groups=["Neff Sweep"],
+        create_lumerical_dir=True,
+    ),
+    # MODE: Waveguide
+    "mode.waveguide": SimSpec(
+        key="mode.waveguide",
+        domain="MODE",
+        module="waveguide",
+        templates=[],
+        figure_groups=["Index Profile", "Mode Profile", "Neff Sweep", "Radius Sweep",
+                       "PIN Offset", "NP Density", "PCM"],
+        create_lumerical_dir=True,
+    ),
 
 }
 

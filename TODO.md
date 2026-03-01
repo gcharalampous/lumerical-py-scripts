@@ -27,10 +27,10 @@
     - [x] MODE/awg_star_coupler
     - [ ] MODE/butt_coupling
     - [ ] MODE/directional_coupler
-    - [ ] MODE/edge_coupler
+    - [x] MODE/edge_coupler
     - [ ] MODE/laser_tapered_waveguide
     - [ ] MODE/swg_grating
-    - [ ] MODE/vertical_taper
+    - [x] MODE/vertical_taper
     - [ ] MODE/waveguide
   - **DEVICE Modules:**
     - [ ] DEVICE/disk_modulator

@@ -21,87 +21,15 @@ lines between 86 and 100.
 import numpy as np
 import lumapi
 import matplotlib.pyplot as plt
-import pandas as pd
-import os 
 
+from MODE.vertical_taper.user_inputs.user_sweep_parameters import num_modes, res, m, taper_length, width_wg_left_1, width_wg_right_1, width_wg_left_2, width_wg_right_2, my_dpi
+from project_layout import setup
 
-
-from MODE.vertical_taper.user_inputs.user_sweep_parameters import *    
-
-
-# ------------------------- Directories for Results ---------------------------
-
-# specify the directory path
-path_to_write = ["MODE\\Results\\vertical_taper\\lumerical_files\\sweep_width",
-"MODE\\Results\\vertical_taper\\Figures\\sweep_taper_length"]
-directory_to_write = ['']*len(path_to_write)
-
-
-# get the current file path
-current_path = os.path.abspath(__file__)
-
-# get the directory of the current file
-current_dir = os.path.dirname(current_path)
-
-# find the project root directory by traversing up the directory 
-# tree until a specific file is found
-while not os.path.isfile(os.path.join(current_dir, ".gitignore")):
-    # move up to the parent directory
-    current_dir = os.path.dirname(current_dir)
-
-for i in range(0,len(path_to_write)):
-    directory_to_write[i] = os.path.join(current_dir, path_to_write[i])
-
-    # create the directory if it doesn't exist already
-    if not os.path.exists(directory_to_write[i]):
-        os.makedirs(directory_to_write[i])
-        print("Directory:" + directory_to_write[i] + "\n created successfully!")
-    else:
-        print("Directory:" + directory_to_write[i] + "\n already exists!")
-
-
-
-# ---------------------------------------------------------------------------
-
-
-
-
-# ------------------------- Directories for Reading ---------------------------
-
-# Define path to read files from
-path_to_read = "MODE\\vertical_taper\\user_inputs\\lumerical_files"
-
-# Define the list of waveguide files to be loaded into Lumerical MODE
-file_waveguide = ["taper_waveguide_layer1.lms", "taper_waveguide_layer2.lms"]
-
-# Get the current path and directory of this Python script
-current_path = os.path.abspath(__file__)
-current_dir = os.path.dirname(current_path)
-
-# Move up the directory hierarchy until we find the .gitignore file,
-# which is assumed to be in the root directory of the project
-while not os.path.isfile(os.path.join(current_dir, ".gitignore")):
-    current_dir = os.path.dirname(current_dir)
-
-# Define the directory to read the files from, based on the project root directory
-dir_to_read = os.path.join(current_dir, path_to_read)
-
-# Initialize a list to store the names of the waveguide modes in Lumerical MODE
-file_name_mode = [str]*len(file_waveguide)
-# Get the current path and directory of this Python script
-current_path = os.path.abspath(__file__)
-current_dir = os.path.dirname(current_path)
-
-# Move up the directory hierarchy until we find the .gitignore file,
-# which is assumed to be in the root directory of the project
-while not os.path.isfile(os.path.join(current_dir, ".gitignore")):
-    current_dir = os.path.dirname(current_dir)
-
-# Define the directory to read the files from, based on the project root directory
-dir_to_read = os.path.join(current_dir, path_to_read)
-
-# Initialize a list to store the names of the waveguide modes in Lumerical MODE
-file_name_mode = [str]*len(file_waveguide)
+spec, out, templates = setup("mode.vertical_taper", __file__)
+lumerical_dir = out["lumerical"] / "sweep_width"
+lumerical_dir.mkdir(parents=True, exist_ok=True)
+figures_dir = out["figure_groups"]["Neff Sweep"]
+figures_dir.mkdir(parents=True, exist_ok=True)
 
 # ---------------------------------------------------------------------------
 
@@ -119,7 +47,7 @@ neff_wg2 = [0]*len(taper_length_array)
 
 
 
-for i in range(0,len(file_waveguide)):
+for i in range(0,len(templates)):
     
     if(i == 0):
         width_wg_left = width_wg_left_1 
@@ -135,11 +63,11 @@ for i in range(0,len(file_waveguide)):
     
     waveguide_constructor = 'waveguide-constructor'
     
-    file_name_mode[i] = os.path.join(dir_to_read, file_waveguide[i])
+    file_name_mode = str(templates[i])
     
     
     with lumapi.MODE() as mode:
-        mode.load(file_name_mode[i])
+        mode.load(file_name_mode)
         mode.switchtolayout()
         mode.redrawoff()
 
@@ -164,8 +92,7 @@ for i in range(0,len(file_waveguide)):
             mode.mesh()
             mode.run()
             mode.findmodes()
-            file_name_mode_writing = os.path.join(directory_to_write[0], 
-                                                    "waveguide_"+str(i+1)+"_width_sweep_" +str(wd) + ".lms")
+            file_name_mode_writing = str(lumerical_dir / f"waveguide_{i+1}_width_sweep_{wd}.lms")
             mode.save(file_name_mode_writing)            
             for m in range(1,num_modes+1):
                 polariz_frac[m-1] = (mode.getdata("FDE::data::mode"+str(m),"TE polarization fraction"))
@@ -206,7 +133,7 @@ plt.ylabel('neff')
 plt.legend()
 
 # Save the figure files as .png     
-file_name_plot = os.path.join(directory_to_write[1], "neff_sweep_width" + ".png")
+file_name_plot = str(figures_dir / "neff_sweep_width.png")
 plt.tight_layout()
 plt.savefig(file_name_plot, dpi=my_dpi, format="png")
 
