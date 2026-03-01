@@ -62,20 +62,20 @@ This repository contains various simulations using the Finite-Difference Time-Do
 - Calculates the transmission and power transfer efficiency between waveguide segments.
 - Plots the E-field profiles across the taper region.
 
-### [Waveguide Bend](waveguide-bend)
+### [Waveguide Bend](waveguide_bend)
 - Calculates the transmission as a function of the bending radius.
 - Plots the E-field profiles at the bending section.
 
-### [Waveguide Crossing](waveguide-crossing)
+### [Waveguide Crossing](waveguide_crossing)
 - Simulates the field profile at waveguide crossings.
 - Calculates the coupling between intersecting waveguides as a function of the crossing angle.
 - Plots the E-field profile across the intersection.
 
-### [Waveguide Mode Taper](waveguide-mode-taper)
+### [Waveguide Mode Taper](waveguide_mode_taper)
 - Plots the E-field profile of the propagated mode across the tapered waveguide section and calculates transmission.
 - Sweeps the taper-tip width and length to calculate the transmission of the fundamental TE or TM mode.
 
-### [Waveguide Straight](waveguide-straight)
+### [Waveguide Straight](waveguide_straight)
 - Plots the E-field profile of the propagated mode.
 - Sweeps the waveguide width to calculate the transmission of the fundamental TE or TM mode.
 
