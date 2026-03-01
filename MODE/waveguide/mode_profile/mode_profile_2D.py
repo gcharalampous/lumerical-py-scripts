@@ -20,17 +20,18 @@ it also quantifies if the mode is TE or TM based on the polarization fraction.
 # ---------------------------------------------------------------------------
 
 import numpy as np
-import lumapi, os
+import lumapi
 import shapely.geometry as sg
 import shapely.ops as so
 import matplotlib.pyplot as plt
 from matplotlib.colors import LogNorm, Normalize
-from config import *
+from project_layout import setup
 
 
 from MODE.waveguide.waveguide_render import *
 from MODE.waveguide.fde_region import add_fde_region  
 
+spec, out, templates = setup("mode.waveguide", __file__)
 
 # ------------------------- No inputs are required ---------------------------
 
@@ -138,7 +139,7 @@ def modeProfiles():
 
         # Save the figure files as .png
         plt.tight_layout()
-        file_name_plot = os.path.join(str(MODE_WAVEGUIDE_DIRECTORY_WRITE[1]), "mode_profile_"+str(m)+".png")
+        file_name_plot = str(out["figure_groups"]["Mode Profile"] / ("mode_profile_"+str(m)+".png"))
         plt.savefig(file_name_plot)
 
         
@@ -162,7 +163,7 @@ if(__name__=="__main__"):
         # Run the simulation, create a mesh, and compute the modes, then save
         mode.run()
         mode.findmodes()
-        mode.save(MODE_WAVEGUIDE_DIRECTORY_WRITE_FILE + "\\waveguide_modes.lms")
+        mode.save(str(out["lumerical"] / "waveguide_modes.lms"))
         
         # Turn redraw back on and close LumAPI connection
         mode.redrawon()  

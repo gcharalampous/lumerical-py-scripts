@@ -19,16 +19,16 @@ modes and calculates the radiation loss, and mode missmatch
 # ---------------------------------------------------------------------------
 # Import necessary modules
 import numpy as np
-import os
 import lumapi
 import matplotlib.pyplot as plt
-from config import *
+from project_layout import setup
 
 # Import user-defined input parameters
 from MODE.waveguide.user_inputs.user_sweep_parameters import *    
 from MODE.waveguide.waveguide_render import *
 from MODE.waveguide.fde_region import add_fde_region  
 
+spec, out, templates = setup("mode.waveguide", __file__)
 
 
 # ------------------------- You may change the FDE Boundaries ---------------------------
@@ -75,7 +75,7 @@ def radiusSweep(mode):
         mode.run()
         mode.findmodes()
         mode.redrawon()  
-        mode.save(MODE_WAVEGUIDE_DIRECTORY_WRITE_FILE + "\\waveguide_mode_radius_sweep_"+str(r) + ".lms")
+        mode.save(str(out["lumerical"] / ("waveguide_mode_radius_sweep_"+str(r) + ".lms")))
 
         
         for m in range(1,num_modes+1):
@@ -89,7 +89,7 @@ def radiusSweep(mode):
                     loss_TE.append(prop_loss[r][m-1])
                     ng_TE = (mode.getdata("FDE::data::mode"+str(m),"ng"))
                     mode.copydcard("mode"+str(m),"mode_TE"+"_radius_"+str(r));
-                    mode.save(MODE_WAVEGUIDE_DIRECTORY_WRITE_FILE + "\\waveguide_mode_radius_sweep_"+str(r) + ".lms")
+                    mode.save(str(out["lumerical"] / ("waveguide_mode_radius_sweep_"+str(r) + ".lms")))
                     overlap_TE.append(mode.overlap("mode_TE_radius_0","mode_TE"+"_radius_"+str(r)))
                     print(overlap_TE)
                     break
@@ -98,7 +98,7 @@ def radiusSweep(mode):
                     loss_TM.append(prop_loss[r][m-1])
                     ng_TM = (mode.getdata("FDE::data::mode"+str(m),"ng"))
                     mode.copydcard("mode"+str(m),"mode_TM"+"_radius_"+str(r));
-                    mode.save(MODE_WAVEGUIDE_DIRECTORY_WRITE_FILE + "\\waveguide_mode_radius_sweep_"+str(r) + ".lms")
+                    mode.save(str(out["lumerical"] / ("waveguide_mode_radius_sweep_"+str(r) + ".lms")))
                     overlap_TM.append(mode.overlap("mode_TM_radius_0","mode_TM"+"_radius_"+str(r)))
                     print(overlap_TM)
                     break
@@ -184,5 +184,5 @@ if(__name__=="__main__"):
             plt.semilogy(wg_radius_array[1:N]*1e6,total_loss_TM_dB[1:N],'--', label = 'Total Loss')
             plt.legend()
         plt.tight_layout()
-        file_name_plot = os.path.join(MODE_WAVEGUIDE_DIRECTORY_WRITE[4], "overlap_radius.png")
+        file_name_plot = str(out["figure_groups"]["Radius Sweep"] / "overlap_radius.png")
         plt.savefig(file_name_plot)

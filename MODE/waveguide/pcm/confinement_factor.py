@@ -16,11 +16,14 @@ The script calculates confinement factor in PCM region
 # ---------------------------------------------------------------------------
 
 import numpy as np
-from config import *
+import lumapi
+from project_layout import setup
 from scipy import integrate
 
 from MODE.waveguide.waveguide_render import *
 from MODE.waveguide.fde_region import add_fde_region  
+
+spec, out, templates = setup("mode.waveguide", __file__)
 
 
 # ------------------------- No inputs are required ---------------------------
@@ -70,7 +73,7 @@ if(__name__=="__main__"):
         # Run the simulation, create a mesh, and compute the modes, then save
         mode.run()
         mode.findmodes()
-        mode.save(MODE_WAVEGUIDE_DIRECTORY_WRITE_FILE + "\\waveguide_modes.lms")
+        mode.save(str(out["lumerical"] / "waveguide_modes.lms"))
         
         # Turn redraw back on and close LumAPI connection
         mode.redrawon()  

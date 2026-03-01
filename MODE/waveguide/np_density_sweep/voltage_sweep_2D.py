@@ -18,7 +18,7 @@ the propagation loss due to dopants
 import numpy as np
 import lumapi
 import matplotlib.pyplot as plt
-from config import *
+from project_layout import setup
 import pandas as pd
 
 # Import user-defined input parameters
@@ -27,6 +27,7 @@ from MODE.waveguide.waveguide_render import *
 from MODE.waveguide.fde_region import add_fde_region  
 from DEVICE.pin_modulator.user_inputs.user_sweep_parameters import v_num_pts
 
+spec, out, templates = setup("mode.waveguide", __file__)
 
 
 # ------------------------- You may change the FDE Boundaries below ---------------------------
@@ -65,7 +66,7 @@ def voltageSweep(mode):
         mode.run()
         mode.findmodes()
         mode.redrawon()  
-        mode.save(MODE_WAVEGUIDE_DIRECTORY_WRITE_FILE + "\\waveguide_mode_voltage_sweep_"+str(r) + ".lms")
+        mode.save(str(out["lumerical"] / ("waveguide_mode_voltage_sweep_"+str(r) + ".lms")))
 
         
         for m in range(1,num_modes+1):
@@ -78,13 +79,13 @@ def voltageSweep(mode):
                 if(track_mode == 'TE'):
                     loss_TE.append(prop_loss[r][m-1])
                     neff_TE.append(neff[r][m-1])
-                    mode.save(MODE_WAVEGUIDE_DIRECTORY_WRITE_FILE + "\\waveguide_mode_radius_sweep_"+str(r) + ".lms")
+                    mode.save(str(out["lumerical"] / ("waveguide_mode_radius_sweep_"+str(r) + ".lms")))
                     break
             else:
                 if(track_mode == 'TM'):
                     loss_TM.append(prop_loss[r][m-1])
                     neff_TM.append(neff[r][m-1])
-                    mode.save(MODE_WAVEGUIDE_DIRECTORY_WRITE_FILE + "\\waveguide_mode_radius_sweep_"+str(r) + ".lms")
+                    mode.save(str(out["lumerical"] / ("waveguide_mode_radius_sweep_"+str(r) + ".lms")))
                     break
     
 
@@ -148,7 +149,7 @@ if(__name__=="__main__"):
 
 
         plt.tight_layout()
-        file_name_plot = os.path.join(MODE_WAVEGUIDE_DIRECTORY_WRITE[2], "neff_Voltage_sweep.png")
+        file_name_plot = str(out["figure_groups"]["Neff Sweep"] / "neff_Voltage_sweep.png")
         plt.savefig(file_name_plot, dpi=my_dpi, format="png")
         
         
@@ -176,7 +177,6 @@ if(__name__=="__main__"):
         
 
 
-        file_name_plot = os.path.join(MODE_WAVEGUIDE_DIRECTORY_WRITE_FILE, 
-                                      "neff_Voltage_sweep_TE.csv")
+        file_name_plot = str(out["lumerical"] / "neff_Voltage_sweep_TE.csv")
 
         df.to_csv(file_name_plot, index=False)

@@ -32,7 +32,8 @@ from MODE.waveguide.waveguide_render import *
 # Runs the module to calculate the neff vs height
 from MODE.waveguide.neff_sweep.neff_width_sweep_2D import *
 
-
+from project_layout import setup
+spec, out, templates = setup("mode.waveguide", __file__)
 
 
 # Plots the effective index width variations as a function of width
@@ -69,7 +70,7 @@ if(__name__=="__main__"):
 
         # Save the figure files as .png
 
-        file_name_plot = os.path.join(MODE_WAVEGUIDE_DIRECTORY_WRITE[2], "neff_width_sweep_variations.png")
+        file_name_plot = str(out["figure_groups"]["Neff Sweep"] / "neff_width_sweep_variations.png")
         plt.grid(True, which='both')
         plt.tight_layout()
         plt.savefig(file_name_plot, dpi=my_dpi, format="png")

@@ -31,7 +31,7 @@
     - [ ] MODE/laser_tapered_waveguide
     - [x] MODE/swg_grating
     - [x] MODE/vertical_taper
-    - [ ] MODE/waveguide
+    - [x] MODE/waveguide
   - **DEVICE Modules:**
     - [ ] DEVICE/disk_modulator
     - [ ] DEVICE/electro_optic

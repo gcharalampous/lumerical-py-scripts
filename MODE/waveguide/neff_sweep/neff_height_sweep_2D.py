@@ -18,9 +18,8 @@ index for the number of modes you defined.
 # Import necessary libraries and modules
 import numpy as np
 import lumapi
-import os
 import matplotlib.pyplot as plt
-from config import *
+from project_layout import setup
 
 
 # Import user-defined input parameters
@@ -28,7 +27,7 @@ from MODE.waveguide.user_inputs.user_sweep_parameters import *
 from MODE.waveguide.waveguide_render import *
 from MODE.waveguide.fde_region import add_fde_region  
 
-
+spec, out, templates = setup("mode.waveguide", __file__)
 
 # ------------------------- No inputs are required ---------------------------
 
@@ -55,7 +54,7 @@ def heightSweep(mode):
         mode.findmodes()
         # Turn on redraw feature to update simulation layout
         mode.redrawon()
-        mode.save(MODE_WAVEGUIDE_DIRECTORY_WRITE_FILE + "\\waveguide_mode_height_sweep_"+str(wd) + ".lms")
+        mode.save(str(out["lumerical"] / ("waveguide_mode_height_sweep_"+str(wd) + ".lms")))
 
         
         for m in range(1,num_modes+1):
@@ -88,7 +87,7 @@ def heightSweep(mode):
     mode.redrawon()
 
     # Save the figure files as .png
-    file_name_plot = os.path.join(MODE_WAVEGUIDE_DIRECTORY_WRITE[2], "neff_height_sweep.png")
+    file_name_plot = str(out["figure_groups"]["Neff Sweep"] / "neff_height_sweep.png")
     plt.savefig(file_name_plot, dpi=my_dpi, format="png")
 
     return neff_array, wg_height_array, polariz_frac_array, polariz_mode

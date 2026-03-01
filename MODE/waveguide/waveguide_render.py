@@ -43,7 +43,9 @@ remains the propagation. The z-axis is not used during mode simulations.
 """
 
 import lumapi
-from config import *
+from project_layout import setup
+
+spec, out, templates = setup("mode.waveguide", __file__)
 
 
 #----------------------------------------------------------------------------
@@ -269,5 +271,5 @@ if(__name__=="__main__"):
       # Turn redraw back on and close LumAPI connection
       mode.redrawon()        
 
-      mode.save(MODE_WAVEGUIDE_DIRECTORY_WRITE_FILE + "\\waveguide_modes.lms")
+      mode.save(str(out["lumerical"] / "waveguide_modes.lms"))
       

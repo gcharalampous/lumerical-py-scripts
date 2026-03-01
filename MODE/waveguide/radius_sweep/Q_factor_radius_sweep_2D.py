@@ -18,8 +18,10 @@ modes and calculates the radiation loss, and mode missmatch
 import numpy as np
 import lumapi
 import matplotlib.pyplot as plt
-from config import *
+from project_layout import setup
 from MODE.waveguide.radius_sweep.overlap_radius_sweep_2D import *
+
+spec, out, templates = setup("mode.waveguide", __file__)
 
 # Bending Radius of the Ring
 R = wg_radius_array
@@ -112,5 +114,5 @@ if(__name__=="__main__"):
             
             
         plt.tight_layout()
-        file_name_plot = os.path.join(MODE_WAVEGUIDE_DIRECTORY_WRITE[4], "Qfactor_radius.png")
+        file_name_plot = str(out["figure_groups"]["Radius Sweep"] / "Qfactor_radius.png")
         plt.savefig(file_name_plot)

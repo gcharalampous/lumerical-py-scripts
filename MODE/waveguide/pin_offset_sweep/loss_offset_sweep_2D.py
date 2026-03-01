@@ -31,12 +31,14 @@ the propagation loss due to dopants
 import numpy as np
 import lumapi
 import matplotlib.pyplot as plt
-from config import *
+from project_layout import setup
 
 # Import user-defined input parameters
 from MODE.waveguide.user_inputs.user_sweep_parameters import *    
 from MODE.waveguide.waveguide_render import *
 from MODE.waveguide.fde_region import add_fde_region  
+
+spec, out, templates = setup("mode.waveguide", __file__)
 
 
 
@@ -77,7 +79,7 @@ def dopingSweep(mode):
         mode.run()
         mode.findmodes()
         mode.redrawon()  
-        mode.save(MODE_WAVEGUIDE_DIRECTORY_WRITE_FILE + "\\waveguide_mode_doping_sweep_"+str(r) + ".lms")
+        mode.save(str(out["lumerical"] / ("waveguide_mode_doping_sweep_"+str(r) + ".lms")))
 
         
         for m in range(1,num_modes+1):
@@ -90,13 +92,13 @@ def dopingSweep(mode):
                 if(track_mode == 'TE'):
                     loss_TE.append(prop_loss[r][m-1])
                     ng_TE = (mode.getdata("FDE::data::mode"+str(m),"ng"))
-                    mode.save(MODE_WAVEGUIDE_DIRECTORY_WRITE_FILE + "\\waveguide_mode_radius_sweep_"+str(r) + ".lms")
+                    mode.save(str(out["lumerical"] / ("waveguide_mode_radius_sweep_"+str(r) + ".lms")))
                     break
             else:
                 if(track_mode == 'TM'):
                     loss_TM.append(prop_loss[r][m-1])
                     ng_TM = (mode.getdata("FDE::data::mode"+str(m),"ng"))
-                    mode.save(MODE_WAVEGUIDE_DIRECTORY_WRITE_FILE + "\\waveguide_mode_radius_sweep_"+str(r) + ".lms")
+                    mode.save(str(out["lumerical"] / ("waveguide_mode_radius_sweep_"+str(r) + ".lms")))
                     break
     
 
@@ -137,11 +139,11 @@ if(__name__=="__main__"):
             propagation_loss_TE_dB = np.squeeze(np.abs(loss_TE))          
             plt.semilogy(clear_width*1e6,propagation_loss_TE_dB*1e-2,'o-')
             plt.tight_layout()
-            file_name_plot = os.path.join(MODE_WAVEGUIDE_DIRECTORY_WRITE[3], "pin_doping_offset.png")
+            file_name_plot = str(out["figure_groups"]["PIN Offset"] / "pin_doping_offset.png")
             plt.savefig(file_name_plot)
         else:
             propagation_loss_TM_dB = np.squeeze(np.abs(loss_TM))          
             plt.semilogy(clear_width*1e6,propagation_loss_TM_dB*1e-2,'o-')
             plt.tight_layout()
-            file_name_plot = os.path.join(MODE_WAVEGUIDE_DIRECTORY_WRITE[3], "pin_doping_offset.png")
+            file_name_plot = str(out["figure_groups"]["PIN Offset"] / "pin_doping_offset.png")
             plt.savefig(file_name_plot)

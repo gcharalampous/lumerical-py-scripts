@@ -16,17 +16,16 @@ index for the number of modes you defined.
 # ---------------------------------------------------------------------------
 # Import necessary modules
 import numpy as np
-import os
 import lumapi
 import matplotlib.pyplot as plt
-from config import *
+from project_layout import setup
 
 # Import user-defined input parameters
 from MODE.waveguide.user_inputs.user_sweep_parameters import *    
 from MODE.waveguide.waveguide_render import *
 from MODE.waveguide.fde_region import add_fde_region  
 
-
+spec, out, templates = setup("mode.waveguide", __file__)
 
 # ------------------------- No inputs are required ---------------------------
 
@@ -54,7 +53,7 @@ def widthSweep(mode):
         mode.run()
         mode.findmodes()
         mode.redrawon()  
-        mode.save(MODE_WAVEGUIDE_DIRECTORY_WRITE_FILE + "\\waveguide_mode_width_sweep_"+str(wd) + ".lms")
+        mode.save(str(out["lumerical"] / ("waveguide_mode_width_sweep_"+str(wd) + ".lms")))
 
         
         for m in range(1,num_modes+1):
@@ -81,7 +80,7 @@ def widthSweep(mode):
     plt.tight_layout()
 
     # Save the figure files as .png
-    file_name_plot = os.path.join(MODE_WAVEGUIDE_DIRECTORY_WRITE[2], "neff_width_sweep.png")
+    file_name_plot = str(out["figure_groups"]["Neff Sweep"] / "neff_width_sweep.png")
     plt.savefig(file_name_plot, dpi=my_dpi, format="png")
 
     return neff_array, wg_width_array, polariz_frac, polariz_mode
