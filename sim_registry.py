@@ -162,6 +162,16 @@ SIMS: Dict[str, SimSpec] = {
         figure_groups=["Fields", "Index Profile", "Sweep Transmission"],
     ),
 
+    # ------------------------------------------------------------------ MODE
+    # MODE: AWG Star Coupler
+    "mode.awg_star_coupler": SimSpec(
+        key="mode.awg_star_coupler",
+        domain="MODE",
+        module="awg_star_coupler",
+        templates=["awg_input_taper.lms"],
+        figure_groups=["Index Profile", "Far Field Profile"],
+    ),
+
 }
 
 

@@ -14,201 +14,77 @@ PACKAGE_DIR = os.path.dirname(os.path.realpath(__file__))
 
 
 
-# SWG FDTD
-FDTD_SWG_FILENAME = ["sub_wavelength_grating_layer_1.fsp","sub_wavelength_grating_layer_2.fsp"]
-FDTD_SWG_PATH_READ = "FDTD\\swg_grating\\user_inputs\\lumerical_files"
-FDTD_SWG_PATH_WRITE_FIGURES = "FDTD\\Results\\swg_grating\\Figures"
-FDTD_SWG_PATH_WRITE_DATA = ["Index Profile", "Frequency Response","E-fields"]
-FDTD_SWG_DIRECTORY_READ = os.path.join(PACKAGE_DIR,FDTD_SWG_PATH_READ,FDTD_SWG_FILENAME[0])
-FDTD_SWG_DIRECTORY_WRITE = [str]*len(FDTD_SWG_PATH_WRITE_DATA)
-for i,data in enumerate(FDTD_SWG_PATH_WRITE_DATA):
-    FDTD_SWG_DIRECTORY_WRITE[i] = os.path.join(PACKAGE_DIR,FDTD_SWG_PATH_WRITE_FIGURES,FDTD_SWG_PATH_WRITE_DATA[i])
-for i in range(0,len(FDTD_SWG_DIRECTORY_WRITE)):
-    # create the directory if it doesn't exist already
-    if not os.path.exists(FDTD_SWG_DIRECTORY_WRITE[i]):
-        os.makedirs(FDTD_SWG_DIRECTORY_WRITE[i])
-        #print("Directory:" + FDTD_SWG_DIRECTORY_WRITE[i] + "\n created successfully!")
-    else:
-        #print("Directory:" + FDTD_SWG_DIRECTORY_WRITE[i] + "\n already exists!")
-        break
-
-
-
-# WAVEGUIDE TAPER LASER
-FDTD_LASER_TAPERED_FILENAME = ["laser_mesa_waveguide_tapered.fsp"]
-FDTD_LASER_TAPERED_PATH_READ = "FDTD\\laser_tapered_waveguide\\user_inputs\\lumerical_files"
-FDTD_LASER_TAPERED_PATH_WRITE_FIGURES = "FDTD\\Results\\laser_mesa_waveguide_tapered\\Figures"
-FDTD_LASER_TAPERED_PATH_WRITE_DATA = ["Index Profile", "Frequency Response","E-fields"]
-FDTD_LASER_TAPERED_PATH_WRITE_LUMERICAL = "FDTD\\Results\\laser_mesa_waveguide_tapered\\lumerical_files"
-FDTD_LASER_TAPERED_DIRECTORY_READ = os.path.join(PACKAGE_DIR,FDTD_LASER_TAPERED_PATH_READ,FDTD_LASER_TAPERED_FILENAME[0])
-FDTD_LASER_TAPERED_DIRECTORY_WRITE = [str]*len(FDTD_LASER_TAPERED_PATH_WRITE_DATA)
-for i,data in enumerate(FDTD_LASER_TAPERED_PATH_WRITE_DATA):
-    FDTD_LASER_TAPERED_DIRECTORY_WRITE[i] = os.path.join(PACKAGE_DIR,FDTD_LASER_TAPERED_PATH_WRITE_FIGURES,FDTD_LASER_TAPERED_PATH_WRITE_DATA[i])
-for i in range(0,len(FDTD_LASER_TAPERED_DIRECTORY_WRITE)):
-    # create the directory if it doesn't exist already
-    if not os.path.exists(FDTD_LASER_TAPERED_DIRECTORY_WRITE[i]):
-        os.makedirs(FDTD_LASER_TAPERED_DIRECTORY_WRITE[i])
-        #print("Directory:" + FDTD_LASER_TAPERED_DIRECTORY_WRITE[i] + "\n created successfully!")
-    else:
-        #print("Directory:" + FDTD_LASER_TAPERED_DIRECTORY_WRITE[i] + "\n already exists!")
-        break
-
-FDTD_LASER_TAPERED_DIRECTORY_WRITE_FILE = os.path.join(PACKAGE_DIR, FDTD_LASER_TAPERED_PATH_WRITE_LUMERICAL)
-if not os.path.exists(FDTD_LASER_TAPERED_DIRECTORY_WRITE_FILE):
-    os.makedirs(FDTD_LASER_TAPERED_DIRECTORY_WRITE_FILE)
-    #print("Directory:" + FDTD_LASER_TAPERED_DIRECTORY_WRITE_FILE[i] + "\n created successfully!")
-
-
-
-
-# WAVEGUIDE MODE TAPER FDTD
-FDTD_WGTAPER_FILENAME = "waveguide_mode_taper.fsp"
-FDTD_WGTAPER_PATH_READ = "FDTD\\waveguide_mode_taper\\user_inputs\\lumerical_files"
-FDTD_WGTAPER_PATH_WRITE_FIGURES = "FDTD\\Results\\waveguide_mode_taper\\Figures"
-FDTD_WGTAPER_PATH_WRITE_LUMERICAL = "FDTD\\Results\\waveguide_mode_taper\\lumerical_files"
-
-FDTD_WGTAPER_PATH_WRITE_DATA = ["Sweep Transmission", "Frequency Response","E-fields"]
-FDTD_WGTAPER_DIRECTORY_READ = os.path.join(PACKAGE_DIR,FDTD_WGTAPER_PATH_READ,FDTD_WGTAPER_FILENAME[0])
-FDTD_WGTAPER_DIRECTORY_WRITE = [str]*len(FDTD_WGTAPER_PATH_WRITE_DATA)
-for i,data in enumerate(FDTD_WGTAPER_PATH_WRITE_DATA):
-    FDTD_WGTAPER_DIRECTORY_WRITE[i] = os.path.join(PACKAGE_DIR,FDTD_WGTAPER_PATH_WRITE_FIGURES,FDTD_WGTAPER_PATH_WRITE_DATA[i])
-for i in range(0,len(FDTD_WGTAPER_DIRECTORY_WRITE)):
-    # create the directory if it doesn't exist already
-    if not os.path.exists(FDTD_WGTAPER_DIRECTORY_WRITE[i]):
-        os.makedirs(FDTD_WGTAPER_DIRECTORY_WRITE[i])
-        #print("Directory:" + FDTD_WGTAPER_DIRECTORY_WRITE[i] + "\n created successfully!")
-    else:
-        #print("Directory:" + FDTD_WGTAPER_DIRECTORY_WRITE[i] + "\n already exists!")
-        break
-
-
-FDTD_WGTAPER_DIRECTORY_WRITE_FILE = os.path.join(PACKAGE_DIR, FDTD_WGTAPER_PATH_WRITE_LUMERICAL)
-if not os.path.exists(FDTD_WGTAPER_DIRECTORY_WRITE_FILE):
-    os.makedirs(FDTD_WGTAPER_DIRECTORY_WRITE_FILE)
-    #print("Directory:" + FDTD_WGTAPER_DIRECTORY_WRITE[i] + "\n created successfully!")
-
-
-
-
-
 
 # --------------------------------MODE SOLUTIONS---------------------------------
     
-# AWG STAR COUPLER FIELD MODE
-MODE_AWG_FILENAME = ["awg_input_taper.lms"]
-MODE_AWG_PATH_READ = "MODE\\awg_star_coupler\\user_inputs\\lumerical_files"
-MODE_AWG_PATH_WRITE_FIGURES = "MODE\\Results\\awg_star_coupler\\Figures"
-MODE_AWG_PATH_WRITE_DATA = ["Index Profile", "Far Field"]
-MODE_AWG_DIRECTORY_READ = os.path.join(PACKAGE_DIR,MODE_AWG_PATH_READ,MODE_AWG_FILENAME[0])
-MODE_AWG_DIRECTORY_WRITE = [str]*len(MODE_AWG_PATH_WRITE_DATA)
-for i,data in enumerate(MODE_AWG_PATH_WRITE_DATA):
-    MODE_AWG_DIRECTORY_WRITE[i] = os.path.join(PACKAGE_DIR,MODE_AWG_PATH_WRITE_FIGURES,MODE_AWG_PATH_WRITE_DATA[i])
-for i in range(0,len(MODE_AWG_DIRECTORY_WRITE)):
-    # create the directory if it doesn't exist already
-    if not os.path.exists(MODE_AWG_DIRECTORY_WRITE[i]):
-        os.makedirs(MODE_AWG_DIRECTORY_WRITE[i])
-        #print("Directory:" + FDTD_SWG_DIRECTORY_WRITE[i] + "\n created successfully!")
-    else:
-        #print("Directory:" + FDTD_SWG_DIRECTORY_WRITE[i] + "\n already exists!")
-        break
+
+
+# # WAVEGUIDE MODE DIRECTIONAL COUPLER
+# MODE_DC_FILENAME = ["waveguide_coupler.lms"]
+# MODE_DC_PATH_READ = "MODE\\directional_coupler\\user_inputs\\lumerical_files"
+# MODE_DC_PATH_WRITE_FIGURES = "MODE\\Results\\waveguide_coupler\\Figures"
+# MODE_DC_PATH_WRITE_DATA = ["Mode Profile", "Gap Sweep", "Length Sweep"]
+# MODE_DC_PATH_WRITE_LUMERICAL = "MODE\\Results\\waveguide_coupler\\lumerical_files"
+# MODE_DC_DIRECTORY_READ = os.path.join(PACKAGE_DIR,MODE_DC_PATH_READ,MODE_DC_FILENAME[0])
+# MODE_DC_DIRECTORY_WRITE = [str]*len(MODE_DC_PATH_WRITE_DATA)
+# for i,data in enumerate(MODE_DC_PATH_WRITE_DATA):
+#     MODE_DC_DIRECTORY_WRITE[i] = os.path.join(PACKAGE_DIR,MODE_DC_PATH_WRITE_FIGURES,MODE_DC_PATH_WRITE_DATA[i])
+# for i in range(0,len(MODE_DC_DIRECTORY_WRITE)):
+#     # create the directory if it doesn't exist already
+#     if not os.path.exists(MODE_DC_DIRECTORY_WRITE[i]):
+#         os.makedirs(MODE_DC_DIRECTORY_WRITE[i])
+#         #print("Directory:" + MODE_DC_DIRECTORY_WRITE[i] + "\n created successfully!")
+#     else:
+#         #print("Directory:" + MODE_DC_DIRECTORY_WRITE[i] + "\n already exists!")
+#         break
+
+# MODE_DC_DIRECTORY_WRITE_FILE = os.path.join(PACKAGE_DIR, MODE_DC_PATH_WRITE_LUMERICAL)
+# if not os.path.exists(MODE_DC_DIRECTORY_WRITE_FILE):
+#     os.makedirs(MODE_DC_DIRECTORY_WRITE_FILE)
+#     #print("Directory:" + MODE_DC_DIRECTORY_WRITE_FILE[i] + "\n created successfully!")
+
+
+# # WAVEGUIDE MODE
+# MODE_WAVEGUIDE_PATH_WRITE_FIGURES = "MODE\\Results\\waveguide\\Figures"
+# MODE_WAVEGUIDE_PATH_WRITE_DATA = ["Index Profile", "Mode Profile","Neff","PIN Offset", "Bending Loss"]
+# MODE_WAVEGUIDE_DIRECTORY_WRITE = [str]*len(MODE_WAVEGUIDE_PATH_WRITE_DATA)
+# MODE_WAVEGUIDE_PATH_WRITE_LUMERICAL = "MODE\\Results\\waveguide\\lumerical_files"
+
+# for i,data in enumerate(MODE_WAVEGUIDE_PATH_WRITE_DATA):
+#     MODE_WAVEGUIDE_DIRECTORY_WRITE[i] = os.path.join(PACKAGE_DIR,MODE_WAVEGUIDE_PATH_WRITE_FIGURES,MODE_WAVEGUIDE_PATH_WRITE_DATA[i])
+# for i in range(0,len(MODE_WAVEGUIDE_DIRECTORY_WRITE)):
+#     # create the directory if it doesn't exist already
+#     if not os.path.exists(MODE_WAVEGUIDE_DIRECTORY_WRITE[i]):
+#         os.makedirs(MODE_WAVEGUIDE_DIRECTORY_WRITE[i])
+#         #print("Directory:" + MODE_WAVEGUIDE_DIRECTORY_WRITE[i] + "\n created successfully!")
+#     else:
+#         #print("Directory:" + MODE_WAVEGUIDE_DIRECTORY_WRITE[i] + "\n already exists!")
+#         break
+
+# MODE_WAVEGUIDE_DIRECTORY_WRITE_FILE = os.path.join(PACKAGE_DIR, MODE_WAVEGUIDE_PATH_WRITE_LUMERICAL)
+# if not os.path.exists(MODE_WAVEGUIDE_DIRECTORY_WRITE_FILE):
+#     os.makedirs(MODE_WAVEGUIDE_DIRECTORY_WRITE_FILE)
+#     #print("Directory:" + MODE_WAVEGUIDE_DIRECTORY_WRITE_FILE[i] + "\n created successfully!")
 
 
 
-# WAVEGUIDE TAPER LASER
-MODE_LASER_TAPERED_FILENAME = ["laser_taper_waveguide.lms"]
-MODE_LASER_TAPERED_PATH_READ = "MODE\\laser_tapered_waveguide\\user_inputs\\lumerical_files"
-MODE_LASER_TAPERED_PATH_WRITE_FIGURES = "MODE\\Results\\laser_taper_waveguide\\Figures"
-MODE_LASER_TAPERED_PATH_WRITE_DATA = ["Mode Profile"]
-MODE_LASER_TAPERED_PATH_WRITE_LUMERICAL = "MODE\\Results\\laser_taper_waveguide\\lumerical_files"
-MODE_LASER_TAPERED_DIRECTORY_READ = os.path.join(PACKAGE_DIR,MODE_LASER_TAPERED_PATH_READ,MODE_LASER_TAPERED_FILENAME[0])
-MODE_LASER_TAPERED_DIRECTORY_WRITE = [str]*len(MODE_LASER_TAPERED_PATH_WRITE_DATA)
-for i,data in enumerate(MODE_LASER_TAPERED_PATH_WRITE_DATA):
-    MODE_LASER_TAPERED_DIRECTORY_WRITE[i] = os.path.join(PACKAGE_DIR,MODE_LASER_TAPERED_PATH_WRITE_FIGURES,MODE_LASER_TAPERED_PATH_WRITE_DATA[i])
-for i in range(0,len(MODE_LASER_TAPERED_DIRECTORY_WRITE)):
-    # create the directory if it doesn't exist already
-    if not os.path.exists(MODE_LASER_TAPERED_DIRECTORY_WRITE[i]):
-        os.makedirs(MODE_LASER_TAPERED_DIRECTORY_WRITE[i])
-        #print("Directory:" + MODE_LASER_TAPERED_DIRECTORY_WRITE[i] + "\n created successfully!")
-    else:
-        #print("Directory:" + MODE_LASER_TAPERED_DIRECTORY_WRITE[i] + "\n already exists!")
-        break
-
-MODE_LASER_TAPERED_DIRECTORY_WRITE_FILE = os.path.join(PACKAGE_DIR, MODE_LASER_TAPERED_PATH_WRITE_LUMERICAL)
-if not os.path.exists(MODE_LASER_TAPERED_DIRECTORY_WRITE_FILE):
-    os.makedirs(MODE_LASER_TAPERED_DIRECTORY_WRITE_FILE)
-    #print("Directory:" + MODE_LASER_TAPERED_DIRECTORY_WRITE_FILE[i] + "\n created successfully!")
-
-
-
-
-
-
-# WAVEGUIDE MODE DIRECTIONAL COUPLER
-MODE_DC_FILENAME = ["waveguide_coupler.lms"]
-MODE_DC_PATH_READ = "MODE\\directional_coupler\\user_inputs\\lumerical_files"
-MODE_DC_PATH_WRITE_FIGURES = "MODE\\Results\\waveguide_coupler\\Figures"
-MODE_DC_PATH_WRITE_DATA = ["Mode Profile", "Gap Sweep", "Length Sweep"]
-MODE_DC_PATH_WRITE_LUMERICAL = "MODE\\Results\\waveguide_coupler\\lumerical_files"
-MODE_DC_DIRECTORY_READ = os.path.join(PACKAGE_DIR,MODE_DC_PATH_READ,MODE_DC_FILENAME[0])
-MODE_DC_DIRECTORY_WRITE = [str]*len(MODE_DC_PATH_WRITE_DATA)
-for i,data in enumerate(MODE_DC_PATH_WRITE_DATA):
-    MODE_DC_DIRECTORY_WRITE[i] = os.path.join(PACKAGE_DIR,MODE_DC_PATH_WRITE_FIGURES,MODE_DC_PATH_WRITE_DATA[i])
-for i in range(0,len(MODE_DC_DIRECTORY_WRITE)):
-    # create the directory if it doesn't exist already
-    if not os.path.exists(MODE_DC_DIRECTORY_WRITE[i]):
-        os.makedirs(MODE_DC_DIRECTORY_WRITE[i])
-        #print("Directory:" + MODE_DC_DIRECTORY_WRITE[i] + "\n created successfully!")
-    else:
-        #print("Directory:" + MODE_DC_DIRECTORY_WRITE[i] + "\n already exists!")
-        break
-
-MODE_DC_DIRECTORY_WRITE_FILE = os.path.join(PACKAGE_DIR, MODE_DC_PATH_WRITE_LUMERICAL)
-if not os.path.exists(MODE_DC_DIRECTORY_WRITE_FILE):
-    os.makedirs(MODE_DC_DIRECTORY_WRITE_FILE)
-    #print("Directory:" + MODE_DC_DIRECTORY_WRITE_FILE[i] + "\n created successfully!")
-
-
-# WAVEGUIDE MODE
-MODE_WAVEGUIDE_PATH_WRITE_FIGURES = "MODE\\Results\\waveguide\\Figures"
-MODE_WAVEGUIDE_PATH_WRITE_DATA = ["Index Profile", "Mode Profile","Neff","PIN Offset", "Bending Loss"]
-MODE_WAVEGUIDE_DIRECTORY_WRITE = [str]*len(MODE_WAVEGUIDE_PATH_WRITE_DATA)
-MODE_WAVEGUIDE_PATH_WRITE_LUMERICAL = "MODE\\Results\\waveguide\\lumerical_files"
-
-for i,data in enumerate(MODE_WAVEGUIDE_PATH_WRITE_DATA):
-    MODE_WAVEGUIDE_DIRECTORY_WRITE[i] = os.path.join(PACKAGE_DIR,MODE_WAVEGUIDE_PATH_WRITE_FIGURES,MODE_WAVEGUIDE_PATH_WRITE_DATA[i])
-for i in range(0,len(MODE_WAVEGUIDE_DIRECTORY_WRITE)):
-    # create the directory if it doesn't exist already
-    if not os.path.exists(MODE_WAVEGUIDE_DIRECTORY_WRITE[i]):
-        os.makedirs(MODE_WAVEGUIDE_DIRECTORY_WRITE[i])
-        #print("Directory:" + MODE_WAVEGUIDE_DIRECTORY_WRITE[i] + "\n created successfully!")
-    else:
-        #print("Directory:" + MODE_WAVEGUIDE_DIRECTORY_WRITE[i] + "\n already exists!")
-        break
-
-MODE_WAVEGUIDE_DIRECTORY_WRITE_FILE = os.path.join(PACKAGE_DIR, MODE_WAVEGUIDE_PATH_WRITE_LUMERICAL)
-if not os.path.exists(MODE_WAVEGUIDE_DIRECTORY_WRITE_FILE):
-    os.makedirs(MODE_WAVEGUIDE_DIRECTORY_WRITE_FILE)
-    #print("Directory:" + MODE_WAVEGUIDE_DIRECTORY_WRITE_FILE[i] + "\n created successfully!")
-
-
-
-# SWG MODE
-MODE_SWG_FILENAME = ["sub_wavelength_grating_layer_1.fsp","sub_wavelength_grating_layer_2.fsp"]
-MODE_SWG_PATH_READ = "MODE\\swg_grating\\user_inputs\\lumerical_files"
-MODE_SWG_PATH_WRITE_FIGURES = "MODE\\Results\\swg_grating\\Figures"
-MODE_SWG_PATH_WRITE_DATA = ["Index Profile", "Frequency Response","E-fields"]
-MODE_SWG_DIRECTORY_READ = os.path.join(PACKAGE_DIR,MODE_SWG_PATH_READ,MODE_SWG_FILENAME[0])
-MODE_SWG_DIRECTORY_WRITE = [str]*len(MODE_SWG_PATH_WRITE_DATA)
-for i,data in enumerate(MODE_SWG_PATH_WRITE_DATA):
-    MODE_SWG_DIRECTORY_WRITE[i] = os.path.join(PACKAGE_DIR,MODE_SWG_PATH_WRITE_FIGURES,MODE_SWG_PATH_WRITE_DATA[i])
-for i in range(0,len(MODE_SWG_DIRECTORY_WRITE)):
-    # create the directory if it doesn't exist already
-    if not os.path.exists(MODE_SWG_DIRECTORY_WRITE[i]):
-        os.makedirs(MODE_SWG_DIRECTORY_WRITE[i])
-        #print("Directory:" + MODE_SWG_DIRECTORY_WRITE[i] + "\n created successfully!")
-    else:
-        #print("Directory:" + MODE_SWG_DIRECTORY_WRITE[i] + "\n already exists!")
-        break
+# # SWG MODE
+# MODE_SWG_FILENAME = ["sub_wavelength_grating_layer_1.fsp","sub_wavelength_grating_layer_2.fsp"]
+# MODE_SWG_PATH_READ = "MODE\\swg_grating\\user_inputs\\lumerical_files"
+# MODE_SWG_PATH_WRITE_FIGURES = "MODE\\Results\\swg_grating\\Figures"
+# MODE_SWG_PATH_WRITE_DATA = ["Index Profile", "Frequency Response","E-fields"]
+# MODE_SWG_DIRECTORY_READ = os.path.join(PACKAGE_DIR,MODE_SWG_PATH_READ,MODE_SWG_FILENAME[0])
+# MODE_SWG_DIRECTORY_WRITE = [str]*len(MODE_SWG_PATH_WRITE_DATA)
+# for i,data in enumerate(MODE_SWG_PATH_WRITE_DATA):
+#     MODE_SWG_DIRECTORY_WRITE[i] = os.path.join(PACKAGE_DIR,MODE_SWG_PATH_WRITE_FIGURES,MODE_SWG_PATH_WRITE_DATA[i])
+# for i in range(0,len(MODE_SWG_DIRECTORY_WRITE)):
+#     # create the directory if it doesn't exist already
+#     if not os.path.exists(MODE_SWG_DIRECTORY_WRITE[i]):
+#         os.makedirs(MODE_SWG_DIRECTORY_WRITE[i])
+#         #print("Directory:" + MODE_SWG_DIRECTORY_WRITE[i] + "\n created successfully!")
+#     else:
+#         #print("Directory:" + MODE_SWG_DIRECTORY_WRITE[i] + "\n already exists!")
+#         break
 
 
 

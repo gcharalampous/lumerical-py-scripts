@@ -7,8 +7,8 @@
 """
 User-inputs are Not required.
 
-The script calculates the apperture profile of the star coupler specified in 
-'user_inputs/awg_input_taper.lms' and 'user_simulation_parameters.py'.
+The script calculates the apperture profile of the star coupler specified in
+'user_inputs/awg_input_taper.lms'.
 
 """
 
@@ -19,47 +19,49 @@ The script calculates the apperture profile of the star coupler specified in
 import numpy as np
 import lumapi
 import matplotlib.pyplot as plt
-from config import *
+from project_layout import setup
 
-# Import user-defined parameters from another file
-from MODE.directional_coupler.user_inputs.user_simulation_parameters import *
-
+# ------------------------- No inputs are required ---------------------------
 
 
-
-
-with lumapi.MODE(MODE_AWG_DIRECTORY_READ) as mode:
-
+def getFarField(mode):
+    """Run the simulation and return the far-field data."""
     mode.switchtolayout()
     mode.run()
-    mode.save()            
-    
-    
-    # Get the far field
-    Ep=mode.farfield2d("monitor_field")
-    theta=mode.farfieldangle("monitor_field")
-    
-   
-    # Normalize in dB scale
-    Ep_dB = 10*np.log10(abs(Ep))
-    Ep_dB_unity = 10*np.log10(abs(Ep))-np.max(Ep_dB)
-    
-    
-    px = 1/plt.rcParams['figure.dpi']  # pixel in inches
+    mode.save()
 
-    fig, ax = plt.subplots(figsize=(512*px, 256*px))
-    ax.plot(theta,Ep_dB_unity,label = 'Ep')
-    ax.set_xlabel("\u03B8 (deg)")
-    ax.set_ylabel("Transmission (dB)")
-    ax.grid()
+    Ep = mode.farfield2d("monitor_field")
+    theta = mode.farfieldangle("monitor_field")
+    return Ep, theta
 
-    ax.axhline(y = -30,linestyle = '--', color = 'g')
-    
-    ax.axvline(x = -30,linestyle = '--', color = 'r')
-    ax.axvline(x = 30,linestyle = '--', color = 'r')
-    
-file_name_plot_writing = os.path.join(MODE_AWG_DIRECTORY_WRITE[1], 
-                                            "far_field_profile.png")
-fig.tight_layout()
 
-fig.savefig(file_name_plot_writing, dpi=my_dpi, format="png")
+if __name__ == "__main__":
+    spec, out, templates = setup("mode.awg_star_coupler", __file__)
+    template_lms = templates[0]
+    figures_dir = out["figures"] / "Far Field Profile"
+    figures_dir.mkdir(parents=True, exist_ok=True)
+
+    with lumapi.MODE(str(template_lms)) as mode:
+
+        Ep, theta = getFarField(mode)
+
+        # Normalize in dB scale
+        Ep_dB = 10 * np.log10(abs(Ep))
+        Ep_dB_unity = 10 * np.log10(abs(Ep)) - np.max(Ep_dB)
+
+        px = 1 / plt.rcParams['figure.dpi']  # pixel in inches
+
+        fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
+        ax.plot(theta, Ep_dB_unity, label='Ep')
+        ax.set_xlabel("\u03B8 (deg)")
+        ax.set_ylabel("Transmission (dB)")
+        ax.grid()
+
+        ax.axhline(y=-30, linestyle='--', color='g')
+
+        ax.axvline(x=-30, linestyle='--', color='r')
+        ax.axvline(x=30, linestyle='--', color='r')
+
+        fig.tight_layout()
+        fig.savefig(figures_dir / "far_field_profile.png")
+        plt.show()
