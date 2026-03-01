@@ -26,7 +26,9 @@ import pandas as pd
 from MODE.directional_coupler.user_inputs.user_sweep_parameters import *
 from MODE.directional_coupler.even_odd_mode_profile import super_mode_profile
 from MODE.directional_coupler.user_inputs.user_simulation_parameters import my_dpi
-from config import *
+from project_layout import setup
+
+spec, out, templates = setup("mode.directional_coupler", __file__)
 
 # ---------------------------- Get Odd/Even Modes ---------------------------
 # Set the name of the waveguide constructor
@@ -44,7 +46,7 @@ nTM = []
 length_array = np.arange(coupling_length_start, coupling_length_stop, coupling_length_step)
 
 
-with lumapi.MODE(MODE_DC_DIRECTORY_READ) as mode:
+with lumapi.MODE(str(templates[0])) as mode:
 
     # Create the mesh
     mode.mesh()
@@ -56,7 +58,7 @@ with lumapi.MODE(MODE_DC_DIRECTORY_READ) as mode:
     mode.findmodes()
 
     polariz_mode, sym_mode, neff, wavelength, num_modes = super_mode_profile(mode)
-    mode.save(MODE_DC_DIRECTORY_WRITE_FILE + "\\coupling_length.lms")
+    mode.save(str(out["lumerical"] / "coupling_length.lms"))
     mode.close()        
 
     # Locate the Super-mode
@@ -93,7 +95,7 @@ plt.xlabel('coupling length (um)')
 plt.legend(['Through', 'Cross'])
 plt.tight_layout()
 # Save the plot
-file_name_plot = os.path.join(MODE_DC_DIRECTORY_WRITE[2], "TE_coupling_coef_.png")
+file_name_plot = str(out["figure_groups"]["Length Sweep"] / "TE_coupling_coef_.png")
 plt.savefig(file_name_plot)
 
 # Calculate the coupling coefficients for TM mode
@@ -112,5 +114,5 @@ plt.xlabel('coupling length (um)')
 plt.legend(['Through', 'Cross'])
 plt.tight_layout()
 # Save the plot
-file_name_plot = os.path.join(MODE_DC_DIRECTORY_WRITE[2], "TM_coupling_coef_.png")
+file_name_plot = str(out["figure_groups"]["Length Sweep"] / "TM_coupling_coef_.png")
 plt.savefig(file_name_plot)

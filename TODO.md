@@ -26,7 +26,7 @@
   - **MODE Modules:**
     - [x] MODE/awg_star_coupler
     - [ ] MODE/butt_coupling
-    - [ ] MODE/directional_coupler
+    - [x] MODE/directional_coupler
     - [x] MODE/edge_coupler
     - [ ] MODE/laser_tapered_waveguide
     - [ ] MODE/swg_grating

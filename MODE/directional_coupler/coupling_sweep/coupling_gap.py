@@ -21,7 +21,9 @@ import numpy as np
 import lumapi
 import matplotlib.pyplot as plt
 import pandas as pd
-from config import *
+from project_layout import setup
+
+spec, out, templates = setup("mode.directional_coupler", __file__)
 
 # Import user-defined parameters
 from MODE.directional_coupler.user_inputs.user_sweep_parameters import *
@@ -51,9 +53,9 @@ waveguide_constructor = 'waveguide-constructor'
 
 
 for g in range(0,len(gap_array)):
-    with lumapi.MODE(MODE_DC_DIRECTORY_READ) as mode:
+    with lumapi.MODE(str(templates[0])) as mode:
         mode.setnamed(waveguide_constructor,"gap",gap_array[g])
-        mode.save(MODE_DC_DIRECTORY_WRITE_FILE + "\\coupling_gap_sweep_" + str(g) + ".lms")
+        mode.save(str(out["lumerical"] / ("coupling_gap_sweep_" + str(g) + ".lms")))
 
 
 # ---------------------------------------------------------------------------        
@@ -66,7 +68,7 @@ for g in range(0,len(gap_array)):
         mode.setnamed("mesh","x max",xmax)
         print("Repositioning mesh..")
         print("xmin: " +str(xmin)+"\n"+"xmax: " + str(xmax))
-        mode.save(MODE_DC_DIRECTORY_WRITE_FILE + "\\coupling_gap_sweep_" + str(g) + ".lms")
+        mode.save(str(out["lumerical"] / ("coupling_gap_sweep_" + str(g) + ".lms")))
 
         # Create the mesh
         mode.mesh()
@@ -80,7 +82,7 @@ for g in range(0,len(gap_array)):
         polariz_mode, sym_mode, neff, wavelength, num_modes = super_mode_profile(mode)
 
         # save the file
-        mode.save(MODE_DC_DIRECTORY_WRITE_FILE + "\\coupling_gap_sweep_" + str(g) + ".lms")
+        mode.save(str(out["lumerical"] / ("coupling_gap_sweep_" + str(g) + ".lms")))
         mode.close()        
 
 
@@ -133,7 +135,7 @@ plt.ylabel('$L_{\pi}$ (um)')
 plt.legend(['TE','TM'])
 plt.tight_layout()
 # Save the plot
-file_name_plot = os.path.join(MODE_DC_DIRECTORY_WRITE[1], "Lpi_coupling_gap_sweep_.png")
+file_name_plot = str(out["figure_groups"]["Gap Sweep"] / "Lpi_coupling_gap_sweep_.png")
 plt.savefig(file_name_plot)
 
 
@@ -146,7 +148,7 @@ plt.ylabel('$L_{-30dB}$ (um)')
 plt.legend(['TE','TM'])
 plt.tight_layout()
 # Save the plot
-file_name_plot = os.path.join(MODE_DC_DIRECTORY_WRITE[1], "30dB_coupling_gap_sweep_.png")
+file_name_plot = str(out["figure_groups"]["Gap Sweep"] / "30dB_coupling_gap_sweep_.png")
 plt.savefig(file_name_plot)
 
 
@@ -159,7 +161,7 @@ plt.ylabel('Coupling Coefficient (/um)')
 plt.legend(['TE','TM'])
 plt.tight_layout()
 # Save the plot
-file_name_plot = os.path.join(MODE_DC_DIRECTORY_WRITE[1], "TMTE_coupling_coef_.png")
+file_name_plot = str(out["figure_groups"]["Gap Sweep"] / "TMTE_coupling_coef_.png")
 plt.savefig(file_name_plot)
 
 

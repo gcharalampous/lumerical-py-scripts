@@ -13,7 +13,9 @@ of the directional coupler.
 import numpy as np
 import lumapi
 import matplotlib.pyplot as plt
-from config import *
+from project_layout import setup
+
+spec, out, templates = setup("mode.directional_coupler", __file__)
 
 # Import user-defined parameters
 from MODE.directional_coupler.user_inputs.user_simulation_parameters import *
@@ -49,7 +51,9 @@ def getSupermodes(mode):
 
 
 if __name__ == "__main__":
-    with lumapi.MODE(MODE_DC_DIRECTORY_READ) as mode:
+    spec, out, templates = setup("mode.directional_coupler", __file__)
+
+    with lumapi.MODE(str(templates[0])) as mode:
         # Run simulation and find modes
         mode.switchtolayout()
         mode.mesh()
@@ -110,10 +114,10 @@ if __name__ == "__main__":
         plt.tight_layout()
 
         # Save the plot
-        file_name_plot = os.path.join(str(MODE_DC_DIRECTORY_WRITE[2]), "length_TE_dissimilar_waveguides.png")
+        file_name_plot = str(out["figure_groups"]["Dissimilar Waveguides"] / "length_TE_dissimilar_waveguides.png")
         plt.savefig(file_name_plot)
         plt.show()
 
 
         # Save the simulation
-        mode.save(MODE_DC_DIRECTORY_WRITE_FILE + "\\dissimilar_waveguide_modes.lms")
+        mode.save(str(out["lumerical"] / "dissimilar_waveguide_modes.lms"))

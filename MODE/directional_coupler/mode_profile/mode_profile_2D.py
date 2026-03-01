@@ -22,7 +22,7 @@ it also quantifies if the mode is TE or TM based on the polarization fraction.
 import numpy as np
 import lumapi
 import matplotlib.pyplot as plt
-from config import *
+from project_layout import setup
 
 from MODE.directional_coupler.user_inputs.user_simulation_parameters import *
 
@@ -30,7 +30,7 @@ from MODE.directional_coupler.user_inputs.user_simulation_parameters import *
 # ------------------------- No inputs are required ---------------------------
 
 
-def modeProfiles(mode):
+def modeProfiles(mode, figures_dir=None):
 
     mode.findmodes()
 
@@ -75,8 +75,8 @@ def modeProfiles(mode):
         ax.set_ylabel("y (\u00B5m)")
         ax.set_title("Mode-"+str(m) + "(E-field): " + polariz_mode[m-1] + ", neff=" + str(neff[m-1]))
         
-        file_name_plot = os.path.join(MODE_DC_DIRECTORY_WRITE[0], "mode_profile_"+str(m)+".png")
-        plt.savefig(file_name_plot)
+        if figures_dir is not None:
+            plt.savefig(figures_dir / ("mode_profile_"+str(m)+".png"))
 
     return neff, polariz_frac, polariz_mode, sym_mode
 
@@ -87,8 +87,9 @@ def modeProfiles(mode):
 
 
 if(__name__=="__main__"):
+    spec, out, templates = setup("mode.directional_coupler", __file__)
 
-    with lumapi.MODE(MODE_DC_DIRECTORY_READ) as mode:
+    with lumapi.MODE(str(templates[0])) as mode:
 
     # Run the simulation, create a mesh, and compute the modes, then save
     
@@ -114,6 +115,6 @@ if(__name__=="__main__"):
         
         
         # Retrieve mode profiles and assign to respective variables
-        neff, polariz_frac, polariz_mode, sym_mode = modeProfiles(mode)
+        neff, polariz_frac, polariz_mode, sym_mode = modeProfiles(mode, out["figure_groups"]["Mode Profile"])
 
     

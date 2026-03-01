@@ -22,7 +22,7 @@ it also quantifies if the mode is TE or TM based on the polarization fraction.
 import numpy as np
 import lumapi
 import matplotlib.pyplot as plt
-from config import *
+from project_layout import setup
 
 # Import user-defined parameters from another file
 from MODE.directional_coupler.user_inputs.user_simulation_parameters import *
@@ -81,8 +81,9 @@ def super_mode_profile(mode):
 
 
 if(__name__=="__main__"):
+    spec, out, templates = setup("mode.directional_coupler", __file__)
 
-    with lumapi.MODE(MODE_DC_DIRECTORY_READ) as mode:
+    with lumapi.MODE(str(templates[0])) as mode:
 
     # Run the simulation, create a mesh, and compute the modes, then save
     
