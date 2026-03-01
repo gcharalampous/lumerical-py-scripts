@@ -24,7 +24,7 @@ from DEVICE.electro_optic.user_inputs.user_simulation_parameters import *
 from DEVICE.electro_optic.user_inputs.user_materials import *
 from DEVICE.electro_optic.waveguide_render import waveguide_draw
 from DEVICE.electro_optic.charge_region import add_charge_region
-from config import *
+from project_layout import setup
 import pandas as pd
 
 # Define grid dimensions (Reduce for Quiver plot if necessary)
@@ -52,6 +52,7 @@ def get_Efield_static_2D(device):
     return E, x, z, tri
 
 if __name__ == "__main__":
+    spec, out, _ = setup("device.electro_optic", __file__)
     with lumapi.DEVICE(hide=False) as device:
         # Draw the waveguide structure using a custom function
         device.redrawoff()
@@ -61,7 +62,7 @@ if __name__ == "__main__":
         add_charge_region(device)
         
         # Save and run the simulation
-        device.save(EO_MODULATOR_DIRECTORY_WRITE_FILE + "\\eo_waveguide_simulation.ldev")
+        device.save(str(out["lumerical"] / "eo_waveguide_simulation.ldev"))
         device.run()
         
         # Get the electric field data
@@ -139,7 +140,7 @@ if __name__ == "__main__":
             for i in range(1, 4):
                 plt.figure(i)
                 plt.fill(xs, ys, alpha=0.5, fc='none', ec='k')
-                file_name_plot = os.path.join(EO_MODULATOR_DIRECTORY_WRITE[0], f"Efield_{i}.png")
+                file_name_plot = str(out["figure_groups"]["E-field"] / f"Efield_{i}.png")
                 plt.savefig(file_name_plot)
         else:
             # Plot waveguide only
@@ -147,7 +148,7 @@ if __name__ == "__main__":
             for i in range(1, 4):
                 plt.figure(i)
                 plt.fill(xs, ys, alpha=0.5, fc='none', ec='k')
-                file_name_plot = os.path.join(EO_MODULATOR_DIRECTORY_WRITE[0], f"Efield_{i}.png")
+                file_name_plot = str(out["figure_groups"]["E-field"] / f"Efield_{i}.png")
                 plt.savefig(file_name_plot)
 
         # Export the data for the horizontal and vertical components |E_x| and |E_z| to a CSV file
@@ -155,15 +156,15 @@ if __name__ == "__main__":
         # Prepare data for CSV export
         # Save the full 2D arrays for Ex and Ez as CSV files
         np.savetxt(
-            os.path.join(EO_MODULATOR_DIRECTORY_WRITE[0], f"Efield_Ex_v_signal_{v_signal}V.csv"),
+            str(out["figure_groups"]["E-field"] / f"Efield_Ex_v_signal_{v_signal}V.csv"),
             abs(Ex.T) * 1e-3,
             delimiter=","
         )
         np.savetxt(
-            os.path.join(EO_MODULATOR_DIRECTORY_WRITE[0], f"Efield_Ez_v_signal_{v_signal}V.csv"),
+            str(out["figure_groups"]["E-field"] / f"Efield_Ez_v_signal_{v_signal}V.csv"),
             abs(Ez.T) * 1e-3,
             delimiter=",",
         )
         # df = pd.DataFrame(csv_data)
-        # csv_file = os.path.join(EO_MODULATOR_DIRECTORY_WRITE[0], f"Efield_Ex_Ez_v_signal_{v_signal}V.csv")
+        # csv_file = str(out["figure_groups"]["E-field"] / f"Efield_Ex_Ez_v_signal_{v_signal}V.csv")
         # df.to_csv(csv_file, index=False)

@@ -24,7 +24,7 @@ from DEVICE.electro_optic.user_inputs.user_simulation_parameters import *
 from DEVICE.electro_optic.user_inputs.user_materials import *
 from DEVICE.electro_optic.waveguide_render import waveguide_draw
 from DEVICE.electro_optic.charge_region import add_charge_region
-from config import *
+from project_layout import setup
 
 # Define grid dimensions
 N_x = 500
@@ -68,6 +68,7 @@ def get_Efield_static_2D(device):
     return E, x, z, tri
 
 if __name__ == "__main__":
+    spec, out, _ = setup("device.electro_optic", __file__)
     with lumapi.DEVICE(hide=False) as device:
         # Draw the waveguide structure using a custom function
         device.redrawoff()
@@ -77,7 +78,7 @@ if __name__ == "__main__":
         add_charge_region(device)
         
         # Save and run the simulation
-        device.save(EO_MODULATOR_DIRECTORY_WRITE_FILE + "\\eo_waveguide_simulation.ldev")
+        device.save(str(out["lumerical"] / "eo_waveguide_simulation.ldev"))
         device.run()
         
         # Get the electric field data
@@ -187,7 +188,7 @@ if __name__ == "__main__":
             for i in range(1, 3):
                 plt.figure(i)
                 plt.fill(xs, ys, alpha=0.5, fc='none', ec='r')
-                file_name_plot = os.path.join(EO_MODULATOR_DIRECTORY_WRITE[1], f"Index_{i}.png")
+                file_name_plot = str(out["figure_groups"]["Index Change"] / f"Index_{i}.png")
                 plt.savefig(file_name_plot)
         else:
             # Plot waveguide only
@@ -195,5 +196,5 @@ if __name__ == "__main__":
             for i in range(1, 3):
                 plt.figure(i)
                 plt.fill(xs, ys, alpha=0.5, fc='none', ec='r')
-                file_name_plot = os.path.join(EO_MODULATOR_DIRECTORY_WRITE[1], f"Index_{i}.png")
+                file_name_plot = str(out["figure_groups"]["Index Change"] / f"Index_{i}.png")
                 plt.savefig(file_name_plot)

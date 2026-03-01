@@ -42,7 +42,7 @@ remains the propagation. The z-axis is not used during mode simulations.
 
 """
 import lumapi
-from config import *
+from project_layout import setup
 
 #----------------------------------------------------------------------------
 # Imports from user files
@@ -193,11 +193,12 @@ def waveguide_draw(device):
 
 
 if(__name__=="__main__"):
+    spec, out, _ = setup("device.electro_optic", __file__)
     with lumapi.DEVICE(hide=True) as device:
     
       # Draw the waveguide structure using a custom function
       device.redrawoff()
       waveguide_draw(device)
 
-      device.save(EO_MODULATOR_DIRECTORY_WRITE_FILE + "\\eo_waveguide_render.ldev")
+      device.save(str(out["lumerical"] / "eo_waveguide_render.ldev"))
 

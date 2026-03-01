@@ -12,7 +12,7 @@ The purpose of this script is to take the parameters from the
 
 """
 import lumapi
-from config import *
+from project_layout import setup
 
 
 #----------------------------------------------------------------------------
@@ -36,7 +36,7 @@ def get_neff(device):
     return neff
 
 
-def get_dneff(device):
+def get_dneff(device, lumerical_dir):
     
     
     # Get the electric field data
@@ -112,13 +112,14 @@ def get_dneff(device):
 
     
     # Saving the data to a MATLAB file
-    savemat(EO_MODULATOR_DIRECTORY_WRITE_FILE + '\\nk_region.mat', data)
+    savemat(str(lumerical_dir / 'nk_region.mat'), data)
 
     return Dnx, Dnz
 
 
 
 if(__name__=="__main__"):
+    spec, out, _ = setup("device.electro_optic", __file__)
     with lumapi.DEVICE(hide=True) as device:
     
         # Draw the waveguide structure using a custom function
@@ -133,7 +134,7 @@ if(__name__=="__main__"):
     
           
         # Save and run the simulation
-        device.save(EO_MODULATOR_DIRECTORY_WRITE_FILE + "\\eo_waveguide_simulation.ldev")
+        device.save(str(out["lumerical"] / "eo_waveguide_simulation.ldev"))
         
         # get the mode properties
         device.run("FEEM")
@@ -152,13 +153,13 @@ if(__name__=="__main__"):
 
         # # get the dn
         # device.switchtolayout()
-        # device.save(EO_MODULATOR_DIRECTORY_WRITE_FILE + "\\eo_waveguide_simulation.ldev")
+        # device.save(str(out["lumerical"] / "eo_waveguide_simulation.ldev"))
 
         # # Add nk import
 
         # device.setnamed("FEEM::nk import","volume type","solid")
         # device.setnamed("FEEM::nk import","volume solid","waveguide")
-        # device.feval(EO_MODULATOR_DIRECTORY_WRITE_FILE + '\\eo_waveguide_simulation.lsf')
+        # device.feval(str(out["lumerical"] / 'eo_waveguide_simulation.lsf'))
 
       
       
