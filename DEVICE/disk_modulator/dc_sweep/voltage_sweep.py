@@ -20,7 +20,7 @@ from DEVICE.pin_modulator.user_inputs.user_materials import *
 from DEVICE.pin_modulator.user_inputs.user_sweep_parameters import *
 from DEVICE.pin_modulator.waveguide_render import waveguide_draw
 from DEVICE.pin_modulator.charge_region import add_charge_region
-from config import *
+from project_layout import setup
 
 
 def voltage_sweep(device, v_anode_start,v_anode_stop,v_num_pts):
@@ -70,6 +70,7 @@ def voltage_sweep(device, v_anode_start,v_anode_stop,v_num_pts):
                
                
 if(__name__=="__main__"):
+    spec, out, _ = setup("device.disk_modulator", __file__)
     with lumapi.DEVICE(hide=False) as device:
     
         
@@ -86,6 +87,6 @@ if(__name__=="__main__"):
         voltage_sweep(device, v_anode_start, v_anode_stop, v_num_pts)
         
         # Save and Run
-        device.save(PIN_MODULATOR_DIRECTORY_WRITE_FILE + "\\pin_waveguide_simulation.ldev")
+        device.save(str(out["lumerical"] / "disk_waveguide_simulation.ldev"))
         
         device.run()

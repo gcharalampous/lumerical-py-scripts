@@ -235,6 +235,35 @@ SIMS: Dict[str, SimSpec] = {
         create_lumerical_dir=True,
     ),
 
+    # -------------------------------------------------------------- DEVICE
+    # DEVICE: Disk Modulator (PN high-speed)
+    "device.disk_modulator": SimSpec(
+        key="device.disk_modulator",
+        domain="DEVICE",
+        module="disk_modulator",
+        templates=[],
+        figure_groups=["AC Sweep", "Charge Profile", "DC Sweep"],
+        create_lumerical_dir=True,
+    ),
+    # DEVICE: Electro-Optic (Pockels) Modulator
+    "device.electro_optic": SimSpec(
+        key="device.electro_optic",
+        domain="DEVICE",
+        module="electro_optic",
+        templates=[],
+        figure_groups=["E-field", "Index Change"],
+        create_lumerical_dir=True,
+    ),
+    # DEVICE: PIN Modulator
+    "device.pin_modulator": SimSpec(
+        key="device.pin_modulator",
+        domain="DEVICE",
+        module="pin_modulator",
+        templates=[],
+        figure_groups=["AC Sweep", "Charge Profile", "DC Sweep"],
+        create_lumerical_dir=True,
+    ),
+
 }
 
 

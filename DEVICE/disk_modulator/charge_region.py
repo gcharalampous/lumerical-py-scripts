@@ -47,7 +47,7 @@ boundaries.
 
 """
 import lumapi
-from config import *
+from project_layout import setup
 
 
 #----------------------------------------------------------------------------
@@ -252,6 +252,7 @@ def add_charge_region(device):
                
                
 if(__name__=="__main__"):
+    spec, out, _ = setup("device.disk_modulator", __file__)
     with lumapi.DEVICE(hide=True) as device:
     
       # Draw the waveguide structure using a custom function
@@ -262,6 +263,6 @@ if(__name__=="__main__"):
       add_charge_region(device)
 
 
-      device.save(PN_DISK_MODULATOR_DIRECTORY_WRITE_FILE + "\\pn_disk_waveguide_render.ldev")
+      device.save(str(out["lumerical"] / "disk_waveguide_render.ldev"))
 
 

@@ -20,7 +20,7 @@ from DEVICE.disk_modulator.user_inputs.user_materials import *
 from DEVICE.disk_modulator.user_inputs.user_sweep_parameters import *
 from DEVICE.disk_modulator.waveguide_render import waveguide_draw
 from DEVICE.disk_modulator.charge_region import add_charge_region
-from config import *
+from project_layout import setup
 
 epsilon0 = 8.854187817620e-12               # [F/m]
 epsilon_s = 11.8                            # Si Relative Dielectric constant
@@ -197,6 +197,7 @@ def write_s1p_from_impedance(f, Z, filename, z0=50.0, unit="Hz", fmt="RI"):
     return str(filename.resolve())
 
 if __name__ == "__main__":
+    spec, out, _ = setup("device.disk_modulator", __file__)
     with lumapi.DEVICE() as device:
         # Build geometry & simulation region
         device.redrawoff()
@@ -204,7 +205,7 @@ if __name__ == "__main__":
         add_charge_region(device)
 
         # Save model once
-        device.save(PIN_MODULATOR_DIRECTORY_WRITE_FILE + "\\pin_waveguide_simulation.ldev")
+        device.save(str(out["lumerical"] / "disk_waveguide_simulation.ldev"))
 
         # --- AC sweep(s) ---
         f_start, f_stop, ppd, bias_list = _get_ac_params()
@@ -216,19 +217,16 @@ if __name__ == "__main__":
             f, Z, R, Ceff = run_ac(device)
 
             # Persist numeric outputs (per-bias)
-            npz_path = os.path.join(str(PIN_MODULATOR_DIRECTORY_WRITE[1]),
-                                    f"ac_sweep_{v_bias:+.3f}V.npz")
+            npz_path = str(out["figure_groups"]["AC Sweep"] / f"ac_sweep_{v_bias:+.3f}V.npz")
             np.savez(npz_path, frequency=f, Z=Z, Ceff=Ceff)
 
-            s1p_file = os.path.join(str(PIN_MODULATOR_DIRECTORY_WRITE[1]),
-                                    f"ac_sweep_{v_bias:+.3f}V.s1p")
+            s1p_file = str(out["figure_groups"]["AC Sweep"] / f"ac_sweep_{v_bias:+.3f}V.s1p")
             s1p_path = write_s1p_from_impedance(f, Z, s1p_file, z0=50.0, unit="Hz", fmt="RI")
 
 
             # Optional: MATLAB file
             try:
-                device.matlabsave(os.path.join(str(PIN_MODULATOR_DIRECTORY_WRITE[1]),
-                                  f"ac_sweep_{v_bias:+.3f}V.mat"), "f", "Z", "Ceff")
+                device.matlabsave(str(out["figure_groups"]["AC Sweep"] / f"ac_sweep_{v_bias:+.3f}V.mat"), "f", "Z", "Ceff")
             except Exception:
                 # If MATLAB saving isn’t available in this context, ignore
                 pass
@@ -236,7 +234,7 @@ if __name__ == "__main__":
             # Plots
             imp_png, cap_png = plot_and_save_ac(
                 f, R, Ceff, v_bias,
-                out_dir=str(PIN_MODULATOR_DIRECTORY_WRITE[1]),
+                out_dir=str(out["figure_groups"]["AC Sweep"]),
                 dpi=my_dpi
             )
             saved_images.extend([imp_png, cap_png])

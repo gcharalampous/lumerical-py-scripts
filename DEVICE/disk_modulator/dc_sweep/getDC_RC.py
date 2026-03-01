@@ -21,7 +21,7 @@ from DEVICE.disk_modulator.user_inputs.user_materials import *
 from DEVICE.disk_modulator.user_inputs.user_sweep_parameters import *
 from DEVICE.disk_modulator.waveguide_render import waveguide_draw
 from DEVICE.disk_modulator.charge_region import add_charge_region
-from config import *
+from project_layout import setup
 
 
 
@@ -81,6 +81,7 @@ def getDCVbi(device):
 
 
 if(__name__=="__main__"):
+    spec, out, _ = setup("device.disk_modulator", __file__)
     with lumapi.DEVICE() as device:
     
         
@@ -97,7 +98,7 @@ if(__name__=="__main__"):
         voltage_sweep(device, v_anode_start, v_anode_stop, v_num_pts)
         
         # Save and Run
-        device.save(PN_DISK_MODULATOR_DIRECTORY_WRITE_FILE + "\\pn_disk_waveguide_simulation.ldev")
+        device.save(str(out["lumerical"] / "disk_waveguide_simulation.ldev"))
         
         device.run()
         
@@ -120,7 +121,7 @@ if(__name__=="__main__"):
         plt.xlabel("Voltage (V)")
         plt.ylabel("Resistance ($k\\Omega \\cdot \\mu m$)")
         plt.tight_layout()
-        file_name_plot = os.path.join(str(PN_DISK_MODULATOR_DIRECTORY_WRITE[1]), "Resistance_DC.png")
+        file_name_plot = str(out["figure_groups"]["DC Sweep"] / "Resistance_DC.png")
         plt.savefig(file_name_plot)
         
                 
@@ -146,7 +147,7 @@ if(__name__=="__main__"):
         plt.grid(which='both')   
         plt.tight_layout()
 
-        file_name_plot = os.path.join(str(PN_DISK_MODULATOR_DIRECTORY_WRITE[1]), "Capacitance_DC.png")
+        file_name_plot = str(out["figure_groups"]["DC Sweep"] / "Capacitance_DC.png")
         plt.savefig(file_name_plot)
 
 
