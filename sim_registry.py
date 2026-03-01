@@ -153,6 +153,14 @@ SIMS: Dict[str, SimSpec] = {
         templates=["mode_taper.fsp"],
         figure_groups=["Fields", "Index Profile", "Sweep Transmission"],
     ),
+    # FDTD: Waveguide bend
+    "fdtd.waveguide_bend": SimSpec(
+        key="fdtd.waveguide_bend",
+        domain="FDTD",
+        module="waveguide_bend",
+        templates=["circular_bend.fsp", "euler_bend.fsp"],
+        figure_groups=["Fields", "Index Profile", "Sweep Transmission"],
+    ),
 
 }
 

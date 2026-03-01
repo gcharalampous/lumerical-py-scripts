@@ -1,26 +1,85 @@
-## 3D Waveguide Bend Simulations (3D FDTD)
+# Waveguide Bend (3D FDTD)
 
-    ┌───────────────────────────────────────────────┐                                         
-    │waveguide-bend                                 │                                         
-    └┬───────────────────┬─────────────────────────┬┘                                         
-    ┌▽─────────────────┐┌▽───────────────────────┐┌▽───────────────────────────┐              
-    │user_inputs       ││sweep_transmission      ││propagation_mode            │              
-    └┬────────────────┬┘└───────────────────────┬┘└───────────────────────────┬┘              
-    ┌▽──────────────┐┌▽───────────────────────┐┌▽───────────────────────────┐┌▽──────────────┐
-    │lumerical_files││user_sweep_parameters.py││sweep_radius_transmission.py││mode_profile.py│
-    └┬──────────────┘└────────────────────────┘└────────────────────────────┘└───────────────┘
-    ┌▽─────────────────┐                                                                      
-    │waveguide_bend.lms│                                                                      
-    └──────────────────┘                                                                      
-    
-    
+**Purpose:**  
+This simulation models bent waveguide sections and evaluates bend-induced loss for different bend radii.
 
-### Quick Simulation Setup
 
-1. After downloading the repository, navigate through the `waveguide-bend/user_inputs/lumerical_files` directory.
-2. Edit the lumerical file template`waveguide_bend.lms` and define the simulation materials for the cladding, core, and box layers along with their dimensions. 
-3. Edit the `user_sweep_parameters.py` to define the simulation sweep parameters. Follow the comment-sections written in the file.
-4. Run the `sweep_transmission/swee_radius_transmission.py` Python file to get the results.
-   1. You can also run the `propagation_mode/mode_profile.py` to see the E-fields at the bending section
+## What this module does
 
-Tip: Low-index contrast material platforms such as silica have larger bending radius than high-index contrast material platforms
+This module performs electromagnetic simulations of waveguide bends using 3D FDTD.
+
+The simulation extracts:
+- **Propagation mode fields**: Top-view and output cross-section E-field profiles
+- **Refractive index profiles**: Top-view and cross-section index maps
+- **Transmission vs. bend radius**: Sweeps bend radius and evaluates total and fundamental mode transmission
+
+
+## Quick start
+1. Set materials and dimensions in either:
+    - `user_inputs/lumerical_files/circular_bend.fsp`
+    - `user_inputs/lumerical_files/euler_bend.fsp`
+2. Set template selection in `user_inputs/user_simulation_parameters.py`.
+3. Run the scripts:
+    - `python fields/mode_profile.py`
+    - `python index_profile/index_profile_2D.py`
+    - `python sweep_transmission/sweep_radius_transmission.py`
+
+4. Results will be saved automatically under:
+    ```
+    FDTD/Results/waveguide_bend/Figures/
+    ├── Fields/
+    ├── Index Profile/
+    └── Sweep Transmission/
+    ```
+
+
+## Lumerical Template files
+
+- `circular_bend.fsp` : Circular bend waveguide template
+- `euler_bend.fsp` : Euler bend waveguide template
+
+
+## Outputs
+
+Results are saved automatically and may include:
+- E-field distribution plots for propagation mode
+- Refractive index profile plots (xy and xz)
+- Transmission vs. bend radius (linear and dB)
+
+Typical output location:
+
+```
+FDTD/Results/waveguide_bend/Figures/
+```
+
+
+## Folder structure
+
+```
+waveguide_bend/
+├── fields/
+│   └── mode_profile.py
+├── index_profile/
+│   └── index_profile_2D.py
+├── README.md
+├── sweep_transmission/
+│   └── sweep_radius_transmission.py
+└── user_inputs/
+    ├── user_simulation_parameters.py
+     └── lumerical_files/
+          ├── circular_bend.fsp
+          └── euler_bend.fsp
+```
+
+
+## Notes
+- Requires Lumerical installed and accessible via lumapi
+- Scripts use `project_layout.py` for path management
+- Current scripts default to `circular_bend.fsp`; switch the template index in scripts if needed
+
+
+## Status
+
+- [x] Verified
+- [ ] Actively used
+- [ ] Legacy or reference

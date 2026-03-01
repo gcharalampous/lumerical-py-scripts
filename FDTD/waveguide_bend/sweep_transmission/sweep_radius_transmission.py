@@ -5,96 +5,81 @@
 # version ='1.0'
 # ---------------------------------------------------------------------------
 """
-No user-inputs are required.
+Extract and plot length sweep results for the waveguide mode taper.
 
-The scripts sweeps the radius of the waveguide and calculates the transmission
-of the fundamental mode.
+Assumes a sweep named ``sweep_length`` with result ``T`` defined in
+the template .fsp file (mode_taper.fsp).
 """
 
 #----------------------------------------------------------------------------
-# Imports from user files
+# Imports
 # ---------------------------------------------------------------------------
 
-"""
-No user-inputs are required.
-
-The scripts sweeps the width of the waveguide and calculates the effective
-index for the TE Mode.
-
-"""
-
-#----------------------------------------------------------------------------
-# Imports from user files
-# --
-
-# Import necessary libraries
 import numpy as np
 import lumapi
 import matplotlib.pyplot as plt
-import os 
-import sys 
+from project_layout import setup
+from FDTD.waveguide_bend.user_inputs.user_simulation_parameters import file_index
 
-# Add path to custom module directory
-sys.path.append("..")
+spec, out, templates = setup("fdtd.waveguide_bend", __file__)
+template_fsp = templates[file_index]
+figures_dir = out["figure_groups"]["Sweep Transmission"]
 
-# Import user inputs
-from user_inputs.user_sweep_parameters import bend_radius_start, bend_radius_stop,bend_radius_step   
 
-# Get the current working directory and the filename
-cur_path = os.path.dirname(__file__)
-filename = "waveguide_bend.lms"
+def getBendRadiusSweepResponse(fdtd):
+    """Return bend radius sweep transmission results."""
+    T = fdtd.getsweepresult("sweep_radius", "T")
 
-# Define the waveguide constructor
-waveguide_constructor = 'waveguide-constructor'
+    lambda_array = np.squeeze(T['lambda'])
+    bend_radius = np.squeeze(T["bend_radius"])
+    T_forward = np.squeeze(T["T_forward"])
 
-# Define the file path
-file_path = os.path.relpath('..\\user_inputs\\lumerical_files\\'+filename, cur_path)
+    if lambda_array.size > 1:
+        index_array = int(np.floor(lambda_array.size / 2))
+        lambda0 = lambda_array[index_array]
+        # T_forward shape after squeeze: (n_wavelengths, n_lengths)
+        if T_forward.ndim == 2:
+            transmission = abs(T_forward[index_array, :])
+        else:
+            transmission = abs(T_forward)
+        print(f"The central wavelength is: {lambda0*1e6:.3f} um")
+    else:
+        lambda0 = float(lambda_array)
+        transmission = np.squeeze(abs(T_forward))
+        print(f"The central wavelength is: {lambda0*1e6:.3f} um")
 
-# Connect to the Lumerical FDTD software
-fdtd = lumapi.FDTD(file_path)
+    return transmission, bend_radius, lambda0
 
-# Turn off redrawing of the FDTD layout
-fdtd.redrawoff()
 
-# Create an array of bend radii to sweep through
-bend_radius_array = np.arange(bend_radius_start,bend_radius_stop,bend_radius_step)
+if __name__ == "__main__":
+    with lumapi.FDTD(str(template_fsp)) as fdtd:
+        
+        fdtd.runsweep("sweep_radius")
 
-# Initialize arrays to store the transmission coefficients
-trans_f=[]
-trans_t=[]
+        transmission, bend_radius, lambda0 = getBendRadiusSweepResponse(fdtd=fdtd)
 
-# Loop through each bend radius value
-for rad in range(0,len(bend_radius_array)):
-    print("Loop: " + str(rad))
-    
-    # Switch to the layout mode
-    fdtd.switchtolayout()
-    
-    # Set the bend radius to the current value
-    fdtd.setnamed(waveguide_constructor,"bend_radius",bend_radius_array[rad])
-    
-    # Save the changes
-    fdtd.save()
-    
-    # Run the simulation
-    fdtd.run()
-    
-    # Store the transmission coefficients
-    trans_f.append(fdtd.getresult("monitor_exp","expansion for T").get("T_forward"))
-    trans_t.append(fdtd.getresult("monitor_exp","expansion for T").get("T_total"))
+        px = 1 / plt.rcParams['figure.dpi']
 
-# Convert the transmission arrays to numpy arrays
-trans_f_array = np.squeeze(trans_f)   
-trans_t_array = np.squeeze(trans_t)
+        # Transmission (linear)
+        fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
+        ax.plot(bend_radius * 1e6, abs(transmission), label='Transmission', marker='o')
+        ax.grid(which='both', alpha=0.3)
+        ax.legend()
+        ax.set_xlabel("Bend Radius (um)")
+        ax.set_ylabel("Transmission (Linear)")
+        ax.set_title(fdtd.getnamed("source", "mode selection"))
+        plt.tight_layout()
+        plt.savefig(figures_dir / "sweep_radius_linear.png")
 
-# Plot the transmission coefficients versus the bend radius
-plt.plot(bend_radius_array*1e6,trans_t_array,bend_radius_array*1e6,trans_f_array)
-plt.ylabel('Transmission')
-plt.xlabel('Radius [um]')
-plt.legend(['Total','Fundamental'])
-
-# Turn on redrawing of the FDTD layout
-fdtd.redrawon()
-
-# Close the connection to the Lumerical FDTD software
-fdtd.close()
+        # Transmission (dB)
+        fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
+        transmission_db = 10 * np.log10(abs(transmission))
+        ax.plot(bend_radius * 1e6, transmission_db, label='Transmission', marker='o')
+        ax.grid(which='both', alpha=0.3)
+        ax.legend()
+        ax.set_xlabel("Bend Radius (um)")
+        ax.set_ylabel("Transmission (dB)")
+        ax.set_title(fdtd.getnamed("source", "mode selection"))
+        plt.tight_layout()
+        plt.savefig(figures_dir / "sweep_radius_dB.png")
+        plt.show()
