@@ -19,7 +19,7 @@
     - [x] FDTD/ring_resonator_coupler
     - [x] FDTD/swg_grating
     - [x] FDTD/vertical_taper
-    - [ ] FDTD/waveguide_bend
+    - [x] FDTD/waveguide_bend
     - [x] FDTD/waveguide_crossing
     - [x] FDTD/waveguide_mode_taper
     - [x] FDTD/waveguide_straight
