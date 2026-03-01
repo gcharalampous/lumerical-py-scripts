@@ -24,7 +24,8 @@ import lumapi
 import shapely.geometry as sg
 import shapely.ops as so
 import matplotlib.pyplot as plt
-from config import *
+from pathlib import Path
+from project_layout import setup
 from MODE.laser_tapered_waveguide.user_inputs.user_sweep_parameters import num_modes
 
 
@@ -32,7 +33,7 @@ from MODE.laser_tapered_waveguide.user_inputs.user_sweep_parameters import num_m
 # ------------------------- No inputs are required ---------------------------
 
 
-def modeProfiles(mode):
+def modeProfiles(mode, figures_dir=None):
 
     mode.findmodes()
 
@@ -107,8 +108,9 @@ def modeProfiles(mode):
             plt.fill(xs, ys, alpha=0.5, fc='none', ec='w')
 
 
-        file_name_plot = os.path.join(MODE_LASER_TAPERED_DIRECTORY_WRITE[0], "mode_profile_"+str(m)+".png")
-        plt.savefig(file_name_plot)
+        if figures_dir is not None:
+            file_name_plot = str(Path(figures_dir) / ("mode_profile_"+str(m)+".png"))
+            plt.savefig(file_name_plot)
 
 
 
@@ -162,8 +164,9 @@ def modeProfiles(mode):
 
 
 if(__name__=="__main__"):
+    spec, out, templates = setup("mode.laser_tapered_waveguide", __file__)
 
-    with lumapi.MODE(MODE_LASER_TAPERED_DIRECTORY_READ) as mode:
+    with lumapi.MODE(str(templates[0])) as mode:
 
     # Run the simulation, create a mesh, and compute the modes, then save
     
@@ -189,6 +192,6 @@ if(__name__=="__main__"):
         
         
         # Retrieve mode profiles and assign to respective variables
-        neff, polariz_frac, polariz_mode, sym_mode = modeProfiles(mode)
+        neff, polariz_frac, polariz_mode, sym_mode = modeProfiles(mode, figures_dir=out["figure_groups"]["Mode Profile"])
 
     

@@ -18,9 +18,10 @@ The script calculates the index mesh for the given waveguide specified in
 # ---------------------------------------------------------------------------
 
 import numpy as np
-import lumapi, os
+import lumapi
 import matplotlib.pyplot as plt
-from config import *
+from pathlib import Path
+from project_layout import setup
 import shapely.geometry as sg
 import shapely.ops as so
 
@@ -43,12 +44,14 @@ def getIndex(mode):
 
 
 if(__name__=="__main__"):
-    with lumapi.MODE(MODE_LASER_TAPERED_DIRECTORY_READ) as mode:
+    spec, out, templates = setup("mode.laser_tapered_waveguide", __file__)
+
+    with lumapi.MODE(str(templates[0])) as mode:
         
         
         # Run the simulation, create a mesh, and compute the modes, then save
         mode.mesh()
-        mode.save(MODE_LASER_TAPERED_DIRECTORY_WRITE_FILE + "\\laser_waveguide_modes.lms")
+        mode.save(str(out["lumerical"] / "laser_waveguide_modes.lms"))
 
         # Turn redraw back on and close LumAPI connection
         mode.redrawon()  
@@ -72,7 +75,7 @@ if(__name__=="__main__"):
         plt.tight_layout()
 
         # Save the file
-        file_name_plot = os.path.join(MODE_LASER_TAPERED_DIRECTORY_WRITE[0], "index_real_profile_2D.png")
+        file_name_plot = str(out["figure_groups"]["Index Profile"] / "index_real_profile_2D.png")
         plt.savefig(file_name_plot)
 
 
@@ -91,5 +94,5 @@ if(__name__=="__main__"):
 
 
         # Save the file
-        file_name_plot = os.path.join(MODE_LASER_TAPERED_DIRECTORY_WRITE[0], "index_imag_profile_2D.png")
+        file_name_plot = str(out["figure_groups"]["Index Profile"] / "index_imag_profile_2D.png")
         plt.savefig(file_name_plot)

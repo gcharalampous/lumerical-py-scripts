@@ -28,7 +28,7 @@
     - [ ] MODE/butt_coupling
     - [x] MODE/directional_coupler
     - [x] MODE/edge_coupler
-    - [ ] MODE/laser_tapered_waveguide
+    - [x] MODE/laser_tapered_waveguide
     - [x] MODE/swg_grating
     - [x] MODE/vertical_taper
     - [x] MODE/waveguide

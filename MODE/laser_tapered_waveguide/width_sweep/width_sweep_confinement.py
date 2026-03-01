@@ -2,7 +2,8 @@ import numpy as np
 import lumapi
 import matplotlib.pyplot as plt
 import matplotlib.cm as cm
-from config import *
+from pathlib import Path
+from project_layout import setup
 
 from MODE.laser_tapered_waveguide.user_inputs.user_sweep_parameters import *
 from MODE.laser_tapered_waveguide.OpticalConfinement import optical_confinement
@@ -16,7 +17,9 @@ mesa_constructor = 'mesa-constructor'
 
 
 if(__name__=="__main__"):
-    with lumapi.MODE(MODE_LASER_TAPERED_DIRECTORY_READ) as mode:
+    spec, out, templates = setup("mode.laser_tapered_waveguide", __file__)
+
+    with lumapi.MODE(str(templates[0])) as mode:
 
 
 
@@ -103,6 +106,7 @@ plt.ylim([min(mesa_width_array)*1e6, max(mesa_width_array)*1e6])
 plt.xlim([min(wg_width_array)*1e6, max(wg_width_array)*1e6])
 plt.colorbar(cpf, ax=ax, label='Confinement Factor (%)')
 plt.tight_layout()
+plt.savefig(str(out["figure_groups"]["Width Sweep"] / "confinement_III_V_waveguide.png"))
 plt.show()
 
 Z = np.multiply(conf_wg, 100)
@@ -124,5 +128,6 @@ plt.ylim([min(mesa_width_array)*1e6, max(mesa_width_array)*1e6])
 plt.xlim([min(wg_width_array)*1e6, max(wg_width_array)*1e6])
 plt.colorbar(cpf, ax=ax, label='Confinement Factor (%)')
 plt.tight_layout()
+plt.savefig(str(out["figure_groups"]["Width Sweep"] / "confinement_Si_waveguide.png"))
 plt.show()
 
