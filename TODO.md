@@ -5,6 +5,7 @@
 - [x] Add the scripts for FDTD/waveguide_crossing
 - [x] Add the scripts for FDTD/directional_coupler
 - [x] Add the scripts for FDTD/coupled_ring_coupler
+- [ ] Add a better example and verify the code for the butt_coupling
 - [ ] Migrate all modules from config file to project_layout system:
   - **FDTD Modules:**
     - [x] FDTD/adiabatic_directional_coupler

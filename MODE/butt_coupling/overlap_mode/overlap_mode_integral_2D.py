@@ -24,43 +24,32 @@ m_waveguide2=1
 # ---------------------------------------------------------------------------
 # Import necessary modules
 import lumapi
-from MODE.butt_coupling.user_inputs.user_simulation_parameters import *
-import os 
+from project_layout import setup
+from MODE.butt_coupling.user_inputs.user_simulation_parameters import m_waveguide1, m_waveguide2
 
 
-# Define path to read files from
-path_to_read = "MODE\\Results\\butt_coupling\\lumerical_files\\d_cards"
+if __name__ == "__main__":
+    spec, out, templates = setup("mode.butt_coupling", __file__)
+    dcards_dir = out["lumerical"] / "d_cards"
 
-# Define the list of waveguide files to be loaded into Lumerical MODE
-file_waveguide = ['waveguide_1.ldf', 'waveguide_2.ldf']
+    # Define the list of waveguide files to be loaded into Lumerical MODE
+    file_waveguide = ['waveguide_1.ldf', 'waveguide_2.ldf']
 
-# Get the current path and directory of this Python script
-current_path = os.path.abspath(__file__)
-current_dir = os.path.dirname(current_path)
+    # Initialize a list to store the names of the waveguide modes in Lumerical MODE
+    file_name_mode = [str]*len(file_waveguide)
 
-# Move up the directory hierarchy until we find the .gitignore file,
-# which is assumed to be in the root directory of the project
-while not os.path.isfile(os.path.join(current_dir, ".gitignore")):
-    current_dir = os.path.dirname(current_dir)
+    # Initialize LumAPI and turn off redraw for faster simulations
+    with lumapi.MODE() as mode:
+        
+        # Switch to layout mode
+        mode.switchtolayout()
+        
+        # Load each waveguide file into Lumerical MODE
+        for i in range(0,len(file_waveguide)):
+            file_name_mode[i] = str(dcards_dir / file_waveguide[i])
+            mode.loaddata(file_name_mode[i])
 
-# Define the directory to read the files from, based on the project root directory
-dir_to_read = os.path.join(current_dir, path_to_read)
-
-# Initialize a list to store the names of the waveguide modes in Lumerical MODE
-file_name_mode = [str]*len(file_waveguide)
-
-# Initialize LumAPI and turn off redraw for faster simulations
-with lumapi.MODE() as mode:
-    
-    # Switch to layout mode
-    mode.switchtolayout()
-    
-    # Load each waveguide file into Lumerical MODE
-    for i in range(0,len(file_waveguide)):
-        file_name_mode[i] = os.path.join(dir_to_read, file_waveguide[i])
-        mode.loaddata(file_name_mode[i])
-
-    # Compute the overlap integral between the two waveguides
-    print("Overlap Integral [Mode,Power]\n")
-    print(mode.overlap("waveguide_1_mode" + str(m_waveguide1), 
-                       "waveguide_2_mode" + str(m_waveguide2)))
+        # Compute the overlap integral between the two waveguides
+        print("Overlap Integral [Mode,Power]\n")
+        print(mode.overlap("waveguide_1_mode" + str(m_waveguide1), 
+                           "waveguide_2_mode" + str(m_waveguide2)))
