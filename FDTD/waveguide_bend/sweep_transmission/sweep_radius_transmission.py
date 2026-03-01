@@ -5,10 +5,10 @@
 # version ='1.0'
 # ---------------------------------------------------------------------------
 """
-Extract and plot length sweep results for the waveguide mode taper.
+Extract and plot bend radius sweep results for the waveguide bend.
 
-Assumes a sweep named ``sweep_length`` with result ``T`` defined in
-the template .fsp file (mode_taper.fsp).
+Assumes a sweep named ``sweep_radius`` with result ``T`` defined in
+the template .fsp file (circular_bend.fsp or euler_bend.fsp).
 """
 
 #----------------------------------------------------------------------------

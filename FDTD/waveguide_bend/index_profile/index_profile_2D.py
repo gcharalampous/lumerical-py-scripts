@@ -51,7 +51,6 @@ if(__name__=="__main__"):
         z = index_xz["z"].squeeze()
         
         index_xy_top_X = np.real(index_xy["index_x"].squeeze())
-        index_xy_bottom_X = np.real(index_xy["index_y"].squeeze())
         index_xz_Z = np.real(index_xz["index_z"].squeeze())
 
         px = 1/plt.rcParams['figure.dpi']  # pixel in inches

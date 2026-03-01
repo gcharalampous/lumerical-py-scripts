@@ -64,11 +64,13 @@ waveguide_bend/
 ├── README.md
 ├── sweep_transmission/
 │   └── sweep_radius_transmission.py
+├── transmission/
+│   └── getFrequencyResponse.py
 └── user_inputs/
     ├── user_simulation_parameters.py
-     └── lumerical_files/
-          ├── circular_bend.fsp
-          └── euler_bend.fsp
+    └── lumerical_files/
+        ├── circular_bend.fsp
+        └── euler_bend.fsp
 ```
 
 
