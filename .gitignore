@@ -172,5 +172,5 @@ README_TEMPLATE.md
 # Pre-commit cache
 .pre-commit-cache/
 
-# Temporary Claude agent working directories
-tmpclaude-*/
+# Temporary Claude agent working directories and files
+tmpclaude-*
