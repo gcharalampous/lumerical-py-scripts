@@ -17,7 +17,7 @@ from DEVICE.pin_modulator.user_inputs.user_simulation_parameters import *
 from DEVICE.pin_modulator.user_inputs.user_materials import *  
 from DEVICE.pin_modulator.waveguide_render import waveguide_draw
 from DEVICE.pin_modulator.charge_region import add_charge_region
-from config import *
+from project_layout import setup
 
 
 
@@ -64,6 +64,7 @@ def getJunctionWidth(device):
 
 
 if(__name__=="__main__"):
+    spec, out, _ = setup("device.pin_modulator", __file__)
     with lumapi.DEVICE(hide=True) as device:
         
 
@@ -75,7 +76,7 @@ if(__name__=="__main__"):
         add_charge_region(device)
         
         # Save and Run
-        device.save(PIN_MODULATOR_DIRECTORY_WRITE_FILE + "\\pin_waveguide_simulation.ldev")
+        device.save(str(out["lumerical"] / "pin_waveguide_simulation.ldev"))
         
         device.run()
         
@@ -93,3 +94,5 @@ if(__name__=="__main__"):
         plt.xlabel("x (\u00B5m)")
         plt.ylabel("$E_c$ (eV)")
         plt.grid()
+        plt.tight_layout()
+        plt.savefig(str(out["figure_groups"]["Charge Profile"] / "band_potential.png"))

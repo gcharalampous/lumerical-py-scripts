@@ -24,7 +24,7 @@ from DEVICE.pin_modulator.user_inputs.user_simulation_parameters import *
 from DEVICE.pin_modulator.user_inputs.user_materials import *  
 from DEVICE.pin_modulator.waveguide_render import waveguide_draw
 from DEVICE.pin_modulator.charge_region import add_charge_region
-from config import *
+from project_layout import setup
 
 
 
@@ -45,6 +45,7 @@ def get_charge_1D (device):
         
         
 if(__name__=="__main__"):
+    spec, out, _ = setup("device.pin_modulator", __file__)
     with lumapi.DEVICE(hide=True) as device:
         
         # Draw the waveguide structure using a custom function
@@ -57,7 +58,7 @@ if(__name__=="__main__"):
         
         # Save and Run
         device.setnamed("CHARGE::charge_monitor","monitor type", 2)
-        device.save(PIN_MODULATOR_DIRECTORY_WRITE_FILE + "\\pin_waveguide_simulation.ldev")        
+        device.save(str(out["lumerical"] / "pin_waveguide_simulation.ldev"))        
         device.run()
         
         # Get the charge
@@ -75,7 +76,7 @@ if(__name__=="__main__"):
         plt.ylabel("Charge (cm$^{-3}$)")
         plt.grid(True, 'both')
 
-        plt.savefig(PIN_MODULATOR_DIRECTORY_WRITE[0] + "\\charge_distrigution.png")
+        plt.savefig(str(out["figure_groups"]["Charge Profile"] / "charge_distrigution.png"))
 
 
         

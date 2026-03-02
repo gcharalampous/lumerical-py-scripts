@@ -37,7 +37,7 @@
   - **DEVICE Modules:**
     - [x] DEVICE/disk_modulator
     - [x] DEVICE/electro_optic
-    - [ ] DEVICE/pin_modulator
+    - [x] DEVICE/pin_modulator
 
 ### Documentation
 - Quick Simulation Setup and Project Tree for
