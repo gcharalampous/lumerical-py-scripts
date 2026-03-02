@@ -34,8 +34,9 @@ select = ["E", "W", "F", "I"]
 # that must follow other setup code; this is a project-wide pattern.
 # F841 = local variable assigned but never used – physics constants are often
 # defined as a named block for readability even when not all are used.
-# E741 = ambiguous variable name – physics code legitimately uses `l` (length).
-extend-ignore = ["E501", "F403", "F405", "E402", "F841", "E741"]
+# E741 = ambiguous variable name – removed after renaming `l` → `_` in
+# width_sweep_confinement.py (the only two occurrences in the codebase).
+extend-ignore = ["E501", "F403", "F405", "E402", "F841"]
 
 [tool.ruff.lint.per-file-ignores]
 # user_inputs files use intentional wildcard imports as a flat parameter

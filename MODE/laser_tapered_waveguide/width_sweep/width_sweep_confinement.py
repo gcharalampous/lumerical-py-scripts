@@ -79,7 +79,7 @@ fig, ax = plt.subplots()
 cpf = ax.contourf(X, Y, Z, levels=levels, cmap=cm.Reds, extend="both")
 
 # Set all level lines to black
-line_colors = ["black" for l in cpf.levels]
+line_colors = ["black" for _ in cpf.levels]
 
 # plot
 cp = ax.contour(X, Y, Z, levels=levels, colors=line_colors)
@@ -101,7 +101,7 @@ fig, ax = plt.subplots()
 cpf = ax.contourf(X, Y, Z, levels=levels, cmap=cm.Reds, extend="both")
 
 # Set all level lines to black
-line_colors = ["black" for l in cpf.levels]
+line_colors = ["black" for _ in cpf.levels]
 
 # plot
 cp = ax.contour(X, Y, Z, levels=levels, colors=line_colors)

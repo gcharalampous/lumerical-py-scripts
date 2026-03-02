@@ -1,0 +1,21 @@
+# Normalize line endings to LF in the repository for all text files.
+# On checkout, Windows gets CRLF, Unix/Mac gets LF (eol=crlf/lf overrides this per type).
+
+* text=auto eol=lf
+
+# Explicitly LF for source files
+*.py    text eol=lf
+*.md    text eol=lf
+*.toml  text eol=lf
+*.yaml  text eol=lf
+*.yml   text eol=lf
+*.cfg   text eol=lf
+*.txt   text eol=lf
+
+# Binary files — no line ending conversion
+*.png   binary
+*.jpg   binary
+*.fsp   binary
+*.ldf   binary
+*.mat   binary
+*.npz   binary
