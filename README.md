@@ -1,5 +1,10 @@
 # Welcome
 
+![Python](https://img.shields.io/badge/python-3.8%2B-blue)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+[![Ruff](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
+[![Lint](https://github.com/gcharalampous/lumerical-py-scripts/actions/workflows/lint.yml/badge.svg)](https://github.com/gcharalampous/lumerical-py-scripts/actions/workflows/lint.yml)
+
 ```
 .
 ├── DEVICE
@@ -37,6 +42,18 @@
     └── waveguide
 
 ```
+## Quick Navigation
+
+| Solver | Modules | Description |
+|--------|---------|-------------|
+| [FDTD](FDTD/README.md) | 16 modules | Finite-Difference Time-Domain electromagnetic simulations |
+| [MODE](MODE/README.md) | 8 modules | Mode analysis and effective index calculations |
+| [DEVICE](DEVICE/README.md) | 3 modules | Carrier transport and optoelectronic simulations |
+
+**Infrastructure:**
+- [`project_layout.py`](project_layout.py) — directory management and results paths for all modules
+- [`sim_registry.py`](sim_registry.py) — central typed registry of all 27 simulation specs
+
 ## Why this Repository?
 
 In this repository, you will find useful scripts to optimize your workflow and automate your daily design tasks. All you need to do is modify the .py files under `user_inputs` in each subdirectory and run the scripts. The results will be shown on the Python interactive terminal and stored under a `Result` directory that will be created after you run the scripts. The repository is divided into three main simulation branches with multiple subcategories each:
@@ -48,7 +65,7 @@ You need installed on your operating system the following software
 
 - Lumerical Software
 
-- Python3
+- Python 3.8+
 
 - Python Packages in [requirements.txt](requirements.txt) (Numpy, Matplotlib, Shapely, etc)
 
@@ -83,6 +100,10 @@ Ensure that you run the code with the Jupyter Interactive Python kernel to view 
 
 ## To-Do List
 See the full [To-Do List](TODO.md) for upcoming tasks and features.
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for setup instructions, code conventions, and how to add new simulation modules.
 
 ## References
 

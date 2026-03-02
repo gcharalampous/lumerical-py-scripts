@@ -83,7 +83,7 @@ pin_modulator/
 
 ## Notes
 - Requires Lumerical installed and accessible via lumapi
-- Scripts assume paths defined in config.py
+- Scripts use `project_layout.py` for all path and output directory management
 - Designed to be run from the repository root
 
 

@@ -1,0 +1,70 @@
+name: Update module counts
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "FDTD/**"
+      - "MODE/**"
+      - "DEVICE/**"
+
+permissions:
+  contents: write
+
+jobs:
+  update-counts:
+    name: Update Quick Navigation table
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Update module counts in README
+        run: |
+          python3 - <<'EOF'
+          import re
+          from pathlib import Path
+
+          REPO_ROOT = Path(".")
+
+          def load_gitignore_dirs():
+              excluded = set()
+              gitignore = REPO_ROOT / ".gitignore"
+              if gitignore.exists():
+                  for line in gitignore.read_text(encoding="utf-8").splitlines():
+                      line = line.strip()
+                      if not line or line.startswith("#"):
+                          continue
+                      if line.endswith("/"):
+                          excluded.add(line.rstrip("/"))
+              return excluded
+
+          def count_modules(domain, exclude):
+              return sum(1 for p in (REPO_ROOT / domain).iterdir() if p.is_dir() and p.name not in exclude)
+
+          exclude = load_gitignore_dirs()
+          counts = {d: count_modules(d, exclude) for d in ("FDTD", "MODE", "DEVICE")}
+
+          readme = REPO_ROOT / "README.md"
+          content = readme.read_text(encoding="utf-8")
+          for domain, count in counts.items():
+              content = re.sub(
+                  rf"(\| \[{domain}\]\({domain}/README\.md\) \| )\d+( modules \|)",
+                  rf"\g<1>{count}\g<2>",
+                  content,
+              )
+          readme.write_text(content, encoding="utf-8")
+          print(f"FDTD={counts['FDTD']}, MODE={counts['MODE']}, DEVICE={counts['DEVICE']}")
+          EOF
+
+      - name: Commit updated README
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git diff --quiet README.md || (
+            git add README.md &&
+            git commit -m "chore: update module counts in README" &&
+            git push
+          )
