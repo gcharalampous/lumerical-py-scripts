@@ -61,7 +61,7 @@ def modeProfiles():
         x = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "x"))
         y = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "y"))
         E1 = np.squeeze(mode.getelectric("FDE::data::mode" + str(m)))
-        H1 = np.squeeze(mode.getmagnetic("FDE::data::mode" + str(m)))
+        _H1 = np.squeeze(mode.getmagnetic("FDE::data::mode" + str(m)))
         if colormesh_plot_log:
             plt.pcolormesh(
                 x * 1e6,

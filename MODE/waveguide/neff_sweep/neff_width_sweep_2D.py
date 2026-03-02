@@ -68,7 +68,7 @@ def widthSweep(mode):
     #            polariz_mode[wd][m-1] = ("TM")
 
     neff_array = np.squeeze(neff)
-    polariz_frac_array = np.squeeze(polariz_frac)
+    _polariz_frac_array = np.squeeze(polariz_frac)
 
     # Plot effective index versus waveguide width for each mode
     plt.figure(1, figsize=(512 / my_dpi, 256 / my_dpi), dpi=my_dpi)

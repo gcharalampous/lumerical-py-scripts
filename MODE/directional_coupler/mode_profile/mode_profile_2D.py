@@ -33,7 +33,7 @@ def modeProfiles(mode, figures_dir=None):
     mode.findmodes()
 
     Ef = mode.getresult("FDE::data::mode" + str(1), "E")
-    wavelength = np.squeeze(Ef["lambda"])
+    _wavelength = np.squeeze(Ef["lambda"])
 
     neff = []
     polariz_frac = []
@@ -47,12 +47,12 @@ def modeProfiles(mode, figures_dir=None):
         if polariz_frac[m - 1] > 0.5:  # identify the TE-like or TM-like modes
             polariz_mode.append("TE")
             E1 = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "Ex"))
-            H1 = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "Hx"))
+            _H1 = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "Hx"))
 
         else:
             polariz_mode.append("TM")
             E1 = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "Ey"))
-            H1 = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "Hy"))
+            _H1 = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "Hy"))
 
         sym_mode[m - 1] = np.real(E1.min())
         x = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "x"))
@@ -64,7 +64,7 @@ def modeProfiles(mode, figures_dir=None):
         im = ax.pcolormesh(
             x * 1e6, y * 1e6, np.transpose(np.real(E1)), shading="gouraud", cmap="jet"
         )
-        cbar = fig.colorbar(im)
+        _cbar = fig.colorbar(im)
 
         ax.set_xlabel("x (\u00b5m)")
         ax.set_ylabel("y (\u00b5m)")

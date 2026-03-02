@@ -83,9 +83,9 @@ def waveguide_draw(device):
         device.addmaterialproperties("CT", material)
 
     if slab_thickness > 0:
-        slab_enable = 1
+        _slab_enable = 1
     else:
-        slab_enable = 0
+        _slab_enable = 0
 
     # Set the parameters of each structure from the user file
 

@@ -13,7 +13,7 @@ def optical_confinement(mode, structure, mode_order):
     m = mode_order
 
     y = []
-    z = []
+    _z = []
     Ey = []
     Ez = []
 
@@ -33,17 +33,17 @@ def optical_confinement(mode, structure, mode_order):
     # z_max=max(z)
     # z_min=min(z)
 
-    neff = mode.getdata("FDE::data::mode" + str(m), "neff")
+    _neff = mode.getdata("FDE::data::mode" + str(m), "neff")
 
     Ex = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "Ex"))
     Ey = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "Ey"))
     Ez = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "Ez"))
-    E = np.transpose(np.sqrt(Ex**2 + Ey**2 + Ez**2))
+    _E = np.transpose(np.sqrt(Ex**2 + Ey**2 + Ez**2))
 
     Hx = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "Hx"))
     Hy = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "Hy"))
     Hz = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "Hz"))
-    H = np.transpose(np.sqrt(Hx**2 + Hy**2 + Hz**2))
+    _H = np.transpose(np.sqrt(Hx**2 + Hy**2 + Hz**2))
 
     Px = Ey * Hz - Ez * Hy
     Py = Ez * Hx - Ex * Hz

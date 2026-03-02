@@ -21,20 +21,20 @@ def capDCanalytical():
     # CONSTANTS
     epsilon0 = 8.854187817620e-12  # [F/m]
     epsilon_s = 11.8  # Si Relative Dielectric constant
-    q = 1.60217646e-19  # Electronic charge [Coulumbs]
-    kB = 1.3806503e-23  # Boltzmann Constant in J/K
-    h = 4.135e-15  # Plank’s constant [eV-s]
+    _q = 1.60217646e-19  # Electronic charge [Coulumbs]
+    _kB = 1.3806503e-23  # Boltzmann Constant in J/K
+    _h = 4.135e-15  # Plank's constant [eV-s]
     m_0 = 9.11e-31  # Electron Mass [kg]
-    m_n = 1.08 * m_0  # Density-of-states effective
+    _m_n = 1.08 * m_0  # Density-of-states effective
     # mass for electrons
-    m_p = 1.15 * m_0  # Density-of-states effective
+    _m_p = 1.15 * m_0  # Density-of-states effective
     # mass for holes
-    Eg = 1.1242  # Si Band-gap [eV]
-    pi = np.pi
+    _Eg = 1.1242  # Si Band-gap [eV]
+    _pi = np.pi
     # --------------------------------------------------------------------------
 
-    ND = Nnn
-    NA = Ppp
+    _ND = Nnn
+    _NA = Ppp
 
     # T = T+273.15                            # Temperature [K]
     # VT = kB*T/q                             # Thermal Voltage

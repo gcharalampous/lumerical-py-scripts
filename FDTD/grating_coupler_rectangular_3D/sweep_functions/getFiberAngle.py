@@ -54,7 +54,7 @@ def plot_coupling_response(T, wavelength, fiber_angle, output_path):
     fiber_angle (numpy.ndarray): Fiber Angle Array.
     output_path (str): Path to save the plot.
     """
-    T_log = 10 * np.log10(T)
+    _T_log = 10 * np.log10(T)
 
     px = 1 / plt.rcParams["figure.dpi"]  # pixel in inches
     fig, ax = plt.subplots(figsize=(512 * px, 256 * px))

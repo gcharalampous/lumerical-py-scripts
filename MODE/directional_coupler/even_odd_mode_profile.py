@@ -46,16 +46,16 @@ def super_mode_profile(mode):
         if polariz_frac[m - 1] > 0.5:  # identify the TE-like or TM-like modes
             polariz_mode.append("TE")
             E1 = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "Ex"))
-            H1 = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "Hx"))
+            _H1 = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "Hx"))
 
         else:
             polariz_mode.append("TM")
             E1 = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "Ey"))
-            H1 = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "Hy"))
+            _H1 = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "Hy"))
 
         sym_mode[m - 1] = np.real(E1.min())
-        x = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "x"))
-        y = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "y"))
+        _x = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "x"))
+        _y = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "y"))
 
     return polariz_mode, sym_mode, neff, wavelength, num_modes
 

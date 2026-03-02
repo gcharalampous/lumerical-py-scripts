@@ -27,7 +27,7 @@ q = 1.60217646e-19  # Electronic charge [Coulumbs]
 def getDCResistance(device):
     cathode_result = device.getresult("CHARGE", "cathode")
     V_c = cathode_result["V_cathode"]
-    i_c = cathode_result["I"]
+    _i_c = cathode_result["I"]
 
     anode_result = device.getresult("CHARGE", "anode")
     V_a = anode_result["V_anode"]

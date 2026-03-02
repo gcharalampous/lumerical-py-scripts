@@ -51,7 +51,7 @@ def get_dneff(device, lumerical_dir):
 
     # Define grid
     x = np.linspace(-2 * wg_width, 2 * wg_width, N_x)
-    y = 0
+    _y = 0
     z = np.linspace(-0e-6, wg_thickness, N_z)
     X, Z = np.meshgrid(x, z)
 

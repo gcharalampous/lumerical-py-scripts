@@ -93,8 +93,7 @@ def voltageSweep(mode):
                     )
                     break
 
-    neff_array = neff
-    polariz_frac_array = np.squeeze(polariz_frac)
+    _neff_array = neff
 
     return loss_TE, loss_TM, neff_TE, neff_TM, V
 
