@@ -32,9 +32,6 @@ select = ["E", "W", "F", "I"]
 # `from <module>.user_inputs.user_* import *` as a flat namespace pattern.
 # E402 = import not at top of file – some scripts have user_inputs imports
 # that must follow other setup code; this is a project-wide pattern.
-# F841 = local variable assigned but never used – physics constants are often
-# defined as a named block for readability even when not all are used.
-# width_sweep_confinement.py (the only two occurrences in the codebase).
 extend-ignore = ["E501", "F403", "F405", "E402"]
 
 [tool.ruff.lint.per-file-ignores]
