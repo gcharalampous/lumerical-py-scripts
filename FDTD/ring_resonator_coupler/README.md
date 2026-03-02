@@ -1,6 +1,6 @@
 # Ring Resonator Coupler
 
-**Purpose:**  
+**Purpose:**
 Simulates a ring resonator coupled to a waveguide using 3D FDTD to extract coupling coefficients, resonance characteristics, and field profiles for optimizing coupling efficiency.
 
 
@@ -71,7 +71,7 @@ user_inputs/user_simulation_parameters.py
 
 Set `file_index` to select which Lumerical template file to load:
 - `0` = straight_ring_coupling_section.fsp
-- `1` = concentric_ring_coupling_section.fsp  
+- `1` = concentric_ring_coupling_section.fsp
 - `2` = rectangular_ring_coupling_section.fsp (required for length sweep)
 
 All other simulation parameters (ring geometry, coupling gap, material properties, wavelength settings, sweep definitions) should be configured within the selected `.fsp` file.

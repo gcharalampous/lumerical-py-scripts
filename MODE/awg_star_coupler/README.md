@@ -1,6 +1,6 @@
 # 2D AWG Star Coupler Simulations (MODE Solutions)
 
-**Purpose:**  
+**Purpose:**
 This module simulates the aperture profile of a 2D star coupler using Lumerical MODE solutions. A star coupler is a key component in Arrayed Waveguide Grating (AWG) devices that distributes light from input waveguides to an array of output waveguides.
 
 

@@ -1,6 +1,6 @@
 # 2D Electro-Optic (DEVICE)
 
-**Purpose:**  
+**Purpose:**
 This module models a Pockels electro-optic modulator to study electric-field-induced refractive index changes and their effect on optical transmission. The simulation quantifies the electro-optic coefficient and modulation efficiency under applied voltage.
 
 
@@ -9,7 +9,7 @@ This module models a Pockels electro-optic modulator to study electric-field-ind
 This module simulates a Pockels electro-optic modulator using Lumerical DEVICE electrostatics solvers.
 - Calculates the electric field distribution in the modulator under applied voltage
 - Computes the resulting refractive index changes via the electro-optic effect
-  
+
 The workflow integrates electrostatic analysis (2D field and index mapping) with optical mode solving to characterize device performance.
 
 ## Quick start

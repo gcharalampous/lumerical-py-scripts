@@ -1,6 +1,6 @@
 # 2D Butt-Coupling Simulations (MODE Solutions)
 
-**Purpose:**  
+**Purpose:**
 This simulation helps analyze how light couples between two waveguides. It focuses on mode interactions and improving device performance in butt-coupling configurations for photonic devices.
 
 

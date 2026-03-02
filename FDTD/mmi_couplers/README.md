@@ -1,6 +1,6 @@
 # MMI Couplers
 
-**Purpose:**  
+**Purpose:**
 Simulates Multi-Mode Interferometer (MMI) couplers using 3D FDTD to extract power splitting characteristics, mode behavior, and field profiles for optimizing MMI coupler designs.
 
 
@@ -44,7 +44,7 @@ Mention:
 ## Simulation scripts
 
 - fields/getFields.py : extract electromagnetic field profiles
-- index_profile/index_profile_2D.py : generate refractive index profile visualization  
+- index_profile/index_profile_2D.py : generate refractive index profile visualization
 - length_sweep/getLengthSweep.py : perform MMI length parametric sweep
 - transmission/getFrequencyResponse.py : extract transmission vs. wavelength spectrum
 

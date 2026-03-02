@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-#----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 # @author: Georgios Gcharalampous (gcharalampous)
 # version ='1.0'
 # ---------------------------------------------------------------------------
@@ -16,15 +16,16 @@ The script extracts and plots:
 
 """
 
-#----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 # Imports from user input files
 # ---------------------------------------------------------------------------
 
-import numpy as np
 import lumapi
 import matplotlib.pyplot as plt
-from project_layout import setup
+import numpy as np
+
 from FDTD.waveguide_bend.user_inputs.user_simulation_parameters import file_index
+from project_layout import setup
 
 
 def getFields(fdtd):
@@ -55,13 +56,14 @@ if __name__ == "__main__":
 
     with lumapi.FDTD(str(template_fsp)) as fdtd:
         x_top, y_top, e_top, x_out, z_out, e_out = getFields(fdtd=fdtd)
-        px = 1 / plt.rcParams['figure.dpi']  # pixel in inches
+        px = 1 / plt.rcParams["figure.dpi"]  # pixel in inches
 
-# --------------------------------Top-View---------------------------------
+        # --------------------------------Top-View---------------------------------
         fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
         e_top_db = 20 * np.log10(np.transpose(e_top))
-        cmap = ax.pcolormesh(x_top * 1e6, y_top * 1e6, e_top_db,
-                             shading='gouraud', cmap='jet', vmin=-40, vmax=0)
+        cmap = ax.pcolormesh(
+            x_top * 1e6, y_top * 1e6, e_top_db, shading="gouraud", cmap="jet", vmin=-40, vmax=0
+        )
         fig.colorbar(cmap)
         plt.xlabel("x (um)")
         plt.ylabel("y (um)")
@@ -69,10 +71,17 @@ if __name__ == "__main__":
         plt.tight_layout()
         plt.savefig(figures_dir / "E_profile_xy.png")
 
-# ----------------------------Cross-Section--------------------------------
+        # ----------------------------Cross-Section--------------------------------
         fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
-        cmap = ax.pcolormesh(x_out * 1e6, z_out * 1e6, np.transpose(e_out),
-                             shading='gouraud', cmap='jet', vmin=0, vmax=1)
+        cmap = ax.pcolormesh(
+            x_out * 1e6,
+            z_out * 1e6,
+            np.transpose(e_out),
+            shading="gouraud",
+            cmap="jet",
+            vmin=0,
+            vmax=1,
+        )
         fig.colorbar(cmap)
         plt.xlabel("x (um)")
         plt.ylabel("z (um)")
@@ -80,5 +89,3 @@ if __name__ == "__main__":
         plt.tight_layout()
         plt.savefig(figures_dir / "E_profile_xz.png")
         plt.show()
-
-

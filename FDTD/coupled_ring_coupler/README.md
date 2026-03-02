@@ -1,6 +1,6 @@
 # Coupled Ring Coupler (3D FDTD)
 
-**Purpose:**  
+**Purpose:**
 Simulate bus-to-ring coupling using 3D FDTD templates (circular bend and racetrack) to study coupling efficiency, field overlap, and spectral response.
 
 

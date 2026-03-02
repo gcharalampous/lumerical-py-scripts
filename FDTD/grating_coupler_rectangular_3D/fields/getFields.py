@@ -3,13 +3,14 @@
 # ----------------------------------------------------------------------------
 # Extract and plot near fields for the rectangular 3D grating coupler.
 # ----------------------------------------------------------------------------
-import numpy as np
+
 import lumapi
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.colors import LogNorm
-from pathlib import Path
-from project_layout import setup
+
 from FDTD.grating_coupler_rectangular_3D.user_inputs.user_simulation_parameters import file_index
+from project_layout import setup
 
 
 def get_fields(fdtd):
@@ -92,5 +93,12 @@ if __name__ == "__main__":
         # Optional side-view (xz) if monitor exists
         if E_xz is not None and z is not None:
             plot_field_xz(
-                x, z, E_xz, "Side-view (xz)", fields_dir / "E_profile_xz.png", "x (um)", "z (um)", px
+                x,
+                z,
+                E_xz,
+                "Side-view (xz)",
+                fields_dir / "E_profile_xz.png",
+                "x (um)",
+                "z (um)",
+                px,
             )

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-#----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 # @author: Georgios Gcharalampous (gcharalampous)
 # version ='1.0'
 # ---------------------------------------------------------------------------
@@ -11,17 +11,19 @@ Uses the first available template (circular bend) unless changed in
 `templates` ordering. Monitors are expected to be named `xy_topview`.
 """
 
-#----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 # Imports
 # ---------------------------------------------------------------------------
 
-import numpy as np
-import lumapi
-import matplotlib.pyplot as plt
-from matplotlib.colors import LogNorm
-from project_layout import setup
 import sys
 from pathlib import Path
+
+import lumapi
+import matplotlib.pyplot as plt
+import numpy as np
+from matplotlib.colors import LogNorm
+
+from project_layout import setup
 
 # Import user configuration
 user_inputs_dir = Path(__file__).resolve().parent.parent / "user_inputs"
@@ -48,14 +50,14 @@ if __name__ == "__main__":
         x, y, E_xy = getFields(fdtd=fdtd)
         c_wavelength = E_xy.shape[-1] // 2  # central wavelength index
 
-        px = 1 / plt.rcParams['figure.dpi']  # pixel to inch conversion
+        px = 1 / plt.rcParams["figure.dpi"]  # pixel to inch conversion
         fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
         cmap = ax.pcolormesh(
             x * 1e6,
             y * 1e6,
             np.transpose(E_xy[:, :, 0, int(c_wavelength)]),
-            shading='gouraud',
-            cmap='jet',
+            shading="gouraud",
+            cmap="jet",
             norm=LogNorm(vmin=1e-4, vmax=1),
         )
         fig.colorbar(cmap)

@@ -1,12 +1,12 @@
 # Vertical Taper (3D FDTD)
 
-**Purpose:**  
+**Purpose:**
 This simulation models a 3D vertical taper structure designed to efficiently couple light between waveguides of different gaps or cross-sectional dimensions. The vertical taper gradually transitions the mode profile and effective index between input and output waveguides.
 
 
 ## What this module does
 
-This module performs electromagnetic simulations of a vertical taper waveguide structure using the 3D FDTD computational method. 
+This module performs electromagnetic simulations of a vertical taper waveguide structure using the 3D FDTD computational method.
 
 The simulation extracts:
 - **Transmission frequency response**: Quantifies power coupling efficiency and spectral characteristics across the operating bandwidth

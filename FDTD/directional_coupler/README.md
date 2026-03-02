@@ -1,6 +1,6 @@
 # Directional Coupler (3D FDTD)
 
-**Purpose:**  
+**Purpose:**
 Simulate waveguide-to-waveguide coupling using 3D FDTD to study coupling efficiency, field overlap, and spectral response.
 
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-#----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 # @author: Georgios Gcharalampous (gcharalampous)
 # version ='1.0'
 # ---------------------------------------------------------------------------
@@ -10,14 +10,15 @@ Plot E-field profiles for the directional coupler template.
 Monitors are expected to be named `xy_topview`.
 """
 
-#----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 # Imports
 # ---------------------------------------------------------------------------
 
-import numpy as np
 import lumapi
 import matplotlib.pyplot as plt
+import numpy as np
 from matplotlib.colors import LogNorm
+
 from project_layout import setup
 
 spec, out, templates = setup("fdtd.directional_coupler", __file__)
@@ -40,14 +41,14 @@ if __name__ == "__main__":
         x, y, E_xy = getFields(fdtd=fdtd)
         c_wavelength = E_xy.shape[-1] // 2  # central wavelength index
 
-        px = 1 / plt.rcParams['figure.dpi']  # pixel to inch conversion
+        px = 1 / plt.rcParams["figure.dpi"]  # pixel to inch conversion
         fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
         cmap = ax.pcolormesh(
             x * 1e6,
             y * 1e6,
             np.transpose(E_xy[:, :, 0, int(c_wavelength)]),
-            shading='gouraud',
-            cmap='jet',
+            shading="gouraud",
+            cmap="jet",
             norm=LogNorm(vmin=1e-4, vmax=1),
         )
         fig.colorbar(cmap)

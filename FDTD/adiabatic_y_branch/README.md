@@ -1,6 +1,6 @@
 # Adiabatic Y-Branch (3D FDTD)
 
-**Purpose:**  
+**Purpose:**
 Simulates an adiabatic Y-branch splitter that uses smooth tapering to achieve symmetric, low-loss power splitting between two output waveguides. The gradual divergence minimizes mode conversion losses and improves splitting efficiency.
 
 

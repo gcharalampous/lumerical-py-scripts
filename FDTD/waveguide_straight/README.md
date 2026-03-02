@@ -1,6 +1,6 @@
 # Straight Waveguide (3D FDTD)
 
-**Purpose:**  
+**Purpose:**
 This simulation models a 3D straight waveguide to characterize its propagation mode profile and electric field distribution. It is useful for verifying waveguide confinement, mode shape, and propagation behaviour before integrating into more complex photonic circuits.
 
 

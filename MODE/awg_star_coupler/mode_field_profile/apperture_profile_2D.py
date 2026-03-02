@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-#----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 # @author: Georgios Gcharalampous (gcharalampous)
 # version ='1.0'
 # ---------------------------------------------------------------------------
@@ -12,13 +12,14 @@ The script calculates the apperture profile of the star coupler specified in
 
 """
 
-#----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 # Imports from user files
 # ---------------------------------------------------------------------------
 
-import numpy as np
 import lumapi
 import matplotlib.pyplot as plt
+import numpy as np
+
 from project_layout import setup
 
 # ------------------------- No inputs are required ---------------------------
@@ -42,25 +43,24 @@ if __name__ == "__main__":
     figures_dir.mkdir(parents=True, exist_ok=True)
 
     with lumapi.MODE(str(template_lms)) as mode:
-
         Ep, theta = getFarField(mode)
 
         # Normalize in dB scale
         Ep_dB = 10 * np.log10(abs(Ep))
         Ep_dB_unity = 10 * np.log10(abs(Ep)) - np.max(Ep_dB)
 
-        px = 1 / plt.rcParams['figure.dpi']  # pixel in inches
+        px = 1 / plt.rcParams["figure.dpi"]  # pixel in inches
 
         fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
-        ax.plot(theta, Ep_dB_unity, label='Ep')
-        ax.set_xlabel("\u03B8 (deg)")
+        ax.plot(theta, Ep_dB_unity, label="Ep")
+        ax.set_xlabel("\u03b8 (deg)")
         ax.set_ylabel("Transmission (dB)")
         ax.grid()
 
-        ax.axhline(y=-30, linestyle='--', color='g')
+        ax.axhline(y=-30, linestyle="--", color="g")
 
-        ax.axvline(x=-30, linestyle='--', color='r')
-        ax.axvline(x=30, linestyle='--', color='r')
+        ax.axvline(x=-30, linestyle="--", color="r")
+        ax.axvline(x=30, linestyle="--", color="r")
 
         fig.tight_layout()
         fig.savefig(figures_dir / "far_field_profile.png")

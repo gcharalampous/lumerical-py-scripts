@@ -1,6 +1,6 @@
 # Waveguide Bend (3D FDTD)
 
-**Purpose:**  
+**Purpose:**
 This simulation models bent waveguide sections and evaluates bend-induced loss for different bend radii.
 
 

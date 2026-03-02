@@ -1,6 +1,6 @@
 # Grating Coupler Rectangular 3D (3D FDTD)
 
-**Purpose:**  
+**Purpose:**
 Simulates a 3D rectangular grating coupler that interfaces between optical fiber (Gaussian beam) and on-chip waveguides. The periodic grating structure enables efficient out-of-plane coupling with wavelength selectivity.
 
 

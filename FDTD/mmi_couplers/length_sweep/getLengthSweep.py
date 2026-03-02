@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-#----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 # @author: Georgios Gcharalampous (gcharalampous)
 # version ='1.0'
 # ---------------------------------------------------------------------------
@@ -10,16 +10,18 @@ Extract and plot MMI length sweep results.
 Assumes a sweep named `sweep_Lmmi` with results `T1` and `T2`.
 """
 
-#----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 # Imports
 # ---------------------------------------------------------------------------
 
-import numpy as np
-import lumapi
-import matplotlib.pyplot as plt
-from project_layout import setup
 import sys
 from pathlib import Path
+
+import lumapi
+import matplotlib.pyplot as plt
+import numpy as np
+
+from project_layout import setup
 
 # Import user configuration
 user_inputs_dir = Path(__file__).resolve().parent.parent / "user_inputs"
@@ -44,26 +46,26 @@ if __name__ == "__main__":
 
         T1, T2 = getLengthResponse(fdtd=fdtd)
         length = np.squeeze(T1["Lmmi"])
-        
+
         # Extract T data and handle wavelength dimension
         T1_data = np.squeeze(T1["T"])
         T2_data = np.squeeze(T2["T"])
-        
+
         # Slice at center wavelength if multiple wavelength points
         if T1_data.ndim > 1:
             c_wavelength = int(np.rint(T1_data.shape[0] / 2))
             T1_data = T1_data[c_wavelength, :]
             T2_data = T2_data[c_wavelength, :]
-        
+
         through_1 = T1_data
         through_2 = T2_data
 
-        px = 1 / plt.rcParams['figure.dpi']
+        px = 1 / plt.rcParams["figure.dpi"]
 
         # Port 1 (linear)
         fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
-        ax.plot(length * 1e6, abs(through_1), label='Port 1', marker='o')
-        ax.grid(which='both', alpha=0.3)
+        ax.plot(length * 1e6, abs(through_1), label="Port 1", marker="o")
+        ax.grid(which="both", alpha=0.3)
         ax.legend()
         ax.set_xlabel("MMI Length (um)")
         ax.set_ylabel("Transmission (Linear)")
@@ -72,8 +74,8 @@ if __name__ == "__main__":
 
         # Port 2 (linear)
         fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
-        ax.plot(length * 1e6, abs(through_2), label='Port 2', marker='o', color='orange')
-        ax.grid(which='both', alpha=0.3)
+        ax.plot(length * 1e6, abs(through_2), label="Port 2", marker="o", color="orange")
+        ax.grid(which="both", alpha=0.3)
         ax.legend()
         ax.set_xlabel("MMI Length (um)")
         ax.set_ylabel("Transmission (Linear)")
@@ -83,8 +85,8 @@ if __name__ == "__main__":
         # Port 1 (dB)
         fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
         through_1_db = 10 * np.log10(abs(through_1))
-        ax.plot(length * 1e6, through_1_db, label='Port 1', marker='o')
-        ax.grid(which='both', alpha=0.3)
+        ax.plot(length * 1e6, through_1_db, label="Port 1", marker="o")
+        ax.grid(which="both", alpha=0.3)
         ax.legend()
         ax.set_xlabel("MMI Length (um)")
         ax.set_ylabel("Transmission (dB)")
@@ -94,8 +96,8 @@ if __name__ == "__main__":
         # Port 2 (dB)
         fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
         through_2_db = 10 * np.log10(abs(through_2))
-        ax.plot(length * 1e6, through_2_db, label='Port 2', marker='o', color='orange')
-        ax.grid(which='both', alpha=0.3)
+        ax.plot(length * 1e6, through_2_db, label="Port 2", marker="o", color="orange")
+        ax.grid(which="both", alpha=0.3)
         ax.legend()
         ax.set_xlabel("MMI Length (um)")
         ax.set_ylabel("Transmission (dB)")

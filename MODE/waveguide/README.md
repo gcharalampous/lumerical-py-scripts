@@ -1,6 +1,6 @@
 # 2D Waveguide Simulations (MODE Solutions)
 
-**Purpose:**  
+**Purpose:**
 This module serves as a general waveguide analysis toolbox used across multiple device families.
 
 ## What this module does

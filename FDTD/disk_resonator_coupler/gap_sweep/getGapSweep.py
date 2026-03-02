@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-#----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 # @author: Georgios Gcharalampous (gcharalampous)
 # version ='1.0'
 # ---------------------------------------------------------------------------
@@ -10,16 +10,18 @@ Extract and plot gap sweep results for the disk resonator coupler.
 Assumes a sweep named `sweep_gap` with results `T` and `C`.
 """
 
-#----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 # Imports
 # ---------------------------------------------------------------------------
 
-import numpy as np
-import lumapi
-import matplotlib.pyplot as plt
-from project_layout import setup
 import sys
 from pathlib import Path
+
+import lumapi
+import matplotlib.pyplot as plt
+import numpy as np
+
+from project_layout import setup
 
 # Import user configuration
 user_inputs_dir = Path(__file__).resolve().parent.parent / "user_inputs"
@@ -47,12 +49,12 @@ if __name__ == "__main__":
         through = np.squeeze(T["T"])
         coupled = np.squeeze(C["T"])
 
-        px = 1 / plt.rcParams['figure.dpi']
+        px = 1 / plt.rcParams["figure.dpi"]
 
         # Through (linear)
         fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
-        ax.plot(gap * 1e9, abs(through), label='Through', marker='o')
-        ax.grid(which='both', alpha=0.3)
+        ax.plot(gap * 1e9, abs(through), label="Through", marker="o")
+        ax.grid(which="both", alpha=0.3)
         ax.legend()
         ax.set_xlabel("Gap (nm)")
         ax.set_ylabel("Transmission (Linear)")
@@ -62,8 +64,8 @@ if __name__ == "__main__":
 
         # Coupled (linear)
         fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
-        ax.plot(gap * 1e9, abs(coupled), label='Coupled', marker='o', color='orange')
-        ax.grid(which='both', alpha=0.3)
+        ax.plot(gap * 1e9, abs(coupled), label="Coupled", marker="o", color="orange")
+        ax.grid(which="both", alpha=0.3)
         ax.legend()
         ax.set_xlabel("Gap (nm)")
         ax.set_ylabel("Transmission (Linear)")
@@ -74,8 +76,8 @@ if __name__ == "__main__":
         # Through (dB)
         fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
         through_db = 10 * np.log10(abs(through))
-        ax.plot(gap * 1e9, through_db, label='Through', marker='o')
-        ax.grid(which='both', alpha=0.3)
+        ax.plot(gap * 1e9, through_db, label="Through", marker="o")
+        ax.grid(which="both", alpha=0.3)
         ax.legend()
         ax.set_xlabel("Gap (nm)")
         ax.set_ylabel("Transmission (dB)")
@@ -86,8 +88,8 @@ if __name__ == "__main__":
         # Coupled (dB)
         fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
         coupled_db = 10 * np.log10(abs(coupled))
-        ax.plot(gap * 1e9, coupled_db, label='Coupled', marker='o', color='orange')
-        ax.grid(which='both', alpha=0.3)
+        ax.plot(gap * 1e9, coupled_db, label="Coupled", marker="o", color="orange")
+        ax.grid(which="both", alpha=0.3)
         ax.legend()
         ax.set_xlabel("Gap (nm)")
         ax.set_ylabel("Transmission (dB)")

@@ -81,4 +81,3 @@ This repository contains various simulations using the Finite-Difference Time-Do
 
 ## Usage Instructions
 To run the simulations, ensure you have the necessary software installed and follow the instructions provided in the main README file.
-

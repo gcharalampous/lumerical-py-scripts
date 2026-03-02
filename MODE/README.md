@@ -19,7 +19,7 @@ This module focuses on fiber or free-space Gaussian beam coupling and does not m
 
 ### [laser-tapered-waveguide](laser_tapered_waveguide)
 Calculates optical confinement characteristics of a tapered laser waveguide as the width progressively narrows. Tracks how optical modes behave when vertically displaced and determines how tapering affects mode distribution and confinement efficiency.
-    
+
 ### [swg-grating](swg_grating)
 Simulate and analyze the transmission and reflection properties of a subwavelength grating (SWG) waveguide structure using MODE Solutions, extracting spectral response and mode characteristics across a wavelength range.
 

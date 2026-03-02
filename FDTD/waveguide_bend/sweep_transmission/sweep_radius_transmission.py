@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-#----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 # @author: Georgios Gcharalampous (gcharalampous)
 # version ='1.0'
 # ---------------------------------------------------------------------------
@@ -11,15 +11,16 @@ Assumes a sweep named ``sweep_radius`` with result ``T`` defined in
 the template .fsp file (circular_bend.fsp or euler_bend.fsp).
 """
 
-#----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 # Imports
 # ---------------------------------------------------------------------------
 
-import numpy as np
 import lumapi
 import matplotlib.pyplot as plt
-from project_layout import setup
+import numpy as np
+
 from FDTD.waveguide_bend.user_inputs.user_simulation_parameters import file_index
+from project_layout import setup
 
 spec, out, templates = setup("fdtd.waveguide_bend", __file__)
 template_fsp = templates[file_index]
@@ -30,7 +31,7 @@ def getBendRadiusSweepResponse(fdtd):
     """Return bend radius sweep transmission results."""
     T = fdtd.getsweepresult("sweep_radius", "T")
 
-    lambda_array = np.squeeze(T['lambda'])
+    lambda_array = np.squeeze(T["lambda"])
     bend_radius = np.squeeze(T["bend_radius"])
     T_forward = np.squeeze(T["T_forward"])
 
@@ -42,28 +43,27 @@ def getBendRadiusSweepResponse(fdtd):
             transmission = abs(T_forward[index_array, :])
         else:
             transmission = abs(T_forward)
-        print(f"The central wavelength is: {lambda0*1e6:.3f} um")
+        print(f"The central wavelength is: {lambda0 * 1e6:.3f} um")
     else:
         lambda0 = float(lambda_array)
         transmission = np.squeeze(abs(T_forward))
-        print(f"The central wavelength is: {lambda0*1e6:.3f} um")
+        print(f"The central wavelength is: {lambda0 * 1e6:.3f} um")
 
     return transmission, bend_radius, lambda0
 
 
 if __name__ == "__main__":
     with lumapi.FDTD(str(template_fsp)) as fdtd:
-        
         fdtd.runsweep("sweep_radius")
 
         transmission, bend_radius, lambda0 = getBendRadiusSweepResponse(fdtd=fdtd)
 
-        px = 1 / plt.rcParams['figure.dpi']
+        px = 1 / plt.rcParams["figure.dpi"]
 
         # Transmission (linear)
         fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
-        ax.plot(bend_radius * 1e6, abs(transmission), label='Transmission', marker='o')
-        ax.grid(which='both', alpha=0.3)
+        ax.plot(bend_radius * 1e6, abs(transmission), label="Transmission", marker="o")
+        ax.grid(which="both", alpha=0.3)
         ax.legend()
         ax.set_xlabel("Bend Radius (um)")
         ax.set_ylabel("Transmission (Linear)")
@@ -74,8 +74,8 @@ if __name__ == "__main__":
         # Transmission (dB)
         fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
         transmission_db = 10 * np.log10(abs(transmission))
-        ax.plot(bend_radius * 1e6, transmission_db, label='Transmission', marker='o')
-        ax.grid(which='both', alpha=0.3)
+        ax.plot(bend_radius * 1e6, transmission_db, label="Transmission", marker="o")
+        ax.grid(which="both", alpha=0.3)
         ax.legend()
         ax.set_xlabel("Bend Radius (um)")
         ax.set_ylabel("Transmission (dB)")

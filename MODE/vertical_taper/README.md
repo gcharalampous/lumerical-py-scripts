@@ -1,6 +1,6 @@
 # 2D Verttical Taper Simulations (MODE Solutions)
 
-**Purpose:**  
+**Purpose:**
 Effective index evolution is used to assess adiabatic taper behavior and guide taper length selection. The following module provides capabilities for analyzing vertical taper structures in photonics.
 
 
@@ -21,7 +21,7 @@ This module accurately determines the crossing length where effective indices of
 ## Quick start
 
 1. After downloading the repository, navigate through the `vertical_taper/user_inputs/lumerical_files` directory.
-2. Edit the two lumerical files `taper_waveguide_layer1.lms` and `taper_waveguide_layer2.lms` to define the simulation materials for the cladding, core, and box layers along with their dimensions. 
+2. Edit the two lumerical files `taper_waveguide_layer1.lms` and `taper_waveguide_layer2.lms` to define the simulation materials for the cladding, core, and box layers along with their dimensions.
 3. Edit the `user_sweep_parameters.py` to define the simulation sweep parameters. Follow the comment-sections written in the file.
 4. Run the files in the `vertical_taper/neff_sweep` directory and get the results.
 

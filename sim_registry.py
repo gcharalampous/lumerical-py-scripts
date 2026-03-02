@@ -21,13 +21,11 @@ from typing import Dict, Sequence
 @dataclass(frozen=True)
 class SimSpec:
     key: str
-    domain: str          # "FDTD" | "MODE" | "DEVICE"
-    module: str          # e.g. "adiabatic_directional_coupler"
+    domain: str  # "FDTD" | "MODE" | "DEVICE"
+    module: str  # e.g. "adiabatic_directional_coupler"
     templates: Sequence[str]
     figure_groups: Sequence[str]
     create_lumerical_dir: bool = False  # Whether to create Results/lumerical_files/
-
-
 
 
 # Add modules here.
@@ -86,7 +84,11 @@ SIMS: Dict[str, SimSpec] = {
         key="fdtd.ring_resonator_coupler",
         domain="FDTD",
         module="ring_resonator_coupler",
-        templates=["straight_ring_coupling_section.fsp", "coocentric_ring_coupling_section.fsp", "rectangular_ring_coupling_section.fsp"],
+        templates=[
+            "straight_ring_coupling_section.fsp",
+            "coocentric_ring_coupling_section.fsp",
+            "rectangular_ring_coupling_section.fsp",
+        ],
         figure_groups=["Fields", "Index Profile", "Gap Sweep", "Length Sweep", "Transmission"],
     ),
     # FDTD: Vertical taper
@@ -118,7 +120,10 @@ SIMS: Dict[str, SimSpec] = {
         key="fdtd.grating_coupler_rectangular_3D",
         domain="FDTD",
         module="grating_coupler_rectangular_3D",
-        templates=["grating_coupler_rectangular_3D.fsp", "grating_coupler_rectangular_bilayer_3D.fsp"],
+        templates=[
+            "grating_coupler_rectangular_3D.fsp",
+            "grating_coupler_rectangular_bilayer_3D.fsp",
+        ],
         figure_groups=["Fields", "Index Profile", "Sweep Functions", "Transmission"],
     ),
     # FDTD: Sub-wavelength grating
@@ -161,7 +166,6 @@ SIMS: Dict[str, SimSpec] = {
         templates=["circular_bend.fsp", "euler_bend.fsp"],
         figure_groups=["Fields", "Index Profile", "Sweep Transmission"],
     ),
-
     # ------------------------------------------------------------------ MODE
     # MODE: AWG Star Coupler
     "mode.awg_star_coupler": SimSpec(
@@ -230,11 +234,17 @@ SIMS: Dict[str, SimSpec] = {
         domain="MODE",
         module="waveguide",
         templates=[],
-        figure_groups=["Index Profile", "Mode Profile", "Neff Sweep", "Radius Sweep",
-                       "PIN Offset", "NP Density", "PCM"],
+        figure_groups=[
+            "Index Profile",
+            "Mode Profile",
+            "Neff Sweep",
+            "Radius Sweep",
+            "PIN Offset",
+            "NP Density",
+            "PCM",
+        ],
         create_lumerical_dir=True,
     ),
-
     # -------------------------------------------------------------- DEVICE
     # DEVICE: Disk Modulator (PN high-speed)
     "device.disk_modulator": SimSpec(
@@ -263,11 +273,7 @@ SIMS: Dict[str, SimSpec] = {
         figure_groups=["AC Sweep", "Charge Profile", "DC Sweep"],
         create_lumerical_dir=True,
     ),
-
 }
-
-
-
 
 
 def get_sim(key: str) -> SimSpec:

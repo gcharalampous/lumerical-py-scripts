@@ -1,6 +1,6 @@
 # 2D Laser Tapered Waveguide (MODE Solutions)
 
-**Purpose:**  
+**Purpose:**
 Calculates optical confinement characteristics of a tapered laser waveguide as the width progressively narrows. Tracks how optical modes behave when vertically displaced and determines how tapering affects mode distribution and confinement efficiency. Enables optimization of laser waveguide geometry for improved optical performance.
 
 ## What this module does
@@ -9,7 +9,7 @@ This module calculates the optical confinement characteristics of a laser tapere
 - **Passive Waveguide**: A guiding layer that passively confines light
 - **Active Waveguide**: A laser-active layer responsible for optical amplification
 
-This modules calculates the optical confnment of a laser tapered waveguide. The template consinst of a waveguide layer that guides the light and the laser waveguide 
+This modules calculates the optical confnment of a laser tapered waveguide. The template consinst of a waveguide layer that guides the light and the laser waveguide
 
 
 ## Quick start

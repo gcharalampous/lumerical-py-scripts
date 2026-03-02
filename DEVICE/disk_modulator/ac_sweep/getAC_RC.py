@@ -1,53 +1,54 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-#----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 # @author: Georgios Gcharalampous (gcharalampous)
 # version ='2.0'   # AC sweep version
 # ---------------------------------------------------------------------------
 
 import os
-import numpy as np
-import lumapi
-import matplotlib.pyplot as plt
 from pathlib import Path
 
-#----------------------------------------------------------------------------
+import lumapi
+import matplotlib.pyplot as plt
+import numpy as np
+
+# ----------------------------------------------------------------------------
 # Imports from user files
 # ---------------------------------------------------------------------------
-from DEVICE.disk_modulator.analytical_calculations.capacitance_analytical import capDCanalytical
-from DEVICE.disk_modulator.user_inputs.user_simulation_parameters import *  
-from DEVICE.disk_modulator.user_inputs.user_materials import *  
+from DEVICE.disk_modulator.charge_region import add_charge_region
+from DEVICE.disk_modulator.user_inputs.user_materials import *
+from DEVICE.disk_modulator.user_inputs.user_simulation_parameters import *
 from DEVICE.disk_modulator.user_inputs.user_sweep_parameters import *
 from DEVICE.disk_modulator.waveguide_render import waveguide_draw
-from DEVICE.disk_modulator.charge_region import add_charge_region
 from project_layout import setup
 
-epsilon0 = 8.854187817620e-12               # [F/m]
-epsilon_s = 11.8                            # Si Relative Dielectric constant
-q = 1.60217646e-19                          # Electronic charge [Coulombs]
+epsilon0 = 8.854187817620e-12  # [F/m]
+epsilon_s = 11.8  # Si Relative Dielectric constant
+q = 1.60217646e-19  # Electronic charge [Coulombs]
+
 
 # -------- AC helper (robust to missing user params) --------
 def _get_ac_params():
     # If you already define these in user_sweep_parameters, they will be present.
     # Otherwise we provide safe defaults.
-    f_start = globals().get("ac_start_frequency", 1e6)          # 1 MHz
-    f_stop  = globals().get("ac_stop_frequency", 5e10)          # 50 GHz
-    ppd     = globals().get("ac_points_per_decade", 50)
-    bias_list = globals().get("ac_bias_list", [0.0])            # list of DC biases (V)
+    f_start = globals().get("ac_start_frequency", 1e6)  # 1 MHz
+    f_stop = globals().get("ac_stop_frequency", 5e10)  # 50 GHz
+    ppd = globals().get("ac_points_per_decade", 50)
+    bias_list = globals().get("ac_bias_list", [0.0])  # list of DC biases (V)
     return f_start, f_stop, ppd, bias_list
+
 
 def setup_dc_and_ac(device, v_bias, f_start, f_stop, points_per_decade):
     # --- Set DC operating point on contacts ---
     device.switchtolayout()
-    device.setnamed("CHARGE::boundary conditions::anode", "voltage", v_bias)  # 
-    
-    
+    device.setnamed("CHARGE::boundary conditions::anode", "voltage", v_bias)  #
+
     # --- Configure AC sweep in CHARGE ---
     device.setnamed("CHARGE", "norm length", device_length)
     device.setnamed("CHARGE", "solver mode", "ssac")
     device.setnamed("CHARGE", "solver type", "newton")
-    
-    device.setnamed("CHARGE", "frequency spacing", "log") 
+
+    device.setnamed("CHARGE", "frequency spacing", "log")
     device.setnamed("CHARGE", "log start frequency", float(f_start))
     device.setnamed("CHARGE", "log stop frequency", float(f_stop))
     device.setnamed("CHARGE", "log stop frequency", float(f_stop))
@@ -58,17 +59,18 @@ def setup_dc_and_ac(device, v_bias, f_start, f_stop, points_per_decade):
     # device.setnamed("anode", "ac phase", 0.0)
     # device.setnamed("cathode", "ac amplitude", 0.0)
 
+
 def run_ac(device):
     # Runs DC first, then AC linearized about the DC point
     device.run()
 
     # --- Read AC results ---
     # Frequency vector
-    f = device.getdata("CHARGE","ac_anode","f")  # Hz
-    
+    f = device.getdata("CHARGE", "ac_anode", "f")  # Hz
+
     # Complex impedance looking into "anode"
-    dI = device.getdata("CHARGE","ac_anode","dI")  # A (complex)
-    
+    dI = device.getdata("CHARGE", "ac_anode", "dI")  # A (complex)
+
     # Complex impedance (use '-' only if needed for your port orientation)
     Z = perturbation_amplitude / dI  # V / A = Ohms (complex)
 
@@ -78,16 +80,13 @@ def run_ac(device):
 
     # Drop any zero frequency to avoid division by zero in C extraction
     valid = f > 0
-    f = f[valid]; Z = Z[valid]
+    f = f[valid]
+    Z = Z[valid]
 
-    w = 2*np.pi*f
-    Rs_series = np.real(Z)                   # Ω
-    Xs = np.imag(Z)                          # Ω (should be negative if capacitive)
-    Cs_series = np.where(Xs < 0, -1/(w*Xs), np.nan)   # F
-    
-    
-
-
+    w = 2 * np.pi * f
+    Rs_series = np.real(Z)  # Ω
+    Xs = np.imag(Z)  # Ω (should be negative if capacitive)
+    Cs_series = np.where(Xs < 0, -1 / (w * Xs), np.nan)  # F
 
     # # Admittance and parallel RC
     # Y = 1.0 / Z
@@ -103,18 +102,19 @@ def run_ac(device):
 
     return f, Z, Rs_series, Cs_series
 
+
 def plot_and_save_ac(f, Z, Ceff, v_bias, out_dir, dpi):
     os.makedirs(out_dir, exist_ok=True)
-    
+
     # Ensure arrays are 1D
     f = np.squeeze(f)
     Z = np.squeeze(Z)
     Ceff = np.squeeze(Ceff)
 
     # |Z(f)|
-    plt.figure(figsize=(512/dpi, 256/dpi), dpi=dpi)
-    plt.loglog(f, np.abs(Z), '-')
-    plt.grid(True, which='both')
+    plt.figure(figsize=(512 / dpi, 256 / dpi), dpi=dpi)
+    plt.loglog(f, np.abs(Z), "-")
+    plt.grid(True, which="both")
     plt.xlabel("Frequency (Hz)")
     plt.ylabel("|Z| (Ω)")
     plt.title(f"Impedance vs Frequency @ V_anode = {v_bias:.3f} V")
@@ -123,20 +123,20 @@ def plot_and_save_ac(f, Z, Ceff, v_bias, out_dir, dpi):
     plt.savefig(file_imp)
 
     # Ceff(f)
-    plt.figure(figsize=(512/dpi, 256/dpi), dpi=dpi)
-    plt.loglog(f, Ceff*1e15, '-')
-    plt.grid(True, which='both')
+    plt.figure(figsize=(512 / dpi, 256 / dpi), dpi=dpi)
+    plt.loglog(f, Ceff * 1e15, "-")
+    plt.grid(True, which="both")
     plt.xlabel("Frequency (Hz)")
     plt.ylabel("Capacitance (fF)")
     plt.title(f"Ceff vs Frequency @ V_anode = {v_bias:.3f} V")
     file_cap = os.path.join(str(out_dir), f"Capacitance_AC_{v_bias:+.3f}V.png")
     plt.tight_layout()
     plt.savefig(file_cap)
-    
+
     # R
-    plt.figure(figsize=(512/dpi, 256/dpi), dpi=dpi)
-    plt.loglog(f, R, '-')
-    plt.grid(True, which='both')
+    plt.figure(figsize=(512 / dpi, 256 / dpi), dpi=dpi)
+    plt.loglog(f, R, "-")
+    plt.grid(True, which="both")
     plt.xlabel("Frequency (Hz)")
     plt.ylabel("Resistance (Ω)")
     plt.title(f"Resistance vs Frequency @ V_anode = {v_bias:.3f} V")
@@ -172,9 +172,11 @@ def write_s1p_from_impedance(f, Z, filename, z0=50.0, unit="Hz", fmt="RI"):
         raise ValueError("f and Z must have the same shape")
 
     mask = np.isfinite(f) & np.isfinite(Z.real) & np.isfinite(Z.imag) & (f > 0)
-    f = f[mask]; Z = Z[mask]
+    f = f[mask]
+    Z = Z[mask]
     order = np.argsort(f)
-    f = f[order]; Z = Z[order]
+    f = f[order]
+    Z = Z[order]
 
     if f.size == 0:
         raise ValueError("No valid data points to write.")
@@ -195,6 +197,7 @@ def write_s1p_from_impedance(f, Z, filename, z0=50.0, unit="Hz", fmt="RI"):
             for fi, m, a in zip(f, mag, ang):
                 fh.write(f"{fi:.9e} {m:.9e} {a:.9e}\n")
     return str(filename.resolve())
+
 
 if __name__ == "__main__":
     spec, out, _ = setup("device.disk_modulator", __file__)
@@ -223,19 +226,21 @@ if __name__ == "__main__":
             s1p_file = str(out["figure_groups"]["AC Sweep"] / f"ac_sweep_{v_bias:+.3f}V.s1p")
             s1p_path = write_s1p_from_impedance(f, Z, s1p_file, z0=50.0, unit="Hz", fmt="RI")
 
-
             # Optional: MATLAB file
             try:
-                device.matlabsave(str(out["figure_groups"]["AC Sweep"] / f"ac_sweep_{v_bias:+.3f}V.mat"), "f", "Z", "Ceff")
+                device.matlabsave(
+                    str(out["figure_groups"]["AC Sweep"] / f"ac_sweep_{v_bias:+.3f}V.mat"),
+                    "f",
+                    "Z",
+                    "Ceff",
+                )
             except Exception:
                 # If MATLAB saving isn’t available in this context, ignore
                 pass
 
             # Plots
             imp_png, cap_png = plot_and_save_ac(
-                f, R, Ceff, v_bias,
-                out_dir=str(out["figure_groups"]["AC Sweep"]),
-                dpi=my_dpi
+                f, R, Ceff, v_bias, out_dir=str(out["figure_groups"]["AC Sweep"]), dpi=my_dpi
             )
             saved_images.extend([imp_png, cap_png])
 
@@ -246,6 +251,5 @@ if __name__ == "__main__":
         print(f"Biases swept (V): {bias_list}")
         print(f"Frequency range: {f_start:.3g} Hz → {f_stop:.3g} Hz (log, {ppd} pts/dec)")
         print("Saved:", *saved_images, sep="\n - ")
-        
-        
+
         print("Wrote:", s1p_path)

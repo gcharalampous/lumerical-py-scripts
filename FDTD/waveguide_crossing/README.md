@@ -1,6 +1,6 @@
 # Waveguide Crossing (3D FDTD)
 
-**Purpose:**  
+**Purpose:**
 This simulation models a 3D waveguide crossing structure designed to minimize crosstalk and insertion loss when two waveguides intersect. The structure uses tapered sections to optimize mode confinement and reduce scattering losses at the crossing region.
 
 

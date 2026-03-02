@@ -1,6 +1,6 @@
 # varFDTD Subwavelength Grating (MODE Solutions)
 
-**Purpose:**  
+**Purpose:**
 Simulate and analyze the transmission and reflection properties of a subwavelength grating (SWG) waveguide structure using MODE Solutions, extracting spectral response and mode characteristics across a wavelength range.
 
 
@@ -40,7 +40,7 @@ user_inputs/
 
 Typical inputs include:
 - lumerical template: `sub_wavelength_grating_layer_1.lms`
-- material and geometry properties 
+- material and geometry properties
 - wavelength or frequency settings
 
 

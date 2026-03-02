@@ -1,6 +1,6 @@
 # Adiabatic Directional Coupler (3D FDTD)
 
-**Purpose:**  
+**Purpose:**
 Simulates an adiabatic directional coupler that uses gradual tapering to achieve high coupling efficiency between two waveguides. The adiabatic transition minimizes losses and improves mode transfer compared to conventional directional couplers.
 
 

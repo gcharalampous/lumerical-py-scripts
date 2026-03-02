@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-#----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 # @author: Georgios Gcharalampous (gcharalampous)
 # version ='1.0'
 # ---------------------------------------------------------------------------
@@ -11,13 +11,14 @@ Performs a length sweep on the coupling length and plots the transmission
 for through and coupled ports as a function of coupling length.
 """
 
-#----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 # Imports
 # ---------------------------------------------------------------------------
 
-import numpy as np
 import lumapi
 import matplotlib.pyplot as plt
+import numpy as np
+
 from project_layout import setup
 
 spec, out, templates = setup("fdtd.directional_coupler", __file__)
@@ -41,13 +42,13 @@ if __name__ == "__main__":
         through = np.squeeze(T["T"])
         coupled = np.squeeze(C["T"])
 
-        px = 1 / plt.rcParams['figure.dpi']
+        px = 1 / plt.rcParams["figure.dpi"]
 
         # Linear scale
         fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
-        ax.plot(length * 1e6, through, label='Through', marker='o')
-        ax.plot(length * 1e6, coupled, label='Coupled', marker='o')
-        ax.grid(which='both', alpha=0.3)
+        ax.plot(length * 1e6, through, label="Through", marker="o")
+        ax.plot(length * 1e6, coupled, label="Coupled", marker="o")
+        ax.grid(which="both", alpha=0.3)
         ax.legend()
         ax.set_xlabel("Length (um)")
         ax.set_ylabel("Transmission (Linear)")
@@ -59,9 +60,9 @@ if __name__ == "__main__":
         fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
         through_db = 10 * np.log10(through)
         coupled_db = 10 * np.log10(coupled)
-        ax.plot(length * 1e6, through_db, label='Through', marker='o')
-        ax.plot(length * 1e6, coupled_db, label='Coupled', marker='o')
-        ax.grid(which='both', alpha=0.3)
+        ax.plot(length * 1e6, through_db, label="Through", marker="o")
+        ax.plot(length * 1e6, coupled_db, label="Coupled", marker="o")
+        ax.grid(which="both", alpha=0.3)
         ax.legend()
         ax.set_xlabel("Length (um)")
         ax.set_ylabel("Transmission (dB)")

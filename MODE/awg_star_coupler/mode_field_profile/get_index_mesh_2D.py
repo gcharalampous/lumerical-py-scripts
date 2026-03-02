@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-#----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 # @author: Georgios Gcharalampous (gcharalampous)
 # version ='1.0'
 # ---------------------------------------------------------------------------
@@ -12,13 +12,14 @@ defined in the awg_input_taper.lms file.
 
 """
 
-#----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 # Imports from user files
 # ---------------------------------------------------------------------------
 
-import numpy as np
 import lumapi
 import matplotlib.pyplot as plt
+import numpy as np
+
 from project_layout import setup
 
 # ------------------------- No inputs are required ---------------------------
@@ -42,21 +43,18 @@ if __name__ == "__main__":
     figures_dir.mkdir(parents=True, exist_ok=True)
 
     with lumapi.MODE(str(template_lms)) as mode:
-
         index, x, y = getIndex(mode)
 
-    px = 1 / plt.rcParams['figure.dpi']  # pixel in inches
+    px = 1 / plt.rcParams["figure.dpi"]  # pixel in inches
     fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
 
-    c = ax.pcolormesh(x * 1e6, y * 1e6, np.real(np.transpose(index)),
-                      shading='gouraud', cmap='jet')
+    c = ax.pcolormesh(x * 1e6, y * 1e6, np.real(np.transpose(index)), shading="gouraud", cmap="jet")
     fig.colorbar(c, ax=ax)
 
-    ax.set_xlabel("x (\u00B5m)")
-    ax.set_ylabel("y (\u00B5m)")
+    ax.set_xlabel("x (\u00b5m)")
+    ax.set_ylabel("y (\u00b5m)")
     ax.set_title("Star Coupler Index Mesh")
 
     plt.tight_layout()
     plt.savefig(figures_dir / "index_profile_xz.png")
     plt.show()
-

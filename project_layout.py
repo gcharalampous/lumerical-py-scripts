@@ -1,7 +1,9 @@
 from __future__ import annotations
-from pathlib import Path
-from typing import Iterable, List, Dict, Optional, TypedDict
+
 import sys
+from pathlib import Path
+from typing import Dict, Iterable, List, Optional, TypedDict
+
 from sim_registry import get_sim
 
 
@@ -36,18 +38,22 @@ def setup(sim_key: str, start_file: str):
     domain = spec["domain"] if isinstance(spec, dict) else spec.domain
     module = spec["module"] if isinstance(spec, dict) else spec.module
     figure_groups = (
-        spec.get("figure_groups", []) if isinstance(spec, dict) else getattr(spec, "figure_groups", [])
+        spec.get("figure_groups", [])
+        if isinstance(spec, dict)
+        else getattr(spec, "figure_groups", [])
     )
-    templates = spec.get("templates", []) if isinstance(spec, dict) else getattr(spec, "templates", [])
+    templates = (
+        spec.get("templates", []) if isinstance(spec, dict) else getattr(spec, "templates", [])
+    )
     create_lumerical_dir = (
-        spec.get("create_lumerical_dir", False) if isinstance(spec, dict) 
+        spec.get("create_lumerical_dir", False)
+        if isinstance(spec, dict)
         else getattr(spec, "create_lumerical_dir", False)
     )
 
     out = ensure_results_layout(domain, module, list(figure_groups), create_lumerical_dir)
     template_paths = [templates_dir(domain, module) / f for f in templates]
     return spec, out, template_paths
-
 
 
 def repo_root() -> Path:

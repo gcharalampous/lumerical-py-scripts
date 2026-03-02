@@ -14,5 +14,3 @@ This module models a PIN optical modulator to study carrier-induced refractive i
 
 ### [disk-modulator](disk_modulator)
 This module models a high-speed PN junction optical modulator to study carrier-induced refractive index and absorption changes under electrical bias. The simulation quantifies the optoelectronic modulation efficiency and frequency response of the PN junction.
-
-

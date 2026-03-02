@@ -1,6 +1,6 @@
 # Grating Coupler 2D (2D FDTD)
 
-**Purpose:**  
+**Purpose:**
 This simulation models a 2D grating coupler designed to efficiently interface between optical fiber (Gaussian beam) and on-chip waveguides. The periodic grating structure enables efficient out-of-plane coupling with wavelength selectivity.
 
 

@@ -1,6 +1,6 @@
 # 2D DEVICE PIN Modulator (DEVICE)
 
-**Purpose:**  
+**Purpose:**
 This module models a PIN optical modulator to study carrier-induced refractive index and absorption changes under electrical bias. The simulation is used to quantify the optoelectronic properties of the PIN junction.
 
 

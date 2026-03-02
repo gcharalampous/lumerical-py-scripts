@@ -27,11 +27,19 @@ select = ["E", "W", "F", "I"]
 
 # E501 = line too long – existing scripts pre-date this config and many have
 # intentionally long lines (parameter assignments, plot labels, ASCII diagrams).
-# Address incrementally when editing individual files.
-extend-ignore = ["E501"]
+# F403 = star import used; F405 = name may come from star import – both are
+# intentional: all analysis scripts import parameters via
+# `from <module>.user_inputs.user_* import *` as a flat namespace pattern.
+# E402 = import not at top of file – some scripts have user_inputs imports
+# that must follow other setup code; this is a project-wide pattern.
+# F841 = local variable assigned but never used – physics constants are often
+# defined as a named block for readability even when not all are used.
+# E741 = ambiguous variable name – physics code legitimately uses `l` (length).
+extend-ignore = ["E501", "F403", "F405", "E402", "F841", "E741"]
 
 [tool.ruff.lint.per-file-ignores]
 # user_inputs files use intentional wildcard imports as a flat parameter
 # namespace pattern. Suppress F401 (imported but unused), F403 (star import),
-# F405 (may be from star import).
-"*/user_inputs/*.py" = ["F401", "F403", "F405"]
+# F405 (may be from star import). W291/W293 are suppressed because aligned
+# comment blocks (ASCII diagrams, parameter tables) contain intentional spacing.
+"*/user_inputs/*.py" = ["F401", "F403", "F405", "W291", "W293"]

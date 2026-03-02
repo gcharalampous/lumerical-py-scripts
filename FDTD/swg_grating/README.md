@@ -1,6 +1,6 @@
 # Sub-Wavelength Grating (3D FDTD)
 
-**Purpose:**  
+**Purpose:**
 Simulates sub-wavelength grating (SWG) structures for broadband waveguide filtering and dispersion engineering. SWGs provide engineering of effective refractive index and dispersion properties through periodic subwavelength features.
 
 

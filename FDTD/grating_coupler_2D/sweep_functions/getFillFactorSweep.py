@@ -1,155 +1,160 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-#----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 # @author: Georgios Gcharalampous (gcharalampous)
 # version ='1.0'
 # ---------------------------------------------------------------------------
 """
 User-inputs are Not required.
 
-The script plots the transmission for the grating coupler structure defined in 
+The script plots the transmission for the grating coupler structure defined in
 the grating_coupler_2D.fsp file from the Transmission monitor 'T'.
 """
 
-#----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 # Imports
 # ---------------------------------------------------------------------------
 
-import numpy as np
 import lumapi
 import matplotlib.pyplot as plt
-import scipy.constants as scpy
-from pathlib import Path
-from project_layout import setup
+import numpy as np
+
 from FDTD.grating_coupler_2D.user_inputs.user_simulation_parameters import file_index
+from project_layout import setup
 
 
 def getCouplingResponse(fdtd):
-        """
-        Get the coupling response from the FDTD simulation.
+    """
+    Get the coupling response from the FDTD simulation.
 
-        Parameters:
-        fdtd (lumapi.FDTD): The FDTD simulation object.
+    Parameters:
+    fdtd (lumapi.FDTD): The FDTD simulation object.
 
-        Returns:
-        tuple: Transmission (T), wavelength, and fill factor arrays.
-        """
-        T = np.squeeze(fdtd.getsweepresult("sweep_fill_factor", "transmission").get('T'))
-        wavelength = np.squeeze(fdtd.getsweepresult("sweep_fill_factor", "transmission").get('lambda'))
-        fill_factor = np.squeeze(fdtd.getsweepresult("sweep_fill_factor", "transmission").get('fill_factor'))
-        
-        T = np.abs(T)
+    Returns:
+    tuple: Transmission (T), wavelength, and fill factor arrays.
+    """
+    T = np.squeeze(fdtd.getsweepresult("sweep_fill_factor", "transmission").get("T"))
+    wavelength = np.squeeze(fdtd.getsweepresult("sweep_fill_factor", "transmission").get("lambda"))
+    fill_factor = np.squeeze(
+        fdtd.getsweepresult("sweep_fill_factor", "transmission").get("fill_factor")
+    )
 
-        return T, wavelength, fill_factor
+    T = np.abs(T)
+
+    return T, wavelength, fill_factor
+
 
 def plot_coupling_response(T, wavelength, fill_factor, output_path):
-        """
-        Plot the coupling response.
+    """
+    Plot the coupling response.
 
-        Parameters:
-        T (numpy.ndarray): Transmission array.
-        wavelength (numpy.ndarray): Wavelength array.
-        fill_factor (numpy.ndarray): Fill factor array.
-        output_path (str): Path to save the plot.
-        """
-        T_log = 10 * np.log10(T)
+    Parameters:
+    T (numpy.ndarray): Transmission array.
+    wavelength (numpy.ndarray): Wavelength array.
+    fill_factor (numpy.ndarray): Fill factor array.
+    output_path (str): Path to save the plot.
+    """
+    T_log = 10 * np.log10(T)
 
-        px = 1 / plt.rcParams['figure.dpi']  # pixel in inches
-        fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
+    px = 1 / plt.rcParams["figure.dpi"]  # pixel in inches
+    fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
 
-        if wavelength.ndim == 0:
-                ax.plot(fill_factor, T_log, label=wavelength * 1e9)
-                ax.set_xlabel("Fill Factor")
-                ax.legend(title="Wavelength (nm)")
-        else:
-                for i in range(len(fill_factor)):
-                        ax.plot(wavelength * 1e9, T_log[:, i], label=f"{fill_factor[i]:.3f}")
-                        ax.set_xlabel("Wavelength (nm)")
-                        ax.legend(title="Fill Factor")
+    if wavelength.ndim == 0:
+        ax.plot(fill_factor, T_log, label=wavelength * 1e9)
+        ax.set_xlabel("Fill Factor")
+        ax.legend(title="Wavelength (nm)")
+    else:
+        for i in range(len(fill_factor)):
+            ax.plot(wavelength * 1e9, T_log[:, i], label=f"{fill_factor[i]:.3f}")
+            ax.set_xlabel("Wavelength (nm)")
+            ax.legend(title="Fill Factor")
 
-        ax.grid(which='major')
-        ax.set_ylabel("Magnitude [dB]")
-        ax.set_ylim(bottom=None, top=0)
-        plt.tight_layout()
-        plt.savefig(output_path)
+    ax.grid(which="major")
+    ax.set_ylabel("Magnitude [dB]")
+    ax.set_ylim(bottom=None, top=0)
+    plt.tight_layout()
+    plt.savefig(output_path)
+
 
 def plot_max_transmission_at_wavelength(T, wavelength, fill_factor, target_wavelength, output_path):
-        """
-        Plot the maximum transmission at a specific wavelength.
+    """
+    Plot the maximum transmission at a specific wavelength.
 
-        Parameters:
-        T (numpy.ndarray): Transmission array.
-        wavelength (numpy.ndarray): Wavelength array.
-        fill_factor (numpy.ndarray): Fill factor array.
-        target_wavelength (float): Target wavelength in meters.
-        output_path (str): Path to save the plot.
-        """
-        # Find the index closest to target wavelength
-        if wavelength.ndim == 0:
-                # Single wavelength case
-                T_at_wavelength = T
-                actual_wavelength = wavelength
-        else:
-                # Multiple wavelengths - find closest index
-                wavelength_idx = np.argmin(np.abs(wavelength - target_wavelength))
-                T_at_wavelength = T[wavelength_idx, :]
-                actual_wavelength = wavelength[wavelength_idx]
-        
-        T_linear = np.abs(T_at_wavelength)
-        T_dB = 10 * np.log10(T_linear)
+    Parameters:
+    T (numpy.ndarray): Transmission array.
+    wavelength (numpy.ndarray): Wavelength array.
+    fill_factor (numpy.ndarray): Fill factor array.
+    target_wavelength (float): Target wavelength in meters.
+    output_path (str): Path to save the plot.
+    """
+    # Find the index closest to target wavelength
+    if wavelength.ndim == 0:
+        # Single wavelength case
+        T_at_wavelength = T
+        actual_wavelength = wavelength
+    else:
+        # Multiple wavelengths - find closest index
+        wavelength_idx = np.argmin(np.abs(wavelength - target_wavelength))
+        T_at_wavelength = T[wavelength_idx, :]
+        actual_wavelength = wavelength[wavelength_idx]
 
-        px = 1 / plt.rcParams['figure.dpi']
-        
-        # Linear plot
-        fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
-        ax.plot(fill_factor, T_linear, '-o')
-        ax.grid(which='major')
-        ax.set_xlabel("Fill Factor")
-        ax.set_ylabel("Transmission")
-        if wavelength.ndim == 0:
-                ax.set_title(f"Wavelength: {wavelength*1e9:.1f} nm")
-        else:
-                ax.set_title(f"Wavelength: {actual_wavelength*1e9:.1f} nm")
-        plt.tight_layout()
-        plt.savefig(output_path.parent / f"{output_path.stem}_at_wavelength.png")
-        
-        # dB plot
-        fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
-        ax.plot(fill_factor, T_dB, '-o')
-        ax.grid(which='major')
-        ax.set_xlabel("Fill Factor")
-        ax.set_ylabel("Transmission (dB)")
-        if wavelength.ndim == 0:
-                ax.set_title(f"Wavelength: {wavelength*1e9:.1f} nm")
-        else:
-                ax.set_title(f"Wavelength: {actual_wavelength*1e9:.1f} nm")
-        plt.tight_layout()
-        plt.savefig(output_path.parent / f"{output_path.stem}_at_wavelength_dB.png")
-        plt.show()
+    T_linear = np.abs(T_at_wavelength)
+    T_dB = 10 * np.log10(T_linear)
+
+    px = 1 / plt.rcParams["figure.dpi"]
+
+    # Linear plot
+    fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
+    ax.plot(fill_factor, T_linear, "-o")
+    ax.grid(which="major")
+    ax.set_xlabel("Fill Factor")
+    ax.set_ylabel("Transmission")
+    if wavelength.ndim == 0:
+        ax.set_title(f"Wavelength: {wavelength * 1e9:.1f} nm")
+    else:
+        ax.set_title(f"Wavelength: {actual_wavelength * 1e9:.1f} nm")
+    plt.tight_layout()
+    plt.savefig(output_path.parent / f"{output_path.stem}_at_wavelength.png")
+
+    # dB plot
+    fig, ax = plt.subplots(figsize=(512 * px, 256 * px))
+    ax.plot(fill_factor, T_dB, "-o")
+    ax.grid(which="major")
+    ax.set_xlabel("Fill Factor")
+    ax.set_ylabel("Transmission (dB)")
+    if wavelength.ndim == 0:
+        ax.set_title(f"Wavelength: {wavelength * 1e9:.1f} nm")
+    else:
+        ax.set_title(f"Wavelength: {actual_wavelength * 1e9:.1f} nm")
+    plt.tight_layout()
+    plt.savefig(output_path.parent / f"{output_path.stem}_at_wavelength_dB.png")
+    plt.show()
+
 
 if __name__ == "__main__":
-        try:
-                spec, out, templates = setup("fdtd.grating_coupler_2D", __file__)
-                template_fsp = templates[file_index]
-                figures_dir = out["figures"] / "Sweep Functions"
-                figures_dir.mkdir(parents=True, exist_ok=True)
-                
-                with lumapi.FDTD(str(template_fsp)) as fdtd:
+    try:
+        spec, out, templates = setup("fdtd.grating_coupler_2D", __file__)
+        template_fsp = templates[file_index]
+        figures_dir = out["figures"] / "Sweep Functions"
+        figures_dir.mkdir(parents=True, exist_ok=True)
 
-                        # Uncomment to run the sweep
-                        fdtd.runsweep('sweep_fill_factor')
+        with lumapi.FDTD(str(template_fsp)) as fdtd:
+            # Uncomment to run the sweep
+            fdtd.runsweep("sweep_fill_factor")
 
-                        # Get Coupling via the getFillFactorSweep function
-                        T, wavelength, fill_factor = getCouplingResponse(fdtd=fdtd)
+            # Get Coupling via the getFillFactorSweep function
+            T, wavelength, fill_factor = getCouplingResponse(fdtd=fdtd)
 
-                        # Define the output path for the plot
-                        file_name_plot = figures_dir / "grating_coupler_sweep_fill_factor.png"
+            # Define the output path for the plot
+            file_name_plot = figures_dir / "grating_coupler_sweep_fill_factor.png"
 
-                        # Plot the coupling response
-                        plot_coupling_response(T, wavelength, fill_factor, file_name_plot)
-                        
-                        # Plot maximum transmission at specific wavelength (1550 nm)
-                        target_wavelength = 1550e-9  # 1550 nm in meters
-                        plot_max_transmission_at_wavelength(T, wavelength, fill_factor, target_wavelength, file_name_plot)
-        except Exception as e:
-                print(f"An error occurred: {e}")
+            # Plot the coupling response
+            plot_coupling_response(T, wavelength, fill_factor, file_name_plot)
+
+            # Plot maximum transmission at specific wavelength (1550 nm)
+            target_wavelength = 1550e-9  # 1550 nm in meters
+            plot_max_transmission_at_wavelength(
+                T, wavelength, fill_factor, target_wavelength, file_name_plot
+            )
+    except Exception as e:
+        print(f"An error occurred: {e}")

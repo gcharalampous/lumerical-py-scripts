@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-#----------------------------------------------------------------------------
+# ----------------------------------------------------------------------------
 # @author: Georgios Gcharalampous (gcharalampous)
 # version ='1.0'
 # ---------------------------------------------------------------------------
 """
 User configuration for coupled ring coupler simulations.
 
-Select which template to use. All other parameters (geometry, mesh, sources, 
+Select which template to use. All other parameters (geometry, mesh, sources,
 monitors) should be edited directly in the Lumerical FSP template files.
 """
 

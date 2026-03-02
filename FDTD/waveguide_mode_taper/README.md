@@ -1,6 +1,6 @@
 # Waveguide Mode Taper (3D FDTD)
 
-**Purpose:**  
+**Purpose:**
 This simulation models a 3D waveguide mode taper structure designed to efficiently transition light between waveguides of different widths. The taper gradually converts the mode profile to minimize insertion loss and back-reflection.
 
 

@@ -1,6 +1,6 @@
 # 2D Directional Coupler (MODE Solutions)
 
-**Purpose:**  
+**Purpose:**
 This module is used to efficiently extract supermode indices required to compute coupling length without full 3D propagation simulations.
 
 
@@ -65,7 +65,7 @@ directional_coupler/
     │   └── waveguide_coupler.lms
     ├── user_simulation_parameters.py
     └── user_sweep_parameters.py
-```        
+```
 
 
 ## Notes

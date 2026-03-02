@@ -1,6 +1,6 @@
 # Edge Coupler (3D FDTD)
 
-**Purpose:**  
+**Purpose:**
 This simulation models a 3D edge coupler (spot-size converter) designed to efficiently couple light between a fiber/PLC mode and an on-chip waveguide. The taper structure gradually transitions the mode profile and effective index to minimize insertion loss at the chip facet.
 
 

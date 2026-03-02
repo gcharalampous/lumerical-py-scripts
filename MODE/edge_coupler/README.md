@@ -1,6 +1,6 @@
 # 2D Edge-Coupler Simulations (MODE Solutions)
 
-**Purpose:**  
+**Purpose:**
 This module focuses on fiber or free-space Gaussian beam coupling and does not model on-chip laser mode evolution.
 
 
@@ -13,7 +13,7 @@ This simulation evaluates the coupling efficiency between a Gaussian beam and wa
 
 ## Quick start
 1. After downloading the repository, navigate through the `edge_coupler/user_inputs/` directory.
-2. Edit the parameter file `gausian_beam_parameters.py` to define the Gaussian beam parameter properties (i.e. waist-radius, index, sample span, etc). 
+2. Edit the parameter file `gausian_beam_parameters.py` to define the Gaussian beam parameter properties (i.e. waist-radius, index, sample span, etc).
 3. Edit the `user_inputs/user_materials.py` and `user_inputs/user_simulation_parameters.py` to define the simulation materials for the cladding, core, box, and substrate layers. Follow the instructions written in the file.
 4. Then define the in `user_inputs/user_sweep_parameters.py` the sweep parameters.
 5. Run the `overlap_profile_sweep/overlap_profile_sweep_2D.py` Python file and get the overlap integral results.

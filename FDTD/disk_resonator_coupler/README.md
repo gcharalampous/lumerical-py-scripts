@@ -1,6 +1,6 @@
 # Disk Resonator Coupler
 
-**Purpose:**  
+**Purpose:**
 Simulates a disk resonator coupled to a waveguide using 3D FDTD to extract coupling coefficients, resonance characteristics, and field profiles for optimizing coupling efficiency.
 
 
@@ -44,7 +44,7 @@ Mention:
 ## Simulation scripts
 
 - fields/getFields.py : extract electromagnetic field profiles
-- index_profile/index_profile_2D.py : generate refractive index profile visualization  
+- index_profile/index_profile_2D.py : generate refractive index profile visualization
 - gap_sweep/getGapSweep.py : perform coupling gap parametric sweep
 - transmission/getFrequencyResponse.py : extract transmission vs. wavelength spectrum
 
