@@ -36,7 +36,7 @@ if __name__ == "__main__":
     file_waveguide = ["waveguide_1.ldf", "waveguide_2.ldf"]
 
     # Initialize a list to store the names of the waveguide modes in Lumerical MODE
-    file_name_mode = [str] * len(file_waveguide)
+    file_name_mode = [""] * len(file_waveguide)
 
     # Initialize LumAPI and turn off redraw for faster simulations
     with lumapi.MODE() as mode:

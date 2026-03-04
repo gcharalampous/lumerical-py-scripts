@@ -100,7 +100,7 @@ if __name__ == "__main__":
             for wd in range(0, len(wg_2_width_array)):
                 mode.switchtolayout()
                 mode.redrawoff()
-                mode.setnamed("waveguide-constructor", "width", wg_2_width_array[wd])
+                mode.setnamed("waveguide-constructor", "rib_width", wg_2_width_array[wd])
                 mode.run()
                 mode.mesh()
                 mode.findmodes()

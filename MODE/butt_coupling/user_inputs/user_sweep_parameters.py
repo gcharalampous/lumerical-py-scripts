@@ -40,11 +40,11 @@ wg_2_width_step = 0.50e-6  # Choose the step width for waveguide-2 'wg_2_width_s
 
 
 # Misalign the two beams in y (horizontal) or z (vertical) directions
-misalign_y_start = -5e-6
-misalign_y_stop = 5e-6
-misalign_y_step = 0.5e-6
+misalign_x_start = -2e-6
+misalign_x_stop = 2e-6
+misalign_x_step = 0.5e-6
 
 
-misalign_z_start = -5e-6
-misalign_z_stop = 5e-6
-misalign_z_step = 0.25e-6
+misalign_y_start = -2e-6
+misalign_y_stop = 2e-6
+misalign_y_step = 0.25e-6

@@ -27,7 +27,7 @@ import json
 import lumapi
 import matplotlib.pyplot as plt
 import numpy as np
-from matplotlib.patches import Rectangle
+from matplotlib.patches import Polygon, Rectangle
 
 from MODE.butt_coupling.fde_region import add_fde_region
 from MODE.butt_coupling.user_inputs.user_simulation_parameters import (
@@ -58,10 +58,10 @@ if __name__ == "__main__":
 
             # Set and Get the data
             mode.setnamed("FDE", "number of trial modes", num_modes)
-            wg_width = mode.getnamed("waveguide-constructor::waveguide_core", "y span")
-            wg_thickness = mode.getnamed("waveguide-constructor::waveguide_core", "z span")
-            slab_thickness = mode.getnamed("waveguide-constructor::rib", "z span")
-            simulation_span_y = mode.getnamed("::model", "FDE_span_y")
+            wg_width = mode.getnamed("waveguide-constructor::rib", "x span")
+            wg_thickness = mode.getnamed("waveguide-constructor::rib", "y span")
+            slab_thickness = mode.getnamed("waveguide-constructor::slab", "y span")
+            simulation_span_x = mode.getnamed("::model", "FDE_span_x")
 
             mode.mesh()
             mode.findmodes()
@@ -95,14 +95,14 @@ if __name__ == "__main__":
 
                 # Extract electric and magnetic fields and plot the electric field
                 plt.figure(figsize=(512 / my_dpi, 256 / my_dpi), dpi=my_dpi)
+                x = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "x"))
                 y = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "y"))
-                z = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "z"))
                 E1 = np.squeeze(mode.getelectric("FDE::data::mode" + str(m)))
-                H1 = np.squeeze(mode.getmagnetic("FDE::data::mode" + str(m)))
-                plt.pcolormesh(y * 1e6, z * 1e6, np.transpose(E1), shading="gouraud", cmap="jet")
+                # E1 = np.atleast_2d(E1)
+                plt.pcolormesh(x * 1e6, y * 1e6, np.transpose(E1), shading="gouraud", cmap="jet")
 
-                plt.xlabel("y (\u00b5m)")
-                plt.ylabel("z (\u00b5m)")
+                plt.xlabel("x (\u00b5m)")
+                plt.ylabel("y (\u00b5m)")
                 plt.title(
                     "Mode-"
                     + str(m)
@@ -113,25 +113,32 @@ if __name__ == "__main__":
                 )
                 print("Waveguide_" + str(i + 1) + ".lms, Mode: " + str(m))
 
-                # add the waveguide
-                plt.gca().add_patch(
-                    Rectangle(
-                        (-0.5 * wg_width * 1e6, -0.5 * wg_thickness * 1e6),
-                        wg_width * 1e6,
-                        wg_thickness * 1e6,
-                        ec="white",
-                        fc="none",
-                        lw=0.5,
-                    )
-                )
-
+                # add the waveguide cross-section outline
                 if slab_thickness > 0:
-                    # add the slab
+                    # Rib waveguide: merged inverted-T polygon (slab + rib)
+                    hw = 0.5 * wg_width * 1e6
+                    hs = 0.5 * simulation_span_x * 1e6
+                    st = slab_thickness * 1e6
+                    top = st + wg_thickness * 1e6
+                    verts = [
+                        (-hs, 0),
+                        (hs, 0),  # slab bottom
+                        (hs, st),
+                        (hw, st),  # slab right -> rib right
+                        (hw, top),
+                        (-hw, top),  # rib top
+                        (-hw, st),
+                        (-hs, st),  # rib left -> slab left
+                        (-hs, 0),  # close
+                    ]
+                    plt.gca().add_patch(Polygon(verts, closed=True, ec="white", fc="none", lw=0.5))
+                else:
+                    # Strip waveguide: simple rectangle
                     plt.gca().add_patch(
                         Rectangle(
-                            (-0.5 * simulation_span_y * 1e6, -0.5 * wg_thickness * 1e6),
-                            simulation_span_y * 1e6,
-                            slab_thickness * 1e6,
+                            (-0.5 * wg_width * 1e6, 0),
+                            wg_width * 1e6,
+                            wg_thickness * 1e6,
                             ec="white",
                             fc="none",
                             lw=0.5,

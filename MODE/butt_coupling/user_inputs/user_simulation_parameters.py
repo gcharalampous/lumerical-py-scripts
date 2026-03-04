@@ -75,10 +75,10 @@ in the two lumerical template files.
 # Length units are in meters!
 
 # 1. FDE Parameters.
-num_modes = 20
-wavelength = 4.0e-6
+num_modes = 4
+wavelength = 1.550e-6
 fde_mesh_cell_y = 200
-fde_mesh_cell_z = 200
+fde_mesh_cell_x = 200
 
 # 2. Mesh (waveguide)
 mesh_enable = False
@@ -90,10 +90,10 @@ mesh_dy = 5e-9
 # Pick the order of modes you want to overlap
 
 # 3.1 Waveguide_1.lms
-m_waveguide1 = 5
+m_waveguide1 = 1
 
 # 3.2 Waveguide_2.lms
-m_waveguide2 = 10
+m_waveguide2 = 1
 
 
 # 4. Figures
