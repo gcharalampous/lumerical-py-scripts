@@ -7,6 +7,14 @@ license = { file = "LICENSE" }
 authors = [{ name = "Georgios Gcharalampous" }]
 keywords = ["photonics", "lumerical", "FDTD", "MODE", "DEVICE", "waveguide", "simulation"]
 
+dependencies = [
+    "matplotlib>=3.8",
+    "numpy>=1.24",
+    "pandas>=2.2",
+    "scipy>=1.12",
+    "Shapely>=2.0",
+]
+
 [project.urls]
 Repository = "https://github.com/gcharalampous/lumerical-py-scripts"
 
