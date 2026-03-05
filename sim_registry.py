@@ -198,7 +198,7 @@ SIMS: Dict[str, SimSpec] = {
         key="mode.edge_coupler",
         domain="MODE",
         module="edge_coupler",
-        templates=[],
+        templates=[],  # geometry built programmatically — no .lms template
         figure_groups=["MFD Sweep", "Height Sweep"],
         create_lumerical_dir=True,
     ),
@@ -233,7 +233,7 @@ SIMS: Dict[str, SimSpec] = {
         key="mode.waveguide",
         domain="MODE",
         module="waveguide",
-        templates=[],
+        templates=[],  # geometry built programmatically — no .lms template
         figure_groups=[
             "Index Profile",
             "Mode Profile",
@@ -251,7 +251,7 @@ SIMS: Dict[str, SimSpec] = {
         key="device.disk_modulator",
         domain="DEVICE",
         module="disk_modulator",
-        templates=[],
+        templates=[],  # geometry built programmatically — no .ldev template
         figure_groups=["AC Sweep", "Charge Profile", "DC Sweep"],
         create_lumerical_dir=True,
     ),
@@ -260,7 +260,7 @@ SIMS: Dict[str, SimSpec] = {
         key="device.electro_optic",
         domain="DEVICE",
         module="electro_optic",
-        templates=[],
+        templates=[],  # geometry built programmatically — no .ldev template
         figure_groups=["E-field", "Index Change"],
         create_lumerical_dir=True,
     ),
@@ -269,7 +269,7 @@ SIMS: Dict[str, SimSpec] = {
         key="device.pin_modulator",
         domain="DEVICE",
         module="pin_modulator",
-        templates=[],
+        templates=[],  # geometry built programmatically — no .ldev template
         figure_groups=["AC Sweep", "Charge Profile", "DC Sweep"],
         create_lumerical_dir=True,
     ),
