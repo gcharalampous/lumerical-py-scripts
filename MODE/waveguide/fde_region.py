@@ -95,6 +95,8 @@ def add_fde_region(mode):
                 ("bent waveguide", bend_waveguide),
                 ("bend radius", bend_radius),
                 ("bend orientation", bend_orientation),
+                ("use max index", use_max_index),
+                ("n", guess_max_index),
             ),
         ),
     )
@@ -103,4 +105,6 @@ def add_fde_region(mode):
 
     for obj, parameters in configuration:
         for k, v in parameters:
+            if k == "n" and guess_max_index:
+                continue
             mode.setnamed(obj, k, v)

@@ -145,6 +145,9 @@ fde_xmax_boundary = "Metal"
 fde_ymax_boundary = "Metal"
 fde_ymin_boundary = "Metal"
 
+# 6.2 Modal Analysis Parameters
+use_max_index = True  # Set True to use the maximum index of the materials in the simulation for the mode calculation
+guess_max_index = 2.70  # If use_max_index is False, the user needs to set the maximum index of the materials in the simulation here.
 
 # 7. Mesh (waveguide)
 mesh_enable = True
