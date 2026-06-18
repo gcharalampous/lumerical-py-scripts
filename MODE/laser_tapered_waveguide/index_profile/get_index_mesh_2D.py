@@ -23,6 +23,9 @@ import numpy as np
 
 from project_layout import setup
 
+spec, out, templates = setup("mode.laser_tapered_waveguide", __file__)
+
+
 # ------------------------- No inputs are required ---------------------------
 
 
@@ -37,8 +40,6 @@ def getIndex(mode):
 
 
 if __name__ == "__main__":
-    spec, out, templates = setup("mode.laser_tapered_waveguide", __file__)
-
     with lumapi.MODE(str(templates[0])) as mode:
         # Run the simulation, create a mesh, and compute the modes, then save
         mode.mesh()

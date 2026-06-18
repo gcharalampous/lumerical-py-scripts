@@ -19,8 +19,6 @@ it also quantifies if the mode is TE or TM based on the polarization fraction.
 # Imports from user files
 # ---------------------------------------------------------------------------
 
-from pathlib import Path
-
 import lumapi
 import matplotlib.pyplot as plt
 import numpy as np
@@ -30,14 +28,17 @@ import shapely.ops as so
 from MODE.laser_tapered_waveguide.user_inputs.user_sweep_parameters import num_modes
 from project_layout import setup
 
+spec, out, templates = setup("mode.laser_tapered_waveguide", __file__)
+
+
 # ------------------------- No inputs are required ---------------------------
 
 
-def modeProfiles(mode, figures_dir=None):
+def modeProfiles(mode):
     mode.findmodes()
 
     Ef = mode.getresult("FDE::data::mode" + str(1), "E")
-    _wavelength = np.squeeze(Ef["lambda"])
+    np.squeeze(Ef["lambda"])
 
     neff = []
     polariz_frac = []
@@ -51,12 +52,12 @@ def modeProfiles(mode, figures_dir=None):
         if polariz_frac[m - 1] > 0.5:  # identify the TE-like or TM-like modes
             polariz_mode.append("TE")
             E1 = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "Ex"))
-            _H1 = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "Hx"))
+            np.squeeze(mode.getdata("FDE::data::mode" + str(m), "Hx"))
 
         else:
             polariz_mode.append("TM")
             E1 = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "Ey"))
-            _H1 = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "Hy"))
+            np.squeeze(mode.getdata("FDE::data::mode" + str(m), "Hy"))
 
         sym_mode[m - 1] = np.real(E1.min())
         x = np.squeeze(mode.getdata("FDE::data::mode" + str(m), "x"))
@@ -68,7 +69,7 @@ def modeProfiles(mode, figures_dir=None):
         im = ax.pcolormesh(
             x * 1e6, y * 1e6, np.transpose(np.real(E1)), shading="gouraud", cmap="jet"
         )
-        _cbar = fig.colorbar(im)
+        fig.colorbar(im)
 
         ax.set_xlabel("x (\u00b5m)")
         ax.set_ylabel("y (\u00b5m)")
@@ -106,66 +107,18 @@ def modeProfiles(mode, figures_dir=None):
             xs, ys = r1.exterior.xy
             plt.fill(xs, ys, alpha=0.5, fc="none", ec="w")
 
-        if figures_dir is not None:
-            file_name_plot = str(Path(figures_dir) / ("mode_profile_" + str(m) + ".png"))
-            plt.savefig(file_name_plot)
+        ax.set_xlim((x.min() * 1e6, x.max() * 1e6))
+        ax.set_ylim((y.min() * 1e6, y.max() * 1e6))
 
-        # Add the mesa
-        mesa_width = mode.getnamed("mesa-constructor", "mesa_width")
-        gap = mode.getnamed("::model", "mesa_gap")
-
-        n_contact_thickness = mode.getnamed("mesa-constructor", "n_contact_thickness")
-        previous_ = gap + n_contact_thickness
-        r3 = sg.box(-0.5 * mesa_width * 1e6, gap, 0.5 * mesa_width * 1e6, previous_ * 1e6)
-
-        n_cladding_thickness = mode.getnamed("mesa-constructor", "n_cladding_thickness")
-        r4 = sg.box(
-            -0.5 * mesa_width * 1e6,
-            previous_,
-            0.5 * mesa_width * 1e6,
-            (previous_ + n_cladding_thickness) * 1e6,
+        file_name_plot = str(
+            out["figure_groups"]["Mode Profile"] / ("mode_profile_" + str(m) + ".png")
         )
-        previous_ = previous_ + n_cladding_thickness
-
-        core_thickness = mode.getnamed("mesa-constructor", "core_thickness")
-        r5 = sg.box(
-            -0.5 * mesa_width * 1e6,
-            previous_,
-            0.5 * mesa_width * 1e6,
-            (previous_ + core_thickness) * 1e6,
-        )
-        previous_ = previous_ + core_thickness
-
-        p_cladding_thickness = mode.getnamed("mesa-constructor", "p_cladding_thickness")
-        r6 = sg.box(
-            -0.5 * mesa_width * 1e6,
-            previous_,
-            0.5 * mesa_width * 1e6,
-            (previous_ + p_cladding_thickness) * 1e6,
-        )
-        previous_ = previous_ + p_cladding_thickness
-
-        p_contact_thickness = mode.getnamed("mesa-constructor", "p_contact_thickness")
-        r7 = sg.box(
-            -0.5 * mesa_width * 1e6,
-            previous_,
-            0.5 * mesa_width * 1e6,
-            (previous_ + p_contact_thickness) * 1e6,
-        )
-        previous_ = previous_ + p_contact_thickness
-
-        for r in [r3, r4, r5, r6, r7]:
-            xs, ys = r.exterior.xy
-            plt.fill(xs, ys, alpha=0.5, fc="none", ec="w")
-            ax.set_xlim([x.min() * 1e6, x.max() * 1e6])
-            ax.set_ylim([y.min() * 1e6, y.max() * 1e6])
+        plt.savefig(file_name_plot)
 
     return neff, polariz_frac, polariz_mode, sym_mode
 
 
 if __name__ == "__main__":
-    spec, out, templates = setup("mode.laser_tapered_waveguide", __file__)
-
     with lumapi.MODE(str(templates[0])) as mode:
         # Run the simulation, create a mesh, and compute the modes, then save
 
@@ -184,11 +137,10 @@ if __name__ == "__main__":
 
         # Run the simulation
         mode.run()
+        mode.save(str(out["lumerical"] / "laser_waveguide_modes.lms"))
 
         # Find the modes in the simulation
         # mode.findmodes()
 
         # Retrieve mode profiles and assign to respective variables
-        neff, polariz_frac, polariz_mode, sym_mode = modeProfiles(
-            mode, figures_dir=out["figure_groups"]["Mode Profile"]
-        )
+        neff, polariz_frac, polariz_mode, sym_mode = modeProfiles(mode)

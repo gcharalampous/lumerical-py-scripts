@@ -7,22 +7,21 @@ from MODE.laser_tapered_waveguide.OpticalConfinement import optical_confinement
 from MODE.laser_tapered_waveguide.user_inputs.user_sweep_parameters import *
 from project_layout import setup
 
+spec, out, templates = setup("mode.laser_tapered_waveguide", __file__)
+
 # ------------------------- No inputs are required ---------------------------
 
 
 waveguide_constructor = "waveguide-constructor"
 mesa_constructor = "mesa-constructor"
 
-
 if __name__ == "__main__":
-    spec, out, templates = setup("mode.laser_tapered_waveguide", __file__)
-
     with lumapi.MODE(str(templates[0])) as mode:
         mode.redrawoff()
 
         num_modes = 5
         structure_waveguide = waveguide_constructor + "::waveguide_core"
-        structure_mesa = mesa_constructor + "::mesa_core"
+        structure_mesa = mesa_constructor + "::" + mesa_core
 
         # h, w = len(wg_width_array), num_modes
         # polariz_frac = [[0 for y in range(w)] for x in range(h)]
@@ -44,12 +43,10 @@ if __name__ == "__main__":
         for md in range(0, len(mesa_width_array)):
             mode.switchtolayout()
             mode.setnamed(mesa_constructor, "mesa_width", mesa_width_array[md])
-            mode.setnamed("mesh_mesa", "x span", mesa_width_array[md])
             mode.save()
             for wd in range(0, len(wg_width_array)):
                 mode.switchtolayout()
                 mode.setnamed(waveguide_constructor, "width", wg_width_array[wd])
-                mode.setnamed("mesh_waveguide", "x span", wg_width_array[wd])
                 mode.save()
                 mode.mesh()
                 mode.run()
@@ -91,8 +88,7 @@ plt.ylim([min(mesa_width_array) * 1e6, max(mesa_width_array) * 1e6])
 plt.xlim([min(wg_width_array) * 1e6, max(wg_width_array) * 1e6])
 plt.colorbar(cpf, ax=ax, label="Confinement Factor (%)")
 plt.tight_layout()
-plt.savefig(str(out["figure_groups"]["Width Sweep"] / "confinement_III_V_waveguide.png"))
-plt.show()
+plt.savefig(str(out["figure_groups"]["Width Sweep"] / "confinement_factor_to_iii_v_waveguide.png"))
 
 Z = np.multiply(conf_wg, 100)
 levels = np.linspace(0, 100, 11)
@@ -113,5 +109,4 @@ plt.ylim([min(mesa_width_array) * 1e6, max(mesa_width_array) * 1e6])
 plt.xlim([min(wg_width_array) * 1e6, max(wg_width_array) * 1e6])
 plt.colorbar(cpf, ax=ax, label="Confinement Factor (%)")
 plt.tight_layout()
-plt.savefig(str(out["figure_groups"]["Width Sweep"] / "confinement_Si_waveguide.png"))
-plt.show()
+plt.savefig(str(out["figure_groups"]["Width Sweep"] / "confinement_factor_to_si_waveguide.png"))

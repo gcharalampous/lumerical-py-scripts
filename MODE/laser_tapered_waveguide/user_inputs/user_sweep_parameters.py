@@ -33,26 +33,27 @@ The waveguide parameters to sweep are 'wg_thickness' and 'wg_width' .
 
 import numpy as np
 
-num_modes = 10  # Choose the number of modes you want to track
+num_modes = 4  # Choose the number of modes you want to track
 
 # Set the name of the structure you want to track
 
 
 # Waveguide
 
-wg_width_start = 0.1e-6  # Choose the start waveguide width 'wg_width_start'
+wg_width_start = 0.10e-6  # Choose the start waveguide width 'wg_width_start'
 # you want to start sweeping
-wg_width_stop = 1.0e-6  # Choose the stop waveguide width 'wg_width_stop' you
+wg_width_stop = 1.10e-6  # Choose the stop waveguide width 'wg_width_stop' you
 # want to finish sweeping
 wg_width_step = 0.10e-6  # Choose the step of each sweep 'wg_step'
 
 
 # Mesa
-mesa_width_start = 0.250e-6  # Choose the start waveguide width 'wg_width_start'
+mesa_core = "L06_active_5QD"
+mesa_width_start = 0.10e-6  # Choose the start waveguide width 'wg_width_start'
 # you want to start sweeping
-mesa_width_stop = 4.250e-6  # Choose the stop waveguide width 'wg_width_stop' you
+mesa_width_stop = 4.00e-6  # Choose the stop waveguide width 'wg_width_stop' you
 # want to finish sweeping
-mesa_width_step = 0.25e-6  # Choose the step of each sweep 'wg_step'
+mesa_width_step = 0.10e-6  # Choose the step of each sweep 'wg_step'
 
 
 wg_width_array = []
